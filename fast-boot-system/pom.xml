@@ -8,17 +8,15 @@
 	<artifactId>fast-boot-system</artifactId>
 	<packaging>jar</packaging>
 
-	<properties>
-
-	</properties>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>net.maku</groupId>
 			<artifactId>fast-boot-framework</artifactId>
 			<version>1.0.0</version>
-			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.whvcse</groupId>
+			<artifactId>easy-captcha</artifactId>
 		</dependency>
 	</dependencies>
 

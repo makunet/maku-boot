@@ -8,20 +8,15 @@
 	<artifactId>fast-server</artifactId>
 	<packaging>jar</packaging>
 
-	<properties>
-
-	</properties>
-
 	<dependencies>
-		<dependency>
-			<groupId>net.maku</groupId>
-			<artifactId>fast-boot-framework</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 		<dependency>
 			<groupId>net.maku</groupId>
 			<artifactId>fast-boot-system</artifactId>
 			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>knife4j-springdoc-ui</artifactId>
 		</dependency>
 	</dependencies>
 
