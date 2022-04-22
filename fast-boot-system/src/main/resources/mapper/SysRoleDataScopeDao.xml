@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.maku.system.dao.SysRoleDataScopeDao">
+
+    <select id="getOrgIdList" resultType="long">
+        select org_id from sys_role_data_scope where role_id = #{roleId}
+    </select>
+
+    <select id="getDataScopeList" resultType="long">
+        select t2.org_id from sys_user_role t1, sys_role_data_scope t2
+          where t1.user_id = #{userId} and t1.role_id = t2.role_id
+    </select>
+
+</mapper>

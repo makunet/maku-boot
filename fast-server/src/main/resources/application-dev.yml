@@ -1,0 +1,42 @@
+spring:
+  redis:
+    database: 1
+    host: localhost
+    port: 6379
+    #password:
+    #timeout: 6000ms  # 连接超时时长（毫秒）
+  datasource:
+    druid:
+      # MySQL
+      url: jdbc:mysql://localhost:3306/fast_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+      username: baba
+      password: 123456
+      # Oracle
+#      url: jdbc:oracle:thin:@localhost:1521:xe
+#      username: fast_boot
+#      password: 123456
+      initial-size: 5
+      min-idle: 10
+      max-active: 20
+      max-wait: 6000
+      min-evictable-idle-time-millis: 600000
+      max-evictable-idle-time-millis: 900000
+      validation-query: SELECT 1
+      # Oracle数据库
+      #validation-query: SELECT 1 FROM DUAL
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #login-username: admin
+        #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 500
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true

@@ -1,0 +1,103 @@
+package net.maku.system.controller;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import net.maku.framework.common.utils.Result;
+import net.maku.framework.security.user.SecurityUser;
+import net.maku.framework.security.user.UserDetail;
+import net.maku.system.convert.SysMenuConvert;
+import net.maku.system.entity.SysMenuEntity;
+import net.maku.system.enums.MenuTypeEnum;
+import net.maku.system.service.SysMenuService;
+import net.maku.system.vo.menu.SysMenuPostVO;
+import net.maku.system.vo.menu.SysMenuPutVO;
+import net.maku.system.vo.menu.SysMenuVO;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * 菜单管理
+ * 
+ * @author 阿沐 babamu@126.com
+ */
+@RestController
+@RequestMapping("sys/menu")
+@Tag(name="菜单管理")
+@AllArgsConstructor
+public class SysMenuController {
+	private final SysMenuService sysMenuService;
+
+	@GetMapping("nav")
+	@Operation(summary = "导航列表")
+	public Result<List<SysMenuVO>> nav(){
+		UserDetail user = SecurityUser.getUser();
+		List<SysMenuVO> list = sysMenuService.getUserMenuList(user, MenuTypeEnum.MENU.getValue());
+
+		return Result.ok(list);
+	}
+
+	@GetMapping("authority")
+	@Operation(summary = "用户权限标识")
+	public Result<Set<String>> authority(){
+		UserDetail user = SecurityUser.getUser();
+		Set<String> set = sysMenuService.getUserAuthority(user);
+
+		return Result.ok(set);
+	}
+
+	@GetMapping("list")
+	@Operation(summary = "菜单列表")
+	@Parameter(name = "type", description = "菜单类型 0：菜单 1：按钮  2：接口  null：全部")
+	public Result<List<SysMenuVO>> list(Integer type){
+		List<SysMenuVO> list = sysMenuService.getMenuList(type);
+
+		return Result.ok(list);
+	}
+
+	@GetMapping("{id}")
+	@Operation(summary = "信息")
+	//@PreAuthorize("hasAuthority('sys:menu:info')")
+	public Result<SysMenuVO> get(@PathVariable("id") Long id){
+		SysMenuEntity entity = sysMenuService.getById(id);
+
+		return Result.ok(SysMenuConvert.INSTANCE.convert(entity));
+	}
+
+	@PostMapping
+	@Operation(summary = "保存")
+	//@PreAuthorize("hasAuthority('sys:menu:save')")
+	public Result<String> save(@RequestBody @Valid SysMenuPostVO vo){
+		sysMenuService.save(vo);
+
+		return Result.ok();
+	}
+
+	@PutMapping
+	@Operation(summary = "修改")
+	//@PreAuthorize("hasAuthority('sys:menu:update')")
+	public Result<String> update(@RequestBody @Valid SysMenuPutVO vo){
+		sysMenuService.update(vo);
+
+		return Result.ok();
+	}
+
+	@DeleteMapping("{id}")
+	@Operation(summary = "删除")
+	//@PreAuthorize("hasAuthority('sys:menu:delete')")
+	public Result<String> delete(@PathVariable("id") Long id){
+		// 判断是否有子菜单或按钮
+		Long count = sysMenuService.getSubMenuCount(id);
+		if(count > 0){
+			return Result.error("存在子菜单");
+		}
+
+		sysMenuService.delete(id);
+
+		return Result.ok();
+	}
+}
