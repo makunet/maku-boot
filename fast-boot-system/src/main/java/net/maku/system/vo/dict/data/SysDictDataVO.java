@@ -15,16 +15,16 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "字典数据")
+@Schema(description = "字典数据")
 public class SysDictDataVO extends SysDictDataPostVO {
-	@Schema(name = "id")
+	@Schema(description = "id")
 	private Long id;
 
-	@Schema(name = "创建时间")
+	@Schema(description = "创建时间")
 	@JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
 	private Date createTime;
 
-	@Schema(name = "更新时间")
+	@Schema(description = "更新时间")
 	@JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
 	private Date updateTime;
 }

@@ -14,6 +14,7 @@ import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
 import net.maku.system.vo.user.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +47,7 @@ public class SysUserController {
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
-    //@PreAuthorize("hasAuthority('sys:user:info')")
+    @PreAuthorize("hasAuthority('sys:user:info')")
     public Result<SysUserVO> get(@PathVariable("id") Long id){
         SysUserEntity entity = sysUserService.getById(id);
 
@@ -88,7 +89,7 @@ public class SysUserController {
 
     @PostMapping
     @Operation(summary = "保存")
-    //@PreAuthorize("hasAuthority('sys:user:save')")
+    @PreAuthorize("hasAuthority('sys:user:save')")
     public Result<String> save(@RequestBody @Valid SysUserPostVO vo){
         // 新增密码不能为空
         if (StrUtil.isBlank(vo.getPassword())){
@@ -106,7 +107,7 @@ public class SysUserController {
 
     @PutMapping
     @Operation(summary = "修改")
-    //@PreAuthorize("hasAuthority('sys:user:update')")
+    @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@RequestBody @Valid SysUserPutVO vo){
         // 如果密码不为空，则进行加密处理
         if(StrUtil.isBlank(vo.getPassword())){
@@ -122,7 +123,7 @@ public class SysUserController {
 
     @DeleteMapping
     @Operation(summary = "删除")
-    //@PreAuthorize("hasAuthority('sys:user:delete')")
+    @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result<String> delete(@RequestBody List<Long> idList){
         sysUserService.delete(idList);
 

@@ -12,15 +12,15 @@ import net.maku.framework.common.query.Query;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Schema(name = "岗位管理查询")
+@Schema(description = "岗位管理查询")
 public class SysPostQuery extends Query {
-    @Schema(name = "岗位编码")
+    @Schema(description = "岗位编码")
     private String postCode;
 
-    @Schema(name = "岗位名称")
+    @Schema(description = "岗位名称")
     private String postName;
 
-    @Schema(name = "状态  0：停用   1：正常")
+    @Schema(description = "状态  0：停用   1：正常")
     private Integer status;
 
 }

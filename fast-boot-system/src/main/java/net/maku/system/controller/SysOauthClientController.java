@@ -12,6 +12,7 @@ import net.maku.system.service.SysOauthClientService;
 import net.maku.system.vo.oauth.SysOauthClientPostVO;
 import net.maku.system.vo.oauth.SysOauthClientPutVO;
 import net.maku.system.vo.oauth.SysOauthClientVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,7 +32,7 @@ public class SysOauthClientController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
-    //@PreAuthorize("hasAuthority('sys:client:page')")
+    @PreAuthorize("hasAuthority('sys:client:page')")
     public Result<PageResult<SysOauthClientVO>> page(@Valid Query query){
         PageResult<SysOauthClientVO> page = sysOauthClientService.page(query);
 
@@ -40,7 +41,7 @@ public class SysOauthClientController {
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
-    //@PreAuthorize("hasAuthority('sys:client:info')")
+    @PreAuthorize("hasAuthority('sys:client:info')")
     public Result<SysOauthClientVO> get(@PathVariable("id") Long id){
         SysOauthClientEntity entity = sysOauthClientService.getById(id);
 
@@ -49,7 +50,7 @@ public class SysOauthClientController {
 
     @PostMapping
     @Operation(summary = "保存")
-    //@PreAuthorize("hasAuthority('sys:client:save')")
+    @PreAuthorize("hasAuthority('sys:client:save')")
     public Result<String> save(@RequestBody SysOauthClientPostVO vo){
         sysOauthClientService.save(vo);
 
@@ -58,7 +59,7 @@ public class SysOauthClientController {
 
     @PutMapping
     @Operation(summary = "修改")
-    //@PreAuthorize("hasAuthority('sys:client:update')")
+    @PreAuthorize("hasAuthority('sys:client:update')")
     public Result<String> update(@RequestBody @Valid SysOauthClientPutVO vo){
         sysOauthClientService.update(vo);
 
@@ -67,7 +68,7 @@ public class SysOauthClientController {
 
     @DeleteMapping
     @Operation(summary = "删除")
-    //@PreAuthorize("hasAuthority('sys:client:delete')")
+    @PreAuthorize("hasAuthority('sys:client:delete')")
     public Result<String> delete(@RequestBody List<Long> idList){
         sysOauthClientService.delete(idList);
 

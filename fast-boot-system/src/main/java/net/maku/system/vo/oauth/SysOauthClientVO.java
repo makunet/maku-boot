@@ -15,12 +15,12 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "客户端管理")
+@Schema(description = "客户端管理")
 public class SysOauthClientVO extends SysOauthClientPostVO {
-    @Schema(name = "id", required = true)
+    @Schema(description = "id", required = true)
     private Long id;
 
-    @Schema(name = "创建时间")
+    @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private Date createTime;
 }

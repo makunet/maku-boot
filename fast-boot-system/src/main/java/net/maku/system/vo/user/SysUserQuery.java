@@ -12,18 +12,18 @@ import net.maku.framework.common.query.Query;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Schema(name = "用户查询")
+@Schema(description = "用户查询")
 public class SysUserQuery extends Query {
-    @Schema(name = "用户名")
+    @Schema(description = "用户名")
     private String username;
 
-    @Schema(name = "手机号")
+    @Schema(description = "手机号")
     private String mobile;
 
-    @Schema(name = "性别")
+    @Schema(description = "性别")
     private Integer gender;
 
-    @Schema(name = "机构ID")
+    @Schema(description = "机构ID")
     private Long orgId;
 
 }

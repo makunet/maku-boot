@@ -15,12 +15,12 @@ import java.util.Date;
 */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "岗位管理")
+@Schema(description = "岗位管理")
 public class SysPostVO extends SysPostPostVO {
-    @Schema(name = "id")
+    @Schema(description = "id")
     private Long id;
 
-    @Schema(name = "创建时间")
+    @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private Date createTime;
 

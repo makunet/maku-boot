@@ -12,6 +12,7 @@ import net.maku.system.vo.post.SysPostPostVO;
 import net.maku.system.vo.post.SysPostPutVO;
 import net.maku.system.vo.post.SysPostQuery;
 import net.maku.system.vo.post.SysPostVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class SysPostController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
-    //@PreAuthorize("hasAuthority('sys:post:page')")
+    @PreAuthorize("hasAuthority('sys:post:page')")
     public Result<PageResult<SysPostVO>> page(@Valid SysPostQuery query){
         PageResult<SysPostVO> page = sysPostService.page(query);
 
@@ -49,7 +50,7 @@ public class SysPostController {
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
-    //@PreAuthorize("hasAuthority('sys:post:info')")
+    @PreAuthorize("hasAuthority('sys:post:info')")
     public Result<SysPostVO> get(@PathVariable("id") Long id){
         SysPostEntity entity = sysPostService.getById(id);
 
@@ -58,7 +59,7 @@ public class SysPostController {
 
     @PostMapping
     @Operation(summary = "保存")
-    //@PreAuthorize("hasAuthority('sys:post:save')")
+    @PreAuthorize("hasAuthority('sys:post:save')")
     public Result<String> save(@RequestBody SysPostPostVO vo){
         sysPostService.save(vo);
 
@@ -67,7 +68,7 @@ public class SysPostController {
 
     @PutMapping
     @Operation(summary = "修改")
-    //@PreAuthorize("hasAuthority('sys:post:update')")
+    @PreAuthorize("hasAuthority('sys:post:update')")
     public Result<String> update(@RequestBody @Valid SysPostPutVO vo){
         sysPostService.update(vo);
 
@@ -76,7 +77,7 @@ public class SysPostController {
 
     @DeleteMapping
     @Operation(summary = "删除")
-    //@PreAuthorize("hasAuthority('sys:post:delete')")
+    @PreAuthorize("hasAuthority('sys:post:delete')")
     public Result<String> delete(@RequestBody List<Long> idList){
         sysPostService.delete(idList);
 

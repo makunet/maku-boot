@@ -12,9 +12,9 @@ import net.maku.framework.common.query.Query;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Schema(name = "角色查询")
+@Schema(description = "角色查询")
 public class SysRoleQuery extends Query {
-    @Schema(name = "角色名称")
+    @Schema(description = "角色名称")
     private String name;
 
 }

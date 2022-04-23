@@ -14,6 +14,7 @@ import net.maku.system.service.SysMenuService;
 import net.maku.system.vo.menu.SysMenuPostVO;
 import net.maku.system.vo.menu.SysMenuPutVO;
 import net.maku.system.vo.menu.SysMenuVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -61,7 +62,7 @@ public class SysMenuController {
 
 	@GetMapping("{id}")
 	@Operation(summary = "信息")
-	//@PreAuthorize("hasAuthority('sys:menu:info')")
+	@PreAuthorize("hasAuthority('sys:menu:info')")
 	public Result<SysMenuVO> get(@PathVariable("id") Long id){
 		SysMenuEntity entity = sysMenuService.getById(id);
 
@@ -70,7 +71,7 @@ public class SysMenuController {
 
 	@PostMapping
 	@Operation(summary = "保存")
-	//@PreAuthorize("hasAuthority('sys:menu:save')")
+	@PreAuthorize("hasAuthority('sys:menu:save')")
 	public Result<String> save(@RequestBody @Valid SysMenuPostVO vo){
 		sysMenuService.save(vo);
 
@@ -79,7 +80,7 @@ public class SysMenuController {
 
 	@PutMapping
 	@Operation(summary = "修改")
-	//@PreAuthorize("hasAuthority('sys:menu:update')")
+	@PreAuthorize("hasAuthority('sys:menu:update')")
 	public Result<String> update(@RequestBody @Valid SysMenuPutVO vo){
 		sysMenuService.update(vo);
 
@@ -88,7 +89,7 @@ public class SysMenuController {
 
 	@DeleteMapping("{id}")
 	@Operation(summary = "删除")
-	//@PreAuthorize("hasAuthority('sys:menu:delete')")
+	@PreAuthorize("hasAuthority('sys:menu:delete')")
 	public Result<String> delete(@PathVariable("id") Long id){
 		// 判断是否有子菜单或按钮
 		Long count = sysMenuService.getSubMenuCount(id);

@@ -12,14 +12,14 @@ import java.util.List;
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(name = "分页数据")
+@Schema(description = "分页数据")
 public class PageResult<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Schema(name = "总记录数")
+    @Schema(description = "总记录数")
     private int total;
 
-    @Schema(name = "列表数据")
+    @Schema(description = "列表数据")
     private List<T> list;
 
     /**

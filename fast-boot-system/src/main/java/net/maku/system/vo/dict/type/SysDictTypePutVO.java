@@ -13,9 +13,9 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "字典类型更新")
+@Schema(description = "字典类型更新")
 public class SysDictTypePutVO extends SysDictTypePostVO {
-	@Schema(name = "id", required = true)
+	@Schema(description = "id", required = true)
 	@NotNull(message = "id不能为空")
 	private Long id;
 

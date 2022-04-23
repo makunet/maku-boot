@@ -18,6 +18,7 @@ import net.maku.system.vo.role.SysRolePostVO;
 import net.maku.system.vo.role.SysRolePutVO;
 import net.maku.system.vo.role.SysRoleQuery;
 import net.maku.system.vo.role.SysRoleVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,7 +41,7 @@ public class SysRoleController {
 
 	@GetMapping("page")
 	@Operation(summary = "分页")
-	//@PreAuthorize("hasAuthority('sys:role:page')")
+	@PreAuthorize("hasAuthority('sys:role:page')")
 	public Result<PageResult<SysRoleVO>> page(@Valid SysRoleQuery query){
 		PageResult<SysRoleVO> page = sysRoleService.page(query);
 
@@ -49,7 +50,7 @@ public class SysRoleController {
 
 	@GetMapping("list")
 	@Operation(summary = "列表")
-	//@PreAuthorize("hasAuthority('sys:role:list')")
+	@PreAuthorize("hasAuthority('sys:role:list')")
 	public Result<List<SysRoleVO>> list(){
 		List<SysRoleVO> list = sysRoleService.getList(new SysRoleQuery());
 
@@ -58,7 +59,7 @@ public class SysRoleController {
 
 	@GetMapping("{id}")
 	@Operation(summary = "信息")
-	//@PreAuthorize("hasAuthority('sys:role:info')")
+	@PreAuthorize("hasAuthority('sys:role:info')")
 	public Result<SysRolePostVO> get(@PathVariable("id") Long id){
 		SysRoleEntity entity = sysRoleService.getById(id);
 
@@ -77,10 +78,9 @@ public class SysRoleController {
 	}
 
 	@PostMapping
-	@Operation(summary = "保存")
-	//@PreAuthorize("hasAuthority('sys:role:save')")
+	@Operation(summary = "保存", hidden = true)
+	@PreAuthorize("hasAuthority('sys:role:save')")
 	public Result<String> save(@RequestBody @Valid SysRolePostVO vo){
-
 		sysRoleService.save(vo);
 
 		return Result.ok();
@@ -88,7 +88,7 @@ public class SysRoleController {
 
 	@PutMapping
 	@Operation(summary = "修改")
-	//@PreAuthorize("hasAuthority('sys:role:update')")
+	@PreAuthorize("hasAuthority('sys:role:update')")
 	public Result<String> update(@RequestBody @Valid SysRolePutVO vo){
 		sysRoleService.update(vo);
 
@@ -97,7 +97,7 @@ public class SysRoleController {
 
 	@DeleteMapping
 	@Operation(summary = "删除")
-	//@PreAuthorize("hasAuthority('sys:role:delete')")
+	@PreAuthorize("hasAuthority('sys:role:delete')")
 	public Result<String> delete(@RequestBody List<Long> idList){
 		sysRoleService.delete(idList);
 
@@ -106,7 +106,7 @@ public class SysRoleController {
 
 	@GetMapping("menu")
 	@Operation(summary = "角色菜单")
-	//@PreAuthorize("hasAuthority('sys:role:menu')")
+	@PreAuthorize("hasAuthority('sys:role:menu')")
 	public Result<List<SysMenuVO>> menu(){
 		UserDetail user = SecurityUser.getUser();
 		List<SysMenuVO> list = sysMenuService.getUserMenuList(user, null);

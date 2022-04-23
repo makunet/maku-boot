@@ -16,39 +16,39 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "菜单")
+@Schema(description = "菜单")
 public class SysMenuVO extends TreeNode<SysMenuVO> {
-	@Schema(name = "id")
+	@Schema(description = "id")
 	private Long id;
 
-	@Schema(name = "上级ID")
+	@Schema(description = "上级ID")
 	private Long pid;
 
-	@Schema(name = "菜单名称")
+	@Schema(description = "菜单名称")
 	private String name;
 
-	@Schema(name = "菜单URL")
+	@Schema(description = "菜单URL")
 	private String url;
 
-	@Schema(name = "类型  0：菜单   1：按钮   2：接口")
+	@Schema(description = "类型  0：菜单   1：按钮   2：接口")
 	private Integer type;
 
-	@Schema(name = "打开方式   0：内部   1：外部")
+	@Schema(description = "打开方式   0：内部   1：外部")
 	private Integer openStyle;
 
-	@Schema(name = "菜单图标")
+	@Schema(description = "菜单图标")
 	private String icon;
 
-	@Schema(name = "授权标识(多个用逗号分隔，如：sys:menu:list,sys:menu:save)")
+	@Schema(description = "授权标识(多个用逗号分隔，如：sys:menu:list,sys:menu:save)")
 	private String authority;
 
-	@Schema(name = "排序")
+	@Schema(description = "排序")
 	private Integer sort;
 
-	@Schema(name = "创建时间")
+	@Schema(description = "创建时间")
 	@JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
 	private Date createTime;
 
-	@Schema(name = "上级菜单名称")
+	@Schema(description = "上级菜单名称")
 	private String parentName;
 }

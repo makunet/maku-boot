@@ -16,25 +16,25 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "机构")
+@Schema(description = "机构")
 public class SysOrgVO extends TreeNode<SysOrgVO> {
-	@Schema(name = "id")
+	@Schema(description = "id")
 	private Long id;
 
-	@Schema(name = "上级ID")
+	@Schema(description = "上级ID")
 	private Long pid;
 
-	@Schema(name = "机构名称")
+	@Schema(description = "机构名称")
 	private String name;
 
-	@Schema(name = "排序")
+	@Schema(description = "排序")
 	private Integer sort;
 
-	@Schema(name = "创建时间")
+	@Schema(description = "创建时间")
 	@JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
 	private Date createTime;
 
-	@Schema(name = "上级名称")
+	@Schema(description = "上级名称")
 	private String parentName;
 
 }

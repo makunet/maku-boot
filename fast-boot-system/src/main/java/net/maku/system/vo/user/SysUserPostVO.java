@@ -17,49 +17,49 @@ import java.util.List;
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(name = "用户新增")
+@Schema(description = "用户新增")
 public class SysUserPostVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Schema(name = "用户名", required = true)
+    @Schema(description = "用户名", required = true)
     @NotBlank(message = "用户名不能为空")
     private String username;
 
-    @Schema(name = "密码")
+    @Schema(description = "密码")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Schema(name = "姓名", required = true)
+    @Schema(description = "姓名", required = true)
     @NotBlank(message = "姓名不能为空")
     private String realName;
 
-    @Schema(name = "头像")
+    @Schema(description = "头像")
     private String avatar;
 
-    @Schema(name = "性别   0：男   1：女", required = true)
+    @Schema(description = "性别 0：男   1：女", required = true)
     @Range(min = 0, max = 1, message = "性别不正确")
     private Integer gender;
 
-    @Schema(name = "邮箱")
+    @Schema(description = "邮箱")
     @Email(message = "邮箱格式不正确")
     private String email;
 
-    @Schema(name = "手机号", required = true)
+    @Schema(description = "手机号", required = true)
     @NotBlank(message = "手机号不能为空")
     private String mobile;
 
-    @Schema(name = "机构ID", required = true)
+    @Schema(description = "机构ID", required = true)
     @NotNull(message = "机构ID不能为空")
     private Long orgId;
 
-    @Schema(name = "状态  0：停用    1：正常", required = true)
+    @Schema(description = "状态 0：停用    1：正常", required = true)
     @Range(min = 0, max = 1, message = "用户状态不正确")
     private Integer status;
 
-    @Schema(name = "角色ID列表")
+    @Schema(description = "角色ID列表")
     private List<Long> roleIdList;
 
-    @Schema(name = "岗位ID列表")
+    @Schema(description = "岗位ID列表")
     private List<Long> postIdList;
 
 }

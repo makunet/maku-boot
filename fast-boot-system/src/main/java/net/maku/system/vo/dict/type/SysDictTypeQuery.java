@@ -12,12 +12,12 @@ import net.maku.framework.common.query.Query;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Schema(name = "字典类型查询")
+@Schema(description = "字典类型查询")
 public class SysDictTypeQuery extends Query {
-    @Schema(name = "字典类型")
+    @Schema(description = "字典类型")
     private String dictType;
 
-    @Schema(name = "字典名称")
+    @Schema(description = "字典名称")
     private String dictName;
 
 }

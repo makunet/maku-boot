@@ -10,15 +10,15 @@ import net.maku.framework.common.exception.ErrorCode;
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(name = "响应")
+@Schema(description = "响应")
 public class Result<T> {
-    @Schema(name = "编码", description = "0表示成功，其他值表示失败")
+    @Schema(description = "编码 0表示成功，其他值表示失败")
     private int code = 0;
 
-    @Schema(name = "消息内容")
+    @Schema(description = "消息内容")
     private String msg = "success";
 
-    @Schema(name = "响应数据")
+    @Schema(description = "响应数据")
     private T data;
 
     public static <T> Result<T> ok() {

@@ -13,6 +13,7 @@ import net.maku.system.vo.dict.type.SysDictTypePostVO;
 import net.maku.system.vo.dict.type.SysDictTypePutVO;
 import net.maku.system.vo.dict.type.SysDictTypeQuery;
 import net.maku.system.vo.dict.type.SysDictTypeVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class SysDictTypeController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
-    //@PreAuthorize("hasAuthority('sys:dict:page')")
+    @PreAuthorize("hasAuthority('sys:dict:page')")
     public Result<PageResult<SysDictTypeVO>> page(@Valid SysDictTypeQuery query){
         PageResult<SysDictTypeVO> page = sysDictTypeService.page(query);
 
@@ -41,7 +42,7 @@ public class SysDictTypeController {
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
-    //@PreAuthorize("hasAuthority('sys:dict:info')")
+    @PreAuthorize("hasAuthority('sys:dict:info')")
     public Result<SysDictTypeVO> get(@PathVariable("id") Long id){
         SysDictTypeEntity entity = sysDictTypeService.getById(id);
 
@@ -50,7 +51,7 @@ public class SysDictTypeController {
 
     @PostMapping
     @Operation(summary = "保存")
-    //@PreAuthorize("hasAuthority('sys:dict:save')")
+    @PreAuthorize("hasAuthority('sys:dict:save')")
     public Result<String> save(@RequestBody @Valid SysDictTypePostVO vo){
         sysDictTypeService.save(vo);
 
@@ -59,7 +60,7 @@ public class SysDictTypeController {
 
     @PutMapping
     @Operation(summary = "修改")
-    //@PreAuthorize("hasAuthority('sys:dict:update')")
+    @PreAuthorize("hasAuthority('sys:dict:update')")
     public Result<String> update(@RequestBody @Valid SysDictTypePutVO vo){
         sysDictTypeService.update(vo);
 
@@ -68,7 +69,7 @@ public class SysDictTypeController {
 
     @DeleteMapping
     @Operation(summary = "删除")
-    //@PreAuthorize("hasAuthority('sys:dict:delete')")
+    @PreAuthorize("hasAuthority('sys:dict:delete')")
     public Result<String> delete(@RequestBody List<Long> idList){
         sysDictTypeService.delete(idList);
 

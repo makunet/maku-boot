@@ -10,6 +10,7 @@ import net.maku.system.service.SysOrgService;
 import net.maku.system.vo.org.SysOrgPostVO;
 import net.maku.system.vo.org.SysOrgPutVO;
 import net.maku.system.vo.org.SysOrgVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,7 +30,7 @@ public class SysOrgController {
 
 	@GetMapping("list")
 	@Operation(summary = "列表")
-	//@PreAuthorize("hasAuthority('sys:org:list')")
+	@PreAuthorize("hasAuthority('sys:org:list')")
 	public Result<List<SysOrgVO>> list(){
 		List<SysOrgVO> list = sysOrgService.getList();
 
@@ -38,7 +39,7 @@ public class SysOrgController {
 
 	@GetMapping("{id}")
 	@Operation(summary = "信息")
-	//@PreAuthorize("hasAuthority('sys:org:info')")
+	@PreAuthorize("hasAuthority('sys:org:info')")
 	public Result<SysOrgVO> get(@PathVariable("id") Long id){
 		SysOrgEntity entity = sysOrgService.getById(id);
 
@@ -47,7 +48,7 @@ public class SysOrgController {
 
 	@PostMapping
 	@Operation(summary = "保存")
-	//@PreAuthorize("hasAuthority('sys:org:save')")
+	@PreAuthorize("hasAuthority('sys:org:save')")
 	public Result<String> save(@RequestBody @Valid SysOrgPostVO vo){
 		sysOrgService.save(vo);
 
@@ -56,7 +57,7 @@ public class SysOrgController {
 
 	@PutMapping
 	@Operation(summary = "修改")
-	//@PreAuthorize("hasAuthority('sys:org:update')")
+	@PreAuthorize("hasAuthority('sys:org:update')")
 	public Result<String> update(@RequestBody @Valid SysOrgPutVO vo){
 		sysOrgService.update(vo);
 
@@ -65,7 +66,7 @@ public class SysOrgController {
 
 	@DeleteMapping("{id}")
 	@Operation(summary = "删除")
-	//@PreAuthorize("hasAuthority('sys:org:delete')")
+	@PreAuthorize("hasAuthority('sys:org:delete')")
 	public Result<String> delete(@PathVariable("id") Long id){
 		sysOrgService.delete(id);
 

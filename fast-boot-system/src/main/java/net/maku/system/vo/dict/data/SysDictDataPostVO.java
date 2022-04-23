@@ -14,25 +14,25 @@ import java.io.Serializable;
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(name = "字典数据新增")
+@Schema(description = "字典数据新增")
 public class SysDictDataPostVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-	@Schema(name = "字典类型ID", required = true)
+	@Schema(description = "字典类型ID", required = true)
 	@NotNull(message = "字典类型ID不能为空")
 	private Long dictTypeId;
 
-	@Schema(name = "字典标签", required = true)
+	@Schema(description = "字典标签", required = true)
 	@NotBlank(message = "字典标签不能为空")
 	private String dictLabel;
 
-	@Schema(name = "字典值")
+	@Schema(description = "字典值")
 	private String dictValue;
 
-	@Schema(name = "备注")
+	@Schema(description = "备注")
 	private String remark;
 
-	@Schema(name = "排序", required = true)
+	@Schema(description = "排序", required = true)
 	@Min(value = 0, message = "排序值不能小于0")
 	private Integer sort;
 }

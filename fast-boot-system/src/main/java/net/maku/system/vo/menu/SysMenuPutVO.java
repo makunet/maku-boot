@@ -13,9 +13,9 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "菜单更新")
+@Schema(description = "菜单更新")
 public class SysMenuPutVO extends SysMenuPostVO {
-	@Schema(name = "id", required = true)
+	@Schema(description = "id", required = true)
 	@NotNull(message = "id不能为空")
 	private Long id;
 

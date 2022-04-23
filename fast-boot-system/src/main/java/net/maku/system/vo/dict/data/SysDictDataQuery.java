@@ -12,9 +12,9 @@ import net.maku.framework.common.query.Query;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Schema(name = "字典数据查询")
+@Schema(description = "字典数据查询")
 public class SysDictDataQuery extends Query {
-    @Schema(name = "字典类型ID", required = true)
+    @Schema(description = "字典类型ID", required = true)
     private Long dictTypeId;
 
 }

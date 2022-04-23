@@ -13,9 +13,9 @@ import javax.validation.constraints.NotNull;
 */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "岗位管理更新")
+@Schema(description = "岗位管理更新")
 public class SysPostPutVO extends SysPostPostVO {
-    @Schema(name = "id", required = true)
+    @Schema(description = "id", required = true)
     @NotNull(message = "ID不能为空")
     private Long id;
 
