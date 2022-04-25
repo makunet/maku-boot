@@ -37,7 +37,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .and()
             .requestMatchers()
             // 被保护的资源
-            .antMatchers("/sys/**", "/wx/mp/**")
+            .antMatchers("/sys/**")
             .and()
             .authorizeRequests()
             .anyRequest().authenticated()

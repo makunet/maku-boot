@@ -50,9 +50,6 @@ public class FastUserDetailsService implements UserDetailsService {
         // 转换成UserDetail对象
         UserDetail userDetail = SysUserConvert.INSTANCE.convertDetail(userEntity);
 
-        // 告诉spring-security，密码使用的bcrypt加密
-        userDetail.setPassword(String.format("{bcrypt}%s", userDetail.getPassword()));
-
         // 账号不可用
         if(userEntity.getStatus() == UserStatusEnum.DISABLE.getValue()){
             userDetail.setEnabled(false);

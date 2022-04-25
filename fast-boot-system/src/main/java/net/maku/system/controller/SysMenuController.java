@@ -34,7 +34,7 @@ public class SysMenuController {
 	private final SysMenuService sysMenuService;
 
 	@GetMapping("nav")
-	@Operation(summary = "导航列表")
+	@Operation(summary = "菜单导航")
 	public Result<List<SysMenuVO>> nav(){
 		UserDetail user = SecurityUser.getUser();
 		List<SysMenuVO> list = sysMenuService.getUserMenuList(user, MenuTypeEnum.MENU.getValue());

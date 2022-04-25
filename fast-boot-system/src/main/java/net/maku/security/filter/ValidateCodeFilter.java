@@ -1,6 +1,7 @@
 package net.maku.security.filter;
 
 import lombok.AllArgsConstructor;
+import net.maku.framework.security.exception.FastAuthenticationException;
 import net.maku.framework.security.handler.UserAuthenticationFailureHandler;
 import net.maku.security.service.CaptchaService;
 import org.springframework.security.core.AuthenticationException;
@@ -50,8 +51,8 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
         boolean flag = captchaService.validate(key, captcha);
 
-//        if(!flag) {
-//            throw new FastAuthenticationException("验证码错误");
-//        }
+        if(!flag) {
+            throw new FastAuthenticationException("验证码错误");
+        }
     }
 }
