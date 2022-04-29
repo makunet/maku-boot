@@ -36,8 +36,8 @@ public class SysUserPostVO implements Serializable {
     @Schema(description = "头像")
     private String avatar;
 
-    @Schema(description = "性别 0：男   1：女", required = true)
-    @Range(min = 0, max = 1, message = "性别不正确")
+    @Schema(description = "性别 0：男   1：女   2：未知", required = true)
+    @Range(min = 0, max = 2, message = "性别不正确")
     private Integer gender;
 
     @Schema(description = "邮箱")

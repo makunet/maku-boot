@@ -39,6 +39,7 @@ public class SysUserController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
+    @PreAuthorize("hasAuthority('sys:user:page')")
     public Result<PageResult<SysUserVO>> page(@Valid SysUserQuery query){
         PageResult<SysUserVO> page = sysUserService.page(query);
 

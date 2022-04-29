@@ -45,7 +45,7 @@ public class FastExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public Result<String> handleException(Exception ex){
 
-		return Result.error(ex.getMessage());
+		return Result.error(ErrorCode.INTERNAL_SERVER_ERROR);
 	}
 
 }

@@ -37,7 +37,6 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Override
     public PageResult<SysDictTypeVO> page(SysDictTypeQuery query) {
         IPage<SysDictTypeEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
-
         return new PageResult<>(SysDictTypeConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
     }
 
@@ -88,7 +87,9 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
             dict.setDictType(type.getDictType());
 
             for (SysDictDataEntity data : dataList){
-                dict.getDataList().add(new SysDictVO.DictData(data.getDictLabel(), data.getDictValue()));
+                if(type.getId().equals(data.getDictTypeId())){
+                    dict.getDataList().add(new SysDictVO.DictData(data.getDictLabel(), data.getDictValue()));
+                }
             }
 
             dictList.add(dict);

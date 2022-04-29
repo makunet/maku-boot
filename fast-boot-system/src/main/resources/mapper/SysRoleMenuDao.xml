@@ -4,7 +4,7 @@
 <mapper namespace="net.maku.system.dao.SysRoleMenuDao">
 
 	<select id="getMenuIdList" resultType="long">
-		select menu_id from sys_role_menu where role_id = #{roleId}
+		select menu_id from sys_role_menu where role_id = #{roleId} and deleted = 0
 	</select>
 
 </mapper>

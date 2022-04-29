@@ -4,7 +4,7 @@
 <mapper namespace="net.maku.system.dao.SysUserPostDao">
 
     <select id="getPostIdList" resultType="long">
-        select post_id from sys_user_post where user_id = #{userId}
+        select post_id from sys_user_post where user_id = #{userId} and deleted = 0
     </select>
 
 </mapper>

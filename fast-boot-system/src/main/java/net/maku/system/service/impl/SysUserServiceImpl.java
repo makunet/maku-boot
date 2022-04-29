@@ -53,6 +53,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     private Map<String, Object> getParams(SysUserQuery query){
         Map<String, Object> params = new HashMap<>();
         params.put("username", query.getUsername());
+        params.put("mobile", query.getMobile());
+        params.put("gender", query.getGender());
 
         // 数据权限
         params.put(Constant.DATA_SCOPE, getDataScope("t1"));
@@ -83,6 +85,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 保存用户角色关系
         sysUserRoleService.saveOrUpdate(entity.getId(), vo.getRoleIdList());
+
+        // 更新用户岗位关系
+        sysUserPostService.saveOrUpdate(entity.getId(), vo.getPostIdList());
     }
 
     @Override
@@ -106,6 +111,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 更新用户角色关系
         sysUserRoleService.saveOrUpdate(entity.getId(), vo.getRoleIdList());
+
+        // 更新用户岗位关系
+        sysUserPostService.saveOrUpdate(entity.getId(), vo.getPostIdList());
     }
 
     @Override

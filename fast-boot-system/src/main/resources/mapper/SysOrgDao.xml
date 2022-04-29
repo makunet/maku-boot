@@ -4,12 +4,12 @@
 <mapper namespace="net.maku.system.dao.SysOrgDao">
 
 	<select id="getList" resultType="net.maku.system.entity.SysOrgEntity">
-		select t1.*,(select t2.name from sys_org t2 where t2.id = t1.pid) parentName from sys_org t1
+		select t1.*, (select t2.name from sys_org t2 where t2.id = t1.pid) parentName from sys_org t1 where t1.deleted = 0
 			order by t1.sort asc
 	</select>
 
 	<select id="getIdAndPidList" resultType="net.maku.system.entity.SysOrgEntity">
-		select t1.id, t1.pid from sys_org t1
+		select t1.id, t1.pid from sys_org t1 where t1.deleted = 0
 	</select>
 
 </mapper>

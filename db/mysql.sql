@@ -5,7 +5,7 @@ CREATE TABLE sys_user
     password    varchar(100) COMMENT '密码',
     real_name   varchar(50) COMMENT '姓名',
     avatar      varchar(200) COMMENT '头像',
-    gender      tinyint COMMENT '性别   0：男   1：女',
+    gender      tinyint COMMENT '性别   0：男   1：女   2：未知',
     email       varchar(100) COMMENT '邮箱',
     mobile      varchar(20) COMMENT '手机号',
     org_id      bigint COMMENT '机构ID',
@@ -18,7 +18,7 @@ CREATE TABLE sys_user
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARSET = utf8mb4 COMMENT ='用户管理';
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='用户管理';
 
 CREATE TABLE sys_org
 (
@@ -34,7 +34,7 @@ CREATE TABLE sys_org
     update_time datetime COMMENT '更新时间',
     primary key (id),
     key idx_pid (pid)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARSET = utf8mb4 COMMENT ='机构管理';
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='机构管理';
 
 create table sys_role
 (
@@ -51,7 +51,7 @@ create table sys_role
     update_time datetime COMMENT '更新时间',
     primary key (id),
     key idx_org_id (org_id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色管理';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色管理';
 
 create table sys_user_role
 (
@@ -67,7 +67,7 @@ create table sys_user_role
     primary key (id),
     key idx_role_id (role_id),
     key idx_user_id (user_id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='用户角色关系';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='用户角色关系';
 
 CREATE TABLE sys_post
 (
@@ -83,7 +83,7 @@ CREATE TABLE sys_post
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='岗位管理';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='岗位管理';
 
 CREATE TABLE sys_user_post
 (
@@ -99,7 +99,7 @@ CREATE TABLE sys_user_post
     primary key (id),
     key idx_user_id (user_id),
     key idx_post_id (post_id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='用户岗位关系';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='用户岗位关系';
 
 create table sys_menu
 (
@@ -120,7 +120,7 @@ create table sys_menu
     update_time datetime COMMENT '更新时间',
     primary key (id),
     key idx_pid (pid)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='菜单管理';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='菜单管理';
 
 create table sys_role_menu
 (
@@ -136,7 +136,7 @@ create table sys_role_menu
     primary key (id),
     key idx_role_id (role_id),
     key idx_menu_id (menu_id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色菜单关系';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色菜单关系';
 
 create table sys_role_data_scope
 (
@@ -151,7 +151,7 @@ create table sys_role_data_scope
     update_time datetime COMMENT '更新时间',
     primary key (id),
     key idx_role_id (role_id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色数据权限';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色数据权限';
 
 CREATE TABLE sys_oauth_client (
     id bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -189,7 +189,7 @@ create table sys_dict_type
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='字典类型';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='字典类型';
 
 create table sys_dict_data
 (
@@ -206,8 +206,8 @@ create table sys_dict_data
     updater      bigint COMMENT '更新者',
     update_time  datetime COMMENT '更新时间',
     primary key (id)
-) ENGINE = InnoDB AUTO_INCREMENT = 10000 DEFAULT CHARACTER SET utf8mb4 COMMENT ='字典数据';
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='字典数据';
 
 
 INSERT INTO sys_user (id, username, password, real_name, gender, email, mobile, status, org_id, super_admin, version, deleted, creator, create_time, updater, update_time) VALUES (10000, 'admin', '{bcrypt}$2a$10$mW/yJPHjyueQ1g26WNBz0uxVPa0GQdJO1fFZmqdkqgMTGnyszlXxu', 'admin', 0, 'babamu@126.com', '13612345678', 1, null, 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_oauth_client (id, client_id, client_secret, resource_ids, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove, version, deleted, creator, create_time, updater, update_time) VALUES (10000, 'web', '123456', '', 'all', '["authorization_code","password","implicit","client_credentials","refresh_token"]', 'https://gitee.com/makunet', NULL, 43200, 604800, NULL, 'true', 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_oauth_client (id, client_id, client_secret, resource_ids, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'web', '123456', '', 'all', '["authorization_code","password","implicit","client_credentials","refresh_token"]', 'https://gitee.com/makunet', NULL, 43200, 604800, NULL, 'true', 0, 0, 10000, now(), 10000, now());

@@ -3,6 +3,7 @@ package net.maku.system.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.utils.Result;
 import net.maku.system.convert.SysOrgConvert;
 import net.maku.system.entity.SysOrgEntity;
@@ -42,8 +43,15 @@ public class SysOrgController {
 	@PreAuthorize("hasAuthority('sys:org:info')")
 	public Result<SysOrgVO> get(@PathVariable("id") Long id){
 		SysOrgEntity entity = sysOrgService.getById(id);
+		SysOrgVO vo =SysOrgConvert.INSTANCE.convert(entity);
 
-		return Result.ok(SysOrgConvert.INSTANCE.convert(entity));
+		// 获取上级机构名称
+		if(!Constant.ROOT.equals(entity.getPid())){
+			SysOrgEntity parentEntity = sysOrgService.getById(entity.getPid());
+			vo.setParentName(parentEntity.getName());
+		}
+
+		return Result.ok(vo);
 	}
 
 	@PostMapping

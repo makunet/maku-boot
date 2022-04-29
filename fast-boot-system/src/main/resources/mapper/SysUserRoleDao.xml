@@ -4,7 +4,7 @@
 <mapper namespace="net.maku.system.dao.SysUserRoleDao">
 
     <select id="getRoleIdList" resultType="long">
-        select role_id from sys_user_role where user_id = #{userId}
+        select role_id from sys_user_role where user_id = #{userId} and deleted = 0
     </select>
 
 </mapper>

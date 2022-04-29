@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
@@ -54,6 +55,7 @@ public class SysMenuController {
 	@GetMapping("list")
 	@Operation(summary = "菜单列表")
 	@Parameter(name = "type", description = "菜单类型 0：菜单 1：按钮  2：接口  null：全部")
+	@PreAuthorize("hasAuthority('sys:menu:list')")
 	public Result<List<SysMenuVO>> list(Integer type){
 		List<SysMenuVO> list = sysMenuService.getMenuList(type);
 
@@ -65,8 +67,15 @@ public class SysMenuController {
 	@PreAuthorize("hasAuthority('sys:menu:info')")
 	public Result<SysMenuVO> get(@PathVariable("id") Long id){
 		SysMenuEntity entity = sysMenuService.getById(id);
+		SysMenuVO vo = SysMenuConvert.INSTANCE.convert(entity);
 
-		return Result.ok(SysMenuConvert.INSTANCE.convert(entity));
+		// 获取上级菜单名称
+		if(!Constant.ROOT.equals(entity.getPid())){
+			SysMenuEntity parentEntity = sysMenuService.getById(entity.getPid());
+			vo.setParentName(parentEntity.getName());
+		}
+
+		return Result.ok(vo);
 	}
 
 	@PostMapping
@@ -94,7 +103,7 @@ public class SysMenuController {
 		// 判断是否有子菜单或按钮
 		Long count = sysMenuService.getSubMenuCount(id);
 		if(count > 0){
-			return Result.error("存在子菜单");
+			return Result.error("请先删除子菜单");
 		}
 
 		sysMenuService.delete(id);
