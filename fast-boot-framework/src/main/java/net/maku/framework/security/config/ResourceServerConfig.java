@@ -35,11 +35,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .requestMatchers()
-            // 被保护的资源
-            .antMatchers("/sys/**")
-            .and()
             .authorizeRequests()
+            .antMatchers(PermitResource.IGNORING_URLS).permitAll()
             .anyRequest().authenticated()
         ;
     }
