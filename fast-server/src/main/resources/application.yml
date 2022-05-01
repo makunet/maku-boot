@@ -20,15 +20,6 @@ spring:
     multipart:
       max-file-size: 1024MB
       max-request-size: 1024MB
-  datasource:
-    druid:
-      filter:
-        slf4j:
-          enabled: true
-          statement-create-after-log-enabled: false
-          statement-close-after-log-enabled: false
-          result-set-open-after-log-enabled: false
-          result-set-close-after-log-enabled: false
 
 
 mybatis-plus:
