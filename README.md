@@ -4,12 +4,6 @@
 ## 使命
 致力于打造成一套高质量、低BUG、易于上手、可维护性强的低代码开发脚手架系统。
 
-## 软件需求
-- JDK1.8
-- MySQL8.0
-- Maven3.0+
-- Redis3.0+
-
 ## 环境搭建
 - 下载项目源码，一般通过git clone命令
 - idea、eclipse需安装lombok插件，不然会提示找不到get set方法
@@ -21,4 +15,5 @@
 ## 本地启动
 - 在fast-server工程里面，运行ServerApplication.java，则可启动项目
 - 接口文档路径：http://localhost:8080/doc.html
+- 再启动前端项目：https://gitee.com/makunet/fast-admin
 - 账号密码：admin/admin
