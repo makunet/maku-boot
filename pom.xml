@@ -29,7 +29,7 @@
         <druid.version>1.2.8</druid.version>
         <mybatisplus.version>3.5.1</mybatisplus.version>
         <knife4j.version>3.0.3</knife4j.version>
-        <springdoc.version>1.6.7</springdoc.version>
+        <springdoc.version>1.6.8</springdoc.version>
         <hutool.version>5.7.22</hutool.version>
         <security.oauth2.version>2.3.8.RELEASE</security.oauth2.version>
         <captcha.version>1.6.2</captcha.version>

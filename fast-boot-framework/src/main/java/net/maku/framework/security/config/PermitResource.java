@@ -15,6 +15,8 @@ public class PermitResource {
         "/webjars/**",
         "/swagger/**",
         "/swagger-resources/**",
+        "/swagger-ui.html",
+        "/swagger-ui/**",
         "/doc.html",
         "/oauth/captcha"
     };
