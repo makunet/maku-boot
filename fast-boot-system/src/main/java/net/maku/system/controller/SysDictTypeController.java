@@ -8,11 +8,9 @@ import net.maku.framework.common.utils.Result;
 import net.maku.system.convert.SysDictTypeConvert;
 import net.maku.system.entity.SysDictTypeEntity;
 import net.maku.system.service.SysDictTypeService;
-import net.maku.system.vo.dict.SysDictVO;
-import net.maku.system.vo.dict.type.SysDictTypePostVO;
-import net.maku.system.vo.dict.type.SysDictTypePutVO;
-import net.maku.system.vo.dict.type.SysDictTypeQuery;
-import net.maku.system.vo.dict.type.SysDictTypeVO;
+import net.maku.system.vo.SysDictVO;
+import net.maku.system.query.SysDictTypeQuery;
+import net.maku.system.vo.SysDictTypeVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +50,7 @@ public class SysDictTypeController {
     @PostMapping
     @Operation(summary = "保存")
     @PreAuthorize("hasAuthority('sys:dict:save')")
-    public Result<String> save(@RequestBody @Valid SysDictTypePostVO vo){
+    public Result<String> save(@RequestBody @Valid SysDictTypeVO vo){
         sysDictTypeService.save(vo);
 
         return Result.ok();
@@ -61,7 +59,7 @@ public class SysDictTypeController {
     @PutMapping
     @Operation(summary = "修改")
     @PreAuthorize("hasAuthority('sys:dict:update')")
-    public Result<String> update(@RequestBody @Valid SysDictTypePutVO vo){
+    public Result<String> update(@RequestBody @Valid SysDictTypeVO vo){
         sysDictTypeService.update(vo);
 
         return Result.ok();

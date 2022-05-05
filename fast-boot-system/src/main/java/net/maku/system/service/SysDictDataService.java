@@ -3,10 +3,8 @@ package net.maku.system.service;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.BaseService;
 import net.maku.system.entity.SysDictDataEntity;
-import net.maku.system.vo.dict.data.SysDictDataPostVO;
-import net.maku.system.vo.dict.data.SysDictDataPutVO;
-import net.maku.system.vo.dict.data.SysDictDataQuery;
-import net.maku.system.vo.dict.data.SysDictDataVO;
+import net.maku.system.query.SysDictDataQuery;
+import net.maku.system.vo.SysDictDataVO;
 
 import java.util.List;
 
@@ -19,9 +17,9 @@ public interface SysDictDataService extends BaseService<SysDictDataEntity> {
 
     PageResult<SysDictDataVO> page(SysDictDataQuery query);
 
-    void save(SysDictDataPostVO vo);
+    void save(SysDictDataVO vo);
 
-    void update(SysDictDataPutVO vo);
+    void update(SysDictDataVO vo);
 
     void delete(List<Long> idList);
 

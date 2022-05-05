@@ -1,7 +1,9 @@
 package net.maku.framework.common.utils;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,13 @@ public class TreeNode<T> implements Serializable {
     /**
      * 主键
      */
+    @Schema(description = "id")
     private Long id;
     /**
      * 上级ID
      */
+    @Schema(description = "上级ID")
+    @NotNull(message = "上级ID不能为空")
     private Long pid;
     /**
      * 子节点列表

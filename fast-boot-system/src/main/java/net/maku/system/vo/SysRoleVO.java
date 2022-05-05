@@ -1,10 +1,13 @@
-package net.maku.system.vo.role;
+package net.maku.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import net.maku.framework.common.utils.DateUtils;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,9 +16,12 @@ import java.util.List;
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(description = "角色新增")
-public class SysRolePostVO implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Schema(description = "角色")
+public class SysRoleVO implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Schema(description = "id")
+	private Long id;
 
 	@Schema(description = "角色名称")
 	@NotBlank(message = "角色名称不能为空")
@@ -32,5 +38,9 @@ public class SysRolePostVO implements Serializable {
 
 	@Schema(description = "机构ID列表")
 	private List<Long> orgIdList;
+
+	@Schema(description = "创建时间")
+	@JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
+	private Date createTime;
 
 }

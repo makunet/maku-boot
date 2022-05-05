@@ -1,9 +1,7 @@
 package net.maku.system.convert;
 
 import net.maku.system.entity.SysDictTypeEntity;
-import net.maku.system.vo.dict.type.SysDictTypePostVO;
-import net.maku.system.vo.dict.type.SysDictTypePutVO;
-import net.maku.system.vo.dict.type.SysDictTypeVO;
+import net.maku.system.vo.SysDictTypeVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,11 +11,9 @@ import java.util.List;
 public interface SysDictTypeConvert {
     SysDictTypeConvert INSTANCE = Mappers.getMapper(SysDictTypeConvert.class);
 
-    SysDictTypeEntity convert(SysDictTypePostVO vo);
-
-    SysDictTypeEntity convert(SysDictTypePutVO vo);
-
     SysDictTypeVO convert(SysDictTypeEntity entity);
+
+    SysDictTypeEntity convert(SysDictTypeVO vo);
     
     List<SysDictTypeVO> convertList(List<SysDictTypeEntity> list);
 

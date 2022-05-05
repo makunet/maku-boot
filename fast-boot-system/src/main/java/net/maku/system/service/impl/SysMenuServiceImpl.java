@@ -14,9 +14,7 @@ import net.maku.system.entity.SysMenuEntity;
 import net.maku.system.enums.SuperAdminEnum;
 import net.maku.system.service.SysMenuService;
 import net.maku.system.service.SysRoleMenuService;
-import net.maku.system.vo.menu.SysMenuPostVO;
-import net.maku.system.vo.menu.SysMenuPutVO;
-import net.maku.system.vo.menu.SysMenuVO;
+import net.maku.system.vo.SysMenuVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +35,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void save(SysMenuPostVO vo) {
+	public void save(SysMenuVO vo) {
 		SysMenuEntity entity = SysMenuConvert.INSTANCE.convert(vo);
 
 		// 保存菜单
@@ -46,7 +44,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void update(SysMenuPutVO vo) {
+	public void update(SysMenuVO vo) {
 		SysMenuEntity entity = SysMenuConvert.INSTANCE.convert(vo);
 
 		// 上级菜单不能为自己

@@ -1,12 +1,15 @@
-package net.maku.system.vo.post;
+package net.maku.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import net.maku.framework.common.utils.DateUtils;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
 * 岗位管理
@@ -14,9 +17,12 @@ import java.io.Serializable;
 * @author 阿沐 babamu@126.com
 */
 @Data
-@Schema(description = "岗位管理新增")
-public class SysPostPostVO implements Serializable {
+@Schema(description = "岗位管理")
+public class SysPostVO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @Schema(description = "id")
+    private Long id;
 
     @Schema(description = "岗位编码", required = true)
     @NotBlank(message = "岗位编码不能为空")
@@ -33,5 +39,9 @@ public class SysPostPostVO implements Serializable {
     @Schema(description = "状态  0：停用   1：正常", required = true)
     @Range(min = 0, max = 1, message = "状态不正确")
     private Integer status;
+
+    @Schema(description = "创建时间")
+    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
+    private Date createTime;
 
 }

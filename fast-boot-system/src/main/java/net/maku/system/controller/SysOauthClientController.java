@@ -9,9 +9,7 @@ import net.maku.framework.common.utils.Result;
 import net.maku.system.convert.SysOauthClientConvert;
 import net.maku.system.entity.SysOauthClientEntity;
 import net.maku.system.service.SysOauthClientService;
-import net.maku.system.vo.oauth.SysOauthClientPostVO;
-import net.maku.system.vo.oauth.SysOauthClientPutVO;
-import net.maku.system.vo.oauth.SysOauthClientVO;
+import net.maku.system.vo.SysOauthClientVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +49,7 @@ public class SysOauthClientController {
     @PostMapping
     @Operation(summary = "保存")
     @PreAuthorize("hasAuthority('sys:client:save')")
-    public Result<String> save(@RequestBody SysOauthClientPostVO vo){
+    public Result<String> save(@RequestBody SysOauthClientVO vo){
         sysOauthClientService.save(vo);
 
         return Result.ok();
@@ -60,7 +58,7 @@ public class SysOauthClientController {
     @PutMapping
     @Operation(summary = "修改")
     @PreAuthorize("hasAuthority('sys:client:update')")
-    public Result<String> update(@RequestBody @Valid SysOauthClientPutVO vo){
+    public Result<String> update(@RequestBody @Valid SysOauthClientVO vo){
         sysOauthClientService.update(vo);
 
         return Result.ok();

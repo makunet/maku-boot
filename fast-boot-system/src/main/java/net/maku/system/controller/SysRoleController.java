@@ -13,11 +13,9 @@ import net.maku.system.service.SysMenuService;
 import net.maku.system.service.SysRoleDataScopeService;
 import net.maku.system.service.SysRoleMenuService;
 import net.maku.system.service.SysRoleService;
-import net.maku.system.vo.menu.SysMenuVO;
-import net.maku.system.vo.role.SysRolePostVO;
-import net.maku.system.vo.role.SysRolePutVO;
-import net.maku.system.vo.role.SysRoleQuery;
-import net.maku.system.vo.role.SysRoleVO;
+import net.maku.system.vo.SysMenuVO;
+import net.maku.system.query.SysRoleQuery;
+import net.maku.system.vo.SysRoleVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,11 +58,11 @@ public class SysRoleController {
 	@GetMapping("{id}")
 	@Operation(summary = "信息")
 	@PreAuthorize("hasAuthority('sys:role:info')")
-	public Result<SysRolePostVO> get(@PathVariable("id") Long id){
+	public Result<SysRoleVO> get(@PathVariable("id") Long id){
 		SysRoleEntity entity = sysRoleService.getById(id);
 
 		// 转换对象
-		SysRolePostVO role = SysRoleConvert.INSTANCE.convert(entity);
+		SysRoleVO role = SysRoleConvert.INSTANCE.convert(entity);
 
 		// 查询角色对应的菜单
 		List<Long> menuIdList = sysRoleMenuService.getMenuIdList(id);
@@ -80,7 +78,7 @@ public class SysRoleController {
 	@PostMapping
 	@Operation(summary = "保存", hidden = true)
 	@PreAuthorize("hasAuthority('sys:role:save')")
-	public Result<String> save(@RequestBody @Valid SysRolePostVO vo){
+	public Result<String> save(@RequestBody @Valid SysRoleVO vo){
 		sysRoleService.save(vo);
 
 		return Result.ok();
@@ -89,7 +87,7 @@ public class SysRoleController {
 	@PutMapping
 	@Operation(summary = "修改")
 	@PreAuthorize("hasAuthority('sys:role:update')")
-	public Result<String> update(@RequestBody @Valid SysRolePutVO vo){
+	public Result<String> update(@RequestBody @Valid SysRoleVO vo){
 		sysRoleService.update(vo);
 
 		return Result.ok();

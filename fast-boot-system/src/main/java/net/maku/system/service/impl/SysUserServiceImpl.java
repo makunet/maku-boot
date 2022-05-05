@@ -13,10 +13,8 @@ import net.maku.system.enums.SuperAdminEnum;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
-import net.maku.system.vo.user.SysUserPostVO;
-import net.maku.system.vo.user.SysUserPutVO;
-import net.maku.system.vo.user.SysUserQuery;
-import net.maku.system.vo.user.SysUserVO;
+import net.maku.system.query.SysUserQuery;
+import net.maku.system.vo.SysUserVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +62,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(SysUserPostVO vo) {
+    public void save(SysUserVO vo) {
         SysUserEntity entity = SysUserConvert.INSTANCE.convert(vo);
         entity.setSuperAdmin(SuperAdminEnum.NO.getValue());
 
@@ -91,7 +89,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     }
 
     @Override
-    public void update(SysUserPutVO vo) {
+    public void update(SysUserVO vo) {
         SysUserEntity entity = SysUserConvert.INSTANCE.convert(vo);
 
         // 判断用户名是否存在

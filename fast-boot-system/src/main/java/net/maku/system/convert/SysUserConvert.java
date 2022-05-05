@@ -2,9 +2,7 @@ package net.maku.system.convert;
 
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.entity.SysUserEntity;
-import net.maku.system.vo.user.SysUserPostVO;
-import net.maku.system.vo.user.SysUserPutVO;
-import net.maku.system.vo.user.SysUserVO;
+import net.maku.system.vo.SysUserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -15,11 +13,9 @@ import java.util.List;
 public interface SysUserConvert {
     SysUserConvert INSTANCE = Mappers.getMapper(SysUserConvert.class);
 
-    SysUserEntity convert(SysUserPostVO vo);
-
-    SysUserEntity convert(SysUserPutVO vo);
-
     SysUserVO convert(SysUserEntity entity);
+
+    SysUserEntity convert(SysUserVO vo);
 
     SysUserVO convert(UserDetail userDetail);
 

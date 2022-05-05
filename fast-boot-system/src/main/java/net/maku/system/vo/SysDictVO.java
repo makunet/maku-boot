@@ -1,4 +1,4 @@
-package net.maku.system.vo.dict;
+package net.maku.system.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

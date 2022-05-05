@@ -3,9 +3,7 @@ package net.maku.system.service;
 import net.maku.framework.common.service.BaseService;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.entity.SysMenuEntity;
-import net.maku.system.vo.menu.SysMenuPostVO;
-import net.maku.system.vo.menu.SysMenuPutVO;
-import net.maku.system.vo.menu.SysMenuVO;
+import net.maku.system.vo.SysMenuVO;
 
 import java.util.List;
 import java.util.Set;
@@ -18,9 +16,9 @@ import java.util.Set;
  */
 public interface SysMenuService extends BaseService<SysMenuEntity> {
 
-	void save(SysMenuPostVO vo);
+	void save(SysMenuVO vo);
 
-	void update(SysMenuPutVO vo);
+	void update(SysMenuVO vo);
 
 	void delete(Long id);
 

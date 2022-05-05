@@ -13,10 +13,8 @@ import net.maku.system.service.SysRoleDataScopeService;
 import net.maku.system.service.SysRoleMenuService;
 import net.maku.system.service.SysRoleService;
 import net.maku.system.service.SysUserRoleService;
-import net.maku.system.vo.role.SysRolePostVO;
-import net.maku.system.vo.role.SysRolePutVO;
-import net.maku.system.vo.role.SysRoleQuery;
-import net.maku.system.vo.role.SysRoleVO;
+import net.maku.system.query.SysRoleQuery;
+import net.maku.system.vo.SysRoleVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,7 +58,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void save(SysRolePostVO vo) {
+	public void save(SysRoleVO vo) {
 		SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(vo);
 
 		// 保存角色
@@ -75,7 +73,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void update(SysRolePutVO vo) {
+	public void update(SysRoleVO vo) {
 		SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(vo);
 
 		// 更新角色

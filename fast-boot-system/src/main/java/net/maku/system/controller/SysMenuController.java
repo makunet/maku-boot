@@ -12,9 +12,7 @@ import net.maku.system.convert.SysMenuConvert;
 import net.maku.system.entity.SysMenuEntity;
 import net.maku.system.enums.MenuTypeEnum;
 import net.maku.system.service.SysMenuService;
-import net.maku.system.vo.menu.SysMenuPostVO;
-import net.maku.system.vo.menu.SysMenuPutVO;
-import net.maku.system.vo.menu.SysMenuVO;
+import net.maku.system.vo.SysMenuVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,7 +79,7 @@ public class SysMenuController {
 	@PostMapping
 	@Operation(summary = "保存")
 	@PreAuthorize("hasAuthority('sys:menu:save')")
-	public Result<String> save(@RequestBody @Valid SysMenuPostVO vo){
+	public Result<String> save(@RequestBody @Valid SysMenuVO vo){
 		sysMenuService.save(vo);
 
 		return Result.ok();
@@ -90,7 +88,7 @@ public class SysMenuController {
 	@PutMapping
 	@Operation(summary = "修改")
 	@PreAuthorize("hasAuthority('sys:menu:update')")
-	public Result<String> update(@RequestBody @Valid SysMenuPutVO vo){
+	public Result<String> update(@RequestBody @Valid SysMenuVO vo){
 		sysMenuService.update(vo);
 
 		return Result.ok();

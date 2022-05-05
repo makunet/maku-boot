@@ -1,4 +1,4 @@
-package net.maku.system.vo.dict.data;
+package net.maku.system.query;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

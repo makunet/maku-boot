@@ -8,9 +8,7 @@ import net.maku.framework.common.utils.Result;
 import net.maku.system.convert.SysOrgConvert;
 import net.maku.system.entity.SysOrgEntity;
 import net.maku.system.service.SysOrgService;
-import net.maku.system.vo.org.SysOrgPostVO;
-import net.maku.system.vo.org.SysOrgPutVO;
-import net.maku.system.vo.org.SysOrgVO;
+import net.maku.system.vo.SysOrgVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +55,7 @@ public class SysOrgController {
 	@PostMapping
 	@Operation(summary = "保存")
 	@PreAuthorize("hasAuthority('sys:org:save')")
-	public Result<String> save(@RequestBody @Valid SysOrgPostVO vo){
+	public Result<String> save(@RequestBody @Valid SysOrgVO vo){
 		sysOrgService.save(vo);
 
 		return Result.ok();
@@ -66,7 +64,7 @@ public class SysOrgController {
 	@PutMapping
 	@Operation(summary = "修改")
 	@PreAuthorize("hasAuthority('sys:org:update')")
-	public Result<String> update(@RequestBody @Valid SysOrgPutVO vo){
+	public Result<String> update(@RequestBody @Valid SysOrgVO vo){
 		sysOrgService.update(vo);
 
 		return Result.ok();

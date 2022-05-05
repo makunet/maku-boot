@@ -8,10 +8,8 @@ import net.maku.framework.common.utils.Result;
 import net.maku.system.convert.SysPostConvert;
 import net.maku.system.entity.SysPostEntity;
 import net.maku.system.service.SysPostService;
-import net.maku.system.vo.post.SysPostPostVO;
-import net.maku.system.vo.post.SysPostPutVO;
-import net.maku.system.vo.post.SysPostQuery;
-import net.maku.system.vo.post.SysPostVO;
+import net.maku.system.query.SysPostQuery;
+import net.maku.system.vo.SysPostVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,7 +58,7 @@ public class SysPostController {
     @PostMapping
     @Operation(summary = "保存")
     @PreAuthorize("hasAuthority('sys:post:save')")
-    public Result<String> save(@RequestBody SysPostPostVO vo){
+    public Result<String> save(@RequestBody SysPostVO vo){
         sysPostService.save(vo);
 
         return Result.ok();
@@ -69,7 +67,7 @@ public class SysPostController {
     @PutMapping
     @Operation(summary = "修改")
     @PreAuthorize("hasAuthority('sys:post:update')")
-    public Result<String> update(@RequestBody @Valid SysPostPutVO vo){
+    public Result<String> update(@RequestBody @Valid SysPostVO vo){
         sysPostService.update(vo);
 
         return Result.ok();

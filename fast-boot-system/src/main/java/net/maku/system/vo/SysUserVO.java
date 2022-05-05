@@ -1,25 +1,31 @@
-package net.maku.system.vo.user;
+package net.maku.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import net.maku.framework.common.utils.DateUtils;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
- * 用户新增
+ * 用户
  *
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(description = "用户新增")
-public class SysUserPostVO implements Serializable {
+@Schema(description = "用户")
+public class SysUserVO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @Schema(description = "id")
+    private Long id;
 
     @Schema(description = "用户名", required = true)
     @NotBlank(message = "用户名不能为空")
@@ -62,4 +68,13 @@ public class SysUserPostVO implements Serializable {
     @Schema(description = "岗位ID列表")
     private List<Long> postIdList;
 
+    @Schema(description = "超级管理员   0：否   1：是")
+    private Integer superAdmin;
+
+    @Schema(description = "机构名称")
+    private String orgName;
+
+    @Schema(description = "创建时间")
+    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
+    private Date createTime;
 }

@@ -2,9 +2,7 @@ package net.maku.system.service;
 
 import net.maku.framework.common.service.BaseService;
 import net.maku.system.entity.SysOrgEntity;
-import net.maku.system.vo.org.SysOrgPostVO;
-import net.maku.system.vo.org.SysOrgPutVO;
-import net.maku.system.vo.org.SysOrgVO;
+import net.maku.system.vo.SysOrgVO;
 
 import java.util.List;
 
@@ -17,9 +15,9 @@ public interface SysOrgService extends BaseService<SysOrgEntity> {
 
 	List<SysOrgVO> getList();
 
-	void save(SysOrgPostVO vo);
+	void save(SysOrgVO vo);
 
-	void update(SysOrgPutVO vo);
+	void update(SysOrgVO vo);
 
 	void delete(Long id);
 

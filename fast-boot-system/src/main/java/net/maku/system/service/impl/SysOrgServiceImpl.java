@@ -12,9 +12,7 @@ import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysOrgEntity;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.service.SysOrgService;
-import net.maku.system.vo.org.SysOrgPostVO;
-import net.maku.system.vo.org.SysOrgPutVO;
-import net.maku.system.vo.org.SysOrgVO;
+import net.maku.system.vo.SysOrgVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +46,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void save(SysOrgPostVO vo) {
+	public void save(SysOrgVO vo) {
 		SysOrgEntity entity = SysOrgConvert.INSTANCE.convert(vo);
 
 		baseMapper.insert(entity);
@@ -56,7 +54,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void update(SysOrgPutVO vo) {
+	public void update(SysOrgVO vo) {
 		SysOrgEntity entity = SysOrgConvert.INSTANCE.convert(vo);
 
 		// 上级机构不能为自身

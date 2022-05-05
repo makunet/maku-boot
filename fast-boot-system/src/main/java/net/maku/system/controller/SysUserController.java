@@ -10,10 +10,12 @@ import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.convert.SysUserConvert;
 import net.maku.system.entity.SysUserEntity;
+import net.maku.system.query.SysUserQuery;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
-import net.maku.system.vo.user.*;
+import net.maku.system.vo.SysUserPasswordVO;
+import net.maku.system.vo.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -91,7 +93,7 @@ public class SysUserController {
     @PostMapping
     @Operation(summary = "保存")
     @PreAuthorize("hasAuthority('sys:user:save')")
-    public Result<String> save(@RequestBody @Valid SysUserPostVO vo){
+    public Result<String> save(@RequestBody @Valid SysUserVO vo){
         // 新增密码不能为空
         if (StrUtil.isBlank(vo.getPassword())){
             Result.error("密码不能为空");
@@ -109,7 +111,7 @@ public class SysUserController {
     @PutMapping
     @Operation(summary = "修改")
     @PreAuthorize("hasAuthority('sys:user:update')")
-    public Result<String> update(@RequestBody @Valid SysUserPutVO vo){
+    public Result<String> update(@RequestBody @Valid SysUserVO vo){
         // 如果密码不为空，则进行加密处理
         if(StrUtil.isBlank(vo.getPassword())){
             vo.setPassword(null);

@@ -3,10 +3,8 @@ package net.maku.system.service;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.BaseService;
 import net.maku.system.entity.SysUserEntity;
-import net.maku.system.vo.user.SysUserPostVO;
-import net.maku.system.vo.user.SysUserPutVO;
-import net.maku.system.vo.user.SysUserQuery;
-import net.maku.system.vo.user.SysUserVO;
+import net.maku.system.query.SysUserQuery;
+import net.maku.system.vo.SysUserVO;
 
 import java.util.List;
 
@@ -19,9 +17,9 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 
     PageResult<SysUserVO> page(SysUserQuery query);
 
-    void save(SysUserPostVO vo);
+    void save(SysUserVO vo);
 
-    void update(SysUserPutVO vo);
+    void update(SysUserVO vo);
 
     void delete(List<Long> idList);
 

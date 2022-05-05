@@ -13,11 +13,9 @@ import net.maku.system.dao.SysDictTypeDao;
 import net.maku.system.entity.SysDictDataEntity;
 import net.maku.system.entity.SysDictTypeEntity;
 import net.maku.system.service.SysDictTypeService;
-import net.maku.system.vo.dict.SysDictVO;
-import net.maku.system.vo.dict.type.SysDictTypePostVO;
-import net.maku.system.vo.dict.type.SysDictTypePutVO;
-import net.maku.system.vo.dict.type.SysDictTypeQuery;
-import net.maku.system.vo.dict.type.SysDictTypeVO;
+import net.maku.system.vo.SysDictVO;
+import net.maku.system.query.SysDictTypeQuery;
+import net.maku.system.vo.SysDictTypeVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +49,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(SysDictTypePostVO vo) {
+    public void save(SysDictTypeVO vo) {
         SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(vo);
 
         baseMapper.insert(entity);
@@ -59,7 +57,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(SysDictTypePutVO vo) {
+    public void update(SysDictTypeVO vo) {
         SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(vo);
 
         updateById(entity);

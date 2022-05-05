@@ -1,4 +1,4 @@
-package net.maku.system.vo.org;
+package net.maku.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import net.maku.framework.common.utils.DateUtils;
 import net.maku.framework.common.utils.TreeNode;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -18,16 +20,13 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "机构")
 public class SysOrgVO extends TreeNode<SysOrgVO> {
-	@Schema(description = "id")
-	private Long id;
 
-	@Schema(description = "上级ID")
-	private Long pid;
-
-	@Schema(description = "机构名称")
+	@Schema(description = "机构名称", required = true)
+	@NotBlank(message = "机构名称不能为空")
 	private String name;
 
-	@Schema(description = "排序")
+	@Schema(description = "排序", required = true)
+	@Min(value = 0, message = "排序值不能小于0")
 	private Integer sort;
 
 	@Schema(description = "创建时间")

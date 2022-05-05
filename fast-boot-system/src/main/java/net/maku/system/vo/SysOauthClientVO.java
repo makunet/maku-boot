@@ -1,21 +1,27 @@
-package net.maku.system.vo.oauth;
+package net.maku.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import net.maku.framework.common.utils.DateUtils;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * 客户端管理 新增
+ * 客户端管理
  *
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(description = "客户端管理新增")
-public class SysOauthClientPostVO implements Serializable {
+@Schema(description = "客户端管理")
+public class SysOauthClientVO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @Schema(description = "id", required = true)
+    private Long id;
 
     @Schema(description = "客户端ID", required = true)
     @NotBlank(message = "客户端ID不能为空")
@@ -55,4 +61,8 @@ public class SysOauthClientPostVO implements Serializable {
     @Schema(description = "自动授权", required = true)
     @NotBlank(message = "自动授权不能为空")
     private String autoapprove;
+
+    @Schema(description = "创建时间")
+    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
+    private Date createTime;
 }

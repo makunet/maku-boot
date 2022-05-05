@@ -8,10 +8,8 @@ import net.maku.framework.common.utils.Result;
 import net.maku.system.convert.SysDictDataConvert;
 import net.maku.system.entity.SysDictDataEntity;
 import net.maku.system.service.SysDictDataService;
-import net.maku.system.vo.dict.data.SysDictDataPostVO;
-import net.maku.system.vo.dict.data.SysDictDataPutVO;
-import net.maku.system.vo.dict.data.SysDictDataQuery;
-import net.maku.system.vo.dict.data.SysDictDataVO;
+import net.maku.system.query.SysDictDataQuery;
+import net.maku.system.vo.SysDictDataVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +49,7 @@ public class SysDictDataController {
     @PostMapping
     @Operation(summary = "保存")
     @PreAuthorize("hasAuthority('sys:dict:save')")
-    public Result<String> save(@RequestBody @Valid SysDictDataPostVO vo){
+    public Result<String> save(@RequestBody @Valid SysDictDataVO vo){
         sysDictDataService.save(vo);
 
         return Result.ok();
@@ -60,7 +58,7 @@ public class SysDictDataController {
     @PutMapping
     @Operation(summary = "修改")
     @PreAuthorize("hasAuthority('sys:dict:update')")
-    public Result<String> update(@RequestBody @Valid SysDictDataPutVO vo){
+    public Result<String> update(@RequestBody @Valid SysDictDataVO vo){
         sysDictDataService.update(vo);
 
         return Result.ok();

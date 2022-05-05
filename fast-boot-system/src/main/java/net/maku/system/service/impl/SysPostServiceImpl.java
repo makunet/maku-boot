@@ -11,10 +11,8 @@ import net.maku.system.dao.SysPostDao;
 import net.maku.system.entity.SysPostEntity;
 import net.maku.system.service.SysPostService;
 import net.maku.system.service.SysUserPostService;
-import net.maku.system.vo.post.SysPostPostVO;
-import net.maku.system.vo.post.SysPostPutVO;
-import net.maku.system.vo.post.SysPostQuery;
-import net.maku.system.vo.post.SysPostVO;
+import net.maku.system.query.SysPostQuery;
+import net.maku.system.vo.SysPostVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,14 +56,14 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostDao, SysPostEntit
     }
 
     @Override
-    public void save(SysPostPostVO vo) {
+    public void save(SysPostVO vo) {
         SysPostEntity entity = SysPostConvert.INSTANCE.convert(vo);
 
         baseMapper.insert(entity);
     }
 
     @Override
-    public void update(SysPostPutVO vo) {
+    public void update(SysPostVO vo) {
         SysPostEntity entity = SysPostConvert.INSTANCE.convert(vo);
 
         updateById(entity);

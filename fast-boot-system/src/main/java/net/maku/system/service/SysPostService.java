@@ -3,10 +3,8 @@ package net.maku.system.service;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.BaseService;
 import net.maku.system.entity.SysPostEntity;
-import net.maku.system.vo.post.SysPostPostVO;
-import net.maku.system.vo.post.SysPostPutVO;
-import net.maku.system.vo.post.SysPostQuery;
-import net.maku.system.vo.post.SysPostVO;
+import net.maku.system.query.SysPostQuery;
+import net.maku.system.vo.SysPostVO;
 
 import java.util.List;
 
@@ -21,9 +19,9 @@ public interface SysPostService extends BaseService<SysPostEntity> {
 
     List<SysPostVO> getList();
 
-    void save(SysPostPostVO vo);
+    void save(SysPostVO vo);
 
-    void update(SysPostPutVO vo);
+    void update(SysPostVO vo);
 
     void delete(List<Long> idList);
 }

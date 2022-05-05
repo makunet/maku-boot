@@ -9,9 +9,7 @@ import net.maku.system.convert.SysOauthClientConvert;
 import net.maku.system.dao.SysOauthClientDao;
 import net.maku.system.entity.SysOauthClientEntity;
 import net.maku.system.service.SysOauthClientService;
-import net.maku.system.vo.oauth.SysOauthClientPostVO;
-import net.maku.system.vo.oauth.SysOauthClientPutVO;
-import net.maku.system.vo.oauth.SysOauthClientVO;
+import net.maku.system.vo.SysOauthClientVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +31,7 @@ public class SysOauthClientServiceImpl extends BaseServiceImpl<SysOauthClientDao
     }
 
     @Override
-    public void save(SysOauthClientPostVO vo) {
+    public void save(SysOauthClientVO vo) {
         SysOauthClientEntity entity = SysOauthClientConvert.INSTANCE.convert(vo);
         //entity.setAuthorizedGrantTypes(JsonUtils.toJsonString(vo.getAuthorizedGrantTypes()));
 
@@ -41,7 +39,7 @@ public class SysOauthClientServiceImpl extends BaseServiceImpl<SysOauthClientDao
     }
 
     @Override
-    public void update(SysOauthClientPutVO vo) {
+    public void update(SysOauthClientVO vo) {
         SysOauthClientEntity entity = SysOauthClientConvert.INSTANCE.convert(vo);
 
         updateById(entity);

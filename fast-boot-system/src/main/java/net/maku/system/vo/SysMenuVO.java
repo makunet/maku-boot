@@ -1,13 +1,16 @@
-package net.maku.system.vo.menu;
+package net.maku.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import net.maku.framework.common.utils.DateUtils;
+import net.maku.framework.common.utils.TreeNode;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 菜单管理
@@ -15,13 +18,9 @@ import java.io.Serializable;
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(description = "菜单新增")
-public class SysMenuPostVO implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Schema(description = "上级ID")
-	@NotNull(message = "上级ID不能为空")
-	private Long pid;
+@EqualsAndHashCode(callSuper = true)
+@Schema(description = "菜单")
+public class SysMenuVO extends TreeNode<SysMenuVO> {
 
 	@Schema(description = "菜单名称")
 	@NotBlank(message = "菜单名称不能为空")
@@ -47,4 +46,11 @@ public class SysMenuPostVO implements Serializable {
 	@Schema(description = "排序")
 	@Min(value = 0, message = "排序值不能小于0")
 	private Integer sort;
+
+	@Schema(description = "创建时间")
+	@JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
+	private Date createTime;
+
+	@Schema(description = "上级菜单名称")
+	private String parentName;
 }
