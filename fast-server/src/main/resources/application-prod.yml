@@ -1,6 +1,3 @@
-knife4j:
-  production: true
-
 spring:
   redis:
     database: 1
