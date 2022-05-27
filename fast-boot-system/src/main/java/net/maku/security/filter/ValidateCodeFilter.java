@@ -22,7 +22,7 @@ import java.io.IOException;
 @Component
 @AllArgsConstructor
 public class ValidateCodeFilter extends OncePerRequestFilter {
-    private final static String OAUTH_TOKEN_URL = "/oauth/token";
+    private final static String OAUTH_TOKEN_URL = "/sys/oauth/token";
     private final CaptchaService captchaService;
     private final UserAuthenticationFailureHandler authenticationFailureHandler;
 

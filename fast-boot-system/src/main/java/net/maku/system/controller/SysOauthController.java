@@ -25,7 +25,7 @@ import java.util.Map;
  * @author 阿沐 babamu@126.com
  */
 @RestController
-@RequestMapping("oauth")
+@RequestMapping("sys/oauth")
 @Tag(name="认证管理")
 @AllArgsConstructor
 public class SysOauthController {

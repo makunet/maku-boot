@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Swagger配置
  *
- * @author 阿沐  dolinked@qq.com
+ * @author 阿沐  babamu@126.com
  */
 @Configuration
 public class SwaggerConfig{
@@ -35,9 +35,9 @@ public class SwaggerConfig{
             .description( "FastBoot")
             .contact(contact)
             .version("1.0")
-            .termsOfService("https://gitee.com/makunet")
+            .termsOfService("https://maku.net")
             .license(new License().name("MIT")
-            .url("https://gitee.com/makunet")));
+            .url("https://maku.net")));
     }
 
 }

@@ -8,7 +8,7 @@
 
     <name>fast-boot</name>
     <description>FastBoot</description>
-    <url>https://gitee.com/makunet</url>
+    <url>https://maku.net</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

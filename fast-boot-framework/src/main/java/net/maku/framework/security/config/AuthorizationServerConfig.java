@@ -56,6 +56,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.exceptionTranslator(new FastWebResponseExceptionTranslator());
         // 配置授权码模式，存放在Redis中
         endpoints.authorizationCodeServices(redisAuthorizationCodeServices);
+        // 自定义登录地址
+        endpoints.pathMapping("/oauth/token","/sys/oauth/token");
     }
 
     @Bean
