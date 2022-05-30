@@ -15,9 +15,6 @@
 		<if test="gender != null">
 			and t1.gender = #{gender}
 		</if>
-		<if test="dataScope != null">
-			${dataScope}
-		</if>
 	</select>
 
 	<select id="getById" resultType="net.maku.system.entity.SysUserEntity">

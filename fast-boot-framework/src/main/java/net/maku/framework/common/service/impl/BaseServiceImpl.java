@@ -47,13 +47,19 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T>  extends ServiceImpl<M,
     /**
      * 原生SQL 数据权限
      * @param tableAlias 表别名，多表关联时，需要填写表别名
+     * @param orgIdAlias 机构ID别名，null：表示org_id
      * @return 返回数据权限
      */
-    protected DataScope getDataScope(String tableAlias)  {
+    protected DataScope getDataScope(String tableAlias, String orgIdAlias)  {
         UserDetail user = SecurityUser.getUser();
         // 如果是超级管理员，则不进行数据过滤
         if(user.getSuperAdmin().equals(Constant.SUPER_ADMIN)) {
             return null;
+        }
+
+        // 如果为null，则设置成空字符串
+        if(tableAlias == null){
+            tableAlias = "";
         }
 
         // 获取表的别名
@@ -72,7 +78,10 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T>  extends ServiceImpl<M,
         }
         // 数据过滤
         if(dataScopeList.size() > 0){
-            sqlFilter.append(tableAlias).append("org_id");
+            if(StringUtils.isBlank(orgIdAlias)){
+                orgIdAlias = "org_id";
+            }
+            sqlFilter.append(tableAlias).append(orgIdAlias);
 
             sqlFilter.append(" in(").append(StrUtil.join(",", dataScopeList)).append(")");
 
@@ -91,7 +100,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T>  extends ServiceImpl<M,
      * MyBatis-Plus 数据权限
      */
     protected void dataScopeWrapper(QueryWrapper<T> queryWrapper)  {
-        DataScope dataScope = getDataScope(null);
+        DataScope dataScope = getDataScope(null, null);
         if (dataScope != null){
             queryWrapper.apply(dataScope.getSqlFilter());
         }

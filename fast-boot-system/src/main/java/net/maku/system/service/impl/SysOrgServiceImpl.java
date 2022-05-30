@@ -36,7 +36,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
 		Map<String, Object> params = new HashMap<>();
 
 		// 数据权限
-		params.put(Constant.DATA_SCOPE, getDataScope("t1"));
+		params.put(Constant.DATA_SCOPE, getDataScope("t1", "id"));
 
 		// 机构列表
 		List<SysOrgEntity> entityList = baseMapper.getList(params);

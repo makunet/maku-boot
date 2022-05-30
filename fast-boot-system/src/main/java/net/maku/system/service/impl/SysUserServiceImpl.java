@@ -55,7 +55,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         params.put("gender", query.getGender());
 
         // 数据权限
-        params.put(Constant.DATA_SCOPE, getDataScope("t1"));
+        params.put(Constant.DATA_SCOPE, getDataScope("t1", null));
 
         return params;
     }

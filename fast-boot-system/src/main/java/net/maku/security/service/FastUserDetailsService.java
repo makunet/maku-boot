@@ -90,6 +90,9 @@ public class FastUserDetailsService implements UserDetailsService {
             dataScopeList.addAll(sysRoleDataScopeDao.getDataScopeList(userDetail.getId()));
 
             return dataScopeList;
+        } else if (dataScope.equals(DataScopeEnum.CUSTOM.getValue())) {
+            // 自定义数据权限范围
+            return sysRoleDataScopeDao.getDataScopeList(userDetail.getId());
         }
 
         return new ArrayList<>();
