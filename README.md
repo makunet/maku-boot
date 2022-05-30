@@ -1,10 +1,7 @@
 ## 项目说明
 - FastBoot是采用SpringBoot、SpringSecurity、Mybatis-Plus等框架，开发的一套SpringBoot快速开发系统，使用门槛极低，且采用MIT开源协议，完全免费开源，可免费用于**商业项目**等场景。
 - 开发文档：[https://maku.net/docs/fast-boot](https://maku.net/docs/fast-boot)
-
-
-## 演示环境
-演示地址：https://demo.maku.net/fast-boot
+- 演示地址：https://demo.maku.net/fast-boot
 
 
 ## 前端工程
