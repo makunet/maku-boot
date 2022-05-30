@@ -1,7 +1,5 @@
 ## 项目说明
 - FastBoot是采用SpringBoot、SpringSecurity、Mybatis-Plus等框架，开发的一套SpringBoot快速开发系统，使用门槛极低，且采用MIT开源协议，完全免费开源，可免费用于**商业项目**等场景。
-- 前端工程：[https://gitee.com/makunet/fast-admin](https://gitee.com/makunet/fast-admin)
-- 代码生成器：[https://gitee.com/makunet/fast-generator](https://gitee.com/makunet/fast-generator)
 - 开发文档：[https://maku.net/docs/fast-boot](https://maku.net/docs/fast-boot)
 
 
@@ -9,20 +7,14 @@
 演示地址：https://demo.maku.net/fast-boot
 
 
-## 环境搭建
-- 下载项目源码，一般通过git clone命令
-- idea、eclipse需安装lombok插件，不然会提示找不到get set方法
-- 创建数据库fast_boot，数据库编码为utf8mb4
-- 执行db/mysql.sql文件，初始化数据库脚本
-- 修改application-dev.yml文件，配置MySQL、Redis账号信息
-- 在fast-boot目录下，执行mvn clean install
+## 前端工程
+- Github仓库：https://github.com/makunet/fast-admin
+- Gitee仓库：https://gitee.com/makunet/fast-admin
 
 
-## 本地启动
-- 在fast-server工程里面，运行ServerApplication.java，则可启动项目
-- 接口文档路径：http://localhost:8080/doc.html
-- 再启动前端项目：https://gitee.com/makunet/fast-admin
-- 账号密码：admin/admin
+## 代码生成器
+- Github仓库：https://github.com/makunet/fast-generator
+- Gitee仓库：https://gitee.com/makunet/fast-generator
 
 
 ## 交流和反馈
@@ -35,7 +27,7 @@
 ## 微信交流群
 为了更好的交流，我们新提供了微信交流群，需扫描下面的二维码，关注公众号，回复【加群】，根据提示信息，作者会拉你进群的，感谢配合！
 
-![](https://maku.net/app/img/qrcode.jpg)
+![输入图片说明](fast-server/src/main/resources/public/qrcode.png)
 
 
 ## 支持
