@@ -15,7 +15,7 @@
 		select t3.* from sys_user_role t1
 			left join sys_role_menu t2 on t1.role_id = t2.role_id
 			left join sys_menu t3 on t2.menu_id = t3.id
-		where t1.user_id = #{userId} and t1.deleted = 0 and t3.deleted = 0
+		where t1.user_id = #{userId} and t1.deleted = 0 and t2.deleted = 0 and t3.deleted = 0
 		<if test="type != null">
 			and t3.type = #{type}
 		</if>
@@ -26,7 +26,7 @@
 		select t3.authority from sys_user_role t1
 		    left join sys_role_menu t2 on t1.role_id = t2.role_id
 			left join sys_menu t3 on t2.menu_id = t3.id
-		where t1.user_id = #{userId} and t1.deleted = 0 and t3.deleted = 0 order by t3.sort asc
+		where t1.user_id = #{userId} and t1.deleted = 0 and t2.deleted = 0 and t3.deleted = 0 order by t3.sort asc
 	</select>
 
 	<select id="getAuthorityList" resultType="string">

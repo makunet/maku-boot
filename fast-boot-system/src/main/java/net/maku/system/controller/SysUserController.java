@@ -128,6 +128,11 @@ public class SysUserController {
     @Operation(summary = "删除")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result<String> delete(@RequestBody List<Long> idList){
+        Long userId = SecurityUser.getUserId();
+        if(idList.contains(userId)){
+            return Result.error("不能删除当前登录用户");
+        }
+
         sysUserService.delete(idList);
 
         return Result.ok();
