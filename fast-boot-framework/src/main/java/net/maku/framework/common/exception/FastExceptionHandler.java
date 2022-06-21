@@ -21,7 +21,7 @@ public class FastExceptionHandler {
 	 * 处理自定义异常
 	 */
 	@ExceptionHandler(FastException.class)
-	public Result<String> handleRenException(FastException ex){
+	public Result<String> handleException(FastException ex){
 
 		return Result.error(ex.getCode(), ex.getMsg());
 	}
