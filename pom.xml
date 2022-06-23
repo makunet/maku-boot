@@ -26,7 +26,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <druid.version>1.2.9</druid.version>
         <mybatisplus.version>3.5.2</mybatisplus.version>
         <knife4j.version>3.0.3</knife4j.version>
         <springdoc.version>1.6.8</springdoc.version>
@@ -62,11 +61,6 @@
                 <groupId>org.springframework.security.oauth</groupId>
                 <artifactId>spring-security-oauth2</artifactId>
                 <version>${security.oauth2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>

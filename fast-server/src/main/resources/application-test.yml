@@ -1,35 +1,21 @@
 spring:
   redis:
     database: 1
-    host: redis
+    host: localhost
     port: 6379
-    password: wvK5mleB7WqNbIAY9t2QxdVJhpHUDSyT
+    #password:
     #timeout: 6000ms  # 连接超时时长（毫秒）
   datasource:
-    druid:
-      url: jdbc:mysql://mysql:3306/fast_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
-      username: fast
-      password: 123456
-      initial-size: 1
-      min-idle: 1
-      max-active: 1
-      max-wait: 6000
-      min-evictable-idle-time-millis: 600000
-      max-evictable-idle-time-millis: 900000
-      validation-query: SELECT 1
-      test-on-borrow: false
-      test-on-return: false
-      test-while-idle: true
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-        login-username: admin
-        login-password: admin
-      filter:
-        stat:
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: false
-        wall:
-          config:
-            multi-statement-allow: true
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fast_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    username: fast
+    password: 123456
+    hikari:
+      connection-timeout: 30000     # 等待连接池分配链接的最大时长（毫秒），超过这个时长还没有可用的连接则发生 SQLException，默认：30 秒
+      minimum-idle: 5               # 最小连接数
+      maximum-pool-size: 5          # 最大连接数
+      auto-commit: true             # 自动提交
+      idle-timeout: 600000          # 连接超时的最大时长（毫秒），超时则被释放（retired），默认：10 分钟
+      max-lifetime: 1800000         # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认： 30 分钟
+      connection-test-query: SELECT 1
