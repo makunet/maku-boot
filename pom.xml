@@ -18,8 +18,8 @@
 
     <modules>
 	    <module>fast-boot-framework</module>
-	    <module>fast-boot-demo</module>
 		<module>fast-boot-system</module>
+		<module>fast-boot-new</module>
         <module>fast-server</module>
     </modules>
 
