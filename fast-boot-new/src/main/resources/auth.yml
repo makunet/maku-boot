@@ -1,0 +1,4 @@
+# 配置忽略认证的URL地址
+auth:
+  ignore_urls:
+    - /new/**

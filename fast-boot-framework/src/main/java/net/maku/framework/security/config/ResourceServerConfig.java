@@ -11,6 +11,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+import java.util.List;
+
 /**
  * 资源服务器配置
  *
@@ -22,6 +24,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private final TokenStore tokenStore;
+    private final PermitResource permitResource;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
@@ -32,11 +35,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        // 忽略授权的地址列表
+        List<String> permitList = permitResource.getPermitList();
+        String [] permits = permitList.toArray(new String[permitList.size()]);
+
         http
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers(PermitResource.IGNORING_URLS).permitAll()
+            .antMatchers(permits).permitAll()
             .anyRequest().authenticated()
         ;
     }
