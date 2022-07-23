@@ -4,6 +4,7 @@ import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.BaseService;
 import net.maku.system.entity.SysRoleEntity;
 import net.maku.system.query.SysRoleQuery;
+import net.maku.system.vo.SysRoleDataScopeVO;
 import net.maku.system.vo.SysRoleVO;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public interface SysRoleService extends BaseService<SysRoleEntity> {
 	void save(SysRoleVO vo);
 
 	void update(SysRoleVO vo);
+
+	void dataScope(SysRoleDataScopeVO vo);
 
 	void delete(List<Long> idList);
 }

@@ -15,10 +15,12 @@ import net.maku.system.service.SysRoleMenuService;
 import net.maku.system.service.SysRoleService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.query.SysRoleQuery;
+import net.maku.system.vo.SysRoleDataScopeVO;
 import net.maku.system.vo.SysRoleVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -63,14 +65,11 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
 		SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(vo);
 
 		// 保存角色
-		entity.setDataScope(DataScopeEnum.CUSTOM.getValue());
+		entity.setDataScope(DataScopeEnum.SELF.getValue());
 		baseMapper.insert(entity);
 
 		// 保存角色菜单关系
 		sysRoleMenuService.saveOrUpdate(entity.getId(), vo.getMenuIdList());
-
-		// 保存角色数据权限关系
-		sysRoleDataScopeService.saveOrUpdate(entity.getId(), vo.getOrgIdList());
 	}
 
 	@Override
@@ -83,9 +82,22 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
 
 		// 更新角色菜单关系
 		sysRoleMenuService.saveOrUpdate(entity.getId(), vo.getMenuIdList());
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void dataScope(SysRoleDataScopeVO vo) {
+		SysRoleEntity entity = getById(vo.getId());
+		entity.setDataScope(vo.getDataScope());
+		// 更新角色
+		updateById(entity);
 
 		// 更新角色数据权限关系
-		sysRoleDataScopeService.saveOrUpdate(entity.getId(), vo.getOrgIdList());
+		if(vo.getDataScope().equals(DataScopeEnum.CUSTOM.getValue())){
+			sysRoleDataScopeService.saveOrUpdate(entity.getId(), vo.getOrgIdList());
+		}else {
+			sysRoleDataScopeService.deleteByRoleIdList(Collections.singletonList(vo.getId()));
+		}
 	}
 
 	@Override

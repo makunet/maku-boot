@@ -15,6 +15,7 @@ import net.maku.system.service.SysRoleMenuService;
 import net.maku.system.service.SysRoleService;
 import net.maku.system.vo.SysMenuVO;
 import net.maku.system.query.SysRoleQuery;
+import net.maku.system.vo.SysRoleDataScopeVO;
 import net.maku.system.vo.SysRoleVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -89,6 +90,15 @@ public class SysRoleController {
 	@PreAuthorize("hasAuthority('sys:role:update')")
 	public Result<String> update(@RequestBody @Valid SysRoleVO vo){
 		sysRoleService.update(vo);
+
+		return Result.ok();
+	}
+
+	@PutMapping("data-scope")
+	@Operation(summary = "数据权限")
+	@PreAuthorize("hasAuthority('sys:role:update')")
+	public Result<String> dataScope(@RequestBody @Valid SysRoleDataScopeVO vo){
+		sysRoleService.dataScope(vo);
 
 		return Result.ok();
 	}
