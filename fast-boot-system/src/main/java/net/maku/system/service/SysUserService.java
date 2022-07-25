@@ -3,6 +3,7 @@ package net.maku.system.service;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.BaseService;
 import net.maku.system.entity.SysUserEntity;
+import net.maku.system.query.SysRoleUserQuery;
 import net.maku.system.query.SysUserQuery;
 import net.maku.system.vo.SysUserVO;
 
@@ -29,5 +30,10 @@ public interface SysUserService extends BaseService<SysUserEntity> {
      * @param newPassword  新密码
      */
     void updatePassword(Long id, String newPassword);
+
+    /**
+     * 分配角色，用户列表
+     */
+    PageResult<SysUserVO> roleUserPage(SysRoleUserQuery query);
 
 }

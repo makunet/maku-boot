@@ -47,6 +47,19 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleDao, SysU
     }
 
     @Override
+    public void saveUserList(Long roleId, List<Long> userIdList) {
+        List<SysUserRoleEntity> list = userIdList.stream().map(userId -> {
+            SysUserRoleEntity entity = new SysUserRoleEntity();
+            entity.setUserId(userId);
+            entity.setRoleId(roleId);
+            return entity;
+        }).collect(Collectors.toList());
+
+        // 批量新增
+        saveBatch(list);
+    }
+
+    @Override
     public void deleteByRoleIdList(List<Long> roleIdList) {
         remove(new QueryWrapper<SysUserRoleEntity>().in("role_id", roleIdList));
     }
@@ -54,6 +67,11 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleDao, SysU
     @Override
     public void deleteByUserIdList(List<Long> userIdList) {
         remove(new QueryWrapper<SysUserRoleEntity>().in("user_id", userIdList));
+    }
+
+    @Override
+    public void deleteByUserIdList(Long roleId, List<Long> userIdList) {
+        remove(new QueryWrapper<SysUserRoleEntity>().eq("role_id", roleId).in("user_id", userIdList));
     }
 
     @Override

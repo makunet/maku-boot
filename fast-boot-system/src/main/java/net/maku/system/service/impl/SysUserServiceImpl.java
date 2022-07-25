@@ -10,6 +10,7 @@ import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.enums.SuperAdminEnum;
+import net.maku.system.query.SysRoleUserQuery;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
@@ -59,6 +60,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         return params;
     }
+
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -133,6 +136,22 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         user.setPassword(newPassword);
 
         updateById(user);
+    }
+
+    @Override
+    public PageResult<SysUserVO> roleUserPage(SysRoleUserQuery query) {
+        // 查询参数
+        Map<String, Object> params = getParams(query);
+        params.put("roleId", query.getRoleId());
+
+        // 分页查询
+        IPage<SysUserEntity> page = getPage(query);
+        params.put(Constant.PAGE, page);
+
+        // 数据列表
+        List<SysUserEntity> list = baseMapper.getRoleUserList(params);
+
+        return new PageResult<>(SysUserConvert.INSTANCE.convertList(list), page.getTotal());
     }
 
 }
