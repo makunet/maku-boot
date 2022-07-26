@@ -11,7 +11,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.maku</groupId>
-			<artifactId>fast-boot-framework</artifactId>
+			<artifactId>fast-framework</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
