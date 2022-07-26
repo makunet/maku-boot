@@ -1,7 +1,7 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
 import net.maku.system.dao.SysRoleDataScopeDao;
 import net.maku.system.entity.SysRoleDataScopeEntity;
@@ -45,7 +45,11 @@ public class SysRoleDataScopeServiceImpl extends BaseServiceImpl<SysRoleDataScop
         // 需要删除的机构ID
         Collection<Long> deleteOrgIdList = CollUtil.subtract(dbOrgIdList, orgIdList);
         if (CollUtil.isNotEmpty(deleteOrgIdList)){
-            remove(new QueryWrapper<SysRoleDataScopeEntity>().eq("role_id", roleId).in("org_id", deleteOrgIdList));
+            LambdaQueryWrapper<SysRoleDataScopeEntity> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(SysRoleDataScopeEntity::getRoleId, roleId);
+            queryWrapper.in(SysRoleDataScopeEntity::getOrgId, deleteOrgIdList);
+
+            remove(queryWrapper);
         }
     }
 
@@ -56,6 +60,6 @@ public class SysRoleDataScopeServiceImpl extends BaseServiceImpl<SysRoleDataScop
 
     @Override
     public void deleteByRoleIdList(List<Long> roleIdList) {
-        remove(new QueryWrapper<SysRoleDataScopeEntity>().in("role_id", roleIdList));
+        remove(new LambdaQueryWrapper<SysRoleDataScopeEntity>().in(SysRoleDataScopeEntity::getRoleId, roleIdList));
     }
 }

@@ -1,7 +1,8 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.page.PageResult;
@@ -45,12 +46,12 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostDao, SysPostEntit
         return SysPostConvert.INSTANCE.convertList(entityList);
     }
 
-    private QueryWrapper<SysPostEntity> getWrapper(SysPostQuery query){
-        QueryWrapper<SysPostEntity> wrapper = new QueryWrapper<>();
-        wrapper.like(StrUtil.isNotBlank(query.getPostCode()), "post_code", query.getPostCode());
-        wrapper.like(StrUtil.isNotBlank(query.getPostName()), "post_name", query.getPostName());
-        wrapper.eq(query.getStatus() != null, "status", query.getStatus());
-        wrapper.orderByAsc("sort");
+    private Wrapper<SysPostEntity> getWrapper(SysPostQuery query){
+        LambdaQueryWrapper<SysPostEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StrUtil.isNotBlank(query.getPostCode()), SysPostEntity::getPostCode, query.getPostCode());
+        wrapper.like(StrUtil.isNotBlank(query.getPostName()), SysPostEntity::getPostName, query.getPostName());
+        wrapper.eq(query.getStatus() != null, SysPostEntity::getStatus, query.getStatus());
+        wrapper.orderByAsc(SysPostEntity::getSort);
 
         return wrapper;
     }

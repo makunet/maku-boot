@@ -1,7 +1,8 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.page.PageResult;
@@ -10,11 +11,11 @@ import net.maku.system.convert.SysRoleConvert;
 import net.maku.system.dao.SysRoleDao;
 import net.maku.system.entity.SysRoleEntity;
 import net.maku.system.enums.DataScopeEnum;
+import net.maku.system.query.SysRoleQuery;
 import net.maku.system.service.SysRoleDataScopeService;
 import net.maku.system.service.SysRoleMenuService;
 import net.maku.system.service.SysRoleService;
 import net.maku.system.service.SysUserRoleService;
-import net.maku.system.query.SysRoleQuery;
 import net.maku.system.vo.SysRoleDataScopeVO;
 import net.maku.system.vo.SysRoleVO;
 import org.springframework.stereotype.Service;
@@ -49,9 +50,9 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
 		return SysRoleConvert.INSTANCE.convertList(entityList);
 	}
 
-	private QueryWrapper<SysRoleEntity> getWrapper(SysRoleQuery query){
-		QueryWrapper<SysRoleEntity> wrapper = new QueryWrapper<>();
-		wrapper.like(StrUtil.isNotBlank(query.getName()), "name", query.getName());
+	private Wrapper<SysRoleEntity> getWrapper(SysRoleQuery query){
+		LambdaQueryWrapper<SysRoleEntity> wrapper = new LambdaQueryWrapper<>();
+		wrapper.like(StrUtil.isNotBlank(query.getName()), SysRoleEntity::getName, query.getName());
 
 		// 数据权限
 		dataScopeWrapper(wrapper);

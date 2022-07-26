@@ -1,7 +1,7 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
 import net.maku.system.dao.SysUserPostDao;
 import net.maku.system.entity.SysUserPostEntity;
@@ -42,18 +42,19 @@ public class SysUserPostServiceImpl extends BaseServiceImpl<SysUserPostDao, SysU
         // 需要删除的岗位ID
         Collection<Long> deletePostIdList = CollUtil.subtract(dbPostIdList, postIdList);
         if (CollUtil.isNotEmpty(deletePostIdList)){
-            remove(new QueryWrapper<SysUserPostEntity>().eq("user_id", userId).in("post_id", deletePostIdList));
+            LambdaQueryWrapper<SysUserPostEntity> queryWrapper = new LambdaQueryWrapper<>();
+            remove(queryWrapper.eq(SysUserPostEntity::getUserId, userId).in(SysUserPostEntity::getPostId, deletePostIdList));
         }
     }
 
     @Override
     public void deleteByPostIdList(List<Long> postIdList) {
-        remove(new QueryWrapper<SysUserPostEntity>().in("post_id", postIdList));
+        remove(new LambdaQueryWrapper<SysUserPostEntity>().in(SysUserPostEntity::getPostId, postIdList));
     }
 
     @Override
     public void deleteByUserIdList(List<Long> userIdList) {
-        remove(new QueryWrapper<SysUserPostEntity>().in("user_id", userIdList));
+        remove(new LambdaQueryWrapper<SysUserPostEntity>().in(SysUserPostEntity::getUserId, userIdList));
     }
 
     @Override

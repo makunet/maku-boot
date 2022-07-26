@@ -1,6 +1,8 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -38,11 +40,11 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
         return new PageResult<>(SysDictTypeConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
     }
 
-    private QueryWrapper<SysDictTypeEntity> getWrapper(SysDictTypeQuery query){
-        QueryWrapper<SysDictTypeEntity> wrapper = new QueryWrapper<>();
-        wrapper.like(StrUtil.isNotBlank(query.getDictType()), "dict_type", query.getDictType());
-        wrapper.like(StrUtil.isNotBlank(query.getDictName()), "dict_name", query.getDictName());
-        wrapper.orderByAsc("sort");
+    private Wrapper<SysDictTypeEntity> getWrapper(SysDictTypeQuery query){
+        LambdaQueryWrapper<SysDictTypeEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(StrUtil.isNotBlank(query.getDictType()), SysDictTypeEntity::getDictType, query.getDictType());
+        wrapper.like(StrUtil.isNotBlank(query.getDictName()), SysDictTypeEntity::getDictName, query.getDictName());
+        wrapper.orderByAsc(SysDictTypeEntity::getSort);
 
         return wrapper;
     }

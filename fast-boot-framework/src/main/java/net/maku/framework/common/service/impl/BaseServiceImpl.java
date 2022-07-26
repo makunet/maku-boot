@@ -1,7 +1,7 @@
 package net.maku.framework.common.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -99,7 +99,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T>  extends ServiceImpl<M,
     /**
      * MyBatis-Plus 数据权限
      */
-    protected void dataScopeWrapper(QueryWrapper<T> queryWrapper)  {
+    protected void dataScopeWrapper(LambdaQueryWrapper<T> queryWrapper)  {
         DataScope dataScope = getDataScope(null, null);
         if (dataScope != null){
             queryWrapper.apply(dataScope.getSqlFilter());

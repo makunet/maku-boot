@@ -1,7 +1,7 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
 import net.maku.system.dao.SysUserRoleDao;
 import net.maku.system.entity.SysUserRoleEntity;
@@ -42,7 +42,8 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleDao, SysU
         // 需要删除的角色ID
         Collection<Long> deleteRoleIdList = CollUtil.subtract(dbRoleIdList, roleIdList);
         if (CollUtil.isNotEmpty(deleteRoleIdList)){
-            remove(new QueryWrapper<SysUserRoleEntity>().eq("user_id", userId).in("role_id", deleteRoleIdList));
+            LambdaQueryWrapper<SysUserRoleEntity> queryWrapper = new LambdaQueryWrapper<>();
+            remove(queryWrapper.eq(SysUserRoleEntity::getUserId, userId).in(SysUserRoleEntity::getRoleId, deleteRoleIdList));
         }
     }
 
@@ -61,17 +62,18 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleDao, SysU
 
     @Override
     public void deleteByRoleIdList(List<Long> roleIdList) {
-        remove(new QueryWrapper<SysUserRoleEntity>().in("role_id", roleIdList));
+        remove(new LambdaQueryWrapper<SysUserRoleEntity>().in(SysUserRoleEntity::getRoleId, roleIdList));
     }
 
     @Override
     public void deleteByUserIdList(List<Long> userIdList) {
-        remove(new QueryWrapper<SysUserRoleEntity>().in("user_id", userIdList));
+        remove(new LambdaQueryWrapper<SysUserRoleEntity>().in(SysUserRoleEntity::getUserId, userIdList));
     }
 
     @Override
     public void deleteByUserIdList(Long roleId, List<Long> userIdList) {
-        remove(new QueryWrapper<SysUserRoleEntity>().eq("role_id", roleId).in("user_id", userIdList));
+        LambdaQueryWrapper<SysUserRoleEntity> queryWrapper = new LambdaQueryWrapper<>();
+        remove(queryWrapper.eq(SysUserRoleEntity::getRoleId, roleId).in(SysUserRoleEntity::getUserId, userIdList));
     }
 
     @Override

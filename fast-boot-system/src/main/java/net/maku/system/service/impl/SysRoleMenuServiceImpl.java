@@ -1,7 +1,7 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
 import net.maku.system.dao.SysRoleMenuDao;
 import net.maku.system.entity.SysRoleMenuEntity;
@@ -45,7 +45,8 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuDao, SysR
 		// 需要删除的菜单ID
 		Collection<Long> deleteMenuIdList = CollUtil.subtract(dbMenuIdList, menuIdList);
 		if (CollUtil.isNotEmpty(deleteMenuIdList)){
-			remove(new QueryWrapper<SysRoleMenuEntity>().eq("role_id", roleId).in("menu_id", deleteMenuIdList));
+			LambdaQueryWrapper<SysRoleMenuEntity> queryWrapper = new LambdaQueryWrapper<>();
+			remove(queryWrapper.eq(SysRoleMenuEntity::getRoleId, roleId).in(SysRoleMenuEntity::getMenuId, deleteMenuIdList));
 		}
 	}
 
@@ -57,13 +58,13 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuDao, SysR
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteByRoleIdList(List<Long> roleIdList) {
-		remove(new QueryWrapper<SysRoleMenuEntity>().in("role_id", roleIdList));
+		remove(new LambdaQueryWrapper<SysRoleMenuEntity>().in(SysRoleMenuEntity::getRoleId, roleIdList));
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteByMenuId(Long menuId) {
-		remove(new QueryWrapper<SysRoleMenuEntity>().eq("menu_id", menuId));
+		remove(new LambdaQueryWrapper<SysRoleMenuEntity>().eq(SysRoleMenuEntity::getMenuId, menuId));
 	}
 
 }
