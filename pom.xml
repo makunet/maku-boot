@@ -17,8 +17,9 @@
     </parent>
 
     <modules>
-		<module>fast-boot-system</module>
 		<module>fast-boot-new</module>
+		<module>fast-boot-system</module>
+		<module>fast-boot-api</module>
 		<module>fast-framework</module>
         <module>fast-server</module>
     </modules>
@@ -34,6 +35,7 @@
         <security.oauth2.version>2.3.8.RELEASE</security.oauth2.version>
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <aliyun.oss.version>3.8.0</aliyun.oss.version>
     </properties>
 
     <dependencies>
@@ -102,6 +104,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.oss.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

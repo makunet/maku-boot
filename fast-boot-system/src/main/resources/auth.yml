@@ -9,3 +9,4 @@ auth:
     - /swagger-ui/**
     - /doc.html
     - /sys/oauth/captcha
+    - /upload/**
