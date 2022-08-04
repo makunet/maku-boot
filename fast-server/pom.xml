@@ -14,11 +14,11 @@
 			<artifactId>fast-boot-new</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<dependency>
-			<groupId>net.maku</groupId>
-			<artifactId>fast-boot-quartz</artifactId>
-			<version>${revision}</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>net.maku</groupId>-->
+<!--			<artifactId>fast-boot-quartz</artifactId>-->
+<!--			<version>${revision}</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>net.maku</groupId>
 			<artifactId>fast-boot-system</artifactId>
