@@ -19,17 +19,20 @@
     <modules>
 		<module>fast-boot-new</module>
 		<module>fast-boot-system</module>
+		<module>fast-boot-module</module>
 		<module>fast-boot-api</module>
 		<module>fast-framework</module>
         <module>fast-server</module>
     </modules>
 
     <properties>
-        <revision>1.2.0</revision>
+        <revision>1.3.0</revision>
+        <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <mybatisplus.version>3.5.2</mybatisplus.version>
+        <dameng.version>8.1.2.79</dameng.version>
         <knife4j.version>3.0.3</knife4j.version>
         <springdoc.version>1.6.8</springdoc.version>
         <hutool.version>5.7.22</hutool.version>
@@ -70,6 +73,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dameng</groupId>
+                <artifactId>DmJdbcDriver18</artifactId>
+                <version>${dameng.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>

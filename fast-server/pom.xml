@@ -16,6 +16,11 @@
 		</dependency>
 		<dependency>
 			<groupId>net.maku</groupId>
+			<artifactId>fast-boot-quartz</artifactId>
+			<version>${revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.maku</groupId>
 			<artifactId>fast-boot-system</artifactId>
 			<version>${revision}</version>
 		</dependency>
