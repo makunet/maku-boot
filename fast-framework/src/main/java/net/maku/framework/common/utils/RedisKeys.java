@@ -21,24 +21,4 @@ public class RedisKeys {
         return "oauth:code:" + code;
     }
 
-    /**
-     * 微信小程序授权key
-     *
-     * @param key
-     * @return
-     */
-    public static String getWxMpAuthKey(String key) {
-        return "wx:mp:auth:" + key;
-    }
-
-    /**
-     * 微信小程序授权类型key
-     *
-     * @param key
-     * @return
-     */
-    public static String getWxMpAuthTypeKey(String key) {
-        return "wx:mp:auth:type:" + key;
-    }
-
 }
