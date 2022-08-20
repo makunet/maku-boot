@@ -18,7 +18,7 @@ public enum SmsPlatformEnum {
     /**
      * 腾讯云
      */
-    QCLOUD(1),
+    TENCENT(1),
     /**
      * 七牛云
      */

@@ -17,8 +17,8 @@ public class SmsContext {
     public SmsContext(SmsConfig config) {
         if (config.getPlatform() == SmsPlatformEnum.ALIYUN.getValue()) {
             this.smsStrategy = new AliyunSmsStrategy(config);
-        } else if (config.getPlatform() == SmsPlatformEnum.QCLOUD.getValue()) {
-            this.smsStrategy = new QcloudSmsStrategy(config);
+        } else if (config.getPlatform() == SmsPlatformEnum.TENCENT.getValue()) {
+            this.smsStrategy = new TencentSmsStrategy(config);
         } else if (config.getPlatform() == SmsPlatformEnum.QINIU.getValue()) {
             this.smsStrategy = new QiniuSmsStrategy(config);
         } else if (config.getPlatform() == SmsPlatformEnum.HUAWEI.getValue()) {

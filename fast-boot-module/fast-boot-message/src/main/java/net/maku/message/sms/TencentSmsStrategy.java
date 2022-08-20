@@ -5,8 +5,8 @@ import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.profile.ClientProfile;
 import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
-import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
+import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
 import com.tencentcloudapi.sms.v20210111.models.SendStatus;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.FastException;
@@ -19,11 +19,11 @@ import java.util.Map;
  *
  * @author 阿沐 babamu@126.com
  */
-public class QcloudSmsStrategy implements SmsStrategy {
+public class TencentSmsStrategy implements SmsStrategy {
     private final SmsConfig smsConfig;
     private SmsClient client;
 
-    public QcloudSmsStrategy(SmsConfig smsConfig){
+    public TencentSmsStrategy(SmsConfig smsConfig) {
         this.smsConfig = smsConfig;
 
         try {
@@ -36,7 +36,7 @@ public class QcloudSmsStrategy implements SmsStrategy {
 
             Credential cred = new Credential(smsConfig.getAccessKey(), smsConfig.getSecretKey());
             this.client = new SmsClient(cred, "ap-guangzhou", clientProfile);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -49,12 +49,12 @@ public class QcloudSmsStrategy implements SmsStrategy {
         request.setTemplateId(smsConfig.getTemplateId());
 
         // 有参数则设置
-        if(MapUtil.isNotEmpty(params)){
+        if (MapUtil.isNotEmpty(params)) {
             request.setTemplateParamSet(params.values().toArray(new String[0]));
         }
 
         // 手机号
-        String[] phoneNumberSet = { "+86" + mobile };
+        String[] phoneNumberSet = {"+86" + mobile};
         request.setPhoneNumberSet(phoneNumberSet);
 
         // 国际、港澳台短信，需要添加SenderId，国内短信填空，默认未开通
@@ -66,7 +66,7 @@ public class QcloudSmsStrategy implements SmsStrategy {
             SendStatus sendStatus = response.getSendStatusSet()[0];
 
             // 发送失败
-            if(!Constant.OK.equalsIgnoreCase(sendStatus.getCode())) {
+            if (!Constant.OK.equalsIgnoreCase(sendStatus.getCode())) {
                 throw new FastException(sendStatus.getMessage());
             }
         } catch (Exception e) {
