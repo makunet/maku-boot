@@ -17,11 +17,11 @@
     </parent>
 
     <modules>
-		<module>fast-boot-new</module>
-		<module>fast-boot-system</module>
-		<module>fast-boot-module</module>
-		<module>fast-boot-api</module>
-		<module>fast-framework</module>
+        <module>fast-boot-new</module>
+        <module>fast-boot-system</module>
+        <module>fast-boot-module</module>
+        <module>fast-boot-api</module>
+        <module>fast-framework</module>
         <module>fast-server</module>
     </modules>
 
@@ -42,6 +42,7 @@
         <aliyun.oss.version>3.8.0</aliyun.oss.version>
         <aliyun.dysmsapi.version>2.0.18</aliyun.dysmsapi.version>
         <tencentcloud.sdk.version>3.1.574</tencentcloud.sdk.version>
+        <qiniu.version>7.11.0</qiniu.version>
     </properties>
 
     <dependencies>
@@ -130,6 +131,11 @@
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java</artifactId>
                 <version>${tencentcloud.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
