@@ -51,6 +51,14 @@ public class RedisUtils {
         return get(key, NOT_EXPIRE);
     }
 
+    public Long increment(String key){
+        return redisTemplate.opsForValue().increment(key);
+    }
+
+    public Boolean hasKey(String key){
+        return redisTemplate.hasKey(key);
+    }
+
     public void delete(String key) {
         redisTemplate.delete(key);
     }
