@@ -20,7 +20,7 @@ CREATE TABLE sms_platform
     platform    tinyint COMMENT '平台类型  0：阿里云   1：腾讯云',
     sign_name   varchar(100) NOT NULL COMMENT '短信签名',
     template_id varchar(100) NOT NULL COMMENT '短信模板',
-    app_id      varchar(100) NOT NULL COMMENT '短信应用的ID，如：腾讯云等',
+    app_id      varchar(100) NOT NULL COMMENT '短信应用ID，如：腾讯云等',
     sender_id   varchar(100) NOT NULL COMMENT '腾讯云国际短信、华为云等需要',
     access_key  varchar(100) COMMENT 'AccessKey',
     secret_key  varchar(100) COMMENT 'SecretKey',
