@@ -40,8 +40,6 @@
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <aliyun.oss.version>3.8.0</aliyun.oss.version>
-        <aliyun.dysmsapi.version>2.0.18</aliyun.dysmsapi.version>
-        <tencentcloud.sdk.version>3.1.574</tencentcloud.sdk.version>
     </properties>
 
     <dependencies>
@@ -120,16 +118,6 @@
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${aliyun.oss.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>dysmsapi20170525</artifactId>
-                <version>${aliyun.dysmsapi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.tencentcloudapi</groupId>
-                <artifactId>tencentcloud-sdk-java</artifactId>
-                <version>${tencentcloud.sdk.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
