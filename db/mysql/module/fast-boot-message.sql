@@ -30,6 +30,7 @@ CREATE TABLE sms_platform
     template_id varchar(100) NOT NULL COMMENT '短信模板',
     app_id      varchar(100) NOT NULL COMMENT '短信应用ID，如：腾讯云等',
     sender_id   varchar(100) NOT NULL COMMENT '腾讯云国际短信、华为云等需要',
+    url         varchar(200) NOT NULL COMMENT '接入地址，如：华为云',
     access_key  varchar(100) COMMENT 'AccessKey',
     secret_key  varchar(100) COMMENT 'SecretKey',
     status      tinyint COMMENT '状态  0：禁用   1：启用',

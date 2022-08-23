@@ -40,6 +40,11 @@ public class SmsPlatformEntity extends BaseEntity {
     private String senderId;
 
     /**
+     * 接入地址，如：华为云
+     */
+    private String url;
+
+    /**
      * AccessKey
      */
     private String accessKey;
