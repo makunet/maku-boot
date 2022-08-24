@@ -13,5 +13,21 @@ public enum StorageTypeEnum {
     /**
      * 阿里云
      */
-    ALIYUN;
+    ALIYUN,
+    /**
+     * 腾讯云
+     */
+    TENCENT,
+    /**
+     * 七牛云
+     */
+    QINIU,
+    /**
+     * 华为云
+     */
+    HUAWEI,
+    /**
+     * Minio
+     */
+    MINIO;
 }
