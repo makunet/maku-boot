@@ -70,7 +70,7 @@ public class TencentSmsStrategy implements SmsStrategy {
                 throw new FastException(sendStatus.getMessage());
             }
         } catch (Exception e) {
-            throw new FastException("短信发送失败：", e);
+            throw new FastException(e.getMessage());
         }
     }
 }

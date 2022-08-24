@@ -2,8 +2,9 @@ package net.maku.message.sms;
 
 import cn.hutool.core.map.MapUtil;
 import com.aliyun.dysmsapi20170525.Client;
-import com.aliyun.dysmsapi20170525.models.*;
-import com.aliyun.teaopenapi.models.*;
+import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
+import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
+import com.aliyun.teaopenapi.models.Config;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.FastException;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class AliyunSmsStrategy implements SmsStrategy {
     private final Client client;
     private final SmsConfig smsConfig;
+
     public AliyunSmsStrategy(SmsConfig smsConfig) {
         this.smsConfig = smsConfig;
 
@@ -43,7 +45,7 @@ public class AliyunSmsStrategy implements SmsStrategy {
         request.setTemplateCode(smsConfig.getTemplateId());
         request.setPhoneNumbers(mobile);
 //        request.setTemplateParam("{\"code\":\"1234\"}");
-        if(MapUtil.isNotEmpty(params)){
+        if (MapUtil.isNotEmpty(params)) {
             request.setTemplateParam(JsonUtils.toJsonString(params));
         }
 
@@ -52,11 +54,11 @@ public class AliyunSmsStrategy implements SmsStrategy {
             SendSmsResponse response = client.sendSms(request);
 
             // 发送失败
-            if(!Constant.OK.equalsIgnoreCase(response.getBody().getCode())) {
+            if (!Constant.OK.equalsIgnoreCase(response.getBody().getCode())) {
                 throw new FastException(response.getBody().getMessage());
             }
         } catch (Exception e) {
-            throw new FastException("短信发送失败：", e);
+            throw new FastException(e.getMessage());
         }
     }
 }

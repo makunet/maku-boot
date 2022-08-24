@@ -38,9 +38,6 @@ public class HuaweiSmsStrategy implements SmsStrategy {
 
     @Override
     public void send(String mobile, Map<String, String> params) {
-        // APP接入地址(在控制台"应用管理"页面获取)+接口访问URI
-        String url = "https://smsapi.cn-north-4.myhuaweicloud.com:443/sms/batchSendSms/v1";
-
         // 有参数则设置
         String templateParas = null;
         if (MapUtil.isNotEmpty(params)) {
@@ -63,7 +60,7 @@ public class HuaweiSmsStrategy implements SmsStrategy {
             // 使用 https
             trustAllHttpsCertificates();
 
-            URL realUrl = new URL(url);
+            URL realUrl = new URL(smsConfig.getUrl());
             HttpsURLConnection connection = (HttpsURLConnection) realUrl.openConnection();
             HostnameVerifier hv = (hostname, session) -> true;
             connection.setHostnameVerifier(hv);
@@ -92,7 +89,7 @@ public class HuaweiSmsStrategy implements SmsStrategy {
                 throw new FastException(IoUtil.read(connection.getErrorStream(), CharsetUtil.CHARSET_UTF_8));
             }
         } catch (Exception e) {
-            throw new FastException("短信发送失败：", e);
+            throw new FastException(e.getMessage());
         }
     }
 
