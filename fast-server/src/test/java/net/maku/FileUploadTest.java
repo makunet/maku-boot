@@ -1,7 +1,7 @@
 package net.maku;
 
 import cn.hutool.core.io.IoUtil;
-import net.maku.api.module.storage.StorageService;
+import net.maku.storage.service.StorageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,9 +15,12 @@ public class FileUploadTest {
     private StorageService storageService;
 
     @Test
-    public void uploadTest() throws Exception{
-        byte[] data = IoUtil.readBytes(Files.newInputStream(new File("D://upload//1.png").toPath()));
-        String url = storageService.uploadSuffix(data, "png");
+    public void uploadTest() throws Exception {
+        File file = new File("D://upload//1.png");
+        byte[] data = IoUtil.readBytes(Files.newInputStream(file.toPath()));
+
+        String path = storageService.getPath(file.getName());
+        String url = storageService.upload(data, path);
         System.out.println(url);
     }
 
