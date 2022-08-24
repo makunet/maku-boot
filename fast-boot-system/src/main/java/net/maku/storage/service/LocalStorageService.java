@@ -1,6 +1,5 @@
 package net.maku.storage.service;
 
-import net.maku.api.module.storage.StorageService;
 import net.maku.framework.common.exception.FastException;
 import net.maku.storage.properties.StorageProperties;
 import org.springframework.util.FileCopyUtils;
@@ -16,8 +15,7 @@ import java.nio.file.Files;
  *
  * @author 阿沐 babamu@126.com
  */
-public class LocalStorageService implements StorageService {
-    private final StorageProperties properties;
+public class LocalStorageService extends StorageService {
 
     public LocalStorageService(StorageProperties properties) {
         this.properties = properties;
@@ -28,10 +26,6 @@ public class LocalStorageService implements StorageService {
         return upload(new ByteArrayInputStream(data), path);
     }
 
-    @Override
-    public String uploadSuffix(byte[] data, String suffix) {
-        return upload(data, getPath(properties.getConfig().getPrefix(), suffix));
-    }
 
     @Override
     public String upload(InputStream inputStream, String path) {
@@ -42,7 +36,7 @@ public class LocalStorageService implements StorageService {
             // 没有目录，则自动创建目录
             File parent = file.getParentFile();
             if (parent != null && !parent.mkdirs() && !parent.isDirectory()) {
-                throw new IOException("Directory '" + parent + "' could not be created");
+                throw new IOException("目录 '" + parent + "' 创建失败");
             }
 
             FileCopyUtils.copy(inputStream, Files.newOutputStream(file.toPath()));
@@ -51,10 +45,5 @@ public class LocalStorageService implements StorageService {
         }
 
         return properties.getConfig().getDomain() + "/" + properties.getLocal().getUrl() + "/" + path;
-    }
-
-    @Override
-    public String uploadSuffix(InputStream inputStream, String suffix) {
-        return upload(inputStream, getPath(properties.getConfig().getPrefix(), suffix));
     }
 }
