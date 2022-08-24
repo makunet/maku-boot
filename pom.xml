@@ -43,6 +43,9 @@
         <aliyun.dysmsapi.version>2.0.18</aliyun.dysmsapi.version>
         <tencentcloud.sdk.version>3.1.574</tencentcloud.sdk.version>
         <qiniu.version>7.11.0</qiniu.version>
+        <minio.version>8.4.3</minio.version>
+        <qcloud.cos.version>5.6.89</qcloud.cos.version>
+        <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
     </properties>
 
     <dependencies>
@@ -136,6 +139,21 @@
                 <groupId>com.qiniu</groupId>
                 <artifactId>qiniu-java-sdk</artifactId>
                 <version>${qiniu.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>cos_api</artifactId>
+                <version>${qcloud.cos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.huaweicloud</groupId>
+                <artifactId>esdk-obs-java-bundle</artifactId>
+                <version>${huaweicloud.obs.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
