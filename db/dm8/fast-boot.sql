@@ -270,48 +270,6 @@ COMMENT ON COLUMN sys_role_data_scope.create_time IS '创建时间';
 COMMENT ON COLUMN sys_role_data_scope.updater IS '更新者';
 COMMENT ON COLUMN sys_role_data_scope.update_time IS '更新时间';
 
-CREATE TABLE sys_oauth_client (
-    id bigint IDENTITY NOT NULL,
-    client_id varchar(256),
-    client_secret varchar(256),
-    resource_ids varchar(256),
-    scope varchar(256),
-    authorized_grant_types varchar(256),
-    web_server_redirect_uri varchar(256),
-    authorities varchar(256),
-    access_token_validity int,
-    refresh_token_validity int,
-    additional_information varchar(4096),
-    autoapprove varchar(128),
-    version     int,
-    deleted     int,
-    creator     bigint,
-    create_time datetime,
-    updater     bigint,
-    update_time datetime,
-    primary key (id)
-);
-
-COMMENT ON TABLE sys_oauth_client IS '客户端管理';
-COMMENT ON COLUMN sys_oauth_client.id IS 'id';
-COMMENT ON COLUMN sys_oauth_client.client_id IS '客户端id';
-COMMENT ON COLUMN sys_oauth_client.client_secret IS '客户端密钥';
-COMMENT ON COLUMN sys_oauth_client.resource_ids IS '资源ids';
-COMMENT ON COLUMN sys_oauth_client.scope IS '授权范围';
-COMMENT ON COLUMN sys_oauth_client.authorized_grant_types IS '授权类型';
-COMMENT ON COLUMN sys_oauth_client.web_server_redirect_uri IS '回调地址';
-COMMENT ON COLUMN sys_oauth_client.authorities IS '回调地址';
-COMMENT ON COLUMN sys_oauth_client.access_token_validity IS '访问令牌有效期';
-COMMENT ON COLUMN sys_oauth_client.refresh_token_validity IS '刷新令牌有效期';
-COMMENT ON COLUMN sys_oauth_client.additional_information IS '附加信息';
-COMMENT ON COLUMN sys_oauth_client.autoapprove IS '自动授权';
-COMMENT ON COLUMN sys_oauth_client.version IS '版本号';
-COMMENT ON COLUMN sys_oauth_client.deleted IS '删除标识  0：正常   1：已删除';
-COMMENT ON COLUMN sys_oauth_client.creator IS '创建者';
-COMMENT ON COLUMN sys_oauth_client.create_time IS '创建时间';
-COMMENT ON COLUMN sys_oauth_client.updater IS '更新者';
-COMMENT ON COLUMN sys_oauth_client.update_time IS '更新时间';
-
 create table sys_dict_type
 (
     id          bigint IDENTITY NOT NULL,
@@ -372,12 +330,33 @@ COMMENT ON COLUMN sys_dict_data.create_time IS '创建时间';
 COMMENT ON COLUMN sys_dict_data.updater IS '更新者';
 COMMENT ON COLUMN sys_dict_data.update_time IS '更新时间';
 
+create table sys_log_login
+(
+    id           bigint IDENTITY NOT NULL,
+    username     varchar(50),
+    ip           varchar(32),
+    address      varchar(32),
+    user_agent   varchar(500),
+    status       int,
+    operation    int,
+    create_time  datetime,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_log_login IS '登录日志';
+COMMENT ON COLUMN sys_log_login.id IS 'id';
+COMMENT ON COLUMN sys_log_login.username IS '用户名';
+COMMENT ON COLUMN sys_log_login.ip IS '登录IP';
+COMMENT ON COLUMN sys_log_login.address IS '登录地点';
+COMMENT ON COLUMN sys_log_login.user_agent IS 'User Agent';
+COMMENT ON COLUMN sys_log_login.status IS '登录状态  0：失败   1：成功';
+COMMENT ON COLUMN sys_log_login.operation IS '操作信息   0：登录成功   1：退出成功  2：验证码错误  3：账号密码错误';
+COMMENT ON COLUMN sys_log_login.create_time IS '创建时间';
+
+
 
 SET IDENTITY_INSERT sys_user ON;
 INSERT INTO sys_user (id, username, password, real_name, avatar, gender, email, mobile, status, org_id, super_admin, version, deleted, creator, create_time, updater, update_time) VALUES (10000, 'admin', '{bcrypt}$2a$10$mW/yJPHjyueQ1g26WNBz0uxVPa0GQdJO1fFZmqdkqgMTGnyszlXxu', 'admin', 'https://cdn.maku.net/images/avatar.png', 0, 'babamu@126.com', '13612345678', 1, null, 1, 0, 0, 10000, now(), 10000, now());
-
-SET IDENTITY_INSERT sys_oauth_client ON;
-INSERT INTO sys_oauth_client (id, client_id, client_secret, resource_ids, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'web', '123456', '', 'all', '["authorization_code","password","implicit","client_credentials","refresh_token"]', 'https://gitee.com/makunet', NULL, 43200, 604800, NULL, 'true', 0, 0, 10000, now(), 10000, now());
 
 SET IDENTITY_INSERT sys_menu ON;
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 0, '系统设置', NULL, NULL, 0, 0, 'icon-setting', 1, 0, 0, 10000, now(), 10000, now());

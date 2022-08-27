@@ -153,28 +153,6 @@ create table sys_role_data_scope
     key idx_role_id (role_id)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色数据权限';
 
-CREATE TABLE sys_oauth_client (
-    id bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
-    client_id varchar(256) NOT NULL COMMENT '客户端id',
-    client_secret varchar(256) COMMENT '客户端密钥',
-    resource_ids varchar(256) COMMENT '资源ids',
-    scope varchar(256) COMMENT '授权范围',
-    authorized_grant_types varchar(256) COMMENT '授权类型',
-    web_server_redirect_uri varchar(256) COMMENT '回调地址',
-    authorities varchar(256) COMMENT '权限标识',
-    access_token_validity int COMMENT '访问令牌有效期',
-    refresh_token_validity int COMMENT '刷新令牌有效期',
-    additional_information varchar(4096) COMMENT '附加信息',
-    autoapprove varchar(128) COMMENT '自动授权',
-    version     int COMMENT '版本号',
-    deleted     tinyint COMMENT '删除标识  0：正常   1：已删除',
-    creator     bigint COMMENT '创建者',
-    create_time datetime COMMENT '创建时间',
-    updater     bigint COMMENT '更新者',
-    update_time datetime COMMENT '更新时间',
-    PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT='客户端管理';
-
 create table sys_dict_type
 (
     id          bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -225,9 +203,22 @@ create table sys_attachment
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='附件管理';
 
 
+create table sys_log_login
+(
+    id           bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+    username     varchar(50) NOT NULL COMMENT '用户名',
+    ip           varchar(32) COMMENT '登录IP',
+    address      varchar(32) COMMENT '登录地点',
+    user_agent   varchar(500) COMMENT 'User Agent',
+    status       tinyint COMMENT '登录状态  0：失败   1：成功',
+    operation    tinyint unsigned COMMENT '操作信息   0：登录成功   1：退出成功  2：验证码错误  3：账号密码错误',
+    create_time  datetime COMMENT '创建时间',
+    primary key (id)
+) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='登录日志';
+
+
 
 INSERT INTO sys_user (id, username, password, real_name, avatar, gender, email, mobile, status, org_id, super_admin, version, deleted, creator, create_time, updater, update_time) VALUES (10000, 'admin', '{bcrypt}$2a$10$mW/yJPHjyueQ1g26WNBz0uxVPa0GQdJO1fFZmqdkqgMTGnyszlXxu', 'admin', 'https://cdn.maku.net/images/avatar.png', 0, 'babamu@126.com', '13612345678', 1, null, 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_oauth_client (id, client_id, client_secret, resource_ids, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'web', '123456', '', 'all', '["authorization_code","password","implicit","client_credentials","refresh_token"]', 'https://gitee.com/makunet', NULL, 43200, 604800, NULL, 'true', 0, 0, 10000, now(), 10000, now());
 
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 0, '系统设置', NULL, NULL, 0, 0, 'icon-setting', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (2, 1, '菜单管理', 'sys/menu/index', NULL, 0, 0, 'icon-menu', 0, 0, 0, 10000, now(), 10000, now());
@@ -241,12 +232,12 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (10, 7, '修改', '', 'sys:dict:update,sys:dict:info', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (11, 7, '删除', '', 'sys:dict:delete', 1, 0, '', 3, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (12, 0, '权限管理', '', '', 0, 0, 'icon-safetycertificate', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (13, 12, '岗位管理', 'sys/post/index', '', 0, 0, 'icon-addteam', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (13, 12, '岗位管理', 'sys/post/index', '', 0, 0, 'icon-solution', 2, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (14, 13, '查询', '', 'sys:post:page', 1, 0, '', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (15, 13, '新增', '', 'sys:post:save', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (16, 13, '修改', '', 'sys:post:update,sys:post:info', 1, 0, '', 2, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (17, 13, '删除', '', 'sys:post:delete', 1, 0, '', 3, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (18, 12, '机构管理', 'sys/org/index', '', 0, 0, 'icon-team', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (18, 12, '机构管理', 'sys/org/index', '', 0, 0, 'icon-cluster', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (19, 18, '查询', '', 'sys:org:list', 1, 0, '', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (20, 18, '新增', '', 'sys:org:save', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (21, 18, '修改', '', 'sys:org:update,sys:org:info', 1, 0, '', 2, 0, 0, 10000, now(), 10000, now());
