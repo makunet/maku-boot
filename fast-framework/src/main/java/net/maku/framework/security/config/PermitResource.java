@@ -21,10 +21,10 @@ import java.util.Properties;
 @Component
 public class PermitResource {
     /**
-     * 指定被 spring security oauth2.0 忽略的URL
+     * 指定被 spring security 忽略的URL
      */
     @SneakyThrows
-    public List<String> getPermitList(){
+    public List<String> getPermitList() {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource[] resources = resolver.getResources("classpath*:auth.yml");
         String key = "auth.ignore_urls";
@@ -32,16 +32,16 @@ public class PermitResource {
         return getPropertiesList(key, resources);
     }
 
-    private List<String> getPropertiesList(String key, Resource... resources){
+    private List<String> getPropertiesList(String key, Resource... resources) {
         List<String> list = new ArrayList<>();
 
         // 解析资源文件
-        for(Resource resource : resources) {
+        for (Resource resource : resources) {
             Properties properties = loadYamlProperties(resource);
 
             for (Map.Entry<Object, Object> entry : properties.entrySet()) {
                 String tmpKey = StringUtils.substringBefore(entry.getKey().toString(), "[");
-                if(tmpKey.equalsIgnoreCase(key)){
+                if (tmpKey.equalsIgnoreCase(key)) {
                     list.add(entry.getValue().toString());
                 }
             }

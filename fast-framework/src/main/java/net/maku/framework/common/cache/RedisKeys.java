@@ -1,4 +1,4 @@
-package net.maku.framework.common.utils;
+package net.maku.framework.common.cache;
 
 /**
  * Redis Key管理
@@ -15,10 +15,10 @@ public class RedisKeys {
     }
 
     /**
-     * 授权码Key
+     * accessToken Key
      */
-    public static String getOauthCode(String code) {
-        return "oauth:code:" + code;
+    public static String getAccessTokenKey(String accessToken) {
+        return "sys:access:" + accessToken;
     }
 
 }
