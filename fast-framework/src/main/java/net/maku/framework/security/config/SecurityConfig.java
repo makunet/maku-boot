@@ -2,43 +2,74 @@ package net.maku.framework.security.config;
 
 import lombok.AllArgsConstructor;
 import net.maku.framework.security.exception.SecurityAuthenticationEntryPoint;
+import net.maku.framework.security.mobile.MobileAuthenticationProvider;
+import net.maku.framework.security.mobile.MobileUserDetailsService;
+import net.maku.framework.security.mobile.MobileVerifyCodeService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SpringSecurity 配置文件
+ *
+ * @author 阿沐 babamu@126.com
+ */
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private final UserDetailsService userDetailsService;
     private final OncePerRequestFilter authenticationTokenFilter;
     private final PermitResource permitResource;
+    private final UserDetailsService userDetailsService;
+    private final MobileUserDetailsService mobileUserDetailsService;
+    private final MobileVerifyCodeService mobileVerifyCodeService;
+    private final PasswordEncoder passwordEncoder;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+
+        return daoAuthenticationProvider;
     }
 
     @Bean
-    public AuthenticationEventPublisher authenticationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
+    MobileAuthenticationProvider mobileAuthenticationProvider() {
+        return new MobileAuthenticationProvider(mobileUserDetailsService, mobileVerifyCodeService);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        List<AuthenticationProvider> providerList = new ArrayList<>();
+        providerList.add(daoAuthenticationProvider());
+        providerList.add(mobileAuthenticationProvider());
+
+        ProviderManager providerManager = new ProviderManager(providerList);
+        providerManager.setAuthenticationEventPublisher(new DefaultAuthenticationEventPublisher(applicationEventPublisher));
+
+        return providerManager;
     }
 
     @Bean
@@ -53,8 +84,7 @@ public class SecurityConfig {
                 .and().authorizeRequests()
                 .antMatchers(permits).permitAll()
                 .anyRequest().authenticated()
-                .and().userDetailsService(userDetailsService)
-                .exceptionHandling().authenticationEntryPoint(new SecurityAuthenticationEntryPoint())
+                .and().exceptionHandling().authenticationEntryPoint(new SecurityAuthenticationEntryPoint())
                 .and().headers().frameOptions().disable()
                 .and().csrf().disable()
         ;
