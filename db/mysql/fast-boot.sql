@@ -206,7 +206,7 @@ create table sys_attachment
 create table sys_log_login
 (
     id           bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
-    username     varchar(50) NOT NULL COMMENT '用户名',
+    username     varchar(50) COMMENT '用户名',
     ip           varchar(32) COMMENT '登录IP',
     address      varchar(32) COMMENT '登录地点',
     user_agent   varchar(500) COMMENT 'User Agent',
@@ -257,6 +257,8 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (35, 34, '查看', '', 'sys:attachment:page', 1, 0, '', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (36, 34, '上传', '', 'sys:attachment:save', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (37, 34, '删除', '', 'sys:attachment:delete', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (38, 0, '日志管理', '', '', 0, 0, 'icon-filedone', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (39, 61, '登录日志', 'sys/log/login', 'sys:log:login', 0, 0, 'icon-solution', 0, 0, 0, 10000, now(), 10000, now());
 
 
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'post_status', '状态', '岗位管理', 0, 0, 0, 10000, now(), 10000, now());
@@ -265,7 +267,7 @@ INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, dele
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (4, 'role_data_scope', '数据范围', '角色管理', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (5, 'enable_disable', '状态', '功能状态：启用 | 禁用 ', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (6, 'success_fail', '状态', '操作状态：成功 | 失败', 0, 0, 0, 10000, now(), 10000, now());
-
+INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (7, 'login_operation', '操作信息', '登录管理', 0, 0, 0, 10000, now(), 10000, now());
 
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 1, '停用', '0', '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (2, 1, '正常', '1', '', 0, 0, 0, 10000, now(), 10000, now());
@@ -283,3 +285,7 @@ INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sor
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (14, 5, '启用', '1', '', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (15, 6, '失败', '0', '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (16, 6, '成功', '1', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (17, 7, '登录成功', '0', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (18, 7, '退出成功', '1', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (19, 7, '验证码错误', '2', '', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (20, 7, '账号密码错误', '3', '', 3, 0, 0, 10000, now(), 10000, now());
