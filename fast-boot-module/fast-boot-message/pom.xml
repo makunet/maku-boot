@@ -16,6 +16,11 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
+            <groupId>net.maku</groupId>
+            <artifactId>fast-boot-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>dysmsapi20170525</artifactId>
         </dependency>
@@ -31,6 +36,7 @@
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

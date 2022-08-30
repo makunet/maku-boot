@@ -1,5 +1,7 @@
 package net.maku.system.service;
 
+import net.maku.system.vo.SysCaptchaVO;
+
 /**
  * 验证码
  *
@@ -8,11 +10,8 @@ package net.maku.system.service;
 public interface SysCaptchaService {
     /**
      * 生成验证码
-     *
-     * @param key key
-     * @return 返回base64图片验证码
      */
-    String generate(String key);
+    SysCaptchaVO generate();
 
     /**
      * 验证码效验

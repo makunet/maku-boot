@@ -1,19 +1,17 @@
-package net.maku.security.service;
+package net.maku.system.service.impl;
 
 import lombok.AllArgsConstructor;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysRoleDao;
 import net.maku.system.dao.SysRoleDataScopeDao;
-import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.enums.DataScopeEnum;
 import net.maku.system.enums.UserStatusEnum;
 import net.maku.system.service.SysMenuService;
 import net.maku.system.service.SysOrgService;
+import net.maku.system.service.SysUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,26 +19,20 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * UserDetailsService
+ * 用户 UserDetails 信息
  *
  * @author 阿沐 babamu@126.com
  */
 @Service
 @AllArgsConstructor
-public class FastUserDetailsService implements UserDetailsService {
+public class SysUserDetailsServiceImpl implements SysUserDetailsService {
     private final SysMenuService sysMenuService;
     private final SysOrgService sysOrgService;
-    private final SysUserDao sysUserDao;
     private final SysRoleDao sysRoleDao;
     private final SysRoleDataScopeDao sysRoleDataScopeDao;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUserEntity userEntity = sysUserDao.getByUsername(username);
-        if (userEntity == null) {
-            throw new UsernameNotFoundException("用户名或密码错误");
-        }
-
+    public UserDetails getUserDetails(SysUserEntity userEntity) {
         // 转换成UserDetail对象
         UserDetail userDetail = SysUserConvert.INSTANCE.convertDetail(userEntity);
 
@@ -91,5 +83,4 @@ public class FastUserDetailsService implements UserDetailsService {
 
         return new ArrayList<>();
     }
-
 }

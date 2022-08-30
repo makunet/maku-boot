@@ -11,10 +11,10 @@ import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.enums.SuperAdminEnum;
 import net.maku.system.query.SysRoleUserQuery;
+import net.maku.system.query.SysUserQuery;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
-import net.maku.system.query.SysUserQuery;
 import net.maku.system.vo.SysUserVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +49,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         return new PageResult<>(SysUserConvert.INSTANCE.convertList(list), page.getTotal());
     }
 
-    private Map<String, Object> getParams(SysUserQuery query){
+    private Map<String, Object> getParams(SysUserQuery query) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", query.getUsername());
         params.put("mobile", query.getMobile());
@@ -62,7 +62,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     }
 
 
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysUserVO vo) {
@@ -71,13 +70,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 判断用户名是否存在
         SysUserEntity user = baseMapper.getByUsername(entity.getUsername());
-        if(user != null) {
+        if (user != null) {
             throw new FastException("用户名已经存在");
         }
 
         // 判断手机号是否存在
         user = baseMapper.getByMobile(entity.getMobile());
-        if(user != null) {
+        if (user != null) {
             throw new FastException("手机号已经存在");
         }
 
@@ -97,13 +96,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 判断用户名是否存在
         SysUserEntity user = baseMapper.getByUsername(entity.getUsername());
-        if(user != null && !user.getId().equals(entity.getId())) {
+        if (user != null && !user.getId().equals(entity.getId())) {
             throw new FastException("用户名已经存在");
         }
 
         // 判断手机号是否存在
         user = baseMapper.getByMobile(entity.getMobile());
-        if(user != null && !user.getId().equals(entity.getId())) {
+        if (user != null && !user.getId().equals(entity.getId())) {
             throw new FastException("手机号已经存在");
         }
 
@@ -127,6 +126,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 删除用户岗位关系
         sysUserPostService.deleteByUserIdList(idList);
+    }
+
+    @Override
+    public SysUserVO getByMobile(String mobile) {
+        SysUserEntity user = baseMapper.getByMobile(mobile);
+        
+        return SysUserConvert.INSTANCE.convert(user);
     }
 
     @Override

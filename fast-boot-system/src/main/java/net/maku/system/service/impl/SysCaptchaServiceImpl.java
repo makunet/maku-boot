@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import net.maku.framework.common.cache.RedisCache;
 import net.maku.framework.common.cache.RedisKeys;
 import net.maku.system.service.SysCaptchaService;
+import net.maku.system.vo.SysCaptchaVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,17 +22,26 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
     private final RedisCache redisCache;
 
     @Override
-    public String generate(String key) {
+    public SysCaptchaVO generate() {
+        // 生成验证码key
+        String key = UUID.randomUUID().toString();
+
         // 生成验证码
         SpecCaptcha captcha = new SpecCaptcha(150, 40);
         captcha.setLen(5);
         captcha.setCharType(Captcha.TYPE_DEFAULT);
+        String image = captcha.toBase64();
 
         // 保存到缓存
-        key = RedisKeys.getCaptchaKey(key);
-        redisCache.set(key, captcha.text(), 300);
+        String redisKey = RedisKeys.getCaptchaKey(key);
+        redisCache.set(redisKey, captcha.text(), 300);
 
-        return captcha.toBase64();
+        // 封装返回数据
+        SysCaptchaVO captchaVO = new SysCaptchaVO();
+        captchaVO.setKey(key);
+        captchaVO.setImage(image);
+
+        return captchaVO;
     }
 
     @Override
@@ -43,11 +54,7 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
         String captcha = getCache(key);
 
         // 效验成功
-        if (code.equalsIgnoreCase(captcha)) {
-            return true;
-        }
-
-        return false;
+        return code.equalsIgnoreCase(captcha);
     }
 
     private String getCache(String key) {

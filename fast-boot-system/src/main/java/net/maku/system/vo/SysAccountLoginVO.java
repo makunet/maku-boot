@@ -6,13 +6,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 用户登录
+ * 账号登录
  *
  * @author 阿沐 babamu@126.com
  */
 @Data
-@Schema(description = "用户登录")
-public class SysLoginVO implements Serializable {
+@Schema(description = "账号登录")
+public class SysAccountLoginVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "用户名")
