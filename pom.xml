@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.maku</groupId>
-    <artifactId>fast-boot</artifactId>
+    <artifactId>maku-boot</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>fast-boot</name>
-    <description>FastBoot</description>
+    <name>maku-boot</name>
+    <description>maku-boot</description>
     <url>https://maku.net</url>
 
     <parent>
@@ -17,12 +17,12 @@
     </parent>
 
     <modules>
-        <module>fast-boot-new</module>
-        <module>fast-boot-system</module>
-        <module>fast-boot-module</module>
-        <module>fast-boot-api</module>
-        <module>fast-framework</module>
-        <module>fast-server</module>
+        <module>maku-boot-new</module>
+        <module>maku-boot-system</module>
+        <module>maku-boot-module</module>
+        <module>maku-boot-api</module>
+        <module>maku-framework</module>
+        <module>maku-server</module>
     </modules>
 
     <properties>
@@ -36,7 +36,6 @@
         <knife4j.version>3.0.3</knife4j.version>
         <springdoc.version>1.6.8</springdoc.version>
         <hutool.version>5.7.22</hutool.version>
-        <security.oauth2.version>2.3.8.RELEASE</security.oauth2.version>
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <aliyun.oss.version>3.8.0</aliyun.oss.version>
@@ -70,11 +69,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${security.oauth2.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
