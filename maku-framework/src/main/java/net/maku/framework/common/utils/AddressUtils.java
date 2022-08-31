@@ -1,6 +1,7 @@
 package net.maku.framework.common.utils;
 
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +36,7 @@ public class AddressUtils {
                 return UNKNOWN;
             }
 
-            Address address = JsonUtils.parseObject(response, Address.class);
+            Address address = JSONUtil.toBean(response, Address.class);
             return String.format("%s %s", address.getPro(), address.getCity());
         } catch (Exception e) {
             log.error("根据IP获取地址异常 {}", ip);
