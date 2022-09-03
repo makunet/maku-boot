@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.maku.framework.common.entity.BaseEntity;
 
+import java.io.Serializable;
+
 /**
  * 定时任务
  *
@@ -13,7 +15,9 @@ import net.maku.framework.common.entity.BaseEntity;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @TableName("schedule_job")
-public class ScheduleJobEntity extends BaseEntity {
+public class ScheduleJobEntity extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	* 任务名称
 	*/
