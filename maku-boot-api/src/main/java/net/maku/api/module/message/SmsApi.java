@@ -26,7 +26,7 @@ public interface SmsApi {
      * @param value  参数Value
      * @return 是否发送成功
      */
-    boolean send(String mobile, String key, String value);
+    boolean sendCode(String mobile, String key, String value);
 
     /**
      * 效验短信验证码

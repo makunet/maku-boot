@@ -26,7 +26,7 @@ public class SmsApiImpl implements SmsApi {
     }
 
     @Override
-    public boolean send(String mobile, String key, String value) {
+    public boolean sendCode(String mobile, String key, String value) {
         // 短信参数
         Map<String, String> params = new HashMap<>();
         params.put(key, value);
