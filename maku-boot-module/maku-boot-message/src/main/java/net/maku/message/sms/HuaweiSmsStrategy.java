@@ -60,7 +60,9 @@ public class HuaweiSmsStrategy implements SmsStrategy {
             // 使用 https
             trustAllHttpsCertificates();
 
-            URL realUrl = new URL(smsConfig.getUrl());
+            // 接入地址
+            String url = smsConfig.getUrl() + "/sms/batchSendSms/v1";
+            URL realUrl = new URL(url);
             HttpsURLConnection connection = (HttpsURLConnection) realUrl.openConnection();
             HostnameVerifier hv = (hostname, session) -> true;
             connection.setHostnameVerifier(hv);
