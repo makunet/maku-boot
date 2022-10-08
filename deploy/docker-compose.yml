@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  maku-boot:
+    image: makunet:1.0
+    container_name: maku-boot
+    ports:
+      - 8080:8080
+    environment:
+      - spring.profiles.active=prod
+    volumes:
+      - /work/www/maku-boot/maku-server.jar:/app/app.jar
