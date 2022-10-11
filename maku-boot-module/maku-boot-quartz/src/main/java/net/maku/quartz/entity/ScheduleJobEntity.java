@@ -1,11 +1,10 @@
 package net.maku.quartz.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import net.maku.framework.common.entity.BaseEntity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 定时任务
@@ -13,10 +12,15 @@ import java.io.Serializable;
  * @author 阿沐 babamu@126.com
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
 @TableName("schedule_job")
-public class ScheduleJobEntity extends BaseEntity implements Serializable {
+public class ScheduleJobEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * id
+	 */
+	@TableId
+	private Long id;
 
 	/**
 	* 任务名称
@@ -62,5 +66,43 @@ public class ScheduleJobEntity extends BaseEntity implements Serializable {
 	* 备注
 	*/
 	private String remark;
+
+	/**
+	 * 创建者
+	 */
+	@TableField(fill = FieldFill.INSERT)
+	private Long  creator;
+
+	/**
+	 * 创建时间
+	 */
+	@TableField(fill = FieldFill.INSERT)
+	private Date createTime;
+
+	/**
+	 * 更新者
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private Long  updater;
+
+	/**
+	 * 更新时间
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	private Date updateTime;
+
+	/**
+	 * 版本号
+	 */
+	@Version
+	@TableField(fill = FieldFill.INSERT)
+	private Integer version;
+
+	/**
+	 * 删除标记
+	 */
+	@TableLogic
+	@TableField(fill = FieldFill.INSERT)
+	private Integer deleted;
 
 }
