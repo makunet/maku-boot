@@ -22,12 +22,12 @@
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>net.maku</groupId>-->
-<!--            <artifactId>maku-boot-quartz</artifactId>-->
+<!--            <artifactId>maku-module-quartz</artifactId>-->
 <!--            <version>${revision}</version>-->
 <!--        </dependency>-->
         <dependency>
             <groupId>net.maku</groupId>
-            <artifactId>maku-boot-message</artifactId>
+            <artifactId>maku-module-message</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
