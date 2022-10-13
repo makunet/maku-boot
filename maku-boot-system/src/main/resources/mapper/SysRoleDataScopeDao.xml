@@ -9,7 +9,7 @@
 
     <select id="getDataScopeList" resultType="long">
         select t2.org_id from sys_user_role t1, sys_role_data_scope t2
-          where t1.user_id = #{userId} and t1.role_id = t2.role_id and t1.deleted = 0
+          where t1.user_id = #{userId} and t1.role_id = t2.role_id and t1.deleted = 0 and t2.deleted = 0
     </select>
 
 </mapper>
