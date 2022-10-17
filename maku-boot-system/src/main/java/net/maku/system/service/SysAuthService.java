@@ -30,7 +30,7 @@ public interface SysAuthService {
      *
      * @param mobile 手机号
      */
-    void sendCode(String mobile);
+    boolean sendCode(String mobile);
 
     /**
      * 退出登录

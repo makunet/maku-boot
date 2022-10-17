@@ -95,7 +95,7 @@ public class SysAuthServiceImpl implements SysAuthService {
     }
 
     @Override
-    public void sendCode(String mobile) {
+    public boolean sendCode(String mobile) {
         // 生成6位验证码
         String code = RandomUtil.randomNumbers(6);
 
@@ -105,7 +105,7 @@ public class SysAuthServiceImpl implements SysAuthService {
         }
 
         // 发送短信
-        smsApi.sendCode(mobile, "code", code);
+        return smsApi.sendCode(mobile, "code", code);
     }
 
     @Override

@@ -47,7 +47,10 @@ public class SysAuthController {
     @PostMapping("send/code")
     @Operation(summary = "发送短信验证码")
     public Result<String> sendCode(String mobile) {
-        sysAuthService.sendCode(mobile);
+        boolean flag = sysAuthService.sendCode(mobile);
+        if (!flag) {
+            return Result.error("短信发送失败！");
+        }
 
         return Result.ok();
     }
