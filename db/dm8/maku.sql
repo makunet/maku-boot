@@ -330,6 +330,35 @@ COMMENT ON COLUMN sys_dict_data.create_time IS '创建时间';
 COMMENT ON COLUMN sys_dict_data.updater IS '更新者';
 COMMENT ON COLUMN sys_dict_data.update_time IS '更新时间';
 
+create table sys_attachment
+(
+    id           bigint IDENTITY NOT NULL,
+    name         varchar(255) NOT NULL,
+    url          varchar(255) NOT NULL,
+    size         bigint,
+    platform     varchar(50),
+    version      int,
+    deleted      int,
+    creator      bigint,
+    create_time  datetime,
+    updater      bigint,
+    update_time  datetime,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_attachment IS '附件管理';
+COMMENT ON COLUMN sys_attachment.id IS 'id';
+COMMENT ON COLUMN sys_attachment.name IS '附件名称';
+COMMENT ON COLUMN sys_attachment.url IS '附件地址';
+COMMENT ON COLUMN sys_attachment.size IS '附件大小';
+COMMENT ON COLUMN sys_attachment.platform IS '存储平台';
+COMMENT ON COLUMN sys_attachment.version IS '版本号';
+COMMENT ON COLUMN sys_attachment.deleted IS '删除标识  0：正常   1：已删除';
+COMMENT ON COLUMN sys_attachment.creator IS '创建者';
+COMMENT ON COLUMN sys_attachment.create_time IS '创建时间';
+COMMENT ON COLUMN sys_attachment.updater IS '更新者';
+COMMENT ON COLUMN sys_attachment.update_time IS '更新时间';
+
 create table sys_log_login
 (
     id           bigint IDENTITY NOT NULL,
