@@ -72,7 +72,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // 忽略授权的地址列表
         List<String> permitList = permitResource.getPermitList();
         String[] permits = permitList.toArray(new String[0]);
