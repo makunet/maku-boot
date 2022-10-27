@@ -8,3 +8,4 @@ auth:
     - /swagger-ui.html
     - /swagger-ui/**
     - /doc.html
+    - /
