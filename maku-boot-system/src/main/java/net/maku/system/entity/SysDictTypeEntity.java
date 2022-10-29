@@ -30,4 +30,12 @@ public class SysDictTypeEntity extends BaseEntity {
 	 * 排序
 	 */
 	private Integer sort;
+	/**
+	 * 类型：1 静态常量 2 动态SQL
+	 */
+	private Integer type;
+	/**
+	 * 动态sql
+	 */
+	private String sourceSql;
 }
