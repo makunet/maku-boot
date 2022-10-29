@@ -275,6 +275,8 @@ create table sys_dict_type
     id          bigint IDENTITY NOT NULL,
     dict_type   varchar(100),
     dict_name   varchar(255),
+    dict_source int default 0,
+    dict_sql    varchar(500),
     remark      varchar(255),
     sort        int,
     version     int,
@@ -290,6 +292,8 @@ COMMENT ON TABLE sys_dict_type IS '字典类型';
 COMMENT ON COLUMN sys_dict_type.id IS 'id';
 COMMENT ON COLUMN sys_dict_type.dict_type IS '字典类型';
 COMMENT ON COLUMN sys_dict_type.dict_name IS '字典名称';
+COMMENT ON COLUMN sys_dict_type.dict_source IS '来源  0：字典数据  1：动态SQL';
+COMMENT ON COLUMN sys_dict_type.dict_sql IS '动态SQL';
 COMMENT ON COLUMN sys_dict_type.remark IS '备注';
 COMMENT ON COLUMN sys_dict_type.sort IS '排序';
 COMMENT ON COLUMN sys_dict_type.version IS '版本号';

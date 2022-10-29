@@ -158,6 +158,8 @@ create table sys_dict_type
     id          bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
     dict_type   varchar(100) NOT NULL COMMENT '字典类型',
     dict_name   varchar(255) NOT NULL COMMENT '字典名称',
+    dict_source tinyint default 0 COMMENT '来源  0：字典数据  1：动态SQL',
+    dict_sql    varchar(500) COMMENT '动态SQL',
     remark      varchar(255) COMMENT '备注',
     sort        int COMMENT '排序',
     version     int COMMENT '版本号',

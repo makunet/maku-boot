@@ -18,6 +18,5 @@ import java.util.List;
 public interface SysDictDataDao extends BaseDao<SysDictDataEntity> {
 
     @Select("${sql}")
-    List<SysDictVO.DictData> selectListForSql(@Param("sql") String sql);
-
+    List<SysDictVO.DictData> getListForSql(@Param("sql") String sql);
 }
