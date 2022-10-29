@@ -18,6 +18,7 @@ import net.maku.system.service.SysDictTypeService;
 import net.maku.system.vo.SysDictVO;
 import net.maku.system.query.SysDictTypeQuery;
 import net.maku.system.vo.SysDictTypeVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,6 +90,18 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
             for (SysDictDataEntity data : dataList){
                 if(type.getId().equals(data.getDictTypeId())){
                     dict.getDataList().add(new SysDictVO.DictData(data.getDictLabel(), data.getDictValue()));
+                }
+            }
+
+            if(type.getType() == 2){
+                // 增加动态列表
+                String sql = type.getSourceSql();
+                if(StringUtils.isNotBlank(sql)){
+                    try {
+                        dict.setDataList(sysDictDataDao.selectListForSql(sql));
+                    } catch (Exception e) {
+                        log.error("增加动态字典异常: type=" + type, e);
+                    }
                 }
             }
 

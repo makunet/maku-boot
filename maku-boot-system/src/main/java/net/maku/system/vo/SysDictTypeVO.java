@@ -45,4 +45,10 @@ public class SysDictTypeVO implements Serializable {
 	@Schema(description = "更新时间")
 	@JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
 	private Date updateTime;
+
+	@Schema(description = "类型：1 静态常量 2 动态SQL")
+	private Integer type;
+
+	@Schema(description = "动态sql")
+	private String sourceSql;
 }
