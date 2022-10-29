@@ -22,13 +22,13 @@ public class ScheduleUtils {
      * 获取quartz任务类
      */
     public static Class<? extends Job> getJobClass(ScheduleJobEntity scheduleJob) {
-        if(scheduleJob.getConcurrent().equals(ScheduleConcurrentEnum.NO.getValue())){
+        if (scheduleJob.getConcurrent().equals(ScheduleConcurrentEnum.NO.getValue())) {
             return ScheduleDisallowConcurrentExecution.class;
-        }else {
+        } else {
             return ScheduleConcurrentExecution.class;
         }
     }
-    
+
     /**
      * 获取触发器key
      */
@@ -50,7 +50,7 @@ public class ScheduleUtils {
         try {
             // job key
             JobKey jobKey = getJobKey(scheduleJob);
-        	// 构建job信息
+            // 构建job信息
             JobDetail jobDetail = JobBuilder.newJob(getJobClass(scheduleJob)).withIdentity(jobKey).build();
 
             // 表达式调度构建器
@@ -63,23 +63,23 @@ public class ScheduleUtils {
 
             // 放入参数，运行时的方法可以获取
             jobDetail.getJobDataMap().put(JOB_PARAM_KEY, scheduleJob);
-
+            // 把任务添加到Quartz中
             scheduler.scheduleJob(jobDetail, trigger);
 
             // 判断是否存在
-            if (scheduler.checkExists(jobKey)){
+            if (scheduler.checkExists(jobKey)) {
                 // 防止创建时存在数据问题，先移除，然后再执行创建操作
                 scheduler.deleteJob(jobKey);
             }
 
             // 判断任务是否过期
-            if (CronUtils.getNextExecution(scheduleJob.getCronExpression()) != null){
+            if (CronUtils.getNextExecution(scheduleJob.getCronExpression()) != null) {
                 // 执行调度任务
                 scheduler.scheduleJob(jobDetail, trigger);
             }
 
             // 暂停任务
-            if (scheduleJob.getStatus().equals(ScheduleStatusEnum.PAUSE.getValue())){
+            if (scheduleJob.getStatus().equals(ScheduleStatusEnum.PAUSE.getValue())) {
                 scheduler.pauseJob(jobKey);
             }
         } catch (SchedulerException e) {
@@ -88,15 +88,14 @@ public class ScheduleUtils {
     }
 
 
-
     /**
      * 立即执行任务
      */
     public static void run(Scheduler scheduler, ScheduleJobEntity scheduleJob) {
         try {
-        	// 参数
-        	JobDataMap dataMap = new JobDataMap();
-        	dataMap.put(JOB_PARAM_KEY, scheduleJob);
+            // 参数
+            JobDataMap dataMap = new JobDataMap();
+            dataMap.put(JOB_PARAM_KEY, scheduleJob);
 
             JobKey jobKey = getJobKey(scheduleJob);
             if (scheduler.checkExists(jobKey)) {
@@ -141,7 +140,7 @@ public class ScheduleUtils {
             if (scheduler.checkExists(jobKey)) {
                 scheduler.deleteJob(jobKey);
             }
-        }catch (SchedulerException e){
+        } catch (SchedulerException e) {
             throw new ServerException("更新定时任务失败", e);
         }
 

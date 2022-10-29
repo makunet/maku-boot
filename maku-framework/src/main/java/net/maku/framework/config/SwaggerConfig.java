@@ -14,12 +14,12 @@ import org.springframework.context.annotation.Configuration;
  * @author 阿沐  babamu@126.com
  */
 @Configuration
-public class SwaggerConfig{
+public class SwaggerConfig {
 
     @Bean
-    public GroupedOpenApi userApi(){
-        String[] paths = { "/**" };
-        String[] packagedToMatch = { "net.maku" };
+    public GroupedOpenApi userApi() {
+        String[] paths = {"/**"};
+        String[] packagedToMatch = {"net.maku"};
         return GroupedOpenApi.builder().group("MakuBoot")
                 .pathsToMatch(paths)
                 .packagesToScan(packagedToMatch).build();
@@ -27,17 +27,17 @@ public class SwaggerConfig{
 
     @Bean
     public OpenAPI customOpenAPI() {
-        Contact contact= new Contact();
+        Contact contact = new Contact();
         contact.setName("阿沐 babamu@126.com");
 
         return new OpenAPI().info(new Info()
-            .title("MakuBoot")
-            .description( "MakuBoot")
-            .contact(contact)
-            .version("1.0")
-            .termsOfService("https://maku.net")
-            .license(new License().name("MIT")
-            .url("https://maku.net")));
+                .title("MakuBoot")
+                .description("MakuBoot")
+                .contact(contact)
+                .version("2.0")
+                .termsOfService("https://maku.net")
+                .license(new License().name("MIT")
+                        .url("https://maku.net")));
     }
 
 }
