@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * 登录日志
@@ -35,5 +37,13 @@ public class SysLogLoginController {
 
         return Result.ok(page);
     }
-    
+
+    @GetMapping("export")
+    @Operation(summary = "导出excel")
+    public Result<Map<String, String>> export() throws IOException {
+        Map<String, String> map = sysLogLoginService.export();
+
+        return Result.ok(map);
+    }
+
 }
