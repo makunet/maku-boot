@@ -142,6 +142,7 @@ public class SysUserController {
 
     @PostMapping("import")
     @Operation(summary = "导入用户")
+    @PreAuthorize("hasAuthority('sys:user:import')")
     public Result<String> importExcel(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return Result.error("请选择需要上传的文件");
@@ -153,6 +154,7 @@ public class SysUserController {
 
     @GetMapping("export")
     @Operation(summary = "导出用户")
+    @PreAuthorize("hasAuthority('sys:user:exoprt')")
     public Result<Map<String, String>> export() {
         Map<String, String> map = sysUserService.export();
 

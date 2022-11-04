@@ -39,6 +39,7 @@ public class SysLogLoginController {
 
     @GetMapping("export")
     @Operation(summary = "导出excel")
+    @PreAuthorize("hasAuthority('sys:log:login:export')")
     public Result<Map<String, String>> export() {
         Map<String, String> map = sysLogLoginService.export();
 
