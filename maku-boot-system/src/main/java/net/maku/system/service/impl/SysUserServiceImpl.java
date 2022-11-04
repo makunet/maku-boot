@@ -1,11 +1,17 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.io.IoUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import net.maku.framework.common.constant.Constant;
+import net.maku.framework.common.excel.ExcelFinishCallBack;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
+import net.maku.framework.common.utils.ExcelUtils;
+import net.maku.storage.service.StorageService;
 import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
@@ -15,10 +21,14 @@ import net.maku.system.query.SysUserQuery;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
+import net.maku.system.vo.SysUserExcelVO;
 import net.maku.system.vo.SysUserVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +43,7 @@ import java.util.Map;
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements SysUserService {
     private final SysUserRoleService sysUserRoleService;
     private final SysUserPostService sysUserPostService;
+    private final StorageService storageService;
 
     @Override
     public PageResult<SysUserVO> page(SysUserQuery query) {
@@ -131,7 +142,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Override
     public SysUserVO getByMobile(String mobile) {
         SysUserEntity user = baseMapper.getByMobile(mobile);
-        
+
         return SysUserConvert.INSTANCE.convert(user);
     }
 
@@ -158,6 +169,49 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         List<SysUserEntity> list = baseMapper.getRoleUserList(params);
 
         return new PageResult<>(SysUserConvert.INSTANCE.convertList(list), page.getTotal());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void importByExcel(MultipartFile file, String password) {
+
+        ExcelUtils.readAnalysis(file, SysUserExcelVO.class, new ExcelFinishCallBack<>() {
+            @Override
+            public void doAfterAllAnalysed(List<SysUserExcelVO> result) {
+                saveUser(result);
+            }
+
+            @Override
+            public void doSaveBatch(List<SysUserExcelVO> result) {
+                saveUser(result);
+            }
+
+            private void saveUser(List<SysUserExcelVO> result) {
+                List<SysUserEntity> sysUserEntities = SysUserConvert.INSTANCE.convertListEntity(result);
+                sysUserEntities.forEach(user -> user.setPassword(password));
+                saveBatch(sysUserEntities);
+            }
+        });
+
+    }
+
+    @Override
+    @SneakyThrows
+    public Map<String, String> export() {
+        List<SysUserEntity> list = list(Wrappers.lambdaQuery(SysUserEntity.class).eq(SysUserEntity::getSuperAdmin, SuperAdminEnum.NO.getValue()));
+        List<SysUserExcelVO> userExcelVOS = SysUserConvert.INSTANCE.convert2List(list);
+
+        File file = File.createTempFile("system_user_excel", ".xlsx");
+        // 写入到文件
+        ExcelUtils.excelExport(SysUserExcelVO.class, file, userExcelVOS);
+
+        byte[] data = IoUtil.readBytes(Files.newInputStream(file.toPath()));
+        String path = storageService.getPath(file.getName());
+        String url = storageService.upload(data, path);
+        Map<String, String> map = new HashMap<>(2);
+        map.put("path", url);
+        map.put("filename", file.getName());
+        return map;
     }
 
 }

@@ -6,25 +6,31 @@ import lombok.Getter;
 import java.util.Objects;
 
 /**
- * 超级管理员枚举
+ * 用户性别状态
+ *
+ * @author 阿沐 babamu@126.com
  */
 @Getter
 @AllArgsConstructor
-public enum SuperAdminEnum {
+public enum UserGenderEnum {
     /**
-     * 是
+     * 男
      */
-    YES(1, "是"),
+    MAN(0, "男"),
     /**
-     * 否
+     * 女
      */
-    NO(0, "否");
+    WOMEN(1, "女"),
+    /**
+     * 未知
+     */
+    UNKNOWN(2,"未知");
 
-    private final Integer value;
+    private final int value;
     private final String name;
 
     public static String getNameByValue(int value) {
-        for (SuperAdminEnum s : SuperAdminEnum.values()) {
+        for (UserGenderEnum s : UserGenderEnum.values()) {
             if (s.getValue() == value) {
                 return s.getName();
             }
@@ -33,7 +39,7 @@ public enum SuperAdminEnum {
     }
 
     public static Integer getValueByName(String name) {
-        for (SuperAdminEnum s : SuperAdminEnum.values()) {
+        for (UserGenderEnum s : UserGenderEnum.values()) {
             if (Objects.equals(s.getName(), name)) {
                 return s.getValue();
             }

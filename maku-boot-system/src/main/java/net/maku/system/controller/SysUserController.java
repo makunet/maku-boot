@@ -19,9 +19,11 @@ import net.maku.system.vo.SysUserVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -136,5 +138,24 @@ public class SysUserController {
         sysUserService.delete(idList);
 
         return Result.ok();
+    }
+
+    @PostMapping("import")
+    @Operation(summary = "导入用户")
+    public Result<String> importExcel(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return Result.error("请选择需要上传的文件");
+        }
+        sysUserService.importByExcel(file, passwordEncoder.encode("123456"));
+
+        return Result.ok();
+    }
+
+    @GetMapping("export")
+    @Operation(summary = "导出用户")
+    public Result<Map<String, String>> export() {
+        Map<String, String> map = sysUserService.export();
+
+        return Result.ok(map);
     }
 }
