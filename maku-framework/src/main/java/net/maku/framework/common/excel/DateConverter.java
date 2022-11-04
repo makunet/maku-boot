@@ -11,6 +11,8 @@ import net.maku.framework.common.utils.DateUtils;
 import java.util.Date;
 
 /**
+ * 日期转换
+ *
  * @author eden
  */
 public class DateConverter implements Converter<Date> {
