@@ -154,7 +154,7 @@ public class SysUserController {
 
     @GetMapping("export")
     @Operation(summary = "导出用户")
-    @PreAuthorize("hasAuthority('sys:user:exoprt')")
+    @PreAuthorize("hasAuthority('sys:user:export')")
     public Result<Map<String, String>> export() {
         Map<String, String> map = sysUserService.export();
 
