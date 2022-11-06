@@ -175,7 +175,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Transactional(rollbackFor = Exception.class)
     public void importByExcel(MultipartFile file, String password) {
 
-        ExcelUtils.readAnalysis(file, SysUserExcelVO.class, new ExcelFinishCallBack<>() {
+        ExcelUtils.readAnalysis(file, SysUserExcelVO.class, new ExcelFinishCallBack<SysUserExcelVO>() {
             @Override
             public void doAfterAllAnalysed(List<SysUserExcelVO> result) {
                 saveUser(result);
