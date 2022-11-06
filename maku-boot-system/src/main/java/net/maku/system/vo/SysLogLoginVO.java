@@ -60,7 +60,6 @@ public class SysLogLoginVO implements Serializable {
 
 
     public static class StatusConverter implements Converter<Integer> {
-
         @Override
         public WriteCellData<String> convertToExcelData(Integer value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
             String dateValue = "";
@@ -74,7 +73,6 @@ public class SysLogLoginVO implements Serializable {
     }
 
     public static class OperationConverter implements Converter<Integer> {
-
         @Override
         public WriteCellData<String> convertToExcelData(Integer value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
             String dateValue = "";

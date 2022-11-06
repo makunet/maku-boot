@@ -38,7 +38,6 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysLogLoginEntity> implements SysLogLoginService {
-
     private final StorageService storageService;
 
     @Override
