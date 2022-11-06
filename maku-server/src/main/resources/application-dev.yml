@@ -1,15 +1,15 @@
 spring:
   redis:
-    database: 10
+    database: 1
     host: localhost
-    port: 16379
-    password: 123456
+    port: 6379
+    #password:
     #timeout: 6000ms  # 连接超时时长（毫秒）
   datasource:
     # MySQL8
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:13306/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
-    username: root
+    url: jdbc:mysql://localhost:3306/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    username: maku
     password: 123456
     # 达梦
     #    driver-class-name: dm.jdbc.driver.DmDriver
