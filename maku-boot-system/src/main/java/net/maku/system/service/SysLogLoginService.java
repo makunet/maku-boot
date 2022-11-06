@@ -37,7 +37,6 @@ public interface SysLogLoginService extends BaseService<SysLogLoginEntity> {
      * 导出登录日志
      *
      * @return the map
-     * @throws IOException the io exception
      */
-    Map<String, String> export() throws IOException;
+    Map<String, String> export();
 }

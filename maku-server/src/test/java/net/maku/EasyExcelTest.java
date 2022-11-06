@@ -8,7 +8,6 @@ import net.maku.framework.common.utils.ExcelUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 public class EasyExcelTest {
 
     @Test
-    public void doImport() throws FileNotFoundException {
+    public void doImport() {
         File file = new File("D://upload//test01.xlsx");
         ExcelClass excelClass = new ExcelClass();
         excelClass.setNumber(1);
@@ -29,12 +28,11 @@ public class EasyExcelTest {
         excelClass.setString("test");
         excelClass.setDate(new Date());
         List<ExcelClass> data = Arrays.asList(excelClass, excelClass, excelClass);
-        if (!file.exists()) {
+        if (file.exists()) {
             ExcelUtils.excelExport(ExcelClass.class, file, data);
+            List<ExcelClass> list = ExcelUtils.readSync(file, ExcelClass.class);
+            list.forEach(System.out::println);
         }
-
-        List<ExcelClass> list = ExcelUtils.readSync(file, ExcelClass.class);
-        list.forEach(System.out::println);
     }
 
 
@@ -49,10 +47,10 @@ public class EasyExcelTest {
         List<ExcelClass> data = Arrays.asList(excelClass, excelClass, excelClass, excelClass, excelClass, excelClass, excelClass);
         if (!file.exists()) {
             ExcelUtils.excelExport(ExcelClass.class, file, data);
+            ExcelUtils.readAnalysis(file, ExcelClass.class, new ServiceA());
         }
-        ExcelUtils.readAnalysis(file, ExcelClass.class, new ServiceA());
-    }
 
+    }
 
     @Data
     public static class ExcelClass {

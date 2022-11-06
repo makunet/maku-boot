@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -40,7 +39,8 @@ public class SysLogLoginController {
 
     @GetMapping("export")
     @Operation(summary = "导出excel")
-    public Result<Map<String, String>> export() throws IOException {
+    @PreAuthorize("hasAuthority('sys:log:login:export')")
+    public Result<Map<String, String>> export() {
         Map<String, String> map = sysLogLoginService.export();
 
         return Result.ok(map);

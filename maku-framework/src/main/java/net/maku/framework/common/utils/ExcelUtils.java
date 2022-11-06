@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import net.maku.framework.common.excel.ExcelDataListener;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,6 +18,31 @@ import java.util.List;
  * @author eden
  */
 public class ExcelUtils {
+
+
+    /**
+     * 判断excel文件类型
+     *
+     * @param file 源头文件
+     * @return type
+     */
+    public static ExcelTypeEnum getExcelFileType(MultipartFile file) {
+        String filename = file.getOriginalFilename();
+        if (StringUtils.isNotBlank(filename)) {
+            filename = filename.substring(filename.lastIndexOf("."));
+            switch (filename) {
+                case ".csv":
+                    return ExcelTypeEnum.CSV;
+                case ".xls":
+                    return ExcelTypeEnum.XLS;
+                case ".xlsx":
+                    return ExcelTypeEnum.XLSX;
+                default:
+                    throw new IllegalArgumentException("无效的文件");
+            }
+        }
+        throw new IllegalArgumentException("无效的文件");
+    }
 
     /**
      * 读取excel文件
