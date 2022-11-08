@@ -1,0 +1,1 @@
+INSERT INTO sys_menu (pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (33, '代码生成器', '', '', 0, 0, 'icon-rocket', 2, 0, 0, 10000, now(), 10000, now());
