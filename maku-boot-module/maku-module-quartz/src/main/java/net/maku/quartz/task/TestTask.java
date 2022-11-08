@@ -1,7 +1,7 @@
 package net.maku.quartz.task;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * 测试定时任务
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author 阿沐 babamu@126.com
  */
 @Slf4j
-@Component
+@Service
 public class TestTask {
 
     public void run(String params) throws InterruptedException {
