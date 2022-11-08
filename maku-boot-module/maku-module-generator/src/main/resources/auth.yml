@@ -1,0 +1,3 @@
+auth:
+  ignore_urls:
+    - /maku-generator/**
