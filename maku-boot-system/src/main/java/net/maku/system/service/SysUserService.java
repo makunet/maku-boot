@@ -9,7 +9,6 @@ import net.maku.system.vo.SysUserVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户管理
@@ -51,8 +50,6 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 
     /**
      * 导出用户信息表格
-     *
-     * @return map
      */
-    Map<String, String> export();
+    void export();
 }

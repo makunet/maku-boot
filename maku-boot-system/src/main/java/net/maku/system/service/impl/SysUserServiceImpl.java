@@ -1,6 +1,5 @@
 package net.maku.system.service.impl;
 
-import cn.hutool.core.io.IoUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
@@ -10,8 +9,8 @@ import net.maku.framework.common.excel.ExcelFinishCallBack;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
+import net.maku.framework.common.utils.DateUtils;
 import net.maku.framework.common.utils.ExcelUtils;
-import net.maku.storage.service.StorageService;
 import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
@@ -27,8 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.nio.file.Files;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +41,6 @@ import java.util.Map;
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements SysUserService {
     private final SysUserRoleService sysUserRoleService;
     private final SysUserPostService sysUserPostService;
-    private final StorageService storageService;
 
     @Override
     public PageResult<SysUserVO> page(SysUserQuery query) {
@@ -197,21 +194,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
     @Override
     @SneakyThrows
-    public Map<String, String> export() {
+    public void export() {
         List<SysUserEntity> list = list(Wrappers.lambdaQuery(SysUserEntity.class).eq(SysUserEntity::getSuperAdmin, SuperAdminEnum.NO.getValue()));
         List<SysUserExcelVO> userExcelVOS = SysUserConvert.INSTANCE.convert2List(list);
 
-        File file = File.createTempFile("system_user_excel", ".xlsx");
-        // 写入到文件
-        ExcelUtils.excelExport(SysUserExcelVO.class, file, userExcelVOS);
-
-        byte[] data = IoUtil.readBytes(Files.newInputStream(file.toPath()));
-        String path = storageService.getPath(file.getName());
-        String url = storageService.upload(data, path);
-        Map<String, String> map = new HashMap<>(2);
-        map.put("path", url);
-        map.put("filename", file.getName());
-        return map;
+        // 写到浏览器打开
+        ExcelUtils.excelExport(SysUserExcelVO.class, "system_user_excel" + DateUtils.format(new Date()), null, userExcelVOS);
     }
 
 }

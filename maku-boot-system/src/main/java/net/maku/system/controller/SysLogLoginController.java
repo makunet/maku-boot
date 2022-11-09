@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 /**
  * 登录日志
@@ -40,10 +39,8 @@ public class SysLogLoginController {
     @GetMapping("export")
     @Operation(summary = "导出excel")
     @PreAuthorize("hasAuthority('sys:log:login')")
-    public Result<Map<String, String>> export() {
-        Map<String, String> map = sysLogLoginService.export();
-
-        return Result.ok(map);
+    public void export() {
+        sysLogLoginService.export();
     }
 
 }

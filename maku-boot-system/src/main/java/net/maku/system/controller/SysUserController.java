@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -155,9 +154,7 @@ public class SysUserController {
     @GetMapping("export")
     @Operation(summary = "导出用户")
     @PreAuthorize("hasAuthority('sys:user:export')")
-    public Result<Map<String, String>> export() {
-        Map<String, String> map = sysUserService.export();
-
-        return Result.ok(map);
+    public void export() {
+        sysUserService.export();
     }
 }

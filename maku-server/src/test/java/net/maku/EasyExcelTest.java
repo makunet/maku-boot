@@ -45,7 +45,7 @@ public class EasyExcelTest {
         excelClass.setString("test");
         excelClass.setDate(new Date());
         List<ExcelClass> data = Arrays.asList(excelClass, excelClass, excelClass, excelClass, excelClass, excelClass, excelClass);
-        if (!file.exists()) {
+        if (file.exists()) {
             ExcelUtils.excelExport(ExcelClass.class, file, data);
             ExcelUtils.readAnalysis(file, ExcelClass.class, new ServiceA());
         }

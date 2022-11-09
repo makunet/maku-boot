@@ -7,42 +7,22 @@ import net.maku.framework.common.excel.ExcelFinishCallBack;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
  * The type Excel utils.
+ * {@link <a href="https://easyexcel.opensource.alibaba.com/"></a>}
  *
  * @author eden
  */
 public class ExcelUtils {
 
-
-    /**
-     * 判断excel文件类型
-     *
-     * @param file 源头文件
-     * @return type
-     */
-    public static ExcelTypeEnum getExcelFileType(MultipartFile file) {
-        String filename = file.getOriginalFilename();
-        if (StringUtils.isNotBlank(filename)) {
-            filename = filename.substring(filename.lastIndexOf("."));
-            switch (filename) {
-                case ".csv":
-                    return ExcelTypeEnum.CSV;
-                case ".xls":
-                    return ExcelTypeEnum.XLS;
-                case ".xlsx":
-                    return ExcelTypeEnum.XLSX;
-                default:
-                    throw new IllegalArgumentException("无效的文件");
-            }
-        }
-        throw new IllegalArgumentException("无效的文件");
-    }
 
     /**
      * 读取excel文件
@@ -131,6 +111,29 @@ public class ExcelUtils {
         try {
             EasyExcel.write(file, head).sheet(sheetName).doWrite(data);
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 导出数据到web
+     * 文件下载（失败了会返回一个有部分数据的Excel）
+     *
+     * @param head      类名
+     * @param excelName excel名字
+     * @param sheetName sheet名称
+     * @param data      数据
+     */
+    public static <T> void excelExport(Class<T> head, String excelName, String sheetName, List<T> data) {
+        try {
+            HttpServletResponse response = HttpContextUtils.getHttpServletResponse();
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            // 这里URLEncoder.encode可以防止中文乱码 当然和easy excel没有关系
+            String fileName = URLEncoder.encode(excelName, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+            EasyExcel.write(response.getOutputStream(), head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName).doWrite(data);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

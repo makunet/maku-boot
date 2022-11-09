@@ -6,9 +6,6 @@ import net.maku.system.entity.SysLogLoginEntity;
 import net.maku.system.query.SysLogLoginQuery;
 import net.maku.system.vo.SysLogLoginVO;
 
-import java.io.IOException;
-import java.util.Map;
-
 /**
  * 登录日志
  *
@@ -17,7 +14,7 @@ import java.util.Map;
 public interface SysLogLoginService extends BaseService<SysLogLoginEntity> {
 
     /**
-     * Page page result.
+     * Page result.
      *
      * @param query the query
      * @return the page result
@@ -35,8 +32,6 @@ public interface SysLogLoginService extends BaseService<SysLogLoginEntity> {
 
     /**
      * 导出登录日志
-     *
-     * @return the map
      */
-    Map<String, String> export();
+    void export();
 }

@@ -1,6 +1,5 @@
 package net.maku.system.service.impl;
 
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -9,10 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
-import net.maku.framework.common.utils.AddressUtils;
-import net.maku.framework.common.utils.ExcelUtils;
-import net.maku.framework.common.utils.HttpContextUtils;
-import net.maku.framework.common.utils.IpUtils;
+import net.maku.framework.common.utils.*;
 import net.maku.storage.service.StorageService;
 import net.maku.system.convert.SysLogLoginConvert;
 import net.maku.system.dao.SysLogLoginDao;
@@ -24,11 +20,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.nio.file.Files;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 登录日志
@@ -38,7 +31,6 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysLogLoginEntity> implements SysLogLoginService {
-    private final StorageService storageService;
 
     @Override
     public PageResult<SysLogLoginVO> page(SysLogLoginQuery query) {
@@ -78,21 +70,12 @@ public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysL
 
     @Override
     @SneakyThrows
-    public Map<String, String> export() {
+    public void export() {
         List<SysLogLoginEntity> list = list();
         List<SysLogLoginVO> sysLogLoginVOS = SysLogLoginConvert.INSTANCE.convertList(list);
 
-        File file = File.createTempFile("system_login_log_excel", ".xlsx");
-        // 写入到文件
-        ExcelUtils.excelExport(SysLogLoginVO.class, file, sysLogLoginVOS);
-
-        byte[] data = IoUtil.readBytes(Files.newInputStream(file.toPath()));
-        String path = storageService.getPath(file.getName());
-        String url = storageService.upload(data, path);
-        Map<String, String> map = new HashMap<>(2);
-        map.put("path", url);
-        map.put("filename", file.getName());
-        return map;
+        // 写到浏览器打开
+        ExcelUtils.excelExport(SysLogLoginVO.class, "system_login_log_excel" + DateUtils.format(new Date()), null, sysLogLoginVOS);
     }
 
 }

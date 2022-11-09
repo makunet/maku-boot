@@ -7,6 +7,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,17 @@ public class HttpContextUtils {
 
 		return ((ServletRequestAttributes) requestAttributes).getRequest();
 	}
+
+
+	public static HttpServletResponse getHttpServletResponse () {
+		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+		if(requestAttributes == null){
+			return null;
+		}
+
+		return ((ServletRequestAttributes) requestAttributes).getResponse();
+	}
+
 
 	public static Map<String, String> getParameterMap(HttpServletRequest request) {
 		Enumeration<String> parameters = request.getParameterNames();
