@@ -363,6 +363,39 @@ COMMENT ON COLUMN sys_attachment.create_time IS '创建时间';
 COMMENT ON COLUMN sys_attachment.updater IS '更新者';
 COMMENT ON COLUMN sys_attachment.update_time IS '更新时间';
 
+
+create table sys_params
+(
+    id            bigint IDENTITY NOT NULL,
+    param_name    varchar(100),
+    param_type    int NOT NULL,
+    param_key     varchar(100),
+    param_value   varchar(2000),
+    remark        varchar(200),
+    version       int,
+    deleted       int,
+    creator       bigint,
+    create_time   datetime,
+    updater       bigint,
+    update_time   datetime,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_params IS '参数管理';
+COMMENT ON COLUMN sys_params.id IS 'id';
+COMMENT ON COLUMN sys_params.param_name IS '参数名称';
+COMMENT ON COLUMN sys_params.param_type IS '系统参数   0：否   1：是';
+COMMENT ON COLUMN sys_params.param_key IS '参数键';
+COMMENT ON COLUMN sys_params.param_value IS '参数值';
+COMMENT ON COLUMN sys_params.remark IS '备注';
+COMMENT ON COLUMN sys_params.version IS '版本号';
+COMMENT ON COLUMN sys_params.deleted IS '删除标识  0：正常   1：已删除';
+COMMENT ON COLUMN sys_params.creator IS '创建者';
+COMMENT ON COLUMN sys_params.create_time IS '创建时间';
+COMMENT ON COLUMN sys_params.updater IS '更新者';
+COMMENT ON COLUMN sys_params.update_time IS '更新时间';
+
+
 create table sys_log_login
 (
     id           bigint IDENTITY NOT NULL,
@@ -433,6 +466,7 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (39, 38, '登录日志', 'sys/log/login', 'sys:log:login', 0, 0, 'icon-solution', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (40, 28, '导入', '', 'sys:user:import', 1, 0, '', 5, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (41, 28, '导出', '', 'sys:user:export', 1, 0, '', 6, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (42, 1, '参数管理', 'sys/params/index', 'sys:params:all', 0, 0, 'icon-filedone', 2, 0, 0, 10000, now(), 10000, now());
 
 SET IDENTITY_INSERT sys_dict_type ON;
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'post_status', '状态', '岗位管理', 0, 0, 0, 10000, now(), 10000, now());
@@ -442,6 +476,7 @@ INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, dele
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (5, 'enable_disable', '状态', '功能状态：启用 | 禁用 ', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (6, 'success_fail', '状态', '操作状态：成功 | 失败', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (7, 'login_operation', '操作信息', '登录管理', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (8, 'params_type', '系统参数', '参数管理', 0, 0, 0, 10000, now(), 10000, now());
 
 SET IDENTITY_INSERT sys_dict_data ON;
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 1, '停用', '0', '', 1, 0, 0, 10000, now(), 10000, now());
@@ -464,5 +499,7 @@ INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sor
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (18, 7, '退出成功', '1', '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (19, 7, '验证码错误', '2', '', 2, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (20, 7, '账号密码错误', '3', '', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (21, 8, '否', '0', '', 1, 0, 0, 10000,now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (22, 8, '是', '1', '', 0, 0, 0, 10000, now(), 10000, now());
 
 commit;
