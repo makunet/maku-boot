@@ -38,6 +38,13 @@ public interface SysParamsService extends BaseService<SysParamsEntity> {
     int getInt(String paramKey);
 
     /**
+     * 根据paramKey，获取布尔值
+     *
+     * @param paramKey 参数Key
+     */
+    boolean getBoolean(String paramKey);
+
+    /**
      * 根据paramKey，获取对象值
      *
      * @param paramKey  参数Key

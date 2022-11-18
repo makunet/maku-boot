@@ -114,7 +114,12 @@ public class SysParamsServiceImpl extends BaseServiceImpl<SysParamsDao, SysParam
 
     @Override
     public String getString(String paramKey) {
-        return sysParamsCache.get(paramKey);
+        String value = sysParamsCache.get(paramKey);
+        if (StrUtil.isBlank(value)) {
+            throw new ServerException("参数不能为空，paramKey：" + paramKey);
+        }
+
+        return value;
     }
 
     @Override
@@ -122,6 +127,13 @@ public class SysParamsServiceImpl extends BaseServiceImpl<SysParamsDao, SysParam
         String value = getString(paramKey);
 
         return Integer.parseInt(value);
+    }
+
+    @Override
+    public boolean getBoolean(String paramKey) {
+        String value = getString(paramKey);
+
+        return Boolean.parseBoolean(value);
     }
 
     @Override
