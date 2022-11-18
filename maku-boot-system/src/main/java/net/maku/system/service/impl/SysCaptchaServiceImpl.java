@@ -7,7 +7,9 @@ import com.wf.captcha.base.Captcha;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.cache.RedisCache;
 import net.maku.framework.common.cache.RedisKeys;
+import net.maku.system.enums.SysParamsEnum;
 import net.maku.system.service.SysCaptchaService;
+import net.maku.system.service.SysParamsService;
 import net.maku.system.vo.SysCaptchaVO;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class SysCaptchaServiceImpl implements SysCaptchaService {
     private final RedisCache redisCache;
+    private final SysParamsService sysParamsService;
 
     @Override
     public SysCaptchaVO generate() {
@@ -46,6 +49,11 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
 
     @Override
     public boolean validate(String key, String code) {
+        // 如果关闭了验证码，则直接效验通过
+        if (!isCaptchaEnabled()) {
+            return true;
+        }
+
         if (StrUtil.isBlank(key) || StrUtil.isBlank(code)) {
             return false;
         }
@@ -66,5 +74,14 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
         }
 
         return captcha;
+    }
+
+    /**
+     * 是否开启登录验证码
+     *
+     * @return true：开启  false：关闭
+     */
+    private boolean isCaptchaEnabled() {
+        return sysParamsService.getBoolean(SysParamsEnum.LOGIN_CAPTCHA.name());
     }
 }
