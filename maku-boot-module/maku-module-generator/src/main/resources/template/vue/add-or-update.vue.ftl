@@ -15,21 +15,21 @@
 					<el-input type="textarea" v-model="dataForm.${field.attrName}"></el-input>
 				</el-form-item>
 			<#elseif field.formType == 'select'>
-				<#if field.dictName??>
+				<#if field.formDict??>
 					<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
-						<fast-select v-model="dataForm.${field.attrName}" dict-type="${field.dictName}" placeholder="${field.fieldComment!}"></fast-select>
+						<fast-select v-model="dataForm.${field.attrName}" dict-type="${field.formDict}" placeholder="${field.fieldComment!}"></fast-select>
 					</el-form-item>
 				<#else>
 					<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
 						<el-select v-model="dataForm.${field.attrName}" placeholder="请选择">
-							<el-option label="人人" value="0"></el-option>
+							<el-option label="请选择" value="0"></el-option>
 						</el-select>
 					</el-form-item>
 				</#if>
 			<#elseif field.formType == 'radio'>
-				<#if field.dictName??>
+				<#if field.formDict??>
 					<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
-						<fast-radio-group v-model="dataForm.${field.attrName}" dict-type="${field.dictName}"></fast-radio-group>
+						<fast-radio-group v-model="dataForm.${field.attrName}" dict-type="${field.formDict}"></fast-radio-group>
 					</el-form-item>
 				<#else>
 					<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
