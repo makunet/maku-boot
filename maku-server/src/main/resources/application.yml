@@ -16,6 +16,8 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
+  application:
+    name: maku-boot
   servlet:
     multipart:
       max-file-size: 1024MB
