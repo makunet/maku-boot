@@ -18,6 +18,8 @@ spring:
     active: dev
   application:
     name: maku-boot
+  jackson:
+    time-zone: GMT+8
   servlet:
     multipart:
       max-file-size: 1024MB
