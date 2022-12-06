@@ -1,6 +1,7 @@
 package net.maku.framework.common.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fhs.core.trans.vo.TransPojo;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
  * @author 阿沐 babamu@126.com
  */
 @Data
-public abstract class BaseEntity {
+public abstract class BaseEntity implements TransPojo {
     /**
      * id
      */
