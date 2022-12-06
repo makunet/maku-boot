@@ -4,7 +4,7 @@
 <mapper namespace="net.maku.system.dao.SysUserDao">
 
 	<select id="getList" resultType="net.maku.system.entity.SysUserEntity">
-		select t1.*, (select t2.name from sys_org t2 where t2.id = t1.org_id) orgName
+		select t1.*
 			from sys_user t1 where t1.super_admin = 0 and t1.deleted = 0
 		<if test="username != null and username.trim() != ''">
 			and t1.username = #{username}

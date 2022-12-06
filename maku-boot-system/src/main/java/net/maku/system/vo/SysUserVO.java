@@ -2,9 +2,13 @@ package net.maku.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fhs.core.trans.anno.Trans;
+import com.fhs.core.trans.constant.TransType;
+import com.fhs.core.trans.vo.TransPojo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import net.maku.framework.common.utils.DateUtils;
+import net.maku.system.entity.SysOrgEntity;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Email;
@@ -21,7 +25,7 @@ import java.util.List;
  */
 @Data
 @Schema(description = "用户")
-public class SysUserVO implements Serializable {
+public class SysUserVO implements Serializable, TransPojo {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "id")
@@ -56,6 +60,7 @@ public class SysUserVO implements Serializable {
 
     @Schema(description = "机构ID", required = true)
     @NotNull(message = "机构ID不能为空")
+    @Trans(type = TransType.SIMPLE,target = SysOrgEntity.class,fields = "name",ref = "orgName")
     private Long orgId;
 
     @Schema(description = "状态 0：停用    1：正常", required = true)
