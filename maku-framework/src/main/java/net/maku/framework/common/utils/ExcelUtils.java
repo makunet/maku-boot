@@ -3,6 +3,14 @@ package net.maku.framework.common.utils;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.fhs.common.spring.SpringContextUtil;
+import com.fhs.common.utils.ConverterUtils;
+import com.fhs.core.trans.anno.Trans;
+import com.fhs.core.trans.constant.TransType;
+import com.fhs.core.trans.util.ReflectUtils;
+import com.fhs.core.trans.vo.TransPojo;
+import com.fhs.trans.service.impl.DictionaryTransService;
+import lombok.SneakyThrows;
 import net.maku.framework.common.excel.ExcelDataListener;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The type Excel utils.
@@ -135,6 +145,53 @@ public class ExcelUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 解析字典数据到字段上
+     * 比如 T中有 genderLabel字段 为男 需要给 gender 字段自动设置为0
+     *
+     * @param datas 需要被反向解析的数据
+     * @param <T>
+     */
+    @SneakyThrows
+    public static <T extends TransPojo> void parseDict(List<T> datas) {
+        //没有数据就不需要初始化
+        if (datas == null || datas.isEmpty() || datas.get(0) == null) {
+            return;
+        }
+        Class clazz = datas.get(0).getClass();
+        //拿到所有需要反向翻译的字段
+        List<Field> fields = ReflectUtils.getAnnotationField(clazz, Trans.class);
+        //过滤出字典翻译
+        fields = fields.stream().filter(field -> {
+            return TransType.DICTIONARY.equals(field.getAnnotation(Trans.class).type());
+        }).collect(Collectors.toList());
+        DictionaryTransService dictionaryTransService = SpringContextUtil.getBeanByClass(DictionaryTransService.class);
+        for (T data : datas) {
+            for (Field field : fields) {
+                Trans trans = field.getAnnotation(Trans.class);
+                //key不能为空并且ref不为空的才自动处理
+                if (!StringUtils.isBlank(trans.key()) && !StringUtils.isBlank(trans.ref())) {
+                    Field ref = ReflectUtils.getDeclaredField(clazz, trans.ref());
+                    ref.setAccessible(true);
+                    //获取字典反向值
+                    String value = dictionaryTransService.getUnTransMap().get(trans.key() + "_" + ref.get(data));
+                    if (StringUtils.isBlank(value)) {
+                        continue;
+                    }
+                    //一般目标字段是int或者string字段 后面有添加单独抽离方法
+                    if(Integer.class.equals(field.getType())){
+                        field.setAccessible(true);
+                        field.set(data,ConverterUtils.toInteger(value));
+                    }else{
+                        field.setAccessible(true);
+                        field.set(data,ConverterUtils.toString(value));
+                    }
+                }
+            }
+        }
+
     }
 
 }

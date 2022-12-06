@@ -93,4 +93,13 @@ public class SysDictTypeController {
         return Result.ok(dictList);
     }
 
+    @GetMapping("refreshTransCache")
+    @Operation(summary = "刷新字典翻译缓存数据")
+    @PreAuthorize("hasAuthority('sys:dict:refreshTransCache')")
+    public Result<String> refreshTransCache() {
+        sysDictTypeService.refreshTransCache();
+        return Result.ok();
+    }
+
+
 }

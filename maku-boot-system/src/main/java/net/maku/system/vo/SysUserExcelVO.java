@@ -1,11 +1,15 @@
 package net.maku.system.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
+import com.fhs.core.trans.anno.Trans;
+import com.fhs.core.trans.constant.TransType;
+import com.fhs.core.trans.vo.TransPojo;
 import lombok.Data;
 import net.maku.framework.common.excel.DateConverter;
 import net.maku.framework.common.utils.DateUtils;
@@ -22,8 +26,14 @@ import java.util.Date;
  * @author 阿沐 babamu@126.com
  */
 @Data
-public class SysUserExcelVO implements Serializable {
+public class SysUserExcelVO implements Serializable, TransPojo {
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 本属性对于导出无用，只是用于翻译
+     */
+    @ExcelIgnore
+    private Long id;
 
     @ExcelProperty("用户名")
     private String username;
@@ -31,8 +41,12 @@ public class SysUserExcelVO implements Serializable {
     @ExcelProperty("姓名")
     private String realName;
 
-    @ExcelProperty(value = "性别", converter = GenderConverter.class)
+    @ExcelIgnore
+    @Trans(type = TransType.DICTIONARY, key = "user_gender", ref = "genderLabel")
     private Integer gender;
+
+    @ExcelProperty(value = "性别")
+    private String genderLabel;
 
     @ExcelProperty("邮箱")
     private String email;
@@ -43,54 +57,21 @@ public class SysUserExcelVO implements Serializable {
     @ExcelProperty("机构ID")
     private Long orgId;
 
-    @ExcelProperty(value = "状态", converter = StatusConverter.class)
+    @ExcelIgnore
+    @Trans(type = TransType.DICTIONARY, key = "user_status", ref = "statusLabel")
     private Integer status;
 
-    @ExcelProperty(value = "超级管理员", converter = SuperConverter.class)
+    @ExcelProperty(value = "状态")
+    private String statusLabel;
+
+    @ExcelIgnore
+    @Trans(type = TransType.DICTIONARY, key = "user_super_admin", ref = "superAdminLabel")
     private Integer superAdmin;
+
+    @ExcelProperty(value = "超级管理员")
+    private String superAdminLabel;
 
     @ExcelProperty(value = "创建时间", converter = DateConverter.class)
     private Date createTime;
 
-    public static class GenderConverter implements Converter<Integer> {
-
-        @Override
-        public Integer convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
-            String dateString = cellData.getStringValue();
-            return UserGenderEnum.getValueByName(dateString);
-        }
-
-        @Override
-        public WriteCellData<String> convertToExcelData(Integer value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
-            return new WriteCellData<>(UserGenderEnum.getNameByValue(value));
-        }
-    }
-
-    public static class StatusConverter implements Converter<Integer> {
-
-        @Override
-        public Integer convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
-            String dateString = cellData.getStringValue();
-            return UserStatusEnum.getValueByName(dateString);
-        }
-
-        @Override
-        public WriteCellData<String> convertToExcelData(Integer value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
-            return new WriteCellData<>(UserStatusEnum.getNameByValue(value));
-        }
-    }
-
-    public static class SuperConverter implements Converter<Integer> {
-
-        @Override
-        public Integer convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
-            String dateString = cellData.getStringValue();
-            return SuperAdminEnum.getValueByName(dateString);
-        }
-
-        @Override
-        public WriteCellData<String> convertToExcelData(Integer value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
-            return new WriteCellData<>(SuperAdminEnum.getNameByValue(value));
-        }
-    }
 }

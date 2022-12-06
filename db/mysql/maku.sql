@@ -290,6 +290,8 @@ INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, dele
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (6, 'success_fail', '状态', '操作状态：成功 | 失败', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (7, 'login_operation', '操作信息', '登录管理', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (8, 'params_type', '系统参数', '参数管理', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (9, 'user_super_admin', '用户是否是超管','用户是否是超管', 0, 0, 0, 10000, now(), 10000, now());
+
 
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 1, '停用', '0', '', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (2, 1, '正常', '1', '', 0, 0, 0, 10000, now(), 10000, now());
@@ -313,5 +315,8 @@ INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sor
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (20, 7, '账号密码错误', '3', '', 3, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (21, 8, '否', '0', '', 1, 0, 0, 10000,now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (22, 8, '是', '1', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (23, 9, '是', '1', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (24, 9, '否', '0', '', 0, 0, 0, 10000, now(), 10000, now());
+
 
 INSERT INTO sys_params (param_name, param_type, param_key, param_value, remark, version, deleted, creator, create_time, updater, update_time) VALUES ('用户登录-验证码开关', 1, 'LOGIN_CAPTCHA', 'false', '是否开启验证码（true：开启，false：关闭）', 0, 0, 10000, now(), 10000, now());

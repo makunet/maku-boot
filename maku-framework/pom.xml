@@ -64,5 +64,13 @@
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.fhs-opensource</groupId>
+            <artifactId>easy-trans-mybatis-plus-extend</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fhs-opensource</groupId>
+            <artifactId>easy-trans-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>

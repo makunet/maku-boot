@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.fhs.trans.service.impl.DictionaryTransService;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.page.PageResult;
@@ -20,11 +21,16 @@ import net.maku.system.query.SysDictTypeQuery;
 import net.maku.system.service.SysDictTypeService;
 import net.maku.system.vo.SysDictTypeVO;
 import net.maku.system.vo.SysDictVO;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * 字典类型
@@ -33,8 +39,10 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysDictTypeEntity> implements SysDictTypeService {
+public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysDictTypeEntity> implements SysDictTypeService, InitializingBean {
     private final SysDictDataDao sysDictDataDao;
+
+    private final DictionaryTransService dictionaryTransService;
 
     @Override
     public PageResult<SysDictTypeVO> page(SysDictTypeQuery query) {
@@ -121,4 +129,28 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
         return dictList;
     }
 
+    @Override
+    public void afterPropertiesSet() {
+        refreshTransCache();
+    }
+
+    public void refreshTransCache() {
+        // 异步不阻塞主线程，不会 增加启动用时
+        CompletableFuture.supplyAsync(() -> {
+            //获取所有的字典项数据
+            List<SysDictDataEntity> dataList = sysDictDataDao.selectList(new LambdaQueryWrapper<>());
+            //根据类型分组
+            Map<Long, List<SysDictDataEntity>> dictTypeDataMap = dataList.stream().collect(Collectors
+                    .groupingBy(SysDictDataEntity::getDictTypeId));
+            List<SysDictTypeEntity> dictTypeEntities = super.list();
+            List<SysDictDataEntity> tempDataEntityList;
+            for (SysDictTypeEntity dictTypeEntity : dictTypeEntities) {
+                if (dictTypeDataMap.containsKey(dictTypeEntity.getId())) {
+                    dictionaryTransService.refreshCache(dictTypeEntity.getDictType(), dictTypeDataMap.get(dictTypeEntity.getId())
+                            .stream().collect(Collectors.toMap(SysDictDataEntity::getDictValue, SysDictDataEntity::getDictLabel)));
+                }
+            }
+            return null;
+        });
+    }
 }

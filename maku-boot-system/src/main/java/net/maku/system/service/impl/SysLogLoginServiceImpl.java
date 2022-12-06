@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.fhs.trans.service.impl.TransService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import net.maku.framework.common.page.PageResult;
@@ -31,6 +32,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysLogLoginEntity> implements SysLogLoginService {
+
+    private final TransService transService;
 
     @Override
     public PageResult<SysLogLoginVO> page(SysLogLoginQuery query) {
@@ -73,7 +76,7 @@ public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysL
     public void export() {
         List<SysLogLoginEntity> list = list();
         List<SysLogLoginVO> sysLogLoginVOS = SysLogLoginConvert.INSTANCE.convertList(list);
-
+        transService.transBatch(sysLogLoginVOS);
         // 写到浏览器打开
         ExcelUtils.excelExport(SysLogLoginVO.class, "system_login_log_excel" + DateUtils.format(new Date()), null, sysLogLoginVOS);
     }

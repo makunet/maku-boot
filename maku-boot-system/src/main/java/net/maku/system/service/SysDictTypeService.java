@@ -34,4 +34,9 @@ public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
      */
     List<SysDictVO> getDictList();
 
+    /**
+     * 刷新字典缓存
+     */
+    void refreshTransCache();
+
 }

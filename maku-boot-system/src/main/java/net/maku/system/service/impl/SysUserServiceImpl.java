@@ -2,6 +2,7 @@ package net.maku.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.fhs.trans.service.impl.TransService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import net.maku.framework.common.constant.Constant;
@@ -41,6 +42,7 @@ import java.util.Map;
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements SysUserService {
     private final SysUserRoleService sysUserRoleService;
     private final SysUserPostService sysUserPostService;
+    private final TransService transService;
 
     @Override
     public PageResult<SysUserVO> page(SysUserQuery query) {
@@ -184,6 +186,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
             }
 
             private void saveUser(List<SysUserExcelVO> result) {
+                ExcelUtils.parseDict(result);
                 List<SysUserEntity> sysUserEntities = SysUserConvert.INSTANCE.convertListEntity(result);
                 sysUserEntities.forEach(user -> user.setPassword(password));
                 saveBatch(sysUserEntities);
@@ -197,7 +200,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     public void export() {
         List<SysUserEntity> list = list(Wrappers.lambdaQuery(SysUserEntity.class).eq(SysUserEntity::getSuperAdmin, SuperAdminEnum.NO.getValue()));
         List<SysUserExcelVO> userExcelVOS = SysUserConvert.INSTANCE.convert2List(list);
-
+        transService.transBatch(userExcelVOS);
         // 写到浏览器打开
         ExcelUtils.excelExport(SysUserExcelVO.class, "system_user_excel" + DateUtils.format(new Date()), null, userExcelVOS);
     }
