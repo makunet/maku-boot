@@ -60,7 +60,7 @@ public class SysUserVO implements Serializable, TransPojo {
 
     @Schema(description = "机构ID", required = true)
     @NotNull(message = "机构ID不能为空")
-    @Trans(type = TransType.SIMPLE,target = SysOrgEntity.class,fields = "name",ref = "orgName")
+    @Trans(type = TransType.SIMPLE, target = SysOrgEntity.class, fields = "name", ref = "orgName")
     private Long orgId;
 
     @Schema(description = "状态 0：停用    1：正常", required = true)

@@ -10,7 +10,6 @@ import lombok.SneakyThrows;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.service.impl.BaseServiceImpl;
 import net.maku.framework.common.utils.*;
-import net.maku.storage.service.StorageService;
 import net.maku.system.convert.SysLogLoginConvert;
 import net.maku.system.dao.SysLogLoginDao;
 import net.maku.system.entity.SysLogLoginEntity;
@@ -32,7 +31,6 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysLogLoginEntity> implements SysLogLoginService {
-
     private final TransService transService;
 
     @Override

@@ -25,7 +25,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysDictTypeEntity> implements SysDictTypeService, InitializingBean {
     private final SysDictDataDao sysDictDataDao;
-
     private final DictionaryTransService dictionaryTransService;
 
     @Override
@@ -137,13 +135,12 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     public void refreshTransCache() {
         // 异步不阻塞主线程，不会 增加启动用时
         CompletableFuture.supplyAsync(() -> {
-            //获取所有的字典项数据
+            // 获取所有的字典项数据
             List<SysDictDataEntity> dataList = sysDictDataDao.selectList(new LambdaQueryWrapper<>());
-            //根据类型分组
+            // 根据类型分组
             Map<Long, List<SysDictDataEntity>> dictTypeDataMap = dataList.stream().collect(Collectors
                     .groupingBy(SysDictDataEntity::getDictTypeId));
             List<SysDictTypeEntity> dictTypeEntities = super.list();
-            List<SysDictDataEntity> tempDataEntityList;
             for (SysDictTypeEntity dictTypeEntity : dictTypeEntities) {
                 if (dictTypeDataMap.containsKey(dictTypeEntity.getId())) {
                     dictionaryTransService.refreshCache(dictTypeEntity.getDictType(), dictTypeDataMap.get(dictTypeEntity.getId())

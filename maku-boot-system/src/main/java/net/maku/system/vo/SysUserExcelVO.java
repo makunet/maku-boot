@@ -2,20 +2,11 @@ package net.maku.system.vo;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.converters.Converter;
-import com.alibaba.excel.metadata.GlobalConfiguration;
-import com.alibaba.excel.metadata.data.ReadCellData;
-import com.alibaba.excel.metadata.data.WriteCellData;
-import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.vo.TransPojo;
 import lombok.Data;
 import net.maku.framework.common.excel.DateConverter;
-import net.maku.framework.common.utils.DateUtils;
-import net.maku.system.enums.SuperAdminEnum;
-import net.maku.system.enums.UserGenderEnum;
-import net.maku.system.enums.UserStatusEnum;
 
 import java.io.Serializable;
 import java.util.Date;
