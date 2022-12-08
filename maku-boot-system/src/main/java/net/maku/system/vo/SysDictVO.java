@@ -30,5 +30,8 @@ public class SysDictVO {
 
         @Schema(description = "字典值")
         private String dictValue;
+
+        @Schema(description = "字典tag类型")
+        private String tagType;
     }
 }
