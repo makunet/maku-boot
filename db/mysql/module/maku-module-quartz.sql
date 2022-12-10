@@ -11,14 +11,14 @@ INSERT INTO sys_menu (pid, name, url, authority, type, open_style, icon, sort, v
 INSERT INTO sys_dict_type (dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ('schedule_group', '任务组名', '定时任务', 0, 0, 0, 10000, now(), 10000, now());
 
 SET @typeId = @@identity;
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '默认', 'default', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '系统', 'system', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '默认', 'default', '', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '系统', 'system', '', '', 1, 0, 0, 10000, now(), 10000, now());
 
 INSERT INTO sys_dict_type (dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ('schedule_status', '状态', '定时任务', 0, 0, 0, 10000, now(), 10000, now());
 
 SET @typeId = @@identity;
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '暂停', '0', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '正常', '1', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '暂停', '0', 'danger', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '正常', '1', 'primary', '', 1, 0, 0, 10000, now(), 10000, now());
 
 
 DROP TABLE IF EXISTS schedule_job;

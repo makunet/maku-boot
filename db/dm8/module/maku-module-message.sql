@@ -10,10 +10,10 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 
 SET IDENTITY_INSERT sys_dict_type ON;
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, 'sms_platform', '平台类型', '短信管理', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '阿里云', '0', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '腾讯云', '1', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '七牛云', '2', '', 2, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '华为云', '3', '', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '阿里云', '0', '', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '腾讯云', '1', '', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '七牛云', '2', '', '', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '华为云', '3', '', '', 3, 0, 0, 10000, now(), 10000, now());
 
 
 DROP TABLE IF EXISTS sms_platform;

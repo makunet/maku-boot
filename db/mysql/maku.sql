@@ -177,6 +177,7 @@ create table sys_dict_data
     dict_type_id bigint NOT NULL COMMENT '字典类型ID',
     dict_label   varchar(255) NOT NULL COMMENT '字典标签',
     dict_value   varchar(255) COMMENT '字典值',
+    label_class  varchar(100) COMMENT '标签样式',
     remark       varchar(255) COMMENT '备注',
     sort         int COMMENT '排序',
     version      int COMMENT '版本号',
@@ -291,38 +292,32 @@ INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, dele
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (7, 'login_operation', '操作信息', '登录管理', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (8, 'params_type', '系统参数', '参数管理', 0, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (9, 'user_super_admin', '用户是否是超管','用户是否是超管', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_type (id, dict_type, dict_name, dict_source, dict_sql, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (10, 'dict_tag', '字典类型', 0, '', '字典tag类型', 0, 0, 0, 10000, now(), 10000, now());
 
 
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 1, '停用', '0', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (2, 1, '正常', '1', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (3, 2, '男', '0', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (4, 2, '女', '1', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (5, 2, '未知', '2', '', 2, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (6, 3, '正常', '1', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (7, 3, '停用', '0', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (8, 4, '全部数据', '0', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (9, 4, '本机构及子机构数据', '1', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (10, 4, '本机构数据', '2', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (11, 4, '本人数据', '3', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (12, 4, '自定义数据', '4', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (13, 5, '禁用', '0', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (14, 5, '启用', '1', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (15, 6, '失败', '0', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (16, 6, '成功', '1', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (17, 7, '登录成功', '0', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (18, 7, '退出成功', '1', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (19, 7, '验证码错误', '2', '', 2, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (20, 7, '账号密码错误', '3', '', 3, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (21, 8, '否', '0', '', 1, 0, 0, 10000,now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (22, 8, '是', '1', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (23, 9, '是', '1', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (24, 9, '否', '0', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, tag_type, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (25, 10, '成功', 'success', 'success', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, tag_type, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (26, 10, '默认', '', '', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, tag_type, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (27, 10, '提示', 'info', 'info', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, tag_type, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (28, 10, '警告', 'warning', 'warning', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, tag_type, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (29, 10, '错误', 'danger', 'danger', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, 1, '停用', '0', 'danger', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (2, 1, '正常', '1', 'primary', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (3, 2, '男', '0', 'primary', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (4, 2, '女', '1', 'success', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (5, 2, '未知', '2', 'warning', '', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (6, 3, '正常', '1', 'primary', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (7, 3, '停用', '0', 'danger', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (8, 4, '全部数据', '0', '', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (9, 4, '本机构及子机构数据', '1', '', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (10, 4, '本机构数据', '2', '', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (11, 4, '本人数据', '3', '', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (12, 4, '自定义数据', '4', '', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (13, 5, '禁用', '0', 'danger', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (14, 5, '启用', '1', 'primary', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (15, 6, '失败', '0', 'danger', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (16, 6, '成功', '1', 'primary', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (17, 7, '登录成功', '0', 'primary', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (18, 7, '退出成功', '1', 'primary', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (19, 7, '验证码错误', '2', 'warning', '', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (20, 7, '账号密码错误', '3', 'danger', '', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (21, 8, '否', '0', 'primary', '', 1, 0, 0, 10000,now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (22, 8, '是', '1', 'danger', '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (23, 9, '是', '1', 'danger', '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (24, 9, '否', '0', 'primary', '', 0, 0, 0, 10000, now(), 10000, now());
 
 
 INSERT INTO sys_params (param_name, param_type, param_key, param_value, remark, version, deleted, creator, create_time, updater, update_time) VALUES ('用户登录-验证码开关', 1, 'LOGIN_CAPTCHA', 'false', '是否开启验证码（true：开启，false：关闭）', 0, 0, 10000, now(), 10000, now());
