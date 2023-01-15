@@ -16,6 +16,7 @@ import net.maku.message.sms.service.SmsService;
 import net.maku.message.vo.SmsPlatformVO;
 import net.maku.message.vo.SmsSendVO;
 import org.apache.commons.lang3.StringUtils;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,7 @@ public class SmsPlatformController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('sms:platform:page')")
-    public Result<PageResult<SmsPlatformVO>> page(@Valid SmsPlatformQuery query) {
+    public Result<PageResult<SmsPlatformVO>> page(@ParameterObject @Valid SmsPlatformQuery query) {
         PageResult<SmsPlatformVO> page = smsPlatformService.page(query);
 
         return Result.ok(page);

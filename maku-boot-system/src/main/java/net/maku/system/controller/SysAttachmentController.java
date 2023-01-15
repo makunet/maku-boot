@@ -8,6 +8,7 @@ import net.maku.framework.common.utils.Result;
 import net.maku.system.query.SysAttachmentQuery;
 import net.maku.system.service.SysAttachmentService;
 import net.maku.system.vo.SysAttachmentVO;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class SysAttachmentController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('sys:attachment:page')")
-    public Result<PageResult<SysAttachmentVO>> page(@Valid SysAttachmentQuery query) {
+    public Result<PageResult<SysAttachmentVO>> page(@ParameterObject @Valid SysAttachmentQuery query) {
         PageResult<SysAttachmentVO> page = sysAttachmentService.page(query);
 
         return Result.ok(page);

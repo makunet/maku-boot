@@ -7,9 +7,10 @@ import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.utils.Result;
 import net.maku.system.convert.SysDictDataConvert;
 import net.maku.system.entity.SysDictDataEntity;
-import net.maku.system.service.SysDictDataService;
 import net.maku.system.query.SysDictDataQuery;
+import net.maku.system.service.SysDictDataService;
 import net.maku.system.vo.SysDictDataVO;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("sys/dict/data")
-@Tag(name="字典数据")
+@Tag(name = "字典数据")
 @AllArgsConstructor
 public class SysDictDataController {
     private final SysDictDataService sysDictDataService;
@@ -31,7 +32,7 @@ public class SysDictDataController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('sys:dict:page')")
-    public Result<PageResult<SysDictDataVO>> page(@Valid SysDictDataQuery query){
+    public Result<PageResult<SysDictDataVO>> page(@ParameterObject @Valid SysDictDataQuery query) {
         PageResult<SysDictDataVO> page = sysDictDataService.page(query);
 
         return Result.ok(page);
@@ -40,7 +41,7 @@ public class SysDictDataController {
     @GetMapping("{id}")
     @Operation(summary = "信息")
     @PreAuthorize("hasAuthority('sys:dict:info')")
-    public Result<SysDictDataVO> get(@PathVariable("id") Long id){
+    public Result<SysDictDataVO> get(@PathVariable("id") Long id) {
         SysDictDataEntity entity = sysDictDataService.getById(id);
 
         return Result.ok(SysDictDataConvert.INSTANCE.convert(entity));
@@ -49,7 +50,7 @@ public class SysDictDataController {
     @PostMapping
     @Operation(summary = "保存")
     @PreAuthorize("hasAuthority('sys:dict:save')")
-    public Result<String> save(@RequestBody @Valid SysDictDataVO vo){
+    public Result<String> save(@RequestBody @Valid SysDictDataVO vo) {
         sysDictDataService.save(vo);
 
         return Result.ok();
@@ -58,7 +59,7 @@ public class SysDictDataController {
     @PutMapping
     @Operation(summary = "修改")
     @PreAuthorize("hasAuthority('sys:dict:update')")
-    public Result<String> update(@RequestBody @Valid SysDictDataVO vo){
+    public Result<String> update(@RequestBody @Valid SysDictDataVO vo) {
         sysDictDataService.update(vo);
 
         return Result.ok();
@@ -67,7 +68,7 @@ public class SysDictDataController {
     @DeleteMapping
     @Operation(summary = "删除")
     @PreAuthorize("hasAuthority('sys:dict:delete')")
-    public Result<String> delete(@RequestBody List<Long> idList){
+    public Result<String> delete(@RequestBody List<Long> idList) {
         sysDictDataService.delete(idList);
 
         return Result.ok();

@@ -16,6 +16,7 @@ import net.maku.system.vo.SysMenuVO;
 import net.maku.system.vo.SysRoleDataScopeVO;
 import net.maku.system.vo.SysRoleVO;
 import net.maku.system.vo.SysUserVO;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,7 @@ public class SysRoleController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('sys:role:page')")
-    public Result<PageResult<SysRoleVO>> page(@Valid SysRoleQuery query) {
+    public Result<PageResult<SysRoleVO>> page(@ParameterObject @Valid SysRoleQuery query) {
         PageResult<SysRoleVO> page = sysRoleService.page(query);
 
         return Result.ok(page);

@@ -11,6 +11,7 @@ import net.maku.system.query.SysDictTypeQuery;
 import net.maku.system.service.SysDictTypeService;
 import net.maku.system.vo.SysDictTypeVO;
 import net.maku.system.vo.SysDictVO;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class SysDictTypeController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('sys:dict:page')")
-    public Result<PageResult<SysDictTypeVO>> page(@Valid SysDictTypeQuery query) {
+    public Result<PageResult<SysDictTypeVO>> page(@ParameterObject @Valid SysDictTypeQuery query) {
         PageResult<SysDictTypeVO> page = sysDictTypeService.page(query);
 
         return Result.ok(page);

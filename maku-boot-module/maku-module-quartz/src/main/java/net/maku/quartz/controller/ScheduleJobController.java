@@ -14,6 +14,7 @@ import net.maku.quartz.query.ScheduleJobQuery;
 import net.maku.quartz.service.ScheduleJobService;
 import net.maku.quartz.utils.CronUtils;
 import net.maku.quartz.vo.ScheduleJobVO;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class ScheduleJobController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('schedule:page')")
-    public Result<PageResult<ScheduleJobVO>> page(@Valid ScheduleJobQuery query) {
+    public Result<PageResult<ScheduleJobVO>> page(@ParameterObject @Valid ScheduleJobQuery query) {
         PageResult<ScheduleJobVO> page = scheduleJobService.page(query);
 
         return Result.ok(page);

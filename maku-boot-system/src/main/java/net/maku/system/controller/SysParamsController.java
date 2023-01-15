@@ -10,6 +10,7 @@ import net.maku.system.entity.SysParamsEntity;
 import net.maku.system.query.SysParamsQuery;
 import net.maku.system.service.SysParamsService;
 import net.maku.system.vo.SysParamsVO;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class SysParamsController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('sys:params:all')")
-    public Result<PageResult<SysParamsVO>> page(@Valid SysParamsQuery query) {
+    public Result<PageResult<SysParamsVO>> page(@ParameterObject @Valid SysParamsQuery query) {
         PageResult<SysParamsVO> page = sysParamsService.page(query);
 
         return Result.ok(page);

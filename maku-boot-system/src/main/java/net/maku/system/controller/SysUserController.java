@@ -16,6 +16,7 @@ import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
 import net.maku.system.vo.SysUserPasswordVO;
 import net.maku.system.vo.SysUserVO;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class SysUserController {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('sys:user:page')")
-    public Result<PageResult<SysUserVO>> page(@Valid SysUserQuery query) {
+    public Result<PageResult<SysUserVO>> page(@ParameterObject @Valid SysUserQuery query) {
         PageResult<SysUserVO> page = sysUserService.page(query);
 
         return Result.ok(page);
