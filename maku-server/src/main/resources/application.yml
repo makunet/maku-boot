@@ -12,6 +12,12 @@ server:
       cookie:
         http-only: true
 
+knife4j:
+  enable: true
+  setting:
+    custom-code: 500
+    enable-footer-custom: false
+    
 spring:
   # 环境 dev|test|prod
   profiles:

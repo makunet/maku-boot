@@ -33,8 +33,8 @@
         <java.version>1.8</java.version>
         <mybatisplus.version>3.5.2</mybatisplus.version>
         <dameng.version>8.1.2.79</dameng.version>
-        <knife4j.version>3.0.3</knife4j.version>
-        <springdoc.version>1.6.8</springdoc.version>
+        <knife4j.version>4.0.0</knife4j.version>
+        <springdoc.version>1.6.9</springdoc.version>
         <hutool.version>5.7.22</hutool.version>
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
@@ -83,7 +83,7 @@
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-springdoc-ui</artifactId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
             <dependency>
