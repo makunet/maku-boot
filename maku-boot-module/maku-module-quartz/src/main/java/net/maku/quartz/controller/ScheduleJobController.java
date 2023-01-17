@@ -4,6 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.page.PageResult;
@@ -14,12 +15,11 @@ import net.maku.quartz.query.ScheduleJobQuery;
 import net.maku.quartz.service.ScheduleJobService;
 import net.maku.quartz.utils.CronUtils;
 import net.maku.quartz.vo.ScheduleJobVO;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

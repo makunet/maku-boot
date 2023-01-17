@@ -1,9 +1,8 @@
 package net.maku.framework.security.utils;
 
 import cn.hutool.core.lang.UUID;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
+import cn.hutool.core.util.StrUtil;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Token 工具类
@@ -24,7 +23,7 @@ public class TokenUtils {
      */
     public static String getAccessToken(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization");
-        if (StringUtils.isBlank(accessToken)) {
+        if (StrUtil.isBlank(accessToken)) {
             accessToken = request.getParameter("access_token");
         }
 

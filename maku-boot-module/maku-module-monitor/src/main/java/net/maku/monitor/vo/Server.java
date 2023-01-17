@@ -59,12 +59,12 @@ public class Server {
         this.jvm = new Jvm();
         this.sys = new Sys();
         this.setDiskList();
-        log.info("Server Info => {}", this);
+        log.debug("Server Info => {}", this);
     }
 
     public Server(Disk disk) {
         this.setDiskList();
-        log.info("Server Info => {}", this);
+        log.debug("Server Info => {}", this);
     }
 
     /**

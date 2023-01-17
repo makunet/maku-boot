@@ -2,6 +2,7 @@ package net.maku.system.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.security.utils.TokenUtils;
@@ -12,8 +13,6 @@ import net.maku.system.vo.SysCaptchaVO;
 import net.maku.system.vo.SysMobileLoginVO;
 import net.maku.system.vo.SysTokenVO;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 认证管理

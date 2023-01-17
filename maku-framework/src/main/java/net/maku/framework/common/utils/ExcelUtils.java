@@ -12,13 +12,13 @@ import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.util.ReflectUtils;
 import com.fhs.core.trans.vo.TransPojo;
 import com.fhs.trans.service.impl.DictionaryTransService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import net.maku.framework.common.excel.ExcelDataListener;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

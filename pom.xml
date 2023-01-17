@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version>
+        <version>3.0.1</version>
     </parent>
 
     <modules>
@@ -30,23 +30,22 @@
         <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <mybatisplus.version>3.5.2</mybatisplus.version>
+        <java.version>17</java.version>
+        <mybatisplus.version>3.5.3</mybatisplus.version>
         <dameng.version>8.1.2.79</dameng.version>
         <knife4j.version>4.0.0</knife4j.version>
-        <springdoc.version>1.6.9</springdoc.version>
-        <hutool.version>5.7.22</hutool.version>
+        <hutool.version>5.8.11</hutool.version>
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <aliyun.oss.version>3.8.0</aliyun.oss.version>
-        <aliyun.dysmsapi.version>2.0.18</aliyun.dysmsapi.version>
+        <aliyun.oss.version>3.15.2</aliyun.oss.version>
+        <aliyun.dysmsapi.version>2.0.23</aliyun.dysmsapi.version>
         <tencentcloud.sdk.version>3.1.574</tencentcloud.sdk.version>
-        <qiniu.version>7.11.0</qiniu.version>
-        <minio.version>8.4.3</minio.version>
-        <qcloud.cos.version>5.6.89</qcloud.cos.version>
+        <qiniu.version>7.12.1</qiniu.version>
+        <minio.version>8.5.1</minio.version>
+        <qcloud.cos.version>5.6.97</qcloud.cos.version>
         <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
         <easyexcel.version>3.1.1</easyexcel.version>
-        <easytrans.version>2.0.12</easytrans.version>
+        <easytrans.version>2.1.6</easytrans.version>
     </properties>
 
     <dependencies>
@@ -83,13 +82,8 @@
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>

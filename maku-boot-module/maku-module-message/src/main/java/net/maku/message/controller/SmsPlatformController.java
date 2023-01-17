@@ -2,6 +2,7 @@ package net.maku.message.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.page.PageResult;
 import net.maku.framework.common.utils.ExceptionUtils;
@@ -16,11 +17,10 @@ import net.maku.message.sms.service.SmsService;
 import net.maku.message.vo.SmsPlatformVO;
 import net.maku.message.vo.SmsSendVO;
 import org.apache.commons.lang3.StringUtils;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

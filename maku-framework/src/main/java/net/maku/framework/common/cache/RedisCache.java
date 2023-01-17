@@ -1,10 +1,10 @@
 package net.maku.framework.common.cache;
 
+import jakarta.annotation.Resource;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

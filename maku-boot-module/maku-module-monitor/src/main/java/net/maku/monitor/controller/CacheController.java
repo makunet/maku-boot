@@ -1,5 +1,6 @@
 package net.maku.monitor.controller;
 
+import jakarta.annotation.Resource;
 import net.maku.framework.common.utils.Result;
 import net.maku.monitor.vo.Cache;
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +10,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.*;
 
 /**
