@@ -79,7 +79,7 @@ const visible = ref(false)
 const dataFormRef = ref()
 
 const dataForm = reactive({
-	<#list formList as field>
+	<#list fieldList as field>
 	${field.attrName}: ''<#sep>,
 	</#list>
 })

@@ -1,7 +1,7 @@
 package ${package}.${moduleName}.service;
 
-import ${package}.framework.common.page.PageResult;
-import ${package}.framework.common.service.BaseService;
+import ${package}.framework.common.utils.PageResult;
+import ${package}.framework.mybatis.service.BaseService;
 import ${package}.${moduleName}.vo.${ClassName}VO;
 import ${package}.${moduleName}.query.${ClassName}Query;
 import ${package}.${moduleName}.entity.${ClassName}Entity;

@@ -3,13 +3,14 @@ package ${package}.${moduleName}.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import ${package}.framework.common.page.PageResult;
+import ${package}.framework.common.utils.PageResult;
 import ${package}.framework.common.utils.Result;
 import ${package}.${moduleName}.convert.${ClassName}Convert;
 import ${package}.${moduleName}.entity.${ClassName}Entity;
 import ${package}.${moduleName}.service.${ClassName}Service;
 import ${package}.${moduleName}.query.${ClassName}Query;
 import ${package}.${moduleName}.vo.${ClassName}VO;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class ${ClassName}Controller {
     @GetMapping("page")
     @Operation(summary = "分页")
     @PreAuthorize("hasAuthority('${moduleName}:${functionName}:page')")
-    public Result<PageResult<${ClassName}VO>> page(@Valid ${ClassName}Query query){
+    public Result<PageResult<${ClassName}VO>> page(@ParameterObject @Valid ${ClassName}Query query){
         PageResult<${ClassName}VO> page = ${className}Service.page(query);
 
         return Result.ok(page);

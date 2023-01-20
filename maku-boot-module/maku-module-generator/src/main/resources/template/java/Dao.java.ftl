@@ -1,6 +1,6 @@
 package ${package}.${moduleName}.dao;
 
-import ${package}.framework.common.dao.BaseDao;
+import ${package}.framework.mybatis.dao.BaseDao;
 import ${package}.${moduleName}.entity.${ClassName}Entity;
 import org.apache.ibatis.annotations.Mapper;
 
