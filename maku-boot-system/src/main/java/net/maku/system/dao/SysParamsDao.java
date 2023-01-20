@@ -1,7 +1,7 @@
 package net.maku.system.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import net.maku.framework.common.dao.BaseDao;
+import net.maku.framework.mybatis.dao.BaseDao;
 import net.maku.system.entity.SysParamsEntity;
 import org.apache.ibatis.annotations.Mapper;
 

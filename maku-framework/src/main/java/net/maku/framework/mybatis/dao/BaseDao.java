@@ -1,4 +1,4 @@
-package net.maku.framework.common.dao;
+package net.maku.framework.mybatis.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

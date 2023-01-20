@@ -1,4 +1,4 @@
-package net.maku.framework.common.handler;
+package net.maku.framework.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import net.maku.framework.security.user.SecurityUser;

@@ -1,4 +1,4 @@
-package net.maku.framework.common.interceptor;
+package net.maku.framework.mybatis.interceptor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

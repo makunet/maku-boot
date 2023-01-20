@@ -1,4 +1,4 @@
-package net.maku.framework.common.interceptor;
+package net.maku.framework.mybatis.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;

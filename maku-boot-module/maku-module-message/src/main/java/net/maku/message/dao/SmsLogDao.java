@@ -1,6 +1,6 @@
 package net.maku.message.dao;
 
-import net.maku.framework.common.dao.BaseDao;
+import net.maku.framework.mybatis.dao.BaseDao;
 import net.maku.message.entity.SmsLogEntity;
 import org.apache.ibatis.annotations.Mapper;
 

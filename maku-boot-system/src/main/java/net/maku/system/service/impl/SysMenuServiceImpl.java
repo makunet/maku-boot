@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.ServerException;
-import net.maku.framework.common.service.impl.BaseServiceImpl;
+import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.common.utils.TreeUtils;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.convert.SysMenuConvert;

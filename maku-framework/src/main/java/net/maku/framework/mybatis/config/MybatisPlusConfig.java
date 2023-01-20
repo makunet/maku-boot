@@ -1,11 +1,11 @@
-package net.maku.framework.config;
+package net.maku.framework.mybatis.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import net.maku.framework.common.handler.FieldMetaObjectHandler;
-import net.maku.framework.common.interceptor.DataScopeInnerInterceptor;
+import net.maku.framework.mybatis.handler.FieldMetaObjectHandler;
+import net.maku.framework.mybatis.interceptor.DataScopeInnerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

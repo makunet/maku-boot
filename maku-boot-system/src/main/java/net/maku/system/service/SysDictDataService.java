@@ -1,7 +1,7 @@
 package net.maku.system.service;
 
-import net.maku.framework.common.page.PageResult;
-import net.maku.framework.common.service.BaseService;
+import net.maku.framework.common.utils.PageResult;
+import net.maku.framework.mybatis.service.BaseService;
 import net.maku.system.entity.SysDictDataEntity;
 import net.maku.system.query.SysDictDataQuery;
 import net.maku.system.vo.SysDictDataVO;

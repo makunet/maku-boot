@@ -3,7 +3,7 @@ package net.maku.system.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.maku.framework.common.entity.BaseEntity;
+import net.maku.framework.mybatis.entity.BaseEntity;
 
 /**
  * 角色数据权限

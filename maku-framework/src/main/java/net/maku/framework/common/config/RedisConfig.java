@@ -1,4 +1,4 @@
-package net.maku.framework.config;
+package net.maku.framework.common.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

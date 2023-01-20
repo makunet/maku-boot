@@ -1,6 +1,6 @@
 package net.maku.system.service;
 
-import net.maku.framework.common.service.BaseService;
+import net.maku.framework.mybatis.service.BaseService;
 import net.maku.system.entity.SysUserPostEntity;
 
 import java.util.List;

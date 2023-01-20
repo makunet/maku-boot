@@ -1,6 +1,6 @@
 package net.maku.system.service;
 
-import net.maku.framework.common.service.BaseService;
+import net.maku.framework.mybatis.service.BaseService;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.entity.SysMenuEntity;
 import net.maku.system.vo.SysMenuVO;

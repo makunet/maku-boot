@@ -1,4 +1,4 @@
-package net.maku.framework.common.service;
+package net.maku.framework.mybatis.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 

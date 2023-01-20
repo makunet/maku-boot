@@ -1,7 +1,7 @@
 package net.maku.message.service;
 
-import net.maku.framework.common.page.PageResult;
-import net.maku.framework.common.service.BaseService;
+import net.maku.framework.common.utils.PageResult;
+import net.maku.framework.mybatis.service.BaseService;
 import net.maku.message.entity.SmsPlatformEntity;
 import net.maku.message.query.SmsPlatformQuery;
 import net.maku.message.sms.config.SmsConfig;

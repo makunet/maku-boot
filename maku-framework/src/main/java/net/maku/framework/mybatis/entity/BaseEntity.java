@@ -1,4 +1,4 @@
-package net.maku.framework.common.entity;
+package net.maku.framework.mybatis.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fhs.core.trans.vo.TransPojo;

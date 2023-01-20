@@ -1,4 +1,4 @@
-package net.maku.framework.config;
+package net.maku.framework.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

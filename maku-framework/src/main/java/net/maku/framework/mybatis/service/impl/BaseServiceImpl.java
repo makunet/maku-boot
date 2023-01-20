@@ -1,4 +1,4 @@
-package net.maku.framework.common.service.impl;
+package net.maku.framework.mybatis.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -9,9 +9,9 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.maku.framework.common.constant.Constant;
-import net.maku.framework.common.interceptor.DataScope;
+import net.maku.framework.mybatis.interceptor.DataScope;
 import net.maku.framework.common.query.Query;
-import net.maku.framework.common.service.BaseService;
+import net.maku.framework.mybatis.service.BaseService;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
 

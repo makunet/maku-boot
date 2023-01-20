@@ -2,7 +2,7 @@ package net.maku.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import net.maku.framework.common.service.impl.BaseServiceImpl;
+import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.system.dao.SysRoleDataScopeDao;
 import net.maku.system.entity.SysRoleDataScopeEntity;
 import net.maku.system.service.SysRoleDataScopeService;
