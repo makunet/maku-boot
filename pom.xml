@@ -26,7 +26,7 @@
     </modules>
 
     <properties>
-        <revision>2.5.0</revision>
+        <revision>3.0.0</revision>
         <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -45,6 +45,7 @@
         <qcloud.cos.version>5.6.97</qcloud.cos.version>
         <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
         <easyexcel.version>3.1.5</easyexcel.version>
+        <okio.version>3.3.0</okio.version>
         <easytrans.version>2.1.6</easytrans.version>
     </properties>
 
@@ -140,6 +141,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>okio</artifactId>
+                <groupId>com.squareup.okio</groupId>
+                <version>${okio.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fhs-opensource</groupId>

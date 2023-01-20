@@ -70,6 +70,10 @@
             <artifactId>easyexcel</artifactId>
         </dependency>
         <dependency>
+            <artifactId>okio</artifactId>
+            <groupId>com.squareup.okio</groupId>
+        </dependency>
+        <dependency>
             <groupId>com.fhs-opensource</groupId>
             <artifactId>easy-trans-mybatis-plus-extend</artifactId>
         </dependency>
