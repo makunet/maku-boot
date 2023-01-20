@@ -31,12 +31,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
-        <mybatisplus.version>3.5.3</mybatisplus.version>
+        <mybatisplus.version>3.5.3.1</mybatisplus.version>
         <dameng.version>8.1.2.79</dameng.version>
         <knife4j.version>4.0.0</knife4j.version>
         <hutool.version>5.8.11</hutool.version>
         <captcha.version>1.6.2</captcha.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
         <aliyun.oss.version>3.15.2</aliyun.oss.version>
         <aliyun.dysmsapi.version>2.0.23</aliyun.dysmsapi.version>
         <tencentcloud.sdk.version>3.1.574</tencentcloud.sdk.version>
@@ -44,7 +44,7 @@
         <minio.version>8.5.1</minio.version>
         <qcloud.cos.version>5.6.97</qcloud.cos.version>
         <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
-        <easyexcel.version>3.1.1</easyexcel.version>
+        <easyexcel.version>3.1.5</easyexcel.version>
         <easytrans.version>2.1.6</easytrans.version>
     </properties>
 
@@ -57,10 +57,6 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-jdk8</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -98,11 +94,6 @@
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-jdk8</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
