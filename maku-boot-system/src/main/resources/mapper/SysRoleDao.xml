@@ -5,7 +5,7 @@
 
     <select id="getDataScopeByUserId" resultType="integer">
         select min(t1.data_scope) from sys_role t1, sys_user_role t2
-            where t1.id = t2.role_id and t2.user_id = #{userId} and t1.deleted = 0
+            where t1.id = t2.role_id and t2.user_id = #{userId} and t1.deleted = 0 and t2.deleted = 0
     </select>
 
 </mapper>
