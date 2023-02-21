@@ -8,6 +8,7 @@ import net.maku.framework.common.exception.ServerException;
  * 校验工具类
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class AssertUtils {
 

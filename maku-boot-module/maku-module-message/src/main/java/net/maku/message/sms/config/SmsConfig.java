@@ -6,6 +6,7 @@ import lombok.Data;
  * 短信配置项
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 public class SmsConfig {

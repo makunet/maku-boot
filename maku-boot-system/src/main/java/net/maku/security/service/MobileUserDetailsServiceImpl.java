@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
  * 手机验证码登录 MobileUserDetailsService
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Service
 @AllArgsConstructor

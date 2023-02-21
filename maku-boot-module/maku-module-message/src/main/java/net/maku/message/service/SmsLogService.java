@@ -10,6 +10,7 @@ import net.maku.message.vo.SmsLogVO;
  * 短信日志
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public interface SmsLogService extends BaseService<SmsLogEntity> {
 

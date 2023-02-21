@@ -10,6 +10,7 @@ import net.maku.quartz.vo.ScheduleJobLogVO;
  * 定时任务日志
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public interface ScheduleJobLogService extends BaseService<ScheduleJobLogEntity> {
 

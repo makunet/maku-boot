@@ -11,6 +11,7 @@ import java.io.InputStream;
  * 存储服务Api
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Component
 @AllArgsConstructor

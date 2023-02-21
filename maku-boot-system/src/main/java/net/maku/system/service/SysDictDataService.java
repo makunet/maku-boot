@@ -12,6 +12,7 @@ import java.util.List;
  * 数据字典
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public interface SysDictDataService extends BaseService<SysDictDataEntity> {
 

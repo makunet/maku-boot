@@ -19,6 +19,7 @@ import java.io.InputStream;
  * 腾讯云存储
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class TencentStorageService extends StorageService {
     private final COSCredentials cred;

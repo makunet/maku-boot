@@ -11,6 +11,7 @@ import java.util.List;
  * 菜单管理
  * 
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Mapper
 public interface SysMenuDao extends BaseDao<SysMenuEntity> {

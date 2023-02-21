@@ -10,6 +10,7 @@ import net.maku.framework.common.query.Query;
  * 字典数据
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

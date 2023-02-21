@@ -9,6 +9,7 @@ import net.maku.framework.mybatis.entity.BaseEntity;
  * 字典类型
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

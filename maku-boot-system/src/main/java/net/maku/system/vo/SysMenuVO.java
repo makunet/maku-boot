@@ -16,6 +16,7 @@ import java.util.Date;
  * 菜单管理
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

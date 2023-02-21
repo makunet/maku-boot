@@ -11,6 +11,7 @@ import java.util.List;
  * 用户角色关系
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Mapper
 public interface SysUserRoleDao extends BaseDao<SysUserRoleEntity> {

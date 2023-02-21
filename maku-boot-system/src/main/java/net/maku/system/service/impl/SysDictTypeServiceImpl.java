@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
  * 字典类型
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Service
 @AllArgsConstructor

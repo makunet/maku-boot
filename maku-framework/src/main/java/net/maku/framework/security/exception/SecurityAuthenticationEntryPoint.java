@@ -15,6 +15,7 @@ import java.io.IOException;
  * 匿名用户(token不存在、错误)，异常处理器
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class SecurityAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

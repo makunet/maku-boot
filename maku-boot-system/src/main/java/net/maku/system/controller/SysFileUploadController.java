@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 文件上传
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @RestController
 @RequestMapping("sys/file")

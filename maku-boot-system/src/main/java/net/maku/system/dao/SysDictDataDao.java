@@ -13,6 +13,7 @@ import java.util.List;
  * 字典数据
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Mapper
 public interface SysDictDataDao extends BaseDao<SysDictDataEntity> {

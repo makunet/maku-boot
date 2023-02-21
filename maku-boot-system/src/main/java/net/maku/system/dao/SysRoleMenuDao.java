@@ -11,6 +11,7 @@ import java.util.List;
  * 角色与菜单对应关系
  * 
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Mapper
 public interface SysRoleMenuDao extends BaseDao<SysRoleMenuEntity> {

@@ -22,6 +22,7 @@ import java.util.Map;
  * 数据权限
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class DataScopeInnerInterceptor implements InnerInterceptor {
 

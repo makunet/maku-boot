@@ -7,6 +7,7 @@ import lombok.Getter;
  * 定时任务并发枚举
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Getter
 @AllArgsConstructor

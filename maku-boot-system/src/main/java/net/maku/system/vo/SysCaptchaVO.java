@@ -9,6 +9,7 @@ import java.io.Serializable;
  * 图片验证码
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @Schema(description = "图片验证码")

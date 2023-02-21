@@ -18,6 +18,7 @@ import java.util.Date;
  * 登录日志
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @Schema(description = "登录日志")

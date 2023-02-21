@@ -12,6 +12,7 @@ import java.util.Map;
  * 七牛云短信
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class QiniuSmsStrategy implements SmsStrategy {
     private final SmsConfig smsConfig;

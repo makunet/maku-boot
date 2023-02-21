@@ -10,6 +10,7 @@ import org.quartz.*;
  * 定时任务工具类
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class ScheduleUtils {
     private final static String JOB_NAME = "TASK_NAME_";

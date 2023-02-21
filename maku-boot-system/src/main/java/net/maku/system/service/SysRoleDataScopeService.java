@@ -9,6 +9,7 @@ import java.util.List;
  * 角色数据权限
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public interface SysRoleDataScopeService extends BaseService<SysRoleDataScopeEntity> {
 

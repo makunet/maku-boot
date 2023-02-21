@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * mybatis-plus 配置
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Configuration
 public class MybatisPlusConfig {

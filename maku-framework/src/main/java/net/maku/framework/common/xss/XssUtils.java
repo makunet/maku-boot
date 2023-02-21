@@ -8,6 +8,7 @@ import cn.hutool.http.HTMLFilter;
  * XSS 过滤工具类
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class XssUtils {
     private static final ThreadLocal<HTMLFilter> HTML_FILTER = ThreadLocal.withInitial(() -> {

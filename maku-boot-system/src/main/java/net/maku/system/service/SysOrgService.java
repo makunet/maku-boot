@@ -10,6 +10,7 @@ import java.util.List;
  * 机构管理
  * 
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public interface SysOrgService extends BaseService<SysOrgEntity> {
 

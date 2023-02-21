@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
  * 自定义异常
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

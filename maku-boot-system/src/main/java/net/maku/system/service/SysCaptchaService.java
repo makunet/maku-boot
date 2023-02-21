@@ -6,6 +6,7 @@ import net.maku.system.vo.SysCaptchaVO;
  * 验证码
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public interface SysCaptchaService {
     /**

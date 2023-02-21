@@ -10,6 +10,7 @@ import java.io.Serializable;
  * 用户Token
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @AllArgsConstructor

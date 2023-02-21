@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * Redis Cache
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Component
 public class RedisCache {

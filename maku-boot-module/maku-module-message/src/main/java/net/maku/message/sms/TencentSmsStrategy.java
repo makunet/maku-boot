@@ -18,6 +18,7 @@ import java.util.Map;
  * 腾讯云短信
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class TencentSmsStrategy implements SmsStrategy {
     private final SmsConfig smsConfig;

@@ -18,6 +18,7 @@ import java.util.Map;
  * XSS Request Wrapper
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class XssRequestWrapper extends HttpServletRequestWrapper {
 

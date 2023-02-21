@@ -12,6 +12,7 @@ import java.util.Date;
  * 短信平台
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @Schema(description = "短信平台")

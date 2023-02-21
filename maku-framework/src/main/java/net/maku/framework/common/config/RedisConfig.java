@@ -15,6 +15,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  * Redis配置
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Configuration
 public class RedisConfig {

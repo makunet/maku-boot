@@ -12,6 +12,7 @@ import java.util.Date;
  * 存储服务
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public abstract class StorageService {
     public StorageProperties properties;

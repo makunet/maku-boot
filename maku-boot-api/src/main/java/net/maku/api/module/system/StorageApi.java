@@ -6,6 +6,7 @@ import java.io.InputStream;
  * 存储服务API
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public interface StorageApi {
 

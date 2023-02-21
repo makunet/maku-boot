@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * 用户
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class SecurityUser {
 

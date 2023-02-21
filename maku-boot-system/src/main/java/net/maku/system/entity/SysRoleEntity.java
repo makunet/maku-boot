@@ -12,6 +12,7 @@ import net.maku.system.enums.DataScopeEnum;
  * 角色
  * 
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Data
 @EqualsAndHashCode(callSuper=false)

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 参数管理
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Mapper
 public interface SysParamsDao extends BaseDao<SysParamsEntity> {

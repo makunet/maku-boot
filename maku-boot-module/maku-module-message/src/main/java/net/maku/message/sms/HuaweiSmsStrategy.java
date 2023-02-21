@@ -24,6 +24,7 @@ import java.util.*;
  * 华为云短信
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public class HuaweiSmsStrategy implements SmsStrategy {
     // 无需修改，用于格式化鉴权头域，给"X-WSSE"参数赋值

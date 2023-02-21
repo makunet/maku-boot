@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * 认证管理
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @RestController
 @RequestMapping("sys/auth")

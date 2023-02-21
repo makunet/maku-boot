@@ -11,6 +11,7 @@ import java.util.Map;
  * 登录配置信息
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Configuration
 public class LoginConfig {

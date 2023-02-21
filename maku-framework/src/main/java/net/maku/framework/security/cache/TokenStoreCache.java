@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  * 认证 Cache
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Component
 @AllArgsConstructor

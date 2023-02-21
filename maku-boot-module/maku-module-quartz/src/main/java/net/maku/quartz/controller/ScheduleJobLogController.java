@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 定时任务日志
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @RestController
 @RequestMapping("schedule/log")

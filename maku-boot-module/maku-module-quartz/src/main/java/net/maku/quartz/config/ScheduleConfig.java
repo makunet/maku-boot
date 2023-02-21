@@ -11,6 +11,7 @@ import java.util.Properties;
  * 定时任务配置
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 @Configuration
 public class ScheduleConfig {

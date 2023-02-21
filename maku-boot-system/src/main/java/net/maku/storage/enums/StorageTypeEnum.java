@@ -4,6 +4,7 @@ package net.maku.storage.enums;
  * 存储类型枚举
  *
  * @author 阿沐 babamu@126.com
+ * <a href="https://maku.net">MAKU</a>
  */
 public enum StorageTypeEnum {
     /**
