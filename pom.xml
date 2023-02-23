@@ -44,7 +44,7 @@
         <minio.version>8.5.1</minio.version>
         <qcloud.cos.version>5.6.97</qcloud.cos.version>
         <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
-        <easyexcel.version>3.1.5</easyexcel.version>
+        <easyexcel.version>3.2.1</easyexcel.version>
         <okio.version>3.3.0</okio.version>
         <easytrans.version>2.1.6</easytrans.version>
     </properties>
