@@ -14,8 +14,8 @@
 			  </el-select>
 			  </#if>
 			<#elseif field.queryFormType == 'radio'>
-			  <#if field.queryDict??>
-			  <fast-radio-group v-model="state.queryForm.${field.attrName}" dict-type="${field.queryDict}"></fast-radio-group>
+			  <#if field.formDict??>
+			  <fast-radio-group v-model="state.queryForm.${field.attrName}" dict-type="${field.formDict}"></fast-radio-group>
 			  <#else>
 			  <el-radio-group v-model="state.queryForm.${field.attrName}">
 				<el-radio :label="0">单选</el-radio>
@@ -81,12 +81,11 @@
 </template>
 
 <script setup lang="ts" name="${ModuleName}${FunctionName}Index">
-import { useCrud } from '@/hooks'
-import { reactive, ref } from 'vue'
-import AddOrUpdate from './add-or-update.vue'
-import { IHooksOptions } from '@/hooks/interface'
+	import {useCrud} from '@/hooks'
+	import {reactive, ref} from 'vue'
+	import {IHooksOptions} from '@/hooks/interface'
 
-const state: IHooksOptions = reactive({
+	const state: IHooksOptions = reactive({
 	dataListUrl: '/${moduleName}/${functionName}/page',
 	deleteUrl: '/${moduleName}/${functionName}',
 	queryForm: {

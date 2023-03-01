@@ -48,7 +48,7 @@
     },
     {
       "templateName": "sql/menu.sql.ftl",
-      "generatorPath": "${backendPath}/menu/${functionName}_menu.sql"
+      "generatorPath": "${backendPath}/menu/${tableName}_menu.sql"
     },
     {
       "templateName": "vue/api.ts.ftl",
