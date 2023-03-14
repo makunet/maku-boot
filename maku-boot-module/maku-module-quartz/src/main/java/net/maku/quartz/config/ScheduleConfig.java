@@ -3,6 +3,8 @@ package net.maku.quartz.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.springframework.beans.factory.annotation.Value;
+import net.maku.framework.common.constant.Constant;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -15,6 +17,9 @@ import java.util.Properties;
  */
 @Configuration
 public class ScheduleConfig {
+
+    @Value("spring.datasource.driver-class-name")
+    private String driver;
 
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource) {
@@ -38,6 +43,10 @@ public class ScheduleConfig {
         prop.put("org.quartz.jobStore.tablePrefix", "QRTZ_");
         prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS UPDLOCK WHERE LOCK_NAME = ?");
 
+        //postgreSql数据库配置
+        if(Constant.PGSQL_DRIVER.equals(driver)){
+            prop.put("org.quartz.jobStore.driverDelegateClass", "org.quartz.impl.jdbcjobstore.PostgreSQLDelegate");
+        }
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         factory.setSchedulerName("MakuScheduler");
         factory.setDataSource(dataSource);
