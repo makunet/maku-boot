@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
         content = filterXss(content);
 
         // 返回新的 ServletInputStream
-        final ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes());
+        final ByteArrayInputStream bis = new ByteArrayInputStream(StrUtil.bytes(content, StandardCharsets.UTF_8));
         return new ServletInputStream() {
             @Override
             public boolean isFinished() {
