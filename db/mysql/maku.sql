@@ -238,7 +238,7 @@ create table sys_log_login
 
 CREATE TABLE online_table
 (
-    id              bigint       NOT NULL AUTO_INCREMENT COMMENT 'id',
+    id              varchar(32)  NOT NULL COMMENT 'id',
     name            varchar(100) NOT NULL COMMENT '表名',
     comments        varchar(200) NOT NULL COMMENT '表描述',
     form_layout     tinyint COMMENT '表单布局',
@@ -279,7 +279,7 @@ CREATE TABLE online_table_column
     query_type      varchar(200) COMMENT '查询方式',
     query_input     varchar(200) COMMENT '查询控件',
     sort            int COMMENT '排序',
-    table_id        bigint COMMENT '表id',
+    table_id        varchar(32) COMMENT '表id',
     primary key (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='Online表单字段';
 
