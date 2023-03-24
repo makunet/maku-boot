@@ -18,7 +18,7 @@
 
 
 ## 开源汇总
-- 低代码开发平台（单体版）：https://gitee.com/makunet/maku-admin
+- 低代码开发平台（单体版）：https://gitee.com/makunet/maku-boot
 - 低代码开发平台（微服务）：https://gitee.com/makunet/maku-cloud
 - 超好用的代码生成器：https://gitee.com/makunet/maku-generator
 - Vue3.x 后台管理UI：https://gitee.com/makunet/maku-admin
