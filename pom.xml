@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
     </parent>
 
     <modules>
@@ -33,7 +33,7 @@
         <java.version>17</java.version>
         <mybatisplus.version>3.5.3.1</mybatisplus.version>
         <dameng.version>8.1.2.79</dameng.version>
-        <knife4j.version>4.0.0</knife4j.version>
+        <knife4j.version>4.1.0</knife4j.version>
         <hutool.version>5.8.11</hutool.version>
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
@@ -46,7 +46,7 @@
         <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
         <easyexcel.version>3.2.1</easyexcel.version>
         <okio.version>3.3.0</okio.version>
-        <easytrans.version>2.1.6</easytrans.version>
+        <easytrans.version>2.1.11</easytrans.version>
     </properties>
 
     <dependencies>
