@@ -43,6 +43,8 @@ storage:
 maku:
   xss:
     enabled: true
+    exclude-urls:
+      - /maku-generator/**
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
