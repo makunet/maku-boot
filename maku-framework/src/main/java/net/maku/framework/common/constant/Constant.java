@@ -48,5 +48,9 @@ public interface Constant {
     * pgsql的driver
     */
     String PGSQL_DRIVER = "org.postgresql.Driver";
+    /**
+     * Content-Type
+     */
+    String CONTENTTYPE_OCTET_STREAM = "application/octet-stream";
 
 }

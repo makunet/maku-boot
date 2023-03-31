@@ -4,11 +4,15 @@ import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.storage.properties.StorageProperties;
+import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Optional;
 
 /**
  * Minio存储
@@ -40,9 +44,16 @@ public class MinioStorageService extends StorageService {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.getMinio().getBucketName()).build());
             }
 
+            String contentType = Constant.CONTENTTYPE_OCTET_STREAM;
+            Optional<MediaType> mediaType = MediaTypeFactory.getMediaType(path);
+            if (mediaType.isPresent()) {
+                contentType = mediaType.get().toString();
+            }
+
             minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(properties.getMinio().getBucketName())
+                            .contentType(contentType)
                             .object(path)
                             .stream(inputStream, inputStream.available(), -1)
                             .build()
