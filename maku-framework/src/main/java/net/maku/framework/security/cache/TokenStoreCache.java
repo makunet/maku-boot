@@ -1,10 +1,14 @@
 package net.maku.framework.security.cache;
 
+import cn.hutool.core.collection.ListUtil;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.cache.RedisCache;
 import net.maku.framework.common.cache.RedisKeys;
 import net.maku.framework.security.user.UserDetail;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * 认证 Cache
@@ -30,5 +34,12 @@ public class TokenStoreCache {
     public void deleteUser(String accessToken) {
         String key = RedisKeys.getAccessTokenKey(accessToken);
         redisCache.delete(key);
+    }
+
+    public List<String> getUserKeyList() {
+        String pattern = RedisKeys.getAccessTokenKey("*");
+        Set<String> sets = redisCache.keys(pattern);
+
+        return ListUtil.toList(sets);
     }
 }
