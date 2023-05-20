@@ -21,4 +21,7 @@ public class SysCaptchaVO implements Serializable {
 
     @Schema(description = "image base64")
     private String image;
+
+    @Schema(description = "是否开启验证码")
+    private boolean enabled;
 }

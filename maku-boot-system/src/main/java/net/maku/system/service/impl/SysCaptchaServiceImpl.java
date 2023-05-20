@@ -27,6 +27,11 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
 
     @Override
     public SysCaptchaVO generate() {
+        // 判断是否开启验证码
+        if (!isCaptchaEnabled()) {
+            return new SysCaptchaVO();
+        }
+
         // 生成验证码key
         String key = UUID.randomUUID().toString();
 
@@ -44,6 +49,7 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
         SysCaptchaVO captchaVO = new SysCaptchaVO();
         captchaVO.setKey(key);
         captchaVO.setImage(image);
+        captchaVO.setEnabled(true);
 
         return captchaVO;
     }
