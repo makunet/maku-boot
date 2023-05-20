@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author 阿沐 babamu@126.com
  * <a href="https://maku.net">MAKU</a>
- * <a href="https://maku.net">MAKU</a>
  */
 @Configuration
 @EnableConfigurationProperties(StorageProperties.class)
