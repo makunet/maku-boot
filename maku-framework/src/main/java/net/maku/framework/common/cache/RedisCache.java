@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -66,6 +67,10 @@ public class RedisCache {
 
     public Boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
+    }
+
+    public Set<String> keys(String pattern) {
+        return redisTemplate.keys(pattern);
     }
 
     public void delete(String key) {
