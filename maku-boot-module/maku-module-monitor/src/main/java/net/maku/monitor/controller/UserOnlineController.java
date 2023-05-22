@@ -15,6 +15,7 @@ import net.maku.framework.security.cache.TokenStoreCache;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.monitor.vo.UserOnlineVO;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class UserOnlineController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
-    //@PreAuthorize("hasAuthority('monitor:user:all')")
+    @PreAuthorize("hasAuthority('monitor:user:all')")
     public Result<PageResult<UserOnlineVO>> page(@ParameterObject @Valid Query query) {
         // 获取登录用户的全部key
         List<String> keys = tokenStoreCache.getUserKeyList();
@@ -60,7 +61,7 @@ public class UserOnlineController {
 
     @DeleteMapping("{accessToken}")
     @Operation(summary = "强制退出")
-    //@PreAuthorize("hasAuthority('monitor:user:user')")
+    @PreAuthorize("hasAuthority('monitor:user:user')")
     public Result<String> forceLogout(@PathVariable("accessToken") String accessToken) {
         // token不能为空
         if (StrUtil.isBlank(accessToken)) {
