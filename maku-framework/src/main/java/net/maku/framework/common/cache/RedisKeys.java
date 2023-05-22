@@ -22,4 +22,8 @@ public class RedisKeys {
         return "sys:access:" + accessToken;
     }
 
+    public static String getLogKey() {
+        return "sys:log";
+    }
+
 }
