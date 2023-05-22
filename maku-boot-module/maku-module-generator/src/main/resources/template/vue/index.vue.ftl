@@ -84,6 +84,7 @@
 	import {useCrud} from '@/hooks'
 	import {reactive, ref} from 'vue'
 	import {IHooksOptions} from '@/hooks/interface'
+	import AddOrUpdate from './add-or-update.vue'
 
 	const state: IHooksOptions = reactive({
 	dataListUrl: '/${moduleName}/${functionName}/page',
