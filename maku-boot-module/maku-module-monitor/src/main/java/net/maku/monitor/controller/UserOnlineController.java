@@ -56,7 +56,7 @@ public class UserOnlineController {
 
         });
 
-        return Result.ok(new PageResult<>(userOnlineList, keyList.size()));
+        return Result.ok(new PageResult<>(userOnlineList, keys.size()));
     }
 
     @DeleteMapping("{accessToken}")
