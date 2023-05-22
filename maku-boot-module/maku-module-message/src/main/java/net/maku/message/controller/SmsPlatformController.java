@@ -4,9 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.ExceptionUtils;
+import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.message.convert.SmsPlatformConvert;
 import net.maku.message.entity.SmsPlatformEntity;
 import net.maku.message.query.SmsPlatformQuery;
@@ -59,6 +61,7 @@ public class SmsPlatformController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sms:platform:save')")
     public Result<String> save(@RequestBody SmsPlatformVO vo) {
         smsPlatformService.save(vo);
@@ -68,6 +71,7 @@ public class SmsPlatformController {
 
     @PostMapping("send")
     @Operation(summary = "发送短信")
+    @OperateLog(type = OperateTypeEnum.OTHER)
     @PreAuthorize("hasAuthority('sms:platform:update')")
     public Result<String> send(@RequestBody SmsSendVO vo) {
         SmsPlatformEntity entity = smsPlatformService.getById(vo.getId());
@@ -97,6 +101,7 @@ public class SmsPlatformController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sms:platform:update')")
     public Result<String> update(@RequestBody @Valid SmsPlatformVO vo) {
         smsPlatformService.update(vo);
@@ -106,6 +111,7 @@ public class SmsPlatformController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sms:platform:delete')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         smsPlatformService.delete(idList);

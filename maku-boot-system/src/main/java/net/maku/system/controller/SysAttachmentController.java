@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.system.query.SysAttachmentQuery;
 import net.maku.system.service.SysAttachmentService;
 import net.maku.system.vo.SysAttachmentVO;
@@ -39,6 +41,7 @@ public class SysAttachmentController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sys:attachment:save')")
     public Result<String> save(@RequestBody SysAttachmentVO vo) {
         sysAttachmentService.save(vo);
@@ -48,6 +51,7 @@ public class SysAttachmentController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:attachment:delete')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         sysAttachmentService.delete(idList);

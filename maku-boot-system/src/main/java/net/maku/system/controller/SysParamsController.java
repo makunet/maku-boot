@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.system.convert.SysParamsConvert;
 import net.maku.system.entity.SysParamsEntity;
 import net.maku.system.query.SysParamsQuery;
@@ -50,6 +52,7 @@ public class SysParamsController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sys:params:all')")
     public Result<String> save(@RequestBody SysParamsVO vo) {
         sysParamsService.save(vo);
@@ -59,6 +62,7 @@ public class SysParamsController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:params:all')")
     public Result<String> update(@RequestBody @Valid SysParamsVO vo) {
         sysParamsService.update(vo);
@@ -68,6 +72,7 @@ public class SysParamsController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:params:all')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         sysParamsService.delete(idList);

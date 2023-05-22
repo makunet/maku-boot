@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.system.convert.SysOrgConvert;
 import net.maku.system.entity.SysOrgEntity;
 import net.maku.system.service.SysOrgService;
@@ -55,6 +57,7 @@ public class SysOrgController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sys:org:save')")
     public Result<String> save(@RequestBody @Valid SysOrgVO vo) {
         sysOrgService.save(vo);
@@ -64,6 +67,7 @@ public class SysOrgController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:org:update')")
     public Result<String> update(@RequestBody @Valid SysOrgVO vo) {
         sysOrgService.update(vo);
@@ -73,6 +77,7 @@ public class SysOrgController {
 
     @DeleteMapping("{id}")
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:org:delete')")
     public Result<String> delete(@PathVariable("id") Long id) {
         sysOrgService.delete(id);

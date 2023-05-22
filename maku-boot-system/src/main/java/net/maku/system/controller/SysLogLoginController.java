@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.system.query.SysLogLoginQuery;
 import net.maku.system.service.SysLogLoginService;
 import net.maku.system.vo.SysLogLoginVO;
@@ -39,6 +41,7 @@ public class SysLogLoginController {
 
     @GetMapping("export")
     @Operation(summary = "导出excel")
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     @PreAuthorize("hasAuthority('sys:log:login')")
     public void export() {
         sysLogLoginService.export();

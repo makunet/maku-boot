@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.convert.SysUserConvert;
@@ -80,6 +82,7 @@ public class SysUserController {
 
     @PutMapping("password")
     @Operation(summary = "修改密码")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     public Result<String> password(@RequestBody @Valid SysUserPasswordVO vo) {
         // 原密码不正确
         UserDetail user = SecurityUser.getUser();
@@ -95,6 +98,7 @@ public class SysUserController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sys:user:save')")
     public Result<String> save(@RequestBody @Valid SysUserVO vo) {
         // 新增密码不能为空
@@ -113,6 +117,7 @@ public class SysUserController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@RequestBody @Valid SysUserVO vo) {
         // 如果密码不为空，则进行加密处理
@@ -129,6 +134,7 @@ public class SysUserController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         Long userId = SecurityUser.getUserId();
@@ -143,6 +149,7 @@ public class SysUserController {
 
     @PostMapping("import")
     @Operation(summary = "导入用户")
+    @OperateLog(type = OperateTypeEnum.IMPORT)
     @PreAuthorize("hasAuthority('sys:user:import')")
     public Result<String> importExcel(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -155,6 +162,7 @@ public class SysUserController {
 
     @GetMapping("export")
     @Operation(summary = "导出用户")
+    @OperateLog(type = OperateTypeEnum.EXPORT)
     @PreAuthorize("hasAuthority('sys:user:export')")
     public void export() {
         sysUserService.export();

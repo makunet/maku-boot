@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.system.convert.SysPostConvert;
 import net.maku.system.entity.SysPostEntity;
 import net.maku.system.query.SysPostQuery;
@@ -59,6 +61,7 @@ public class SysPostController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sys:post:save')")
     public Result<String> save(@RequestBody SysPostVO vo) {
         sysPostService.save(vo);
@@ -68,6 +71,7 @@ public class SysPostController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:post:update')")
     public Result<String> update(@RequestBody @Valid SysPostVO vo) {
         sysPostService.update(vo);
@@ -77,6 +81,7 @@ public class SysPostController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:post:delete')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         sysPostService.delete(idList);

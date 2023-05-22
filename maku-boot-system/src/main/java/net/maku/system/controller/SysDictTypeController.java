@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.system.convert.SysDictTypeConvert;
 import net.maku.system.entity.SysDictTypeEntity;
 import net.maku.system.query.SysDictTypeQuery;
@@ -62,6 +64,7 @@ public class SysDictTypeController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sys:dict:save')")
     public Result<String> save(@RequestBody @Valid SysDictTypeVO vo) {
         sysDictTypeService.save(vo);
@@ -71,6 +74,7 @@ public class SysDictTypeController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:dict:update')")
     public Result<String> update(@RequestBody @Valid SysDictTypeVO vo) {
         sysDictTypeService.update(vo);
@@ -80,6 +84,7 @@ public class SysDictTypeController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:dict:delete')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         sysDictTypeService.delete(idList);

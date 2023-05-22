@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.quartz.convert.ScheduleJobConvert;
 import net.maku.quartz.entity.ScheduleJobEntity;
 import net.maku.quartz.query.ScheduleJobQuery;
@@ -55,6 +57,7 @@ public class ScheduleJobController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('schedule:save')")
     public Result<String> save(@RequestBody ScheduleJobVO vo) {
         if (!CronUtils.isValid(vo.getCronExpression())) {
@@ -71,6 +74,7 @@ public class ScheduleJobController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('schedule:update')")
     public Result<String> update(@RequestBody @Valid ScheduleJobVO vo) {
         if (!CronUtils.isValid(vo.getCronExpression())) {
@@ -87,6 +91,7 @@ public class ScheduleJobController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('schedule:delete')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         scheduleJobService.delete(idList);
@@ -96,6 +101,7 @@ public class ScheduleJobController {
 
     @PutMapping("run")
     @Operation(summary = "立即执行")
+    @OperateLog(type = OperateTypeEnum.OTHER)
     @PreAuthorize("hasAuthority('schedule:run')")
     public Result<String> run(@RequestBody ScheduleJobVO vo) {
         scheduleJobService.run(vo);
@@ -105,6 +111,7 @@ public class ScheduleJobController {
 
     @PutMapping("change-status")
     @Operation(summary = "修改状态")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('schedule:update')")
     public Result<String> changeStatus(@RequestBody ScheduleJobVO vo) {
         scheduleJobService.changeStatus(vo);

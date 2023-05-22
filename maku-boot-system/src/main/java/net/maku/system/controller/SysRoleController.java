@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
+import net.maku.framework.operatelog.annotations.OperateLog;
+import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.convert.SysRoleConvert;
@@ -81,6 +83,7 @@ public class SysRoleController {
 
     @PostMapping
     @Operation(summary = "保存")
+    @OperateLog(type = OperateTypeEnum.INSERT)
     @PreAuthorize("hasAuthority('sys:role:save')")
     public Result<String> save(@RequestBody @Valid SysRoleVO vo) {
         sysRoleService.save(vo);
@@ -90,6 +93,7 @@ public class SysRoleController {
 
     @PutMapping
     @Operation(summary = "修改")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> update(@RequestBody @Valid SysRoleVO vo) {
         sysRoleService.update(vo);
@@ -99,6 +103,7 @@ public class SysRoleController {
 
     @PutMapping("data-scope")
     @Operation(summary = "数据权限")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> dataScope(@RequestBody @Valid SysRoleDataScopeVO vo) {
         sysRoleService.dataScope(vo);
@@ -108,6 +113,7 @@ public class SysRoleController {
 
     @DeleteMapping
     @Operation(summary = "删除")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:role:delete')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         sysRoleService.delete(idList);
@@ -136,6 +142,7 @@ public class SysRoleController {
 
     @DeleteMapping("user/{roleId}")
     @Operation(summary = "删除角色用户")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> userDelete(@PathVariable("roleId") Long roleId, @RequestBody List<Long> userIdList) {
         sysUserRoleService.deleteByUserIdList(roleId, userIdList);
@@ -145,6 +152,7 @@ public class SysRoleController {
 
     @PostMapping("user/{roleId}")
     @Operation(summary = "分配角色给用户列表")
+    @OperateLog(type = OperateTypeEnum.DELETE)
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> userSave(@PathVariable("roleId") Long roleId, @RequestBody List<Long> userIdList) {
         sysUserRoleService.saveUserList(roleId, userIdList);
