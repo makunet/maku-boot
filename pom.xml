@@ -32,6 +32,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
         <mybatisplus.version>3.5.3.1</mybatisplus.version>
+        <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
+        <redisson.version>3.21.3</redisson.version>
         <dameng.version>8.1.2.79</dameng.version>
         <knife4j.version>4.1.0</knife4j.version>
         <hutool.version>5.8.11</hutool.version>
@@ -47,6 +49,7 @@
         <easyexcel.version>3.2.1</easyexcel.version>
         <okio.version>3.3.0</okio.version>
         <easytrans.version>2.1.11</easytrans.version>
+        <transmittable.thread.local.version>2.14.2</transmittable.thread.local.version>
     </properties>
 
     <dependencies>
@@ -71,6 +74,16 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.dameng</groupId>
@@ -156,6 +169,11 @@
                 <groupId>com.fhs-opensource</groupId>
                 <artifactId>easy-trans-mybatis-plus-extend</artifactId>
                 <version>${easytrans.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable.thread.local.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
