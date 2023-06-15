@@ -15,11 +15,11 @@
             <artifactId>maku-boot-system</artifactId>
             <version>${revision}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.maku</groupId>-->
-<!--            <artifactId>maku-boot-new</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>net.maku</groupId>
+            <artifactId>maku-boot-new</artifactId>
+            <version>${revision}</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>net.maku</groupId>-->
 <!--            <artifactId>maku-module-quartz</artifactId>-->
