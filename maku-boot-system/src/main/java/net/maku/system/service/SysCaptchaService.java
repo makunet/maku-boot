@@ -22,4 +22,11 @@ public interface SysCaptchaService {
      * @return true：成功  false：失败
      */
     boolean validate(String key, String code);
+
+    /**
+     * 是否开启登录验证码
+     *
+     * @return true：开启  false：关闭
+     */
+    boolean isCaptchaEnabled();
 }

@@ -36,6 +36,14 @@ public class SysAuthController {
         return Result.ok(captchaVO);
     }
 
+    @GetMapping("captcha/enabled")
+    @Operation(summary = "是否开启验证码")
+    public Result<Boolean> captchaEnabled() {
+        boolean enabled = sysCaptchaService.isCaptchaEnabled();
+
+        return Result.ok(enabled);
+    }
+
     @PostMapping("login")
     @Operation(summary = "账号密码登录")
     public Result<SysTokenVO> login(@RequestBody SysAccountLoginVO login) {

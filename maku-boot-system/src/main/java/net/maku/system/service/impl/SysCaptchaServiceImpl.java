@@ -27,11 +27,6 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
 
     @Override
     public SysCaptchaVO generate() {
-        // 判断是否开启验证码
-        if (!isCaptchaEnabled()) {
-            return new SysCaptchaVO();
-        }
-
         // 生成验证码key
         String key = UUID.randomUUID().toString();
 
@@ -49,7 +44,6 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
         SysCaptchaVO captchaVO = new SysCaptchaVO();
         captchaVO.setKey(key);
         captchaVO.setImage(image);
-        captchaVO.setEnabled(true);
 
         return captchaVO;
     }
@@ -72,6 +66,11 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
         return code.equalsIgnoreCase(captcha);
     }
 
+    @Override
+    public boolean isCaptchaEnabled() {
+        return sysParamsService.getBoolean(SysParamsEnum.LOGIN_CAPTCHA.name());
+    }
+
     private String getCache(String key) {
         key = RedisKeys.getCaptchaKey(key);
         String captcha = (String) redisCache.get(key);
@@ -83,12 +82,4 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
         return captcha;
     }
 
-    /**
-     * 是否开启登录验证码
-     *
-     * @return true：开启  false：关闭
-     */
-    private boolean isCaptchaEnabled() {
-        return sysParamsService.getBoolean(SysParamsEnum.LOGIN_CAPTCHA.name());
-    }
 }
