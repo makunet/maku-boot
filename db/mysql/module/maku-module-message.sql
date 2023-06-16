@@ -10,13 +10,13 @@ INSERT INTO sys_menu (pid, name, url, authority, type, open_style, icon, sort, v
 INSERT INTO sys_menu (pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @menuId), '修改', '', 'sms:platform:update,sms:platform:info', 1, 0, '', 2, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @menuId), '删除', '', 'sms:platform:delete', 1, 0, '', 3, 0, 0, 10000, now(), 10000, now());
 
-INSERT INTO sys_dict_type (dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ('sms_platform', '平台类型', '短信管理', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_type (dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ('sms_platform', '平台类型', '短信管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
 
 SET @typeId = @@identity;
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '阿里云', '0', '', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '腾讯云', '1', '', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '七牛云', '2', '', '', 2, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '华为云', '3', '', '', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '阿里云', '0', '', '', 0, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '腾讯云', '1', '', '', 1, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '七牛云', '2', '', '', 2, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '华为云', '3', '', '', 3, 10000, 0, 0, 10000, now(), 10000, now());
 
 
 DROP TABLE IF EXISTS sms_platform;

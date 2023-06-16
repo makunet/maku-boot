@@ -7,11 +7,11 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1106, 1103, '修改', '', 'sms:platform:update,sms:platform:info', 1, 0, '', 2, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1107, 1103, '删除', '', 'sms:platform:delete', 1, 0, '', 3, 0, 0, 10000, now(), 10000, now());
 
-INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, 'sms_platform', '平台类型', '短信管理', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '阿里云', '0', '', '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '腾讯云', '1', '', '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '七牛云', '2', '', '', 2, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '华为云', '3', '', '', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1101, 'sms_platform', '平台类型', '短信管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '阿里云', '0', '', '', 0, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '腾讯云', '1', '', '', 1, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '七牛云', '2', '', '', 2, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1101, '华为云', '3', '', '', 3, 10000, 0, 0, 10000, now(), 10000, now());
 
 select setval('sys_menu_id_seq', (select max(id) from sys_menu));
 select setval('sys_dict_type_id_seq', (select max(id) from sys_dict_type));
