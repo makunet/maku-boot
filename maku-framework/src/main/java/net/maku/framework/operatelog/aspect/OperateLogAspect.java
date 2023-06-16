@@ -78,6 +78,7 @@ public class OperateLogAspect {
         if (user != null) {
             log.setUserId(user.getId());
             log.setRealName(user.getRealName());
+            log.setTenantId(user.getTenantId());
         }
         // 操作类型
         log.setOperateType(operateLog.type()[0].getValue());
@@ -114,6 +115,7 @@ public class OperateLogAspect {
 
         log.setReqParams(obtainMethodArgs(joinPoint));
         log.setStatus(status);
+
 
         // 保存操作日志
         operateLogService.saveLog(log);
