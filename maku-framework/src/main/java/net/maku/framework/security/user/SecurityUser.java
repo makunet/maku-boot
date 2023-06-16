@@ -16,9 +16,9 @@ public class SecurityUser {
     public static UserDetail getUser() {
         UserDetail user;
         try {
-            user = (UserDetail)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        }catch (Exception e){
-            return new UserDetail();
+            user = (UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (Exception e) {
+            return null;
         }
 
         return user;
@@ -28,7 +28,12 @@ public class SecurityUser {
      * 获取用户ID
      */
     public static Long getUserId() {
-        return getUser().getId();
+        UserDetail user = getUser();
+        if (user == null) {
+            return null;
+        }
+
+        return user.getId();
     }
 
 }
