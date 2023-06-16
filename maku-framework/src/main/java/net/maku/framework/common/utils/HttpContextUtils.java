@@ -3,6 +3,7 @@ package net.maku.framework.common.utils;
 import cn.hutool.core.util.StrUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -57,8 +58,16 @@ public class HttpContextUtils {
 
     public static String getDomain() {
         HttpServletRequest request = getHttpServletRequest();
-        StringBuffer url = request.getRequestURL();
-        return url.delete(url.length() - request.getRequestURI().length(), url.length()).toString();
+        
+        return getDomain(request);
+    }
+
+    public static String getDomain(HttpServletRequest request) {
+        String domain = request.getHeader(HttpHeaders.ORIGIN);
+        if (StrUtil.isBlank(domain)) {
+            domain = request.getHeader(HttpHeaders.REFERER);
+        }
+        return StringUtils.removeEnd(domain, "/");
     }
 
     public static String getOrigin() {
