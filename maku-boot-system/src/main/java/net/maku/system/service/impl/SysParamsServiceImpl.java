@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.JsonUtils;
@@ -32,15 +31,6 @@ import java.util.List;
 @AllArgsConstructor
 public class SysParamsServiceImpl extends BaseServiceImpl<SysParamsDao, SysParamsEntity> implements SysParamsService {
     private final SysParamsCache sysParamsCache;
-
-    @PostConstruct
-    public void init() {
-        // 查询列表
-        List<SysParamsEntity> list = baseMapper.selectList(null);
-
-        // 保存到缓存
-        sysParamsCache.saveList(list);
-    }
 
     @Override
     public PageResult<SysParamsVO> page(SysParamsQuery query) {
