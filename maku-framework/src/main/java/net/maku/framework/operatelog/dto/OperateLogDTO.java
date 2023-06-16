@@ -80,4 +80,9 @@ public class OperateLogDTO {
      * 返回消息
      */
     private String resultMsg;
+
+    /**
+     * 租户ID
+     */
+    private Long tenantId;
 }

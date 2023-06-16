@@ -32,6 +32,7 @@ public class UserDetail implements UserDetails {
     private Long orgId;
     private Integer status;
     private Integer superAdmin;
+    private Long tenantId;
 
     /**
      * 数据权限范围
