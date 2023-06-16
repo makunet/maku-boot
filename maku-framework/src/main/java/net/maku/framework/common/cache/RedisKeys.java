@@ -19,7 +19,7 @@ public class RedisKeys {
      * accessToken Key
      */
     public static String getAccessTokenKey(String accessToken) {
-        return "sys:access:" + accessToken;
+        return "sys:token:" + accessToken;
     }
 
     public static String getLogKey() {
