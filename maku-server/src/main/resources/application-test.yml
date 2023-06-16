@@ -7,17 +7,29 @@ spring:
       #password:
       #timeout: 6000ms  # 连接超时时长（毫秒）
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
-    username: maku
-    password: 123456
-    hikari:
-      connection-timeout: 30000     # 等待连接池分配链接的最大时长（毫秒），超过这个时长还没有可用的连接则发生 SQLException，默认：30 秒
-      minimum-idle: 2               # 最小空闲连接数
-      maximum-pool-size: 10         # 最大连接数
-      auto-commit: true             # 自动提交
-      idle-timeout: 600000          # 连接超时的最大时长（毫秒），超时则被释放（retired），默认：10 分钟
-      max-lifetime: 1800000         # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认： 30 分钟
-      connection-test-query: SELECT 1
-      pool-name: MakuHikariCP
+    dynamic:
+      hikari: # Hikari 连接池全局配置
+        connection-timeout: 30000     # 等待连接池分配链接的最大时长（毫秒），超过这个时长还没有可用的连接则发生 SQLException，默认：30 秒
+        minimum-idle: 2               # 最小空闲连接数
+        maximum-pool-size: 10         # 最大连接数
+        idle-timeout: 600000          # 连接超时的最大时长（毫秒），超时则被释放（retired），默认：10 分钟
+        max-lifetime: 1800000         # 连接的生命时长（毫秒），超时而且没被使用则被释放（retired），默认： 30 分钟
+        connection-test-query: SELECT 1
+      primary: master
+      datasource:
+        master:
+          # MySQL8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+          username: maku
+          password: 123456
+          # 达梦
+          #    driver-class-name: dm.jdbc.driver.DmDriver
+          #    url: jdbc:dm://192.168.3.19:5236/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+          #    username: maku_boot
+          #    password: 12345678
+          # PostgreSQL
+          #    driver-class-name: org.postgresql.Driver
+          #    url: jdbc:postgresql://192.168.3.19:5432/postgres
+          #    username: postgres
+          #    password: 123456
