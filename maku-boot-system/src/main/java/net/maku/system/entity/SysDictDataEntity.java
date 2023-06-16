@@ -39,4 +39,8 @@ public class SysDictDataEntity extends BaseEntity {
      * 排序
      */
     private Integer sort;
+    /**
+     * 租户ID
+     */
+    private Long tenantId;
 }

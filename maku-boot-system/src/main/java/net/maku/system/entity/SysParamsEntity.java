@@ -41,5 +41,8 @@ public class SysParamsEntity extends BaseEntity {
      */
     private String remark;
 
-
+    /**
+     * 租户ID
+     */
+    private Long tenantId;
 }

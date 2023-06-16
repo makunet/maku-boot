@@ -60,6 +60,10 @@ public class SysUserEntity extends BaseEntity {
     /**
      * 机构名称
      */
-    @TableField(exist=false)
+    @TableField(exist = false)
     private String orgName;
+    /**
+     * 租户ID
+     */
+    private Long tenantId;
 }

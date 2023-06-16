@@ -39,4 +39,8 @@ public class SysDictTypeEntity extends BaseEntity {
      * 动态sql
      */
     private String dictSql;
+    /**
+     * 租户ID
+     */
+    private Long tenantId;
 }

@@ -10,29 +10,33 @@ import net.maku.system.enums.DataScopeEnum;
 
 /**
  * 角色
- * 
+ *
  * @author 阿沐 babamu@126.com
  * <a href="https://maku.net">MAKU</a>
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @TableName("sys_role")
 public class SysRoleEntity extends BaseEntity {
-	/**
-	 * 角色名称
-	 */
-	private String name;
-	/**
-	 * 备注
-	 */
-	private String remark;
-	/**
-	 * 数据范围  {@link DataScopeEnum}
-	 */
-	private Integer dataScope;
-	/**
-	 * 机构ID
-	 */
-	@TableField(fill = FieldFill.INSERT)
-	private Long orgId;
+    /**
+     * 角色名称
+     */
+    private String name;
+    /**
+     * 备注
+     */
+    private String remark;
+    /**
+     * 数据范围  {@link DataScopeEnum}
+     */
+    private Integer dataScope;
+    /**
+     * 机构ID
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Long orgId;
+    /**
+     * 租户ID
+     */
+    private Long tenantId;
 }
