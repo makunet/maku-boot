@@ -27,16 +27,20 @@ public class FieldMetaObjectHandler implements MetaObjectHandler {
         UserDetail user = SecurityUser.getUser();
         Date date = new Date();
 
-        // 创建者
-        strictInsertFill(metaObject, CREATOR, Long.class, user.getId());
+        // 用户字段填充
+        if (user != null) {
+            // 创建者
+            strictInsertFill(metaObject, CREATOR, Long.class, user.getId());
+            // 更新者
+            strictInsertFill(metaObject, UPDATER, Long.class, user.getId());
+            // 创建者所属机构
+            strictInsertFill(metaObject, ORG_ID, Long.class, user.getOrgId());
+        }
+
         // 创建时间
         strictInsertFill(metaObject, CREATE_TIME, Date.class, date);
-        // 更新者
-        strictInsertFill(metaObject, UPDATER, Long.class, user.getId());
         // 更新时间
         strictInsertFill(metaObject, UPDATE_TIME, Date.class, date);
-        // 创建者所属机构
-        strictInsertFill(metaObject, ORG_ID, Long.class, user.getOrgId());
         // 版本号
         strictInsertFill(metaObject, VERSION, Integer.class, 0);
         // 删除标识
