@@ -38,7 +38,7 @@
         <knife4j.version>4.1.0</knife4j.version>
         <hutool.version>5.8.11</hutool.version>
         <captcha.version>1.6.2</captcha.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <aliyun.oss.version>3.15.2</aliyun.oss.version>
         <aliyun.dysmsapi.version>2.0.23</aliyun.dysmsapi.version>
         <tencentcloud.sdk.version>3.1.574</tencentcloud.sdk.version>
