@@ -2,10 +2,8 @@ package net.maku.system.service.impl;
 
 import lombok.AllArgsConstructor;
 import net.maku.framework.security.user.UserDetail;
-import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysRoleDao;
 import net.maku.system.dao.SysRoleDataScopeDao;
-import net.maku.system.entity.SysUserEntity;
 import net.maku.system.enums.DataScopeEnum;
 import net.maku.system.enums.UserStatusEnum;
 import net.maku.system.service.SysMenuService;
@@ -33,12 +31,9 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
     private final SysRoleDataScopeDao sysRoleDataScopeDao;
 
     @Override
-    public UserDetails getUserDetails(SysUserEntity userEntity) {
-        // 转换成UserDetail对象
-        UserDetail userDetail = SysUserConvert.INSTANCE.convertDetail(userEntity);
-
+    public UserDetails getUserDetails(UserDetail userDetail) {
         // 账号不可用
-        if (userEntity.getStatus() == UserStatusEnum.DISABLE.getValue()) {
+        if (userDetail.getStatus() == UserStatusEnum.DISABLE.getValue()) {
             userDetail.setEnabled(false);
         }
 
@@ -48,6 +43,11 @@ public class SysUserDetailsServiceImpl implements SysUserDetailsService {
 
         // 用户权限列表
         Set<String> authoritySet = sysMenuService.getUserAuthority(userDetail);
+
+        // 用户角色编码列表
+        List<String> roleCodeList = sysRoleDao.geRoleCodeByUserId(userDetail.getId());
+        roleCodeList.forEach(roleCode -> authoritySet.add("ROLE_" + roleCode));
+
         userDetail.setAuthoritySet(authoritySet);
 
         return userDetail;

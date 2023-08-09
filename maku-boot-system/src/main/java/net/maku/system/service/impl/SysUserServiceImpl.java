@@ -8,10 +8,10 @@ import lombok.SneakyThrows;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
 import net.maku.framework.common.exception.ServerException;
-import net.maku.framework.common.utils.PageResult;
-import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.common.utils.DateUtils;
 import net.maku.framework.common.utils.ExcelUtils;
+import net.maku.framework.common.utils.PageResult;
+import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
@@ -21,6 +21,7 @@ import net.maku.system.query.SysUserQuery;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
+import net.maku.system.service.SysUserTokenService;
 import net.maku.system.vo.SysUserExcelVO;
 import net.maku.system.vo.SysUserVO;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,7 @@ import java.util.Map;
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements SysUserService {
     private final SysUserRoleService sysUserRoleService;
     private final SysUserPostService sysUserPostService;
+    private final SysUserTokenService sysUserTokenService;
     private final TransService transService;
 
     @Override
@@ -125,6 +127,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 更新用户岗位关系
         sysUserPostService.saveOrUpdate(entity.getId(), vo.getPostIdList());
+
+        // 更新用户缓存权限
+        sysUserTokenService.updateCacheAuthByUserId(entity.getId());
     }
 
     @Override

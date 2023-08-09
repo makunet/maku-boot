@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.maku.system.dao.SysUserTokenDao">
+
+    <select id="getOnlineAccessTokenListByRoleId" resultType="string">
+        select t3.access_token from sys_role t1, sys_user_role t2, sys_user_token t3
+            where t1.id = t2.role_id and t2.user_id = t3.user_id and
+                t1.id = #{roleId} and t3.access_token_expire >= #{time}
+    </select>
+
+    <select id="getOnlineAccessTokenListByUserId" resultType="string">
+        select access_token from sys_user_token where user_id = #{userId} and access_token_expire >= #{time}
+    </select>
+
+</mapper>
