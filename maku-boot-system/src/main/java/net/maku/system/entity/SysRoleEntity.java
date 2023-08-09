@@ -23,6 +23,10 @@ public class SysRoleEntity extends BaseEntity {
      */
     private String name;
     /**
+     * 角色编码
+     */
+    private String roleCode;
+    /**
      * 备注
      */
     private String remark;

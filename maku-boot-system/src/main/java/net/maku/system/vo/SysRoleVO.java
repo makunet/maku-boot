@@ -27,6 +27,10 @@ public class SysRoleVO implements Serializable {
     @Schema(description = "角色名称")
     @NotBlank(message = "角色名称不能为空")
     private String name;
+    
+    @Schema(description = "角色编码")
+    @NotBlank(message = "角色编码不能为空")
+    private String roleCode;
 
     @Schema(description = "备注")
     private String remark;
