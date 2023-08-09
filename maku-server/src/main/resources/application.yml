@@ -45,6 +45,11 @@ maku:
     enabled: true
     exclude-urls:
       - /maku-generator/**
+  security:
+    # 2小时过期
+    access-token-expire: 7200
+    # 14天过期
+    refresh-token-expire: 1209600
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
