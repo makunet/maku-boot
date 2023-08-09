@@ -21,6 +21,19 @@ CREATE TABLE sys_user
     primary key (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='用户管理';
 
+CREATE TABLE sys_user_token
+(
+    id                    bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+    user_id               bigint COMMENT '用户ID',
+    access_token          varchar(32) COMMENT 'accessToken',
+    access_token_expire   datetime COMMENT 'accessToken 过期时间',
+    refresh_token         varchar(32) COMMENT 'refreshToken',
+    refresh_token_expire  datetime COMMENT 'refreshToken 过期时间',
+    tenant_id             bigint COMMENT '租户ID',
+    create_time           datetime COMMENT '创建时间',
+    primary key (id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='用户Token';
+
 CREATE TABLE sys_org
 (
     id          bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -42,6 +55,7 @@ create table sys_role
 (
     id          bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
     name        varchar(50) COMMENT '角色名称',
+    role_code   varchar(50) COMMENT '角色编码',
     remark      varchar(100) COMMENT '备注',
     data_scope  tinyint COMMENT '数据范围  0：全部数据  1：本机构及子机构数据  2：本机构数据  3：本人数据  4：自定义数据',
     org_id      bigint COMMENT '机构ID',
