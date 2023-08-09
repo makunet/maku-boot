@@ -42,6 +42,28 @@ COMMENT ON COLUMN sys_user.updater IS '更新者';
 COMMENT ON COLUMN sys_user.update_time IS '更新时间';
 
 
+CREATE TABLE sys_user_token
+(
+    id                   bigint IDENTITY NOT NULL,
+    user_id              bigint,
+    access_token         varchar(50) NOT NULL,
+    access_token_expire  datetime,
+    refresh_token        varchar(50) NOT NULL,
+    refresh_token_expire datetime,
+    tenant_id   int8,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_user_token IS '用户管理';
+COMMENT ON COLUMN sys_user_token.id IS 'id';
+COMMENT ON COLUMN sys_user_token.user_id IS '用户ID';
+COMMENT ON COLUMN sys_user_token.access_token IS 'accessToken';
+COMMENT ON COLUMN sys_user_token.access_token_expire IS 'accessToken 过期时';
+COMMENT ON COLUMN sys_user_token.refresh_token IS 'refreshToken';
+COMMENT ON COLUMN sys_user_token.refresh_token_expire IS 'refreshToken 过期时间';
+COMMENT ON COLUMN sys_user_token.tenant_id IS '租户ID';
+COMMENT ON COLUMN sys_user_token.create_time IS '创建时间';
+
 CREATE TABLE sys_org
 (
     id          bigint IDENTITY NOT NULL,
@@ -76,6 +98,7 @@ create table sys_role
 (
     id          bigint IDENTITY NOT NULL,
     name        varchar(50),
+    role_code   varchar(50),
     remark      varchar(100),
     data_scope  int,
     org_id      bigint,
@@ -92,6 +115,7 @@ create table sys_role
 COMMENT ON TABLE sys_role IS '角色管理';
 COMMENT ON COLUMN sys_role.id IS 'id';
 COMMENT ON COLUMN sys_role.name IS '角色名称';
+COMMENT ON COLUMN sys_role.role_code IS '角色编码';
 COMMENT ON COLUMN sys_role.remark IS '备注';
 COMMENT ON COLUMN sys_role.data_scope IS '数据范围  0：全部数据  1：本机构及子机构数据  2：本机构数据  3：本人数据  4：自定义数据';
 COMMENT ON COLUMN sys_role.org_id IS '机构ID';
