@@ -35,7 +35,7 @@
         <dynamic-datasource.version>3.6.1</dynamic-datasource.version>
         <redisson.version>3.21.3</redisson.version>
         <dameng.version>8.1.2.79</dameng.version>
-        <knife4j.version>4.1.0</knife4j.version>
+        <knife4j.version>4.3.0</knife4j.version>
         <hutool.version>5.8.11</hutool.version>
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
