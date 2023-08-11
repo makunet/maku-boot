@@ -51,6 +51,7 @@ CREATE TABLE sys_user_token
     refresh_token        varchar(50) NOT NULL,
     refresh_token_expire datetime,
     tenant_id   int8,
+    create_time          datetime,
     primary key (id)
 );
 
