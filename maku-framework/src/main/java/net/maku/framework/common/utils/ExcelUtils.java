@@ -105,7 +105,7 @@ public class ExcelUtils {
      * @param data 数据
      */
     public static <T> void excelExport(Class<T> head, File file, List<T> data) {
-        excelExport(head, file, "sheet1", data);
+        excelExport(head, file, "sheet1" , data);
     }
 
     /**
@@ -137,11 +137,11 @@ public class ExcelUtils {
     public static <T> void excelExport(Class<T> head, String excelName, String sheetName, List<T> data) {
         try {
             HttpServletResponse response = HttpContextUtils.getHttpServletResponse();
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setCharacterEncoding("utf-8");
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" );
+            response.setCharacterEncoding("utf-8" );
             // 这里URLEncoder.encode可以防止中文乱码 当然和easy excel没有关系
-            String fileName = URLUtil.encode(excelName).replaceAll("\\+", "%20");
-            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+            String fileName = URLUtil.encode(excelName).replaceAll("\\+" , "%20" );
+            response.setHeader("Content-disposition" , "attachment;filename*=utf-8''" + fileName + ".xlsx" );
             EasyExcel.write(response.getOutputStream(), head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName).doWrite(data);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -174,7 +174,7 @@ public class ExcelUtils {
                     Field ref = ReflectUtils.getDeclaredField(clazz, trans.ref());
                     ref.setAccessible(true);
                     // 获取字典反向值
-                    String value = dictionaryTransService.getUnTransMap().get(trans.key() + "_" + ref.get(data));
+                    String value = dictionaryTransService.getDictionaryTransMap().get(trans.key() + "_" + ref.get(data));
                     if (StringUtils.isBlank(value)) {
                         continue;
                     }

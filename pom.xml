@@ -48,7 +48,7 @@
         <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
         <easyexcel.version>3.2.1</easyexcel.version>
         <okio.version>3.3.0</okio.version>
-        <easytrans.version>2.1.11</easytrans.version>
+        <easytrans.version>2.2.7</easytrans.version>
         <transmittable.thread.local.version>2.14.2</transmittable.thread.local.version>
     </properties>
 
