@@ -137,12 +137,7 @@ public class ExcelUtils {
      */
     public static <T> void excelExport(Class<T> head, String excelName, String sheetName, List<T> data) {
         try {
-            HttpServletResponse response = HttpContextUtils.getHttpServletResponse();
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
-            response.setCharacterEncoding("UTF-8");
-            String fileName = URLUtil.encode(excelName, StandardCharsets.UTF_8);
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            HttpServletResponse response = getExportResponse(excelName);
 
             EasyExcel.write(response.getOutputStream(), head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName).doWrite(data);
         } catch (IOException e) {
@@ -161,17 +156,23 @@ public class ExcelUtils {
      */
     public static <T> void excelExport(List<List<String>> head, String excelName, String sheetName, List<T> data) {
         try {
-            HttpServletResponse response = HttpContextUtils.getHttpServletResponse();
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
-            response.setCharacterEncoding("UTF-8");
-            String fileName = URLUtil.encode(excelName, StandardCharsets.UTF_8);
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            HttpServletResponse response = getExportResponse(excelName);
 
             EasyExcel.write(response.getOutputStream()).head(head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName).doWrite(data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static HttpServletResponse getExportResponse(String excelName) {
+        HttpServletResponse response = HttpContextUtils.getHttpServletResponse();
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+        response.setCharacterEncoding("UTF-8");
+        String fileName = URLUtil.encode(excelName, StandardCharsets.UTF_8);
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        return response;
     }
 
     /**
