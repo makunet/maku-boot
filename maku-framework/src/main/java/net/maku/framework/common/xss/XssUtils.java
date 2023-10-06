@@ -1,8 +1,8 @@
 package net.maku.framework.common.xss;
 
-import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.http.HTMLFilter;
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Safelist;
 
 /**
  * XSS 过滤工具类
@@ -11,12 +11,10 @@ import cn.hutool.http.HTMLFilter;
  * <a href="https://maku.net">MAKU</a>
  */
 public class XssUtils {
-    private static final ThreadLocal<HTMLFilter> HTML_FILTER = ThreadLocal.withInitial(() -> {
-        HTMLFilter htmlFilter = new HTMLFilter();
-        // 避免 " 被转成 &quot; 字符
-        ReflectUtil.setFieldValue(htmlFilter, "encodeQuotes", false);
-        return htmlFilter;
-    });
+    /**
+     * 不格式化
+     */
+    private final static Document.OutputSettings outputSettings = new Document.OutputSettings().prettyPrint(false);
 
     /**
      * XSS过滤
@@ -25,7 +23,7 @@ public class XssUtils {
      * @return 返回过滤后的内容
      */
     public static String filter(String content) {
-        return HTML_FILTER.get().filter(content);
+        return Jsoup.clean(content, "", Safelist.relaxed(), outputSettings);
     }
-    
+
 }
