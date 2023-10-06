@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
@@ -47,7 +46,7 @@ public class SysOrgController {
         SysOrgVO vo = SysOrgConvert.INSTANCE.convert(entity);
 
         // 获取上级机构名称
-        if (!Constant.ROOT.equals(entity.getPid())) {
+        if (entity.getPid() != null) {
             SysOrgEntity parentEntity = sysOrgService.getById(entity.getPid());
             vo.setParentName(parentEntity.getName());
         }
