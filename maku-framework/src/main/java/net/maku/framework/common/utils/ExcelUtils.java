@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,7 +75,7 @@ public class ExcelUtils {
      * @param <T>   数据类型
      * @param file  文件
      * @param clazz 模板类
-     * @return java.util.List list
+     * @return java.util.List
      */
     public static <T> List<T> readSync(File file, Class<T> clazz) {
         return readSync(file, clazz, 1, 0, ExcelTypeEnum.XLSX);
@@ -105,7 +106,7 @@ public class ExcelUtils {
      * @param data 数据
      */
     public static <T> void excelExport(Class<T> head, File file, List<T> data) {
-        excelExport(head, file, "sheet1" , data);
+        excelExport(head, file, "sheet1", data);
     }
 
     /**
@@ -137,12 +138,37 @@ public class ExcelUtils {
     public static <T> void excelExport(Class<T> head, String excelName, String sheetName, List<T> data) {
         try {
             HttpServletResponse response = HttpContextUtils.getHttpServletResponse();
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" );
-            response.setCharacterEncoding("utf-8" );
-            // 这里URLEncoder.encode可以防止中文乱码 当然和easy excel没有关系
-            String fileName = URLUtil.encode(excelName).replaceAll("\\+" , "%20" );
-            response.setHeader("Content-disposition" , "attachment;filename*=utf-8''" + fileName + ".xlsx" );
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+            response.setCharacterEncoding("UTF-8");
+            String fileName = URLUtil.encode(excelName, StandardCharsets.UTF_8);
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+
             EasyExcel.write(response.getOutputStream(), head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName).doWrite(data);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 导出数据到web
+     * 文件下载（失败了会返回一个有部分数据的Excel）
+     *
+     * @param head      类名
+     * @param excelName excel名字
+     * @param sheetName sheet名称
+     * @param data      数据
+     */
+    public static <T> void excelExport(List<List<String>> head, String excelName, String sheetName, List<T> data) {
+        try {
+            HttpServletResponse response = HttpContextUtils.getHttpServletResponse();
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+            response.setCharacterEncoding("UTF-8");
+            String fileName = URLUtil.encode(excelName, StandardCharsets.UTF_8);
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+
+            EasyExcel.write(response.getOutputStream()).head(head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName).doWrite(data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
