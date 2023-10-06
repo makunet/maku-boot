@@ -3,10 +3,9 @@ package net.maku.system.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.AllArgsConstructor;
-import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.ServerException;
-import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.common.utils.TreeUtils;
+import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.system.convert.SysMenuConvert;
 import net.maku.system.dao.SysMenuDao;
@@ -71,7 +70,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
     public List<SysMenuVO> getMenuList(Integer type) {
         List<SysMenuEntity> menuList = baseMapper.getMenuList(type);
 
-        return TreeUtils.build(SysMenuConvert.INSTANCE.convertList(menuList), Constant.ROOT);
+        return TreeUtils.build(SysMenuConvert.INSTANCE.convertList(menuList));
     }
 
     @Override
