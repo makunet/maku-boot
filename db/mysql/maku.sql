@@ -122,7 +122,7 @@ CREATE TABLE sys_user_post
 create table sys_menu
 (
     id          bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
-    pid         bigint COMMENT '上级ID，一级菜单为0',
+    pid         bigint COMMENT '上级ID',
     name        varchar(200) COMMENT '菜单名称',
     url         varchar(200) COMMENT '菜单URL',
     authority   varchar(500) COMMENT '授权标识(多个用逗号分隔，如：sys:menu:list,sys:menu:save)',

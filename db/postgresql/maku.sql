@@ -235,7 +235,7 @@ create table sys_menu
 
 COMMENT ON TABLE sys_menu IS '菜单管理';
 COMMENT ON COLUMN sys_menu.id IS 'id';
-COMMENT ON COLUMN sys_menu.pid IS '上级ID，一级菜单为0';
+COMMENT ON COLUMN sys_menu.pid IS '上级ID';
 COMMENT ON COLUMN sys_menu.name IS '菜单名称';
 COMMENT ON COLUMN sys_menu.url IS '菜单URL';
 COMMENT ON COLUMN sys_menu.authority IS '授权标识';
