@@ -1,7 +1,6 @@
 package net.maku.framework.common.utils;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -26,7 +25,6 @@ public class TreeNode<T> implements Serializable {
      * 上级ID
      */
     @Schema(description = "上级ID")
-    @NotNull(message = "上级ID不能为空")
     private Long pid;
     /**
      * 子节点列表
