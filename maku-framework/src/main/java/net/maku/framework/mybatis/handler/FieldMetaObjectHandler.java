@@ -30,28 +30,28 @@ public class FieldMetaObjectHandler implements MetaObjectHandler {
         // 用户字段填充
         if (user != null) {
             // 创建者
-            strictInsertFill(metaObject, CREATOR, Long.class, user.getId());
+            setFieldValByName(CREATOR, user.getId(), metaObject);
             // 更新者
-            strictInsertFill(metaObject, UPDATER, Long.class, user.getId());
+            setFieldValByName(UPDATER, user.getId(), metaObject);
             // 创建者所属机构
-            strictInsertFill(metaObject, ORG_ID, Long.class, user.getOrgId());
+            setFieldValByName(ORG_ID, user.getOrgId(), metaObject);
         }
 
         // 创建时间
-        strictInsertFill(metaObject, CREATE_TIME, Date.class, date);
+        setFieldValByName(CREATE_TIME, date, metaObject);
         // 更新时间
-        strictInsertFill(metaObject, UPDATE_TIME, Date.class, date);
+        setFieldValByName(UPDATE_TIME, date, metaObject);
         // 版本号
-        strictInsertFill(metaObject, VERSION, Integer.class, 0);
+        setFieldValByName(VERSION, 0, metaObject);
         // 删除标识
-        strictInsertFill(metaObject, DELETED, Integer.class, 0);
+        setFieldValByName(DELETED, 0, metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         // 更新者
-        strictUpdateFill(metaObject, UPDATER, Long.class, SecurityUser.getUserId());
+        setFieldValByName(UPDATER, SecurityUser.getUserId(), metaObject);
         // 更新时间
-        strictUpdateFill(metaObject, UPDATE_TIME, Date.class, new Date());
+        setFieldValByName(UPDATE_TIME, new Date(), metaObject);
     }
 }
