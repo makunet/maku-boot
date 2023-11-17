@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 @Configuration
 public class ScheduleConfig {
-    @Value("spring.datasource.driver-class-name")
+    @Value("${spring.datasource.dynamic.datasource.master.driver-class-name}")
     private String driver;
 
     @Bean
