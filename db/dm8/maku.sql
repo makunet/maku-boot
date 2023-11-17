@@ -215,7 +215,7 @@ COMMENT ON COLUMN sys_user_post.update_time IS '更新时间';
 create table sys_menu
 (
     id          bigint IDENTITY NOT NULL,
-    pid         bigint NOT NULL,
+    pid         bigint,
     name        varchar(200),
     url         varchar(200),
     authority   varchar(500),
