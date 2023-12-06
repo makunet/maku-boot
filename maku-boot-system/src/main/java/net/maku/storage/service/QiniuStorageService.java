@@ -20,19 +20,20 @@ import java.io.InputStream;
  */
 public class QiniuStorageService extends StorageService {
     private final UploadManager uploadManager;
-    private final String token;
 
     public QiniuStorageService(StorageProperties properties) {
         this.properties = properties;
 
         uploadManager = new UploadManager(new Configuration(Region.autoRegion()));
-        token = Auth.create(properties.getQiniu().getAccessKey(), properties.getQiniu().getSecretKey()).
-                uploadToken(properties.getQiniu().getBucketName());
+
     }
 
     @Override
     public String upload(byte[] data, String path) {
         try {
+            String token = Auth.create(properties.getQiniu().getAccessKey(), properties.getQiniu().getSecretKey()).
+                    uploadToken(properties.getQiniu().getBucketName());
+
             Response res = uploadManager.put(data, path, token);
             if (!res.isOK()) {
                 throw new ServerException(res.toString());
