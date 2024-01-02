@@ -61,7 +61,7 @@ public class UserOnlineController {
 
     @DeleteMapping("{accessToken}")
     @Operation(summary = "强制退出")
-    @PreAuthorize("hasAuthority('monitor:user:user')")
+    @PreAuthorize("hasAuthority('monitor:user:all')")
     public Result<String> forceLogout(@PathVariable("accessToken") String accessToken) {
         // token不能为空
         if (StrUtil.isBlank(accessToken)) {
