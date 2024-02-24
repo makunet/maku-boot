@@ -12,6 +12,12 @@
 		<if test="mobile != null and mobile.trim() != ''">
 			and t1.mobile = #{mobile}
 		</if>
+		<if test="orgList != null">
+			and t1.org_id in
+			<foreach collection="orgList" item="orgId" open="(" separator="," close=")">
+				#{orgId}
+			</foreach>
+		</if>
 		<if test="gender != null">
 			and t1.gender = #{gender}
 		</if>
