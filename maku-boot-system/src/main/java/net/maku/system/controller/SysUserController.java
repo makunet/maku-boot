@@ -14,9 +14,11 @@ import net.maku.framework.security.user.UserDetail;
 import net.maku.system.convert.SysUserConvert;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.query.SysUserQuery;
+import net.maku.system.service.SysPostService;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
+import net.maku.system.vo.SysUserBaseVO;
 import net.maku.system.vo.SysUserPasswordVO;
 import net.maku.system.vo.SysUserVO;
 import org.springdoc.core.annotations.ParameterObject;
@@ -42,6 +44,7 @@ public class SysUserController {
     private final SysUserService sysUserService;
     private final SysUserRoleService sysUserRoleService;
     private final SysUserPostService sysUserPostService;
+    private final SysPostService sysPostService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("page")
@@ -77,7 +80,24 @@ public class SysUserController {
     public Result<SysUserVO> info() {
         SysUserVO user = SysUserConvert.INSTANCE.convert(SecurityUser.getUser());
 
+        // 用户岗位列表
+        List<Long> postIdList = sysUserPostService.getPostIdList(user.getId());
+        user.setPostIdList(postIdList);
+
+        // 用户岗位名称列表
+        List<String> postNameList = sysPostService.getNameList(postIdList);
+        user.setPostNameList(postNameList);
+
         return Result.ok(user);
+    }
+
+    @PutMapping("info")
+    @Operation(summary = "修改登录用户信息")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
+    public Result<String> loginInfo(@RequestBody @Valid SysUserBaseVO vo) {
+        sysUserService.updateLoginInfo(vo);
+
+        return Result.ok();
     }
 
     @PutMapping("password")
