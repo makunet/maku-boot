@@ -74,6 +74,9 @@ public class SysUserVO implements Serializable, TransPojo {
     @Schema(description = "岗位ID列表")
     private List<Long> postIdList;
 
+    @Schema(description = "岗位名称列表")
+    private List<String> postNameList;
+
     @Schema(description = "超级管理员   0：否   1：是")
     private Integer superAdmin;
 

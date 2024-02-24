@@ -20,6 +20,8 @@ public interface SysPostService extends BaseService<SysPostEntity> {
 
     List<SysPostVO> getList();
 
+    List<String> getNameList(List<Long> idList);
+
     void save(SysPostVO vo);
 
     void update(SysPostVO vo);
