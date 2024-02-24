@@ -64,7 +64,7 @@ public class SysThirdLoginConfigServiceImpl extends BaseServiceImpl<SysThirdLogi
                 .eq(SysThirdLoginConfigEntity::getOpenType, openType));
 
         if (config == null) {
-            throw new ServerException("未找到第三方登录配置");
+            throw new ServerException("未配置第三方登录，请配置后再尝试");
         }
 
         AuthRequest authRequest = switch (ThirdLoginEnum.toEnum(openType)) {

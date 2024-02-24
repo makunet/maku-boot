@@ -1,9 +1,9 @@
 package net.maku.system.service.impl;
 
-import com.aliyun.oss.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import me.zhyd.oauth.model.AuthUser;
+import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.system.convert.SysThirdLoginConvert;
 import net.maku.system.dao.SysThirdLoginDao;
@@ -54,9 +54,9 @@ public class SysThirdLoginServiceImpl extends BaseServiceImpl<SysThirdLoginDao, 
         SysThirdLoginEntity entity = baseMapper.selectOne(Wrappers.<SysThirdLoginEntity>lambdaQuery()
                 .eq(SysThirdLoginEntity::getOpenType, openType).eq(SysThirdLoginEntity::getOpenId, openId));
         if (entity == null) {
-            throw new ServiceException("还未绑定用户，请先绑定用户");
+            throw new ServerException("还未绑定用户，请先绑定用户");
         }
-        
+
         return entity.getUserId();
     }
 }
