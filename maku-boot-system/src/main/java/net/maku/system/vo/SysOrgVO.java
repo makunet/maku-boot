@@ -30,6 +30,9 @@ public class SysOrgVO extends TreeNode<SysOrgVO> {
     @Min(value = 0, message = "排序值不能小于0")
     private Integer sort;
 
+    @Schema(description = "负责人ID")
+    private Long leaderId;
+
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private Date createTime;
