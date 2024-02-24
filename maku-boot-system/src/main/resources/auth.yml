@@ -6,5 +6,8 @@ auth:
     - /sys/auth/token
     - /sys/auth/send/code
     - /sys/auth/mobile
+    - /sys/auth/third
+    - /sys/third/callback/**
+    - /sys/third/render/**
     - /upload/**
     - /

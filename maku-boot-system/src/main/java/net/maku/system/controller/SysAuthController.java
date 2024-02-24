@@ -68,6 +68,14 @@ public class SysAuthController {
         return Result.ok(token);
     }
 
+    @PostMapping("third")
+    @Operation(summary = "第三方登录")
+    public Result<SysUserTokenVO> third(@RequestBody SysThirdCallbackVO login) {
+        SysUserTokenVO token = sysAuthService.loginByThird(login);
+
+        return Result.ok(token);
+    }
+
     @PostMapping("token")
     @Operation(summary = "获取 accessToken")
     public Result<AccessTokenVO> token(String refreshToken) {

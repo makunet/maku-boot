@@ -1,9 +1,6 @@
 package net.maku.system.service;
 
-import net.maku.system.vo.AccessTokenVO;
-import net.maku.system.vo.SysAccountLoginVO;
-import net.maku.system.vo.SysMobileLoginVO;
-import net.maku.system.vo.SysUserTokenVO;
+import net.maku.system.vo.*;
 
 /**
  * 权限认证服务
@@ -26,6 +23,13 @@ public interface SysAuthService {
      * @param login 登录信息
      */
     SysUserTokenVO loginByMobile(SysMobileLoginVO login);
+
+    /**
+     * 第三方登录
+     *
+     * @param login 登录信息
+     */
+    SysUserTokenVO loginByThird(SysThirdCallbackVO login);
 
     /**
      * 发送手机验证码
