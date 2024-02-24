@@ -1,8 +1,8 @@
 package net.maku.framework.security.config;
 
+import net.maku.framework.security.crypto.Sm3PasswordEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -15,7 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PasswordConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        // 使用国密SM3加密
+        return new Sm3PasswordEncoder();
+
+        // return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
