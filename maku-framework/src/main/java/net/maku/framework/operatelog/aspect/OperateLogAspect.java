@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.constant.Constant;
-import net.maku.framework.common.utils.AddressUtils;
 import net.maku.framework.common.utils.HttpContextUtils;
 import net.maku.framework.common.utils.IpUtils;
 import net.maku.framework.common.utils.JsonUtils;
@@ -107,7 +106,7 @@ public class OperateLogAspect {
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         if (request != null) {
             log.setIp(IpUtils.getIpAddr(request));
-            log.setAddress(AddressUtils.getAddressByIP(log.getIp()));
+            log.setAddress(IpUtils.getAddressByIP(log.getIp()));
             log.setUserAgent(request.getHeader(HttpHeaders.USER_AGENT));
             log.setReqUri(request.getRequestURI());
             log.setReqMethod(request.getMethod());
