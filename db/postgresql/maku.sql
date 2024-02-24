@@ -50,7 +50,7 @@ CREATE TABLE sys_user_token
     access_token_expire  timestamp,
     refresh_token        varchar(50) NOT NULL,
     refresh_token_expire timestamp,
-    tenant_id   int8,
+    tenant_id            int8,
     create_time          timestamp,
     primary key (id)
 );
@@ -66,12 +66,66 @@ COMMENT ON COLUMN sys_user_token.tenant_id IS '租户ID';
 COMMENT ON COLUMN sys_user_token.create_time IS '创建时间';
 
 
+CREATE TABLE sys_third_login
+(
+    id                    bigserial NOT NULL,
+    open_type             varchar(50),
+    open_id               varchar(100),
+    username              varchar(100),
+    user_id               int8,
+    tenant_id             int8,
+    version               int,
+    deleted               int,
+    create_time           timestamp,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_third_login IS '第三方登录';
+COMMENT ON COLUMN sys_third_login.id IS 'id';
+COMMENT ON COLUMN sys_third_login.open_type IS '开放平台类型';
+COMMENT ON COLUMN sys_third_login.open_id IS '开放平台，唯一标识';
+COMMENT ON COLUMN sys_third_login.username IS '昵称';
+COMMENT ON COLUMN sys_third_login.username IS '用户ID';
+COMMENT ON COLUMN sys_third_login.user_id IS '租户ID';
+COMMENT ON COLUMN sys_third_login.version IS '版本号';
+COMMENT ON COLUMN sys_third_login.deleted IS '删除标识  0：正常   1：已删除';
+COMMENT ON COLUMN sys_third_login.create_time IS '创建时间';
+
+
+CREATE TABLE sys_third_login_config
+(
+    id                    bigserial NOT NULL,
+    open_type             varchar(50),
+    client_id             varchar(200),
+    client_secret         varchar(200),
+    redirect_uri          varchar(200),
+    agent_id              varchar(200),
+    tenant_id             int8,
+    version               int,
+    deleted               int,
+    create_time           timestamp,
+    primary key (id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='第三方登录配置';
+
+COMMENT ON TABLE sys_third_login_config IS '第三方登录配置';
+COMMENT ON COLUMN sys_third_login_config.id IS 'id';
+COMMENT ON COLUMN sys_third_login_config.open_type IS '开放平台类型';
+COMMENT ON COLUMN sys_third_login_config.client_id IS 'ClientID';
+COMMENT ON COLUMN sys_third_login_config.client_secret IS 'ClientSecret';
+COMMENT ON COLUMN sys_third_login_config.redirect_uri IS 'RedirectUri';
+COMMENT ON COLUMN sys_third_login_config.agent_id IS 'AgentID';
+COMMENT ON COLUMN sys_third_login_config.version IS '版本号';
+COMMENT ON COLUMN sys_third_login_config.deleted IS '删除标识  0：正常   1：已删除';
+COMMENT ON COLUMN sys_third_login_config.create_time IS '创建时间';
+
+
 CREATE TABLE sys_org
 (
     id          bigserial NOT NULL,
     pid         int8,
     name        varchar(50),
     sort        int,
+    leader_id   int8,
     tenant_id   int8,
     version     int,
     deleted     int,
@@ -87,6 +141,7 @@ COMMENT ON COLUMN sys_org.id IS 'id';
 COMMENT ON COLUMN sys_org.pid IS '上级ID';
 COMMENT ON COLUMN sys_org.name IS '机构名称';
 COMMENT ON COLUMN sys_org.sort IS '排序';
+COMMENT ON COLUMN sys_org.leader_id IS '负责人ID';
 COMMENT ON COLUMN sys_org.tenant_id IS '租户ID';
 COMMENT ON COLUMN sys_org.version IS '版本号';
 COMMENT ON COLUMN sys_org.deleted IS '删除标识  0：正常   1：已删除';
@@ -509,7 +564,7 @@ COMMENT ON COLUMN sys_log_operate.create_time IS '创建时间';
 
 
 
-INSERT INTO sys_user (id, username, password, real_name, avatar, gender, email, mobile, status, org_id, super_admin, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (10000, 'admin', '{bcrypt}$2a$10$mW/yJPHjyueQ1g26WNBz0uxVPa0GQdJO1fFZmqdkqgMTGnyszlXxu', 'admin', 'https://cdn.maku.net/images/avatar.png', 0, 'babamu@126.com', '13612345678', 1, null, 1, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_user (id, username, password, real_name, avatar, gender, email, mobile, status, org_id, super_admin, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (10000, 'admin', 'dc1fd00e3eeeb940ff46f457bf97d66ba7fcc36e0b20802383de142860e76ae6', 'admin', 'https://cdn.maku.net/images/avatar.png', 0, 'babamu@126.com', '13612345678', 1, null, 1, 10000, 0, 0, 10000, now(), 10000, now());
 
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1, NULL, '系统设置', NULL, NULL, 0, 0, 'icon-setting', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (2, 1, '菜单管理', 'sys/menu/index', NULL, 0, 0, 'icon-menu', 0, 0, 0, 10000, now(), 10000, now());
@@ -555,6 +610,7 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (42, 1, '参数管理', 'sys/params/index', 'sys:params:all', 0, 0, 'icon-filedone', 2, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (43, 1, '接口文档', '{{apiUrl}}/doc.html', null, 0, 1, 'icon-file-text-fill', 10, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (44, 38, '操作日志', 'sys/log/operate', 'sys:operate:all', 0, 0, 'icon-file-text', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (45, 1, '第三方配置', 'sys/third/config/index', 'third:config:all', 0, 0, 'icon-menu', 0, 0, 0, 10000, now(), 10000, now());
 
 
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'post_status', '状态', '岗位管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
@@ -601,9 +657,7 @@ INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (30, 10, '导出', '5', 'info', '', 4, 10000, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (31, 10, '导入', '6', 'info', '', 5, 10000, 0, 0, 10000, now(), 10000, now());
 
-
 INSERT INTO sys_params (param_name, param_type, param_key, param_value, remark, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ('用户登录-验证码开关', 1, 'LOGIN_CAPTCHA', 'false', '是否开启验证码（true：开启，false：关闭）', 10000, 0, 0, 10000, now(), 10000, now());
-
 
 select setval('sys_user_id_seq', (select max(id) from sys_user));
 select setval('sys_menu_id_seq', (select max(id) from sys_menu));
