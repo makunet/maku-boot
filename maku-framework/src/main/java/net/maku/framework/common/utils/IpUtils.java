@@ -1,6 +1,12 @@
 package net.maku.framework.common.utils;
 
+import cn.hutool.core.util.StrUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import net.maku.framework.common.exception.ServerException;
+import org.lionsoul.ip2region.xdb.Searcher;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -11,7 +17,37 @@ import java.net.UnknownHostException;
  * @author 阿沐 babamu@126.com
  * <a href="https://maku.net">MAKU</a>
  */
+@Slf4j
 public class IpUtils {
+    private final static Searcher searcher;
+
+    static {
+        // ip地址库
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource resource = resolver.getResource("classpath:ip2region.xdb");
+
+        try {
+            searcher = Searcher.newWithBuffer(resource.getContentAsByteArray());
+        } catch (Exception e) {
+            log.error("ip2region 初始化异常", e);
+            throw new ServerException("ip2region 初始化异常", e);
+        }
+    }
+
+    public static String getAddressByIP(String ip) {
+        // 内网
+        if (IpUtils.internalIp(ip)) {
+            return "内网IP";
+        }
+
+        try {
+            String address = searcher.search(ip);
+            return address.replace("0|", "").replace("|0", "");
+        } catch (Exception e) {
+            log.error("根据IP获取地址异常 {}", ip);
+            return "未知";
+        }
+    }
 
     /**
      * 获取客户端IP地址
@@ -21,19 +57,19 @@ public class IpUtils {
             return "unknown";
         }
         String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (StrUtil.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (StrUtil.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Forwarded-For");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (StrUtil.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (StrUtil.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Real-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (StrUtil.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
 
@@ -93,7 +129,7 @@ public class IpUtils {
      * @return byte 字节
      */
     public static byte[] textToNumericFormatV4(String text) {
-        if (text.length() == 0) {
+        if (StrUtil.isBlank(text)) {
             return null;
         }
 
