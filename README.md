@@ -1,13 +1,17 @@
 ## 项目说明
 
-- maku-boot
-  是采用SpringBoot3.2、SpringSecurity6.2、Mybatis-Plus等框架，开发的一套SpringBoot低代码开发平台，使用门槛极低。
+- maku-boot 是采用SpringBoot3.2、SpringSecurity6.2、Mybatis-Plus、Vue3、Element-plus等技术开发的低代码开发平台，旨在为开发者提供一个简单、高效、可扩展的低代码开发平台。使用门槛极低，支持国密加密、达梦数据库等，符合信创需求的低代码开发平台。
 - 采用组件模式，扩展不同的业务功能，可以很方便的实现各种业务需求，且不会导致系统臃肿，若想使用某个组件，按需引入即可，反之亦然。
 - 支持Online在线表单开发，可快速开发业务，无需部署及重启服务等优点。
+- 支持多种数据库，包括MySQL、PostgreSQL、达梦等，可灵活切换。
+- 支持多种登录方式，包括账号密码、短信验证码、企业微信、钉钉、飞书、微信等，可灵活选择。
+- 支持多租户模式，可实现不同业务系统之间的隔离，能同时支持字段隔离、数据源隔离方式，满足对多租户的全部需求。
+
 [](LICENSE)- 前端工程：https://gitee.com/makunet/maku-admin
-- 开发文档：[https://maku.net/docs/maku-boot](https://maku.net/docs/maku-boot)
+- 开发文档：https://maku.net/docs/maku-boot
 - 演示环境：https://demo.maku.net/maku-boot
-- 官网地址：https://maku.net
+- 授权地址：https://maku.net/p/10096
+- 企业版：https://maku.net/price
 
 ## 微信交流群
 
