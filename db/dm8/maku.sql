@@ -659,4 +659,6 @@ INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class
 
 INSERT INTO sys_params (param_name, param_type, param_key, param_value, remark, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ('用户登录-验证码开关', 1, 'LOGIN_CAPTCHA', 'false', '是否开启验证码（true：开启，false：关闭）', 10000, 0, 0, 10000, now(), 10000, now());
 
+INSERT INTO sys_third_login_config (open_type, client_id, client_secret, redirect_uri, agent_id, tenant_id, version, deleted, create_time) VALUES ('feishu', 'cli_a541d3aa03f8500b', '5Chz39zvEhZtxSVZz3vLjfQHdkvavQaH', 'http://localhost:8080/sys/third/callback/feishu', '', 10000, 0, 0, now());
+
 commit;
