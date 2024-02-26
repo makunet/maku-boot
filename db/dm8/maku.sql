@@ -610,6 +610,7 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (43, 1, '接口文档', '{{apiUrl}}/doc.html', null, 0, 1, 'icon-file-text-fill', 10, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (44, 38, '操作日志', 'sys/log/operate', 'sys:operate:all', 0, 0, 'icon-file-text', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (45, 1, '第三方配置', 'sys/third/config/index', 'third:config:all', 0, 0, 'icon-menu', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (46, NULL, '企业版', 'https://maku.net/price', '', 0, 1, 'icon-sketch', 99, 0, 0, 10000, now(), 10000, now());
 
 SET IDENTITY_INSERT sys_dict_type ON;
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'post_status', '状态', '岗位管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
