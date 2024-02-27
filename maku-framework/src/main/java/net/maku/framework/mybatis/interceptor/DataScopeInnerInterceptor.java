@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.select.PlainSelect;
@@ -73,7 +72,7 @@ public class DataScopeInnerInterceptor implements InnerInterceptor {
                 plainSelect.setWhere(andExpression);
             }
 
-            return select.toString().replaceAll("'", "");
+            return select.toString();
         } catch (JSQLParserException e) {
             return buildSql;
         }
