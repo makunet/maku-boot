@@ -42,7 +42,6 @@ public class ExcelDataListener<T> extends AnalysisEventListener<T> {
     public void invoke(T data, AnalysisContext context) {
         list.add(data);
         if (list.size() == 500) {
-            System.out.println(("自己逻辑..."));
             this.callBack.doSaveBatch(list);
             list.clear();
         }
