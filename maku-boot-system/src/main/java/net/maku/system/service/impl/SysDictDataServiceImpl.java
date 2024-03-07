@@ -3,14 +3,16 @@ package net.maku.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
+import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.system.convert.SysDictDataConvert;
 import net.maku.system.dao.SysDictDataDao;
 import net.maku.system.entity.SysDictDataEntity;
-import net.maku.system.service.SysDictDataService;
 import net.maku.system.query.SysDictDataQuery;
+import net.maku.system.service.SysDictDataService;
 import net.maku.system.vo.SysDictDataVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +47,13 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysDictDataVO vo) {
+        SysDictDataEntity sysDictData = getOne(Wrappers.<SysDictDataEntity>lambdaQuery()
+                .eq(SysDictDataEntity::getDictTypeId, vo.getDictTypeId())
+                .eq(SysDictDataEntity::getDictValue, vo.getDictValue()));
+        if (sysDictData != null) {
+            throw new ServerException("字典值重复!");
+        }
+
         SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(vo);
 
         baseMapper.insert(entity);
@@ -53,6 +62,14 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(SysDictDataVO vo) {
+        SysDictDataEntity sysDictData = getOne(Wrappers.<SysDictDataEntity>lambdaQuery()
+                .eq(SysDictDataEntity::getDictTypeId, vo.getDictTypeId())
+                .eq(SysDictDataEntity::getDictValue, vo.getDictValue())
+                .ne(SysDictDataEntity::getId, vo.getId()));
+        if (sysDictData != null) {
+            throw new ServerException("字典值重复!");
+        }
+
         SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(vo);
 
         updateById(entity);
@@ -63,5 +80,6 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
     public void delete(List<Long> idList) {
         removeByIds(idList);
     }
+
 
 }
