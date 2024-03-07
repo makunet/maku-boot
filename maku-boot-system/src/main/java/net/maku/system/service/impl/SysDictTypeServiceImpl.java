@@ -144,8 +144,12 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
             List<SysDictTypeEntity> dictTypeEntities = super.list();
             for (SysDictTypeEntity dictTypeEntity : dictTypeEntities) {
                 if (dictTypeDataMap.containsKey(dictTypeEntity.getId())) {
-                    dictionaryTransService.refreshCache(dictTypeEntity.getDictType(), dictTypeDataMap.get(dictTypeEntity.getId())
-                            .stream().collect(Collectors.toMap(SysDictDataEntity::getDictValue, SysDictDataEntity::getDictLabel)));
+                    try {
+                        dictionaryTransService.refreshCache(dictTypeEntity.getDictType(), dictTypeDataMap.get(dictTypeEntity.getId())
+                                .stream().collect(Collectors.toMap(SysDictDataEntity::getDictValue, SysDictDataEntity::getDictLabel)));
+                    } catch (Exception e) {
+                        log.error("刷新字典缓存异常: type=" + dictTypeEntity, e);
+                    }
                 }
             }
             return null;
