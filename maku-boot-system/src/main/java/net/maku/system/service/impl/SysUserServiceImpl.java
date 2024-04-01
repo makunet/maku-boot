@@ -22,6 +22,7 @@ import net.maku.system.enums.SuperAdminEnum;
 import net.maku.system.query.SysRoleUserQuery;
 import net.maku.system.query.SysUserQuery;
 import net.maku.system.service.*;
+import net.maku.system.vo.SysUserAvatarVO;
 import net.maku.system.vo.SysUserBaseVO;
 import net.maku.system.vo.SysUserExcelVO;
 import net.maku.system.vo.SysUserVO;
@@ -155,6 +156,17 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         }
 
         // 更新用户
+        updateById(entity);
+
+        // 删除用户缓存
+        tokenStoreCache.deleteUser(TokenUtils.getAccessToken());
+    }
+
+    @Override
+    public void updateAvatar(SysUserAvatarVO avatar) {
+        SysUserEntity entity = new SysUserEntity();
+        entity.setId(SecurityUser.getUserId());
+        entity.setAvatar(avatar.getAvatar());
         updateById(entity);
 
         // 删除用户缓存
