@@ -9,7 +9,7 @@ import lombok.Data;
 import net.maku.framework.common.utils.DateUtils;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 字典数据
@@ -48,9 +48,9 @@ public class SysDictDataVO implements Serializable {
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @Schema(description = "更新时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 }

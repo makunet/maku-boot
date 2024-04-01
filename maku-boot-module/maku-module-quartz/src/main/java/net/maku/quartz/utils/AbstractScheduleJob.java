@@ -13,6 +13,7 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Slf4j
@@ -66,7 +67,7 @@ public abstract class AbstractScheduleJob implements Job {
         log.setMethod(scheduleJob.getMethod());
         log.setParams(scheduleJob.getParams());
         log.setTimes(times);
-        log.setCreateTime(new Date());
+        log.setCreateTime(LocalDateTime.now());
 
         if (e != null) {
             log.setStatus(ScheduleStatusEnum.PAUSE.getValue());

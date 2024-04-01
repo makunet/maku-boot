@@ -8,7 +8,7 @@ import net.maku.framework.common.utils.DateUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * AccessToken
@@ -28,6 +28,6 @@ public class AccessTokenVO implements Serializable {
 
     @Schema(description = "access_token 过期时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date accessTokenExpire;
+    private LocalDateTime accessTokenExpire;
 
 }

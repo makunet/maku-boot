@@ -23,6 +23,7 @@ import net.maku.system.vo.SysUserTokenVO;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -52,8 +53,8 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
 
         // 过期时间
         Date now = new Date();
-        entity.setAccessTokenExpire(DateUtil.offsetSecond(now, securityProperties.getAccessTokenExpire()));
-        entity.setRefreshTokenExpire(DateUtil.offsetSecond(now, securityProperties.getRefreshTokenExpire()));
+        entity.setAccessTokenExpire(DateUtil.toLocalDateTime(DateUtil.offsetSecond(now, securityProperties.getAccessTokenExpire())));
+        entity.setRefreshTokenExpire(DateUtil.toLocalDateTime(DateUtil.offsetSecond(now, securityProperties.getRefreshTokenExpire())));
 
         // 是否存在Token
         SysUserTokenEntity tokenEntity = baseMapper.selectOne(new LambdaQueryWrapper<SysUserTokenEntity>().eq(SysUserTokenEntity::getUserId, userId));
@@ -85,7 +86,7 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
         // 生成新 accessToken
         String accessToken = TokenUtils.generator();
         entity.setAccessToken(accessToken);
-        entity.setAccessTokenExpire(DateUtil.offsetSecond(new Date(), securityProperties.getAccessTokenExpire()));
+        entity.setAccessTokenExpire(DateUtil.toLocalDateTime(DateUtil.offsetSecond(new Date(), securityProperties.getAccessTokenExpire())));
 
         // 更新
         baseMapper.updateById(entity);
@@ -104,8 +105,9 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
     @Override
     public void expireToken(Long userId) {
         SysUserTokenEntity entity = new SysUserTokenEntity();
-        entity.setAccessTokenExpire(new Date());
-        entity.setRefreshTokenExpire(new Date());
+        LocalDateTime now = LocalDateTime.now();
+        entity.setAccessTokenExpire(now);
+        entity.setRefreshTokenExpire(now);
 
         baseMapper.update(entity, new LambdaQueryWrapper<SysUserTokenEntity>().eq(SysUserTokenEntity::getUserId, userId));
     }
@@ -114,7 +116,7 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
     @Override
     public void updateCacheAuthByRoleId(Long roleId) {
         // 根据角色ID，查询用户 access_token 列表
-        List<String> accessTokenList = baseMapper.getOnlineAccessTokenListByRoleId(roleId, new Date());
+        List<String> accessTokenList = baseMapper.getOnlineAccessTokenListByRoleId(roleId, LocalDateTime.now());
 
         accessTokenList.forEach(this::updateCacheAuth);
     }
@@ -123,7 +125,7 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
     @Override
     public void updateCacheAuthByUserId(Long userId) {
         // 根据用户ID，查询用户 access_token 列表
-        List<String> accessTokenList = baseMapper.getOnlineAccessTokenListByUserId(userId, new Date());
+        List<String> accessTokenList = baseMapper.getOnlineAccessTokenListByUserId(userId, LocalDateTime.now());
 
         accessTokenList.forEach(this::updateCacheAuth);
     }

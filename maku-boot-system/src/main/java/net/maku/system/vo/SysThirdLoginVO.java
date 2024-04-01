@@ -6,7 +6,7 @@ import lombok.Data;
 import net.maku.framework.common.utils.DateUtils;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 第三方登录
@@ -39,5 +39,5 @@ public class SysThirdLoginVO implements Serializable {
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 }

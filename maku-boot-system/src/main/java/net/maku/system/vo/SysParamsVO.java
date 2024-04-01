@@ -6,7 +6,7 @@ import lombok.Data;
 import net.maku.framework.common.utils.DateUtils;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 参数管理
@@ -48,14 +48,14 @@ public class SysParamsVO implements Serializable {
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @Schema(description = "更新者")
     private Long updater;
 
     @Schema(description = "更新时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 
 }

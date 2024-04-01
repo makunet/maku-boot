@@ -8,7 +8,7 @@ import lombok.Data;
 import net.maku.framework.common.utils.DateUtils;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 用户Token
@@ -32,9 +32,9 @@ public class SysUserTokenVO implements Serializable {
 
     @Schema(description = "access_token 过期时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date accessTokenExpire;
+    private LocalDateTime accessTokenExpire;
 
     @Schema(description = "refresh_token 过期时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date refreshTokenExpire;
+    private LocalDateTime refreshTokenExpire;
 }

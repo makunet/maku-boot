@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import net.maku.framework.common.utils.DateUtils;
 import net.maku.framework.common.utils.TreeNode;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 机构列表
@@ -35,7 +35,7 @@ public class SysOrgVO extends TreeNode<SysOrgVO> {
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @Schema(description = "上级名称")
     private String parentName;

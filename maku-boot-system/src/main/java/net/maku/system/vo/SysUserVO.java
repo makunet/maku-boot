@@ -15,7 +15,7 @@ import net.maku.system.entity.SysOrgEntity;
 import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -85,5 +85,5 @@ public class SysUserVO implements Serializable, TransPojo {
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 }

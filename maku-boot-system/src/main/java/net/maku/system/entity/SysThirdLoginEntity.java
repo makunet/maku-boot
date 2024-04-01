@@ -3,7 +3,7 @@ package net.maku.system.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 第三方登录
@@ -64,6 +64,6 @@ public class SysThirdLoginEntity {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private LocalDateTime createTime;
 
 }

@@ -12,7 +12,7 @@ import net.maku.framework.common.excel.DateConverter;
 import net.maku.framework.common.utils.DateUtils;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 登录日志
@@ -64,6 +64,6 @@ public class SysLogLoginVO implements Serializable, TransPojo {
     @ExcelProperty(value = "创建时间", converter = DateConverter.class)
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 
 }

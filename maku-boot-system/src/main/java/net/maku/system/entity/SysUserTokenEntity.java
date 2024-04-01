@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 用户Token
@@ -35,7 +35,7 @@ public class SysUserTokenEntity {
     /**
      * accessToken 过期时间
      */
-    private Date accessTokenExpire;
+    private LocalDateTime accessTokenExpire;
 
     /**
      * refreshToken
@@ -45,7 +45,7 @@ public class SysUserTokenEntity {
     /**
      * refreshToken 过期时间
      */
-    private Date refreshTokenExpire;
+    private LocalDateTime refreshTokenExpire;
 
     /**
      * 租户ID
@@ -56,6 +56,6 @@ public class SysUserTokenEntity {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private LocalDateTime createTime;
 
 }

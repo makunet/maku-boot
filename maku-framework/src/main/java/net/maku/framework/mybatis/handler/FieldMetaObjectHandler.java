@@ -5,7 +5,7 @@ import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
 import org.apache.ibatis.reflection.MetaObject;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * mybatis-plus 自动填充字段
@@ -25,7 +25,7 @@ public class FieldMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         UserDetail user = SecurityUser.getUser();
-        Date date = new Date();
+        LocalDateTime now = LocalDateTime.now();
 
         // 用户字段填充
         if (user != null) {
@@ -38,9 +38,9 @@ public class FieldMetaObjectHandler implements MetaObjectHandler {
         }
 
         // 创建时间
-        setFieldValByName(CREATE_TIME, date, metaObject);
+        setFieldValByName(CREATE_TIME, now, metaObject);
         // 更新时间
-        setFieldValByName(UPDATE_TIME, date, metaObject);
+        setFieldValByName(UPDATE_TIME, now, metaObject);
         // 版本号
         setFieldValByName(VERSION, 0, metaObject);
         // 删除标识
@@ -52,6 +52,6 @@ public class FieldMetaObjectHandler implements MetaObjectHandler {
         // 更新者
         setFieldValByName(UPDATER, SecurityUser.getUserId(), metaObject);
         // 更新时间
-        setFieldValByName(UPDATE_TIME, new Date(), metaObject);
+        setFieldValByName(UPDATE_TIME, LocalDateTime.now(), metaObject);
     }
 }

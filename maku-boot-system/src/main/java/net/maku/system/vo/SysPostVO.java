@@ -9,7 +9,7 @@ import net.maku.framework.common.utils.DateUtils;
 import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 岗位管理
@@ -43,6 +43,6 @@ public class SysPostVO implements Serializable {
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 
 }

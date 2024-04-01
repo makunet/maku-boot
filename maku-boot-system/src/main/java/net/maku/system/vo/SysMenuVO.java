@@ -10,7 +10,7 @@ import net.maku.framework.common.utils.DateUtils;
 import net.maku.framework.common.utils.TreeNode;
 import org.hibernate.validator.constraints.Range;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 菜单管理
@@ -50,7 +50,7 @@ public class SysMenuVO extends TreeNode<SysMenuVO> {
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @Schema(description = "上级菜单名称")
     private String parentName;

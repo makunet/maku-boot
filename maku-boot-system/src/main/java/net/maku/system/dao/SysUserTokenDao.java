@@ -5,7 +5,7 @@ import net.maku.system.entity.SysUserTokenEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public interface SysUserTokenDao extends BaseDao<SysUserTokenEntity> {
      * @param time   当前时间
      * @return 返回 access_token 列表
      */
-    List<String> getOnlineAccessTokenListByRoleId(@Param("roleId") Long roleId, @Param("time") Date time);
+    List<String> getOnlineAccessTokenListByRoleId(@Param("roleId") Long roleId, @Param("time") LocalDateTime time);
 
     /**
      * 根据用户ID，查询在线用户 access_token 列表
@@ -32,6 +32,6 @@ public interface SysUserTokenDao extends BaseDao<SysUserTokenEntity> {
      * @param time   当前时间
      * @return 返回 access_token 列表
      */
-    List<String> getOnlineAccessTokenListByUserId(@Param("userId") Long userId, @Param("time") Date time);
+    List<String> getOnlineAccessTokenListByUserId(@Param("userId") Long userId, @Param("time") LocalDateTime time);
 
 }
