@@ -13,6 +13,7 @@
 		<module>maku-module-message</module>
 		<module>maku-module-generator</module>
 		<module>maku-module-monitor</module>
+		<module>maku-module-member</module>
     </modules>
 	
 </project>
