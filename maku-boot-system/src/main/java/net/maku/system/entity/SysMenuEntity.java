@@ -1,5 +1,7 @@
 package net.maku.system.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,6 +44,7 @@ public class SysMenuEntity extends BaseEntity {
     /**
      * 菜单图标
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String icon;
     /**
      * 排序
