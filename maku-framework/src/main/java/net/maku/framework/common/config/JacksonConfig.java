@@ -38,7 +38,7 @@ public class JacksonConfig {
                     new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             builder.deserializerByType(LocalTime.class,
                     new LocalTimeDeserializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
-            builder.serializationInclusion(JsonInclude.Include.NON_NULL);
+            // builder.serializationInclusion(JsonInclude.Include.NON_NULL);
             builder.failOnUnknownProperties(false);
             builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         };
