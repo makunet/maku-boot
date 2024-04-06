@@ -2,11 +2,14 @@ package net.maku.framework.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.utils.Result;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 
 /**
@@ -35,6 +38,11 @@ public class ServerExceptionHandler {
         FieldError fieldError = ex.getFieldError();
         assert fieldError != null;
         return Result.error(fieldError.getDefaultMessage());
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<String> handleResourceNotFoundException(NoResourceFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("404 Not Found: " + e.getResourcePath());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
