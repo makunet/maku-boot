@@ -2,8 +2,8 @@ package net.maku;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
-import net.maku.framework.common.excel.DateConverter;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
+import net.maku.framework.common.excel.LocalDateTimeConverter;
 import net.maku.framework.common.utils.ExcelUtils;
 import org.junit.jupiter.api.Test;
 
@@ -64,7 +64,7 @@ public class EasyExcelTest {
         @ExcelProperty("小数")
         private Double decimals;
 
-        @ExcelProperty(value = "日期", converter = DateConverter.class)
+        @ExcelProperty(value = "日期", converter = LocalDateTimeConverter.class)
         private LocalDateTime date;
     }
 
