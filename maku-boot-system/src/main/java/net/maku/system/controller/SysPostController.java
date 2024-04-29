@@ -88,4 +88,12 @@ public class SysPostController {
 
         return Result.ok();
     }
+
+    @PostMapping("nameList")
+    @Operation(summary = "名称列表")
+    public Result<List<String>> nameList(@RequestBody List<Long> idList) {
+        List<String> list = sysPostService.getNameList(idList);
+
+        return Result.ok(list);
+    }
 }
