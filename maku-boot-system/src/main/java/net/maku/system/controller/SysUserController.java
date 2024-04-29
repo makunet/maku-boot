@@ -177,6 +177,14 @@ public class SysUserController {
         return Result.ok();
     }
 
+    @PostMapping("nameList")
+    @Operation(summary = "用户姓名列表")
+    public Result<List<String>> nameList(@RequestBody List<Long> idList) {
+        List<String> list = sysUserService.getRealNameList(idList);
+
+        return Result.ok(list);
+    }
+
     @PostMapping("import")
     @Operation(summary = "导入用户")
     @OperateLog(type = OperateTypeEnum.IMPORT)

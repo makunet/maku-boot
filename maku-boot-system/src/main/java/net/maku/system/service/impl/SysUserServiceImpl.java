@@ -59,7 +59,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         // 分页查询
         IPage<SysUserEntity> page = getPage(query);
         params.put(Constant.PAGE, page);
-        
+
         // 数据列表
         List<SysUserEntity> list = baseMapper.getList(params);
 
@@ -183,6 +183,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 删除用户岗位关系
         sysUserPostService.deleteByUserIdList(idList);
+    }
+
+    @Override
+    public List<String> getRealNameList(List<Long> idList) {
+        if (idList.isEmpty()) {
+            return null;
+        }
+
+        return baseMapper.selectBatchIds(idList).stream().map(SysUserEntity::getRealName).toList();
     }
 
     @Override

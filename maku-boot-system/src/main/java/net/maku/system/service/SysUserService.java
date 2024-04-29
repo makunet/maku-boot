@@ -32,6 +32,14 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 
     void delete(List<Long> idList);
 
+    /**
+     * 获取用户姓名列表
+     *
+     * @param idList 用户ID列表
+     * @return 用户姓名列表
+     */
+    List<String> getRealNameList(List<Long> idList);
+
     SysUserVO getByMobile(String mobile);
 
     /**
