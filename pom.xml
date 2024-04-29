@@ -36,7 +36,7 @@
         <redisson.version>3.21.3</redisson.version>
         <lock4j.version>2.2.7</lock4j.version>
         <dameng.version>8.1.2.79</dameng.version>
-        <knife4j.version>4.4.0</knife4j.version>
+        <knife4j.version>4.5.0</knife4j.version>
         <hutool.version>5.8.21</hutool.version>
         <captcha.version>1.6.2</captcha.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
