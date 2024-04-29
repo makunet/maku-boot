@@ -159,4 +159,12 @@ public class SysRoleController {
 
         return Result.ok();
     }
+
+    @PostMapping("nameList")
+    @Operation(summary = "名称列表")
+    public Result<List<String>> nameList(@RequestBody List<Long> idList) {
+        List<String> list = sysRoleService.getNameList(idList);
+
+        return Result.ok(list);
+    }
 }
