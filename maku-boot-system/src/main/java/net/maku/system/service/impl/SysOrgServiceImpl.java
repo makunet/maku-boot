@@ -107,6 +107,15 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
         return subIdList;
     }
 
+    @Override
+    public List<String> getNameList(List<Long> idList) {
+        if (idList.isEmpty()) {
+            return null;
+        }
+
+        return baseMapper.selectBatchIds(idList).stream().map(SysOrgEntity::getName).toList();
+    }
+
     private void getTree(Long id, List<SysOrgEntity> orgList, List<Long> subIdList) {
         for (SysOrgEntity org : orgList) {
             if (ObjectUtil.equals(org.getPid(), id)) {
