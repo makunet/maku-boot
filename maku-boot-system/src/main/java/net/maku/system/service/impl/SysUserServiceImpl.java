@@ -59,7 +59,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         // 分页查询
         IPage<SysUserEntity> page = getPage(query);
         params.put(Constant.PAGE, page);
-        
+
         // 数据列表
         List<SysUserEntity> list = baseMapper.getList(params);
 
@@ -248,8 +248,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         List<SysUserEntity> list = list(Wrappers.lambdaQuery(SysUserEntity.class).eq(SysUserEntity::getSuperAdmin, SuperAdminEnum.NO.getValue()));
         List<SysUserExcelVO> userExcelVOS = SysUserConvert.INSTANCE.convert2List(list);
         transService.transBatch(userExcelVOS);
+        String fileName = "system_user_excel";
         // 写到浏览器打开
-        ExcelUtils.excelExport(SysUserExcelVO.class, "system_user_excel" + DateUtils.format(new Date()), null, userExcelVOS);
+        ExcelUtils.excelExport(SysUserExcelVO.class, fileName + DateUtils.format(new Date()), null, userExcelVOS);
     }
 
 }
