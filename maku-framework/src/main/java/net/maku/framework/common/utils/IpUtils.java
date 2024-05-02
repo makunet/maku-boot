@@ -42,7 +42,7 @@ public class IpUtils {
 
         try {
             String address = searcher.search(ip);
-            return address.replace("0|", "").replace("|0", "");
+            return address.replace("0|", "").replace("|0", "").replace("中国|", "");
         } catch (Exception e) {
             log.error("根据IP获取地址异常 {}", ip);
             return "未知";
