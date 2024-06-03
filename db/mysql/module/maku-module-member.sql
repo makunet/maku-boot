@@ -9,6 +9,7 @@ CREATE TABLE member_user
     openid           varchar(200) COMMENT '第三方平台，唯一标识',
     last_login_ip    varchar(100) COMMENT '最后登录IP',
     last_login_time  datetime COMMENT '最后登录时间',
+    tenant_id        bigint COMMENT '租户ID',
     remark           varchar(500) COMMENT '备注',
     status           tinyint COMMENT '状态  0：禁用   1：启用',
     version          int COMMENT '版本号',
