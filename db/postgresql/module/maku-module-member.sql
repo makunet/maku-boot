@@ -10,6 +10,7 @@ CREATE TABLE member_user
     last_login_ip    varchar(100),
     last_login_time  timestamp,
     remark           varchar(500),
+    tenant_id        int8,
     status           int,
     version          int,
     deleted          int,
