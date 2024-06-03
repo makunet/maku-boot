@@ -40,6 +40,14 @@ public class SysDictTypeEntity extends BaseEntity {
      */
     private String dictSql;
     /**
+     * 上级节点
+     */
+    private Long pid;
+    /**
+     * 是否有子节点  0：无  1：有
+     */
+    private Integer hasChild;
+    /**
      * 租户ID
      */
     private Long tenantId;
