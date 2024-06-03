@@ -11,6 +11,7 @@ CREATE TABLE member_user
     last_login_time  datetime,
     remark           varchar(500),
     status           int,
+    tenant_id        bigint,
     version          int,
     deleted          int,
     create_time      datetime,
