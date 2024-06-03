@@ -19,6 +19,8 @@ public interface SysDictTypeService extends BaseService<SysDictTypeEntity> {
 
     PageResult<SysDictTypeVO> page(SysDictTypeQuery query);
 
+    List<SysDictTypeVO> list(Long pid);
+
     void save(SysDictTypeVO vo);
 
     void update(SysDictTypeVO vo);
