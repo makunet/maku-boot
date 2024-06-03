@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -49,10 +50,20 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
         return new PageResult<>(SysDictTypeConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
     }
 
+    @Override
+    public List<SysDictTypeVO> list(Long pid) {
+        LambdaQueryWrapper<SysDictTypeEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(pid != null, SysDictTypeEntity::getPid, pid);
+
+        List<SysDictTypeEntity> list = baseMapper.selectList(wrapper);
+        return SysDictTypeConvert.INSTANCE.convertList(list);
+    }
+
     private Wrapper<SysDictTypeEntity> getWrapper(SysDictTypeQuery query) {
         LambdaQueryWrapper<SysDictTypeEntity> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(StrUtil.isNotBlank(query.getDictType()), SysDictTypeEntity::getDictType, query.getDictType());
         wrapper.like(StrUtil.isNotBlank(query.getDictName()), SysDictTypeEntity::getDictName, query.getDictName());
+        wrapper.isNull(SysDictTypeEntity::getPid);
         wrapper.orderByAsc(SysDictTypeEntity::getSort);
 
         return wrapper;
@@ -63,6 +74,11 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     public void save(SysDictTypeVO vo) {
         SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(vo);
 
+        // 更新上级，有子节点
+        if (vo.getPid() != null) {
+            this.updateHasChild(vo.getPid(), 1);
+        }
+
         baseMapper.insert(entity);
     }
 
@@ -71,7 +87,39 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     public void update(SysDictTypeVO vo) {
         SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(vo);
 
+        // 更新上级，有子节点
+        if (vo.getPid() != null) {
+            this.updateHasChild(vo.getPid(), 1);
+        }
+
+        // 获取原先的上级ID
+        Long oldPid = baseMapper.selectById(vo.getId()).getPid();
+
+        // 更新
         updateById(entity);
+
+        // 上级已修改
+        if (!ObjectUtil.equals(oldPid, vo.getPid())) {
+            long count = baseMapper.selectCount(new LambdaQueryWrapper<SysDictTypeEntity>().eq(SysDictTypeEntity::getPid, oldPid));
+            if (count == 0) {
+                // 更新原先的上级，没有子节点
+                this.updateHasChild(oldPid, 0);
+            }
+        }
+
+    }
+
+    /**
+     * 更新上级，有子节点
+     *
+     * @param pid      上级ID
+     * @param hasChild 是否有子节点
+     */
+    private void updateHasChild(Long pid, Integer hasChild) {
+        SysDictTypeEntity entity = new SysDictTypeEntity();
+        entity.setId(pid);
+        entity.setHasChild(hasChild);
+        baseMapper.updateById(entity);
     }
 
     @Override
@@ -107,7 +155,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
 
             for (SysDictDataEntity data : dataList) {
                 if (type.getId().equals(data.getDictTypeId())) {
-                    dict.getDataList().add(new SysDictVO.DictData(data.getDictLabel(), data.getDictValue(), data.getLabelClass()));
+                    dict.getDataList().add(new SysDictVO.DictData(data.getDictLabel(), data.getDictValue(), data.getLabelClass(), null));
                 }
             }
 
