@@ -3,6 +3,7 @@ package net.maku.system.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class SysDictVO {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     @Schema(description = "字典数据")
     public static class DictData {
         @Schema(description = "字典标签")
@@ -34,5 +36,8 @@ public class SysDictVO {
 
         @Schema(description = "标签样式")
         private String labelClass;
+
+        @Schema(description = "上级节点")
+        private String pid;
     }
 }
