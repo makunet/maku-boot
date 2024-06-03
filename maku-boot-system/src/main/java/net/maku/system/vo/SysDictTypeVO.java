@@ -52,4 +52,10 @@ public class SysDictTypeVO implements Serializable {
 
     @Schema(description = "动态sql")
     private String dictSql;
+
+    @Schema(description = "上级节点")
+    private Long pid;
+
+    @Schema(description = "是否有子节点  0：无  1：有")
+    private Integer hasChild;
 }
