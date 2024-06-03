@@ -368,6 +368,8 @@ create table sys_dict_type
     dict_sql    varchar(500),
     remark      varchar(255),
     sort        int,
+    pid         int8,
+    has_child   int default 0,
     tenant_id   int8,
     version     int,
     deleted     int,
@@ -386,6 +388,8 @@ COMMENT ON COLUMN sys_dict_type.dict_source IS '来源  0：字典数据  1：�
 COMMENT ON COLUMN sys_dict_type.dict_sql IS '动态SQL';
 COMMENT ON COLUMN sys_dict_type.remark IS '备注';
 COMMENT ON COLUMN sys_dict_type.sort IS '排序';
+COMMENT ON COLUMN sys_dict_type.pid IS '上级节点';
+COMMENT ON COLUMN sys_dict_type.has_child IS '是否有子节点';
 COMMENT ON COLUMN sys_dict_type.tenant_id IS '租户ID';
 COMMENT ON COLUMN sys_dict_type.version IS '版本号';
 COMMENT ON COLUMN sys_dict_type.deleted IS '删除标识  0：正常   1：已删除';
@@ -611,7 +615,6 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (43, 1, '接口文档', '{{apiUrl}}/doc.html', null, 0, 1, 'icon-file-text-fill', 10, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (44, 38, '操作日志', 'sys/log/operate', 'sys:operate:all', 0, 0, 'icon-file-text', 1, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (45, 1, '第三方配置', 'sys/third/config/index', 'third:config:all', 0, 0, 'icon-menu', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (46, NULL, '企业版', 'https://maku.net/price', '', 0, 1, 'icon-sketch', 99, 0, 0, 10000, now(), 10000, now());
 
 
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'post_status', '状态', '岗位管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
