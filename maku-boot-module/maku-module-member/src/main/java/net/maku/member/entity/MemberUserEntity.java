@@ -72,6 +72,11 @@ public class MemberUserEntity {
     private Integer status;
 
     /**
+     * 租户ID
+     */
+    private Long tenantId;
+
+    /**
      * 版本号
      */
     private Integer version;
