@@ -42,6 +42,15 @@ public class SysDictTypeController {
         return Result.ok(page);
     }
 
+    @GetMapping("list")
+    @Operation(summary = "列表")
+    @PreAuthorize("hasAuthority('sys:dict:page')")
+    public Result<List<SysDictTypeVO>> list(Long pid) {
+        List<SysDictTypeVO> list = sysDictTypeService.list(pid);
+
+        return Result.ok(list);
+    }
+
     @GetMapping("list/sql")
     @Operation(summary = "动态SQL数据")
     @PreAuthorize("hasAuthority('sys:dict:page')")
