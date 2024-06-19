@@ -105,7 +105,7 @@ CREATE TABLE sys_third_login_config
     deleted               int,
     create_time           timestamp,
     primary key (id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='第三方登录配置';
+);
 
 COMMENT ON TABLE sys_third_login_config IS '第三方登录配置';
 COMMENT ON COLUMN sys_third_login_config.id IS 'id';
