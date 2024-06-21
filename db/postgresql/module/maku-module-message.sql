@@ -29,7 +29,6 @@ CREATE TABLE sms_platform
     app_id      varchar(100),
     sender_id   varchar(100),
     url         varchar(200),
-    url         varchar(200),
     access_key  varchar(100),
     secret_key  varchar(100),
     status      int,
