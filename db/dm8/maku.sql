@@ -565,6 +565,144 @@ COMMENT ON COLUMN sys_log_operate.tenant_id IS '租户ID';
 COMMENT ON COLUMN sys_log_operate.create_time IS '创建时间';
 
 
+CREATE TABLE sys_sms_config
+(
+    id          bigint IDENTITY NOT NULL,
+    platform    int,
+    group_name  varchar(100),
+    sign_name   varchar(100),
+    template_id varchar(100),
+    app_id      varchar(100),
+    sender_id   varchar(100),
+    url         varchar(200),
+    access_key  varchar(100),
+    secret_key  varchar(100),
+    status      int,
+    version     int,
+    deleted     int,
+    creator     bigint,
+    create_time datetime,
+    updater     bigint,
+    update_time datetime,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_sms_config IS '短信配置';
+COMMENT ON COLUMN sys_sms_config.id IS 'id';
+COMMENT ON COLUMN sys_sms_config.platform IS '平台类型  0：阿里云   1：腾讯云   2：七牛云   3：华为云';
+COMMENT ON COLUMN sys_sms_config.group_name IS '分组名称，发送短信时，可指定分组';
+COMMENT ON COLUMN sys_sms_config.sign_name IS '短信签名';
+COMMENT ON COLUMN sys_sms_config.template_id IS '短信模板';
+COMMENT ON COLUMN sys_sms_config.app_id IS '短信应用ID，如：腾讯云等';
+COMMENT ON COLUMN sys_sms_config.sender_id IS '腾讯云国际短信、华为云等需要';
+COMMENT ON COLUMN sys_sms_config.url IS '接入地址，如：华为云';
+COMMENT ON COLUMN sys_sms_config.access_key IS 'AccessKey';
+COMMENT ON COLUMN sys_sms_config.secret_key IS 'SecretKey';
+COMMENT ON COLUMN sys_sms_config.status IS '状态  0：禁用   1：启用';
+COMMENT ON COLUMN sys_sms_config.version IS '版本号';
+COMMENT ON COLUMN sys_sms_config.deleted IS '删除标识  0：正常   1：已删除';
+COMMENT ON COLUMN sys_sms_config.creator IS '创建者';
+COMMENT ON COLUMN sys_sms_config.create_time IS '创建时间';
+COMMENT ON COLUMN sys_sms_config.updater IS '更新者';
+COMMENT ON COLUMN sys_sms_config.update_time IS '更新时间';
+
+
+CREATE TABLE sys_sms_log
+(
+    id             bigint IDENTITY NOT NULL,
+    platform_id    bigint,
+    platform       int,
+    mobile         varchar(20) NOT NULL,
+    params         varchar(200),
+    status         int,
+    error          varchar(2000),
+    create_time    datetime,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_sms_log IS '短信日志';
+COMMENT ON COLUMN sys_sms_log.id IS 'id';
+COMMENT ON COLUMN sys_sms_log.platform_id IS '平台ID';
+COMMENT ON COLUMN sys_sms_log.platform IS '平台类型';
+COMMENT ON COLUMN sys_sms_log.mobile IS '手机号';
+COMMENT ON COLUMN sys_sms_log.params IS '参数';
+COMMENT ON COLUMN sys_sms_log.status IS '状态  0：失败   1：成功';
+COMMENT ON COLUMN sys_sms_log.error IS '异常信息';
+COMMENT ON COLUMN sys_sms_log.create_time IS '创建时间';
+
+
+CREATE TABLE sys_mail_config
+(
+    id          bigint IDENTITY NOT NULL,
+    platform    int,
+    group_name  varchar(100),
+    mail_host   varchar(100),
+    mail_port   int,
+    mail_from   varchar(100),
+    mail_pass   varchar(100),
+    region_id   varchar(100),
+    endpoint    varchar(100),
+    access_key  varchar(100),
+    secret_key  varchar(100),
+    status      int,
+    version     int,
+    deleted     int,
+    creator     bigint,
+    create_time datetime,
+    updater     bigint,
+    update_time datetime,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_mail_config IS '邮件平台';
+COMMENT ON COLUMN sys_mail_config.id IS 'id';
+COMMENT ON COLUMN sys_mail_config.platform IS '平台类型  -1：本地   0：阿里云';
+COMMENT ON COLUMN sys_mail_config.group_name IS '分组名称，发送邮件时，可指定分组';
+COMMENT ON COLUMN sys_mail_config.mail_host IS 'SMTP服务器';
+COMMENT ON COLUMN sys_mail_config.mail_port IS 'SMTP端口';
+COMMENT ON COLUMN sys_mail_config.mail_from IS '发件人邮箱';
+COMMENT ON COLUMN sys_mail_config.mail_pass IS '发件人密码';
+COMMENT ON COLUMN sys_mail_config.region_id IS 'regionId';
+COMMENT ON COLUMN sys_mail_config.endpoint IS '阿里云 endpoint';
+COMMENT ON COLUMN sys_mail_config.access_key IS 'AccessKey';
+COMMENT ON COLUMN sys_mail_config.secret_key IS 'SecretKey';
+COMMENT ON COLUMN sys_mail_config.status IS '状态  0：禁用   1：启用';
+COMMENT ON COLUMN sys_mail_config.version IS '版本号';
+COMMENT ON COLUMN sys_mail_config.deleted IS '删除标识  0：正常   1：已删除';
+COMMENT ON COLUMN sys_mail_config.creator IS '创建者';
+COMMENT ON COLUMN sys_mail_config.create_time IS '创建时间';
+COMMENT ON COLUMN sys_mail_config.updater IS '更新者';
+COMMENT ON COLUMN sys_mail_config.update_time IS '更新时间';
+
+
+CREATE TABLE sys_mail_log
+(
+    id             bigint IDENTITY NOT NULL,
+    platform_id    bigint,
+    platform       int,
+    mail_from      varchar(100),
+    mail_tos       varchar(1000),
+    subject        varchar(200),
+    content        text,
+    status         int,
+    error          varchar(2000),
+    create_time    datetime,
+    primary key (id)
+);
+
+COMMENT ON TABLE sys_mail_log IS '邮件日志';
+COMMENT ON COLUMN sys_mail_log.id IS 'id';
+COMMENT ON COLUMN sys_mail_log.platform_id IS '平台ID';
+COMMENT ON COLUMN sys_mail_log.platform IS '平台类型';
+COMMENT ON COLUMN sys_mail_log.mail_from IS '发件人邮箱';
+COMMENT ON COLUMN sys_mail_log.mail_tos IS '接受人邮箱';
+COMMENT ON COLUMN sys_mail_log.subject IS '邮件主题';
+COMMENT ON COLUMN sys_mail_log.content IS '邮件内容';
+COMMENT ON COLUMN sys_mail_log.status IS '状态  0：失败   1：成功';
+COMMENT ON COLUMN sys_mail_log.error IS '异常信息';
+COMMENT ON COLUMN sys_mail_log.create_time IS '创建时间';
+
+
 SET IDENTITY_INSERT sys_user ON;
 INSERT INTO sys_user (id, username, password, real_name, avatar, gender, email, mobile, status, org_id, super_admin, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (10000, 'admin', 'dc1fd00e3eeeb940ff46f457bf97d66ba7fcc36e0b20802383de142860e76ae6', 'admin', 'https://cdn.maku.net/images/avatar.png', 0, 'babamu@126.com', '13612345678', 1, null, 1, 10000, 0, 0, 10000, now(), 10000, now());
 
@@ -602,18 +740,24 @@ INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sor
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (31, 28, '修改', '', 'sys:user:update,sys:user:info,sys:role:list', 1, 0, '', 2, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (32, 28, '删除', '', 'sys:user:delete', 1, 0, '', 3, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (33, NULL, '应用管理', '', '', 0, 0, 'icon-appstore', 2, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (34, 1, '附件管理', 'sys/attachment/index', NULL, 0, 0, 'icon-folder-fill', 3, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (35, 34, '查看', '', 'sys:attachment:page', 1, 0, '', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (36, 34, '上传', '', 'sys:attachment:save', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (37, 34, '删除', '', 'sys:attachment:delete', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (38, NULL, '日志管理', '', '', 0, 0, 'icon-filedone', 3, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (39, 38, '登录日志', 'sys/log/login', 'sys:log:login', 0, 0, 'icon-solution', 0, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (40, 28, '导入', '', 'sys:user:import', 1, 0, '', 5, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (41, 28, '导出', '', 'sys:user:export', 1, 0, '', 6, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (42, 1, '参数管理', 'sys/params/index', 'sys:params:all', 0, 0, 'icon-filedone', 2, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (43, 1, '接口文档', '{{apiUrl}}/doc.html', null, 0, 1, 'icon-file-text-fill', 10, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (44, 38, '操作日志', 'sys/log/operate', 'sys:operate:all', 0, 0, 'icon-file-text', 1, 0, 0, 10000, now(), 10000, now());
-INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (45, 1, '第三方配置', 'sys/third/config/index', 'third:config:all', 0, 0, 'icon-menu', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (34, NULL, '日志管理', '', '', 0, 0, 'icon-filedone', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (35, 34, '登录日志', 'sys/log/login', 'sys:log:login', 0, 0, 'icon-solution', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (36, 28, '导入', '', 'sys:user:import', 1, 0, '', 5, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (37, 28, '导出', '', 'sys:user:export', 1, 0, '', 6, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (38, 1, '参数管理', 'sys/params/index', 'sys:params:all', 0, 0, 'icon-filedone', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (39, 1, '接口文档', '{{apiUrl}}/doc.html', null, 0, 1, 'icon-file-text-fill', 10, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (40, 34, '操作日志', 'sys/log/operate', 'sys:operate:all', 0, 0, 'icon-file-text', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (41, 1, '系统配置', 'sys/config/index', null, 0, 0, 'icon-safetycertificate', 4, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (42, 41, '短信配置', '', 'sys:sms:config', 1, 0, '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (43, 41, '邮件配置', '', 'sys:mail:config', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (44, 41, '第三方登录', '', 'sys:third:config', 1, 0, '', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (45, NULL, '基础工具', '', '', 0, 0, 'icon-wrench-fill', 5, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (46, 45, '短信发送', 'sys/tool/sms/index', 'sys:sms:log', 0, 0, 'icon-message', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (47, 45, '邮件发送', 'sys/tool/mail/index', 'sys:mail:log', 0, 0, 'icon-mail', 2, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (48, 45, '附件管理', 'sys/attachment/index', NULL, 0, 0, 'icon-folder-fill', 3, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (49, 48, '查看', '', 'sys:attachment:page', 1, 0, '', 0, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (50, 48, '上传', '', 'sys:attachment:save', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (51, 48, '删除', '', 'sys:attachment:delete', 1, 0, '', 1, 0, 0, 10000, now(), 10000, now());
 
 SET IDENTITY_INSERT sys_dict_type ON;
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1, 'post_status', '状态', '岗位管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
@@ -626,6 +770,8 @@ INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, ve
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (8, 'params_type', '系统参数', '参数管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (9, 'user_super_admin', '用户是否是超管','用户是否是超管', 0, 10000, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (10, 'log_operate_type', '操作类型', '操作日志', 0, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (11, 'sms_platform', '短信平台类型', '短信管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_type (id, dict_type, dict_name, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (12, 'mail_platform', '邮件平台类型', '邮件管理', 0, 10000, 0, 0, 10000, now(), 10000, now());
 
 SET IDENTITY_INSERT sys_dict_data ON;
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (1, 1, '停用', '0', 'danger', '', 1, 10000, 0, 0, 10000, now(), 10000, now());
@@ -659,9 +805,16 @@ INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (29, 10, '删除', '4', 'danger', '', 3, 10000, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (30, 10, '导出', '5', 'info', '', 4, 10000, 0, 0, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (31, 10, '导入', '6', 'info', '', 5, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (32, 11, '阿里云', '0', '', '', 0, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (33, 11, '腾讯云', '1', '', '', 1, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (34, 11, '七牛云', '2', '', '', 2, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (35, 11, '华为云', '3', '', '', 3, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (36, 12, '本地', '-1', '', '', 0, 10000, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data (id, dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES (37, 12, '阿里云', '0', '', '', 1, 10000, 0, 0, 10000, now(), 10000, now());
 
 INSERT INTO sys_params (param_name, param_type, param_key, param_value, remark, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ('用户登录-验证码开关', 1, 'LOGIN_CAPTCHA', 'false', '是否开启验证码（true：开启，false：关闭）', 10000, 0, 0, 10000, now(), 10000, now());
 
 INSERT INTO sys_third_login_config (open_type, client_id, client_secret, redirect_uri, agent_id, tenant_id, version, deleted, create_time) VALUES ('feishu', 'cli_a541d3aa03f8500b', '5Chz39zvEhZtxSVZz3vLjfQHdkvavQaH', 'http://localhost:8080/sys/third/callback/feishu', '', 10000, 0, 0, now());
 
+INSERT INTO sys_mail_config (platform, group_name, mail_host, mail_port, mail_from, mail_pass, region_id, endpoint, access_key, secret_key, status, version, deleted, creator, create_time, updater, update_time) VALUES (-1, 'test', NULL, NULL, 'baba_tv@163.com', 'TZNVURLYVBNJUNBB', '', '', NULL, NULL, 1, 1, 0, 10000, now(), 10000, now());
 commit;
