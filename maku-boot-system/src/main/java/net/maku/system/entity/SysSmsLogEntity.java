@@ -1,11 +1,10 @@
-package net.maku.message.entity;
+package net.maku.system.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
@@ -16,9 +15,8 @@ import java.time.LocalDateTime;
  * <a href="https://maku.net">MAKU</a>
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("sms_log")
-public class SmsLogEntity {
+@TableName("sys_sms_log")
+public class SysSmsLogEntity {
     /**
      * id
      */
