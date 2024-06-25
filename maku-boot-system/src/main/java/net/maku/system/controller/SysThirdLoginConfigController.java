@@ -32,7 +32,7 @@ public class SysThirdLoginConfigController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
-    @PreAuthorize("hasAuthority('third:config:all')")
+    @PreAuthorize("hasAuthority('sys:third:config')")
     public Result<PageResult<SysThirdLoginConfigVO>> page(@ParameterObject @Valid Query query) {
         PageResult<SysThirdLoginConfigVO> page = sysThirdLoginConfigService.page(query);
 
@@ -41,7 +41,7 @@ public class SysThirdLoginConfigController {
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
-    @PreAuthorize("hasAuthority('third:config:all')")
+    @PreAuthorize("hasAuthority('sys:third:config')")
     public Result<SysThirdLoginConfigVO> get(@PathVariable("id") Long id) {
         SysThirdLoginConfigEntity entity = sysThirdLoginConfigService.getById(id);
 
@@ -50,7 +50,7 @@ public class SysThirdLoginConfigController {
 
     @PostMapping
     @Operation(summary = "保存")
-    @PreAuthorize("hasAuthority('third:config:all')")
+    @PreAuthorize("hasAuthority('sys:third:config')")
     public Result<String> save(@RequestBody SysThirdLoginConfigVO vo) {
         sysThirdLoginConfigService.save(vo);
 
@@ -59,7 +59,7 @@ public class SysThirdLoginConfigController {
 
     @PutMapping
     @Operation(summary = "修改")
-    @PreAuthorize("hasAuthority('third:config:all')")
+    @PreAuthorize("hasAuthority('sys:third:config')")
     public Result<String> update(@RequestBody @Valid SysThirdLoginConfigVO vo) {
         sysThirdLoginConfigService.update(vo);
 
@@ -68,7 +68,7 @@ public class SysThirdLoginConfigController {
 
     @DeleteMapping
     @Operation(summary = "删除")
-    @PreAuthorize("hasAuthority('third:config:all')")
+    @PreAuthorize("hasAuthority('sys:third:config')")
     public Result<String> delete(@RequestBody List<Long> idList) {
         sysThirdLoginConfigService.delete(idList);
 
