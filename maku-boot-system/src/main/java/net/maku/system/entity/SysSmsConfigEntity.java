@@ -1,4 +1,4 @@
-package net.maku.message.entity;
+package net.maku.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -13,12 +13,17 @@ import net.maku.framework.mybatis.entity.BaseEntity;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sms_platform")
-public class SmsPlatformEntity extends BaseEntity {
+@TableName("sys_sms_config")
+public class SysSmsConfigEntity extends BaseEntity {
     /**
      * 平台类型  0：阿里云   1：腾讯云   2：七牛云    3：华为云
      */
     private Integer platform;
+
+    /**
+     * 分组名称，发送短信时，可指定分组
+     */
+    private String groupName;
 
     /**
      * 短信签名
