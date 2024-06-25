@@ -1,4 +1,4 @@
-package net.maku.message.vo;
+package net.maku.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,21 +9,24 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 短信平台
+ * 短信配置
  *
  * @author 阿沐 babamu@126.com
  * <a href="https://maku.net">MAKU</a>
  */
 @Data
-@Schema(description = "短信平台")
-public class SmsPlatformVO implements Serializable {
+@Schema(description = "短信配置")
+public class SysSmsConfigVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "id")
     private Long id;
 
-    @Schema(description = "平台类型  0：阿里云   1：腾讯云")
+    @Schema(description = "平台类型")
     private Integer platform;
+
+    @Schema(description = "分组名称，发送短信时，可指定分组")
+    private String groupName;
 
     @Schema(description = "短信签名")
     private String signName;
