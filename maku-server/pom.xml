@@ -32,11 +32,6 @@
         </dependency>
         <dependency>
             <groupId>net.maku</groupId>
-            <artifactId>maku-module-message</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.maku</groupId>
             <artifactId>maku-module-member</artifactId>
             <version>${revision}</version>
         </dependency>
