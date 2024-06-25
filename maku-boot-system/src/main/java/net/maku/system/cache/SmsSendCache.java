@@ -1,4 +1,4 @@
-package net.maku.message.cache;
+package net.maku.system.cache;
 
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.cache.RedisCache;
@@ -22,7 +22,7 @@ public class SmsSendCache {
      * @return KEY
      */
     private String getCodeKey(String mobile) {
-        return "message:sms:code" + mobile;
+        return "sys:sms:code" + mobile;
     }
 
     public void saveCode(String mobile, String code) {
