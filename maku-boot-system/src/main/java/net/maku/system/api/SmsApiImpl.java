@@ -1,9 +1,9 @@
-package net.maku.message.api;
+package net.maku.system.api;
 
 import lombok.AllArgsConstructor;
-import net.maku.api.module.message.SmsApi;
-import net.maku.message.cache.SmsSendCache;
-import net.maku.message.sms.service.SmsService;
+import net.maku.api.module.system.SmsApi;
+import net.maku.sms.service.SmsService;
+import net.maku.system.cache.SmsSendCache;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -27,6 +27,11 @@ public class SmsApiImpl implements SmsApi {
     }
 
     @Override
+    public boolean send(String groupName, String mobile, Map<String, String> params) {
+        return smsService.send(groupName, mobile, params);
+    }
+
+    @Override
     public boolean sendCode(String mobile, String key, String value) {
         // 短信参数
         Map<String, String> params = new HashMap<>();
@@ -34,6 +39,20 @@ public class SmsApiImpl implements SmsApi {
 
         // 发送短信
         boolean flag = smsService.send(mobile, params);
+        if (flag) {
+            smsSendCache.saveCode(mobile, value);
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean sendCode(String groupName, String mobile, String key, String value) {
+        // 短信参数
+        Map<String, String> params = new HashMap<>();
+        params.put(key, value);
+
+        // 发送短信
+        boolean flag = smsService.send(groupName, mobile, params);
         if (flag) {
             smsSendCache.saveCode(mobile, value);
         }
