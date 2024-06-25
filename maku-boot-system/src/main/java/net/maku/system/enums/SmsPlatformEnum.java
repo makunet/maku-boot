@@ -1,4 +1,4 @@
-package net.maku.message.enums;
+package net.maku.system.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
