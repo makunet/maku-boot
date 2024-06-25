@@ -1,10 +1,10 @@
-package net.maku.message.sms;
+package net.maku.sms;
 
 import com.qiniu.http.Response;
 import com.qiniu.sms.SmsManager;
 import com.qiniu.util.Auth;
 import net.maku.framework.common.exception.ServerException;
-import net.maku.message.sms.config.SmsConfig;
+import net.maku.sms.config.SmsConfig;
 
 import java.util.Map;
 
