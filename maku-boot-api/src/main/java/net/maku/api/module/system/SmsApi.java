@@ -1,4 +1,4 @@
-package net.maku.api.module.message;
+package net.maku.api.module.system;
 
 import java.util.Map;
 
@@ -22,6 +22,16 @@ public interface SmsApi {
     /**
      * 发送短信
      *
+     * @param groupName 分组名称
+     * @param mobile    手机号
+     * @param params    参数
+     * @return 是否发送成功
+     */
+    boolean send(String groupName, String mobile, Map<String, String> params);
+
+    /**
+     * 发送短信
+     *
      * @param mobile 手机号
      * @param key    参数KEY
      * @param value  参数Value
@@ -29,6 +39,17 @@ public interface SmsApi {
      */
     boolean sendCode(String mobile, String key, String value);
 
+    /**
+     * 发送短信
+     *
+     * @param groupName 分组名称
+     * @param mobile    手机号
+     * @param key       参数KEY
+     * @param value     参数Value
+     * @return 是否发送成功
+     */
+    boolean sendCode(String groupName, String mobile, String key, String value);
+    
     /**
      * 效验短信验证码
      *
