@@ -1,4 +1,4 @@
-package net.maku.message.vo;
+package net.maku.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "短信日志")
-public class SmsLogVO implements Serializable {
+public class SysSmsLogVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "id")
