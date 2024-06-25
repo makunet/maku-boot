@@ -1,8 +1,8 @@
-package net.maku.message.sms;
+package net.maku.sms;
 
 import net.maku.framework.common.exception.ServerException;
-import net.maku.message.enums.SmsPlatformEnum;
-import net.maku.message.sms.config.SmsConfig;
+import net.maku.sms.config.SmsConfig;
+import net.maku.system.enums.SmsPlatformEnum;
 
 import java.util.Map;
 
