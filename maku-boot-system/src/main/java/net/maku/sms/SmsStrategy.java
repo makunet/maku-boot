@@ -1,4 +1,4 @@
-package net.maku.message.sms;
+package net.maku.sms;
 
 import java.util.Map;
 
