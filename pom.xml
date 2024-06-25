@@ -31,7 +31,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
-        <mybatisplus.version>3.5.5</mybatisplus.version>
+        <mybatisplus.version>3.5.7</mybatisplus.version>
         <dynamic-datasource.version>4.1.3</dynamic-datasource.version>
         <redisson.version>3.21.3</redisson.version>
         <lock4j.version>2.2.7</lock4j.version>
