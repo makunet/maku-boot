@@ -1,4 +1,4 @@
-package net.maku.message.sms;
+package net.maku.sms;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.map.MapUtil;
@@ -6,7 +6,7 @@ import cn.hutool.core.util.CharsetUtil;
 import lombok.Data;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.JsonUtils;
-import net.maku.message.sms.config.SmsConfig;
+import net.maku.sms.config.SmsConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
