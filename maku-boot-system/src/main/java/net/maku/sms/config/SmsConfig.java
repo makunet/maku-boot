@@ -1,4 +1,4 @@
-package net.maku.message.sms.config;
+package net.maku.sms.config;
 
 import lombok.Data;
 
@@ -19,6 +19,11 @@ public class SmsConfig {
      * 平台类型
      */
     private Integer platform;
+
+    /**
+     * 分组名称
+     */
+    private String groupName;
 
     /**
      * 短信签名
