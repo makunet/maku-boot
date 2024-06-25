@@ -3,7 +3,7 @@ package net.maku.system.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.RandomUtil;
 import lombok.AllArgsConstructor;
-import net.maku.api.module.message.SmsApi;
+import net.maku.api.module.system.SmsApi;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.security.cache.TokenStoreCache;
