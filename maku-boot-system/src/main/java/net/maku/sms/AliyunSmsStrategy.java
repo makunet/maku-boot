@@ -1,4 +1,4 @@
-package net.maku.message.sms;
+package net.maku.sms;
 
 import cn.hutool.core.map.MapUtil;
 import com.aliyun.dysmsapi20170525.Client;
@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.JsonUtils;
-import net.maku.message.sms.config.SmsConfig;
+import net.maku.sms.config.SmsConfig;
 
 import java.util.Map;
 
