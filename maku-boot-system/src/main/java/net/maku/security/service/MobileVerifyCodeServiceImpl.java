@@ -1,7 +1,7 @@
 package net.maku.security.service;
 
 import lombok.AllArgsConstructor;
-import net.maku.api.module.message.SmsApi;
+import net.maku.api.module.system.SmsApi;
 import net.maku.framework.security.mobile.MobileVerifyCodeService;
 import org.springframework.stereotype.Service;
 
