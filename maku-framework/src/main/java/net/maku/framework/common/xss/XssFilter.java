@@ -38,7 +38,7 @@ public class XssFilter extends OncePerRequestFilter {
         }
 
         // 放行不过滤的URL
-        return properties.getExcludeUrls().stream().anyMatch(excludeUrl -> pathMatcher.match(excludeUrl, request.getRequestURI()));
+        return properties.getExcludeUrls().stream().anyMatch(excludeUrl -> pathMatcher.match(excludeUrl, request.getServletPath()));
     }
 
 }

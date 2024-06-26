@@ -33,9 +33,9 @@ public class XssFilterJsonDeserializer extends JsonDeserializer<String> {
         if (request == null) {
             return value;
         }
-        
+
         // 判断该URI是否放行
-        boolean flag = properties.getExcludeUrls().stream().anyMatch(excludeUrl -> pathMatcher.match(excludeUrl, request.getRequestURI()));
+        boolean flag = properties.getExcludeUrls().stream().anyMatch(excludeUrl -> pathMatcher.match(excludeUrl, request.getServletPath()));
         if (flag) {
             return value;
         }
