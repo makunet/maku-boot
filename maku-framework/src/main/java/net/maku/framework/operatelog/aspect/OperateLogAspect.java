@@ -108,7 +108,7 @@ public class OperateLogAspect {
             log.setIp(IpUtils.getIpAddr(request));
             log.setAddress(IpUtils.getAddressByIP(log.getIp()));
             log.setUserAgent(request.getHeader(HttpHeaders.USER_AGENT));
-            log.setReqUri(request.getRequestURI());
+            log.setReqUri(request.getServletPath());
             log.setReqMethod(request.getMethod());
         }
 
