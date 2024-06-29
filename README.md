@@ -9,10 +9,8 @@
 - 支持多种登录方式，包括账号密码、短信验证码、企业微信、钉钉、飞书、微信等，可灵活选择。
 - 支持多租户模式，可实现不同业务系统之间的隔离，能同时支持字段隔离、数据源隔离方式，满足对多租户的全部需求。
 
-- 前端工程：https://gitcode.com/makunet/maku-admin
 - 开发文档：https://maku.net/docs/maku-boot
 - 演示环境：https://demo.maku.net/maku-boot
-- 授权地址：https://maku.net/p/10096
 - 企业版：https://maku.net/price
 
 ## 微信交流群
@@ -20,13 +18,6 @@
 为了更好的交流，我们新提供了微信交流群，需扫描下面的二维码，关注公众号，回复【加群】，根据提示信息，作者会拉你进群的，感谢配合！
 
 ![输入图片说明](images/qrcode.png)
-
-
-
-## 支持
-
-如果觉得框架还不错，或者已经在使用了，希望你可以去 [Github](https://github.com/makunet/maku-boot) 或 
-[GitCode](https://gitcode.com/makunet/maku-boot) 帮作者点个 ⭐ Star，这将是对作者极大的鼓励与支持。
 
 
 ## 架构图
