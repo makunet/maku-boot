@@ -20,6 +20,7 @@ public class SysMenuEntity extends BaseEntity {
     /**
      * 上级ID
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long pid;
     /**
      * 菜单名称
