@@ -1,5 +1,7 @@
 package net.maku.system.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,6 +44,7 @@ public class SysDictTypeEntity extends BaseEntity {
     /**
      * 上级节点
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long pid;
     /**
      * 是否有子节点  0：无  1：有
