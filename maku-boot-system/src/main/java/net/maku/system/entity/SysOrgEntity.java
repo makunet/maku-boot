@@ -20,6 +20,7 @@ public class SysOrgEntity extends BaseEntity {
     /**
      * 上级ID
      */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long pid;
     /**
      * 机构名称
