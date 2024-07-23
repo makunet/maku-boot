@@ -33,3 +33,11 @@ spring:
           #    url: jdbc:postgresql://192.168.3.19:5432/postgres
           #    username: postgres
           #    password: 123456
+  mqtt:
+    hostUrl: tcp://localhost:1883
+    username: maku
+    password: maku
+    clientId: maku_boot_service_dev
+    defaultTopic: topic_default
+    #true 开启监听 false 关闭监听  用于监设备上报的信息
+    mqttEnabled: true

@@ -41,6 +41,11 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
+            <groupId>net.maku</groupId>
+            <artifactId>maku-module-iot</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>

@@ -1,0 +1,51 @@
+version: '3.9'
+#  通过 Docker Compose 构建 EMQX 集群
+services:
+  maku-emqx1:
+    image: emqx:5.7.1
+    container_name: maku-emqx1
+    environment:
+      - "EMQX_NODE_NAME=emqx@node1.emqx.io"
+      - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+      - "EMQX_CLUSTER__STATIC__SEEDS=[emqx@node1.emqx.io,emqx@node2.emqx.io]"
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 5s
+      timeout: 25s
+      retries: 5
+    networks:
+      emqx-bridge:
+        aliases:
+          - node1.emqx.io
+    ports:
+      - 1883:1883
+      - 8083:8083
+      - 8084:8084
+      - 8883:8883
+      - 18083:18083
+    #  如果需要持久 Docker 容器 ，请将以下目录挂载到容器外部，这样即使容器被删除数据也不会丢失
+    volumes:
+      - /work/www/maku-boot/emqx/data:/opt/emqx/data
+      - /work/www/maku-boot/emqx/log:/opt/emqx/log
+#  maku-emqx2:
+#    image: emqx:5.7.1
+#    container_name: maku-emqx2
+#    environment:
+#      - "EMQX_NODE_NAME=emqx@node2.emqx.io"
+#      - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+#      - "EMQX_CLUSTER__STATIC__SEEDS=[emqx@node1.emqx.io,emqx@node2.emqx.io]"
+#    healthcheck:
+#      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+#      interval: 5s
+#      timeout: 25s
+#      retries: 5
+#    networks:
+#      emqx-bridge:
+#        aliases:
+#          - node2.emqx.io
+#    volumes:
+#      - $PWD/emqx2_data:/opt/emqx/data
+
+networks:
+  emqx-bridge:
+    driver: bridge
