@@ -75,6 +75,5 @@ public class IotDeviceVO implements Serializable {
     @Schema(description = "更新时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private LocalDateTime updateTime;
-
-
+    
 }

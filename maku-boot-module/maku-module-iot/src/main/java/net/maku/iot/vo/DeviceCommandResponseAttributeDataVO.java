@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import net.maku.iot.enums.DeviceCommandEnum;
 
+import java.io.Serializable;
+
 /**
  * 设备命令响应数据
  *
@@ -13,7 +15,7 @@ import net.maku.iot.enums.DeviceCommandEnum;
 @Data
 @Schema(description = "设备命令响应VO")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeviceCommandResponseAttributeDataVO {
+public class DeviceCommandResponseAttributeDataVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "设备ID")

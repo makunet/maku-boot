@@ -16,25 +16,20 @@ import org.springframework.stereotype.Component;
 @Component
 @MessagingGateway(defaultRequestChannel = MqttConfig.OUTBOUND_CHANNEL)
 public class MqttGateway {
-
     @Autowired
     private MqttConfig mqttConfig;
-
 
     public void sendToMqtt(String payload) {
         mqttConfig.mqttOutboundHandler().handleMessage(MessageBuilder.withPayload(payload).build());
     }
 
-
     public void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, String payload) {
         mqttConfig.mqttOutboundHandler().handleMessage(MessageBuilder.withPayload(payload).setHeader(MqttHeaders.TOPIC, topic).build());
     }
 
-
     public void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Header(MqttHeaders.QOS) int qos, String payload) {
         mqttConfig.mqttOutboundHandler().handleMessage(MessageBuilder.withPayload(payload).setHeader(MqttHeaders.TOPIC, topic).setHeader(MqttHeaders.QOS, qos).build());
     }
-
 
     public void sendToMqtt(@Header(MqttHeaders.TOPIC) String topic, @Header(MqttHeaders.RETAINED) boolean retained, String payload) {
         mqttConfig.mqttOutboundHandler().handleMessage(MessageBuilder.withPayload(payload).setHeader(MqttHeaders.TOPIC, topic).setHeader(MqttHeaders.RETAINED, retained).build());

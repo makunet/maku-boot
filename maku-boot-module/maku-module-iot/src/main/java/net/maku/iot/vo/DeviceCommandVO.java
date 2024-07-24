@@ -3,6 +3,8 @@ package net.maku.iot.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 设备指令
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "设备指令VO")
-public class DeviceCommandVO {
+public class DeviceCommandVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "设备ID")

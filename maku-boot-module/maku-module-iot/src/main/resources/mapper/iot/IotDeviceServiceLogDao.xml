@@ -3,20 +3,4 @@
 
 <mapper namespace="net.maku.iot.dao.IotDeviceServiceLogDao">
 
-    <resultMap type="net.maku.iot.entity.IotDeviceServiceLogEntity" id="iotDeviceServiceLogMap">
-        <result property="id" column="id"/>
-        <result property="deviceId" column="device_id"/>
-        <result property="serviceType" column="service_type"/>
-        <result property="serviceUid" column="service_uid"/>
-        <result property="servicePayload" column="service_payload"/>
-        <result property="serviceTime" column="service_time"/>
-        <result property="tenantId" column="tenant_id"/>
-        <result property="version" column="version"/>
-        <result property="deleted" column="deleted"/>
-        <result property="creator" column="creator"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updater" column="updater"/>
-        <result property="updateTime" column="update_time"/>
-    </resultMap>
-
 </mapper>

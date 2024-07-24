@@ -3,25 +3,4 @@
 
 <mapper namespace="net.maku.iot.dao.IotDeviceDao">
 
-    <resultMap type="net.maku.iot.entity.IotDeviceEntity" id="iotDeviceMap">
-        <result property="id" column="id"/>
-        <result property="code" column="code"/>
-        <result property="name" column="name"/>
-        <result property="type" column="type"/>
-        <result property="uid" column="uid"/>
-        <result property="secret" column="secret"/>
-        <result property="appVersion" column="app_version"/>
-        <result property="batteryPercent" column="battery_percent"/>
-        <result property="temperature" column="temperature"/>
-        <result property="status" column="status"/>
-        <result property="runningStatus" column="running_status"/>
-        <result property="upTime" column="up_time"/>
-        <result property="downTime" column="down_time"/>
-        <result property="tenantId" column="tenant_id"/>
-        <result property="creator" column="creator"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updater" column="updater"/>
-        <result property="updateTime" column="update_time"/>
-    </resultMap>
-
 </mapper>

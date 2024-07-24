@@ -34,7 +34,7 @@ public class DeviceMqttService {
     /**
      * 命令等待exchanger缓存，key: command id
      */
-    private ConcurrentMap<String, Exchanger<Object>> commandExchangers = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, Exchanger<Object>> commandExchangers = new ConcurrentHashMap<>();
 
     /**
      * 异步发送命令，返回命令id

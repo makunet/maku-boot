@@ -33,13 +33,13 @@ public class DeviceCommandResponseMqttMessageHandler implements MqttMessageHandl
 
     @Override
     public void handle(String topic, String message) {
-        DeviceCommandResponseDTO commanddResponseDTO = parseCommandReplyMessage(topic, message);
-        Optional.ofNullable(commanddResponseDTO.getCommand())
+        DeviceCommandResponseDTO commandResponseDTO = parseCommandReplyMessage(topic, message);
+        Optional.ofNullable(commandResponseDTO.getCommand())
                 .orElseThrow(() -> new IllegalArgumentException(StrUtil.format("缺失指令类型! 主题:'{}',消息:{}", topic, message)));
-        Optional.ofNullable(commanddResponseDTO.getCommandId())
+        Optional.ofNullable(commandResponseDTO.getCommandId())
                 .orElseThrow(() -> new IllegalArgumentException(StrUtil.format("缺失指令ID! 主题:'{}',消息:{}", topic, message)));
 
-        Optional.ofNullable(commanddResponseDTO)
+        Optional.ofNullable(commandResponseDTO)
                 .ifPresent(responseDTO -> {
                     // 调用设备命令执行器的命令响应处理逻辑
                     try {
