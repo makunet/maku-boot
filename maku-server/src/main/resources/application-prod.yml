@@ -40,4 +40,4 @@ spring:
     clientId: maku_boot_service_dev
     defaultTopic: topic_default
     #true 开启监听 false 关闭监听  用于监设备上报的信息
-    mqttEnabled: true
+    mqttEnabled: false
