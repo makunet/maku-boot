@@ -55,7 +55,7 @@ public class ExcelDataListener<T> extends AnalysisEventListener<T> {
      */
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
-        this.callBack.doAfterAllAnalysed(this.list);
+        this.callBack.doSaveBatch(list);
     }
 }
 
