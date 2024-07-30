@@ -1,9 +1,10 @@
 <template>
+	<#if tableOperation?seq_contains('query')>
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 		<#list queryList as field>
 			<el-form-item prop="${field.attrName}">
-			<#if field.formType == 'text' || field.formType == 'textarea' || field.formType == 'editor'>
+			<#if field.queryFormType == 'text' || field.queryFormType == 'textarea' || field.queryFormType == 'editor'>
 			  <el-input v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}"></el-input>
 			<#elseif field.queryFormType == 'select'>
 			  <#if field.queryDict??>
@@ -46,17 +47,36 @@
 			</el-form-item>
 		</el-form>
 	</el-card>
+	</#if>
 
 	<el-card>
+		<#if tableOperation?seq_contains('insert') || tableOperation?seq_contains('import') || tableOperation?seq_contains('export') || tableOperation?seq_contains('delete')>
 		<el-space>
+			<#if tableOperation?seq_contains('insert')>
 			<el-space>
-				<el-button v-auth="'${moduleName}:${functionName}:save'" icon="Plus" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+				<el-button <#if authLevel==1>v-auth="'${authority}:save'" </#if>icon="Plus" type="primary" @click="addOrUpdateHandle()">新增</el-button>
 			</el-space>
+			</#if>
+			<#if tableOperation?seq_contains('import')>
+			<el-space <#if authLevel==1>v-auth="'${authority}:import'"</#if>>
+				<ma-upload-file action="${requestUrl}/import">
+					<el-button plain icon="Upload">导入</el-button>
+				</ma-upload-file>
+			</el-space>
+			</#if>
+			<#if tableOperation?seq_contains('export')>
 			<el-space>
-				<el-button v-auth="'${moduleName}:${functionName}:delete'" icon="Delete" plain type="danger" @click="deleteBatchHandle()">批量删除</el-button>
+				<el-button <#if authLevel==1>v-auth="'${authority}:export'" </#if>plain icon="Download" @click="downloadHandle('${requestUrl}/export')">导出</el-button>
 			</el-space>
+			</#if>
+			<#if tableOperation?seq_contains('delete')>
+			<el-space>
+				<el-button <#if authLevel==1>v-auth="'${authority}:delete'" </#if>icon="Delete" plain type="danger" @click="deleteBatchHandle()">批量删除</el-button>
+			</el-space>
+			</#if>
 		</el-space>
-		<el-table v-loading="state.dataListLoading" :data="state.dataList" border class="layout-table" @selection-change="selectionChangeHandle">
+		</#if>
+		<el-table v-loading="state.dataListLoading" :data="state.dataList" border class="layout-table" show-overflow-tooltip @selection-change="selectionChangeHandle" <#if hasTree>row-key="id" lazy :load="load" :tree-props="{ hasChildren: 'hasChild' }"</#if>>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
 	    <#list gridList as field>
 		  <#if field.formDict??>
@@ -65,12 +85,18 @@
 			<el-table-column prop="${field.attrName}" label="${field.fieldComment!}" header-align="center" align="center"></el-table-column>
 		  </#if>
         </#list>
+			<#if tableOperation?seq_contains('update') || tableOperation?seq_contains('delete')>
 			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
 				<template #default="scope">
-					<el-button v-auth="'${moduleName}:${functionName}:update'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-					<el-button v-auth="'${moduleName}:${functionName}:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
+					<#if tableOperation?seq_contains('update')>
+					<el-button <#if authLevel==1>v-auth="'${authority}:update'" </#if>type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
+					</#if>
+					<#if tableOperation?seq_contains('delete')>
+					<el-button <#if authLevel==1>v-auth="'${authority}:delete'" </#if>type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
+					</#if>
 				</template>
 			</el-table-column>
+			</#if>
 		</el-table>
 		<el-pagination
 			:current-page="state.page"
@@ -83,20 +109,27 @@
 		>
 		</el-pagination>
 
+		<#if tableOperation?seq_contains('insert') || tableOperation?seq_contains('update')>
 		<!-- 弹窗, 新增 / 修改 -->
-		<add-or-update ref="addOrUpdateRef" @refreshDataList="getDataList"></add-or-update>
+		<add-or-update v-if="addOrUpdateVisible" ref="addOrUpdateRef" v-model:visible="addOrUpdateVisible" @refreshDataList="getDataList"></add-or-update>
+		</#if>
 	</el-card>
 </template>
 
 <script setup lang="ts" name="${ModuleName}${FunctionName}Index">
 	import {useCrud} from '@/hooks'
-	import {reactive, ref} from 'vue'
+	import {reactive, nextTick, ref} from 'vue'
 	import {IHooksOptions} from '@/hooks/interface'
+	<#if tableOperation?seq_contains('insert') || tableOperation?seq_contains('update')>
 	import AddOrUpdate from './add-or-update.vue'
+	</#if>
+	<#if hasTree>import { use${FunctionName}TreeLoadApi } from '@/api/${moduleName}/${functionName}'</#if>
 
 	const state: IHooksOptions = reactive({
-	dataListUrl: '/${moduleName}/${functionName}/page',
-	deleteUrl: '/${moduleName}/${functionName}',
+	dataListUrl: '${requestUrl}/page',
+	<#if tableOperation?seq_contains('query')>
+	deleteUrl: '${requestUrl}',
+	</#if>
 	queryForm: {
 		<#list queryList as field>
 		<#if field.formType == 'date'>
@@ -113,10 +146,23 @@
 })
 
 const queryRef = ref()
+<#if tableOperation?seq_contains('insert') || tableOperation?seq_contains('update')>
+const addOrUpdateVisible = ref(false)
 const addOrUpdateRef = ref()
 const addOrUpdateHandle = (id?: number) => {
-	addOrUpdateRef.value.init(id)
+	addOrUpdateVisible.value = true
+	nextTick(() => addOrUpdateRef.value.init(id))
 }
+</#if>
 
-const { getDataList, selectionChangeHandle, sizeChangeHandle, currentChangeHandle, deleteBatchHandle, reset } = useCrud(state)
+<#if hasTree>
+// 树数据加载
+const load = (tree: any, treeNode: unknown, resolve: (data: any[]) => void) => {
+	use${FunctionName}TreeLoadApi(tree.${treeId}).then((res: any) => {
+		resolve(res.data)
+	})
+}
+</#if>
+
+const { getDataList, selectionChangeHandle, sizeChangeHandle, currentChangeHandle, deleteBatchHandle, downloadHandle, reset } = useCrud(state)
 </script>

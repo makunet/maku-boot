@@ -12,8 +12,8 @@
     <dependencies>
         <dependency>
             <groupId>net.maku</groupId>
-            <artifactId>maku-generator-boot-starter</artifactId>
-            <version>3.1.0</version>
+            <artifactId>maku-generator-pro-boot-starter</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 

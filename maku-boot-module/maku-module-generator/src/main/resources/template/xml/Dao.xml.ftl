@@ -3,10 +3,4 @@
 
 <mapper namespace="${package}.${moduleName}.dao.${ClassName}Dao">
 
-    <resultMap type="${package}.${moduleName}.entity.${ClassName}Entity" id="${className}Map">
-        <#list fieldList as field>
-        <result property="${field.attrName}" column="${field.fieldName}"/>
-        </#list>
-    </resultMap>
-
 </mapper>

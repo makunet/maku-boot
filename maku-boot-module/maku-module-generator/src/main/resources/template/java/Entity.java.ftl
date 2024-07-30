@@ -13,8 +13,8 @@ import ${baseClass.packageName}.${baseClass.code};
 /**
  * ${tableComment}
  *
- * @author ${author} ${email}
- * @since ${version} ${date}
+ * @author ${author} ${email!}
+ * <a href="https://maku.net">MAKU</a>
  */
 <#if baseClass??>@EqualsAndHashCode(callSuper=false)</#if>
 @Data
@@ -27,17 +27,19 @@ public class ${ClassName}Entity<#if baseClass??> extends ${baseClass.code}</#if>
 	* ${field.fieldComment}
 	*/
 	</#if>
-    <#if field.autoFill == "INSERT">
-	@TableField(fill = FieldFill.INSERT)
-	</#if>
-	<#if field.autoFill == "INSERT_UPDATE">
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-	</#if>
-	<#if field.autoFill == "UPDATE">
-		@TableField(fill = FieldFill.UPDATE)
-	</#if>
-    <#if field.primaryPk>
+	<#if field.primaryPk>
 	@TableId
+	</#if>
+    <#if field.autoFill == "INSERT">
+	@TableField(value = "${field.fieldName}", fill = FieldFill.INSERT)
+	<#elseif field.autoFill == "INSERT_UPDATE">
+	@TableField(value = "${field.fieldName}", fill = FieldFill.INSERT_UPDATE)
+	<#elseif field.autoFill == "UPDATE">
+	@TableField(value = "${field.fieldName}", fill = FieldFill.UPDATE)
+	<#elseif hasTree && field.fieldName == treePid>
+	@TableField(value = "${field.fieldName}", updateStrategy = FieldStrategy.ALWAYS)
+	<#else>
+	@TableField(value = "${field.fieldName}")
 	</#if>
 	private ${field.attrType} ${field.attrName};
 </#if>
