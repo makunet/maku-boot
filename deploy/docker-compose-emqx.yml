@@ -25,8 +25,8 @@ services:
       - 18083:18083
     #  如果需要持久 Docker 容器 ，请将以下目录挂载到容器外部，这样即使容器被删除数据也不会丢失
     volumes:
-      - /work/www/maku-boot/emqx/data:/opt/emqx/data
-      - /work/www/maku-boot/emqx/log:/opt/emqx/log
+      - /work/www/emqx/data:/opt/emqx/data
+      - /work/www/emqx/log:/opt/emqx/log
 #  maku-emqx2:
 #    image: emqx:5.7.1
 #    container_name: maku-emqx2
