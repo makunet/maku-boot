@@ -8,7 +8,6 @@ import lombok.SneakyThrows;
 import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
 import net.maku.framework.common.exception.ServerException;
-import net.maku.framework.common.utils.DateUtils;
 import net.maku.framework.common.utils.ExcelUtils;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
@@ -30,7 +29,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -229,26 +227,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void importByExcel(MultipartFile file, String password) {
-
-        ExcelUtils.readAnalysis(file, SysUserExcelVO.class, new ExcelFinishCallBack<SysUserExcelVO>() {
-            @Override
-            public void doAfterAllAnalysed(List<SysUserExcelVO> result) {
-                saveUser(result);
-            }
-
+        ExcelUtils.readAnalysis(file, SysUserExcelVO.class, new ExcelFinishCallBack<>() {
             @Override
             public void doSaveBatch(List<SysUserExcelVO> result) {
-                saveUser(result);
-            }
-
-            private void saveUser(List<SysUserExcelVO> result) {
                 ExcelUtils.parseDict(result);
-                List<SysUserEntity> sysUserEntities = SysUserConvert.INSTANCE.convertListEntity(result);
-                sysUserEntities.forEach(user -> user.setPassword(password));
-                saveBatch(sysUserEntities);
+                List<SysUserEntity> userList = SysUserConvert.INSTANCE.convertListEntity(result);
+                userList.forEach(user -> user.setPassword(password));
+                saveBatch(userList);
             }
         });
-
     }
 
     @Override
@@ -258,7 +245,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         List<SysUserExcelVO> userExcelVOS = SysUserConvert.INSTANCE.convert2List(list);
         transService.transBatch(userExcelVOS);
         // 写到浏览器打开
-        ExcelUtils.excelExport(SysUserExcelVO.class, "system_user_excel" + DateUtils.format(new Date()), null, userExcelVOS);
+        ExcelUtils.excelExport(SysUserExcelVO.class, "用户管理", null, userExcelVOS);
     }
 
 }
