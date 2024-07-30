@@ -16,6 +16,7 @@ import com.fhs.core.trans.vo.TransPojo;
 import com.fhs.trans.service.impl.DictionaryTransService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.excel.ExcelDataListener;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
  *
  * @author eden
  */
+@Slf4j
 public class ExcelUtils {
 
     /**
@@ -51,7 +53,7 @@ public class ExcelUtils {
         try {
             EasyExcel.read(file.getInputStream(), head, new ExcelDataListener<>(callBack)).sheet().doRead();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("readAnalysis error", e);
         }
     }
 
@@ -68,7 +70,7 @@ public class ExcelUtils {
         try {
             EasyExcel.read(new FileInputStream(file), head, new ExcelDataListener<>(callBack)).sheet().doRead();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("readAnalysis error", e);
         }
     }
 
@@ -174,7 +176,7 @@ public class ExcelUtils {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
         response.setCharacterEncoding("UTF-8");
-        
+
         excelName += DateUtil.format(new Date(), "yyyyMMddHHmmss");
         String fileName = URLUtil.encode(excelName, StandardCharsets.UTF_8);
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
