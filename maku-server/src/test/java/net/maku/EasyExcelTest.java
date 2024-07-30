@@ -73,7 +73,7 @@ public class EasyExcelTest {
 class ServiceA implements ExcelFinishCallBack<EasyExcelTest.ExcelClass> {
 
     @Override
-    public void doAfterAllAnalysed(List<EasyExcelTest.ExcelClass> result) {
+    public void doSaveBatch(List<EasyExcelTest.ExcelClass> result) {
         System.out.println(result.size());
     }
 }
