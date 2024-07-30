@@ -1,7 +1,7 @@
 package net.maku.iot.mqtt;
 
+import jakarta.annotation.Resource;
 import net.maku.iot.mqtt.config.MqttConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.integration.support.MessageBuilder;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @MessagingGateway(defaultRequestChannel = MqttConfig.OUTBOUND_CHANNEL)
 public class MqttGateway {
-    @Autowired
+    @Resource
     private MqttConfig mqttConfig;
 
     public void sendToMqtt(String payload) {
