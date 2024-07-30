@@ -8,7 +8,10 @@ import com.fhs.trans.service.impl.TransService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import net.maku.framework.common.utils.*;
+import net.maku.framework.common.utils.ExcelUtils;
+import net.maku.framework.common.utils.HttpContextUtils;
+import net.maku.framework.common.utils.IpUtils;
+import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.system.convert.SysLogLoginConvert;
 import net.maku.system.dao.SysLogLoginDao;
@@ -19,7 +22,6 @@ import net.maku.system.vo.SysLogLoginVO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,7 +78,7 @@ public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysL
         List<SysLogLoginVO> sysLogLoginVOS = SysLogLoginConvert.INSTANCE.convertList(list);
         transService.transBatch(sysLogLoginVOS);
         // 写到浏览器打开
-        ExcelUtils.excelExport(SysLogLoginVO.class, "system_login_log_excel" + DateUtils.format(new Date()), null, sysLogLoginVOS);
+        ExcelUtils.excelExport(SysLogLoginVO.class, "登录日志", null, sysLogLoginVOS);
     }
 
 }
