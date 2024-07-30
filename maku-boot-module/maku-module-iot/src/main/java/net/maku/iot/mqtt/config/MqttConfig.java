@@ -1,13 +1,12 @@
 package net.maku.iot.mqtt.config;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.iot.enums.DeviceTopicEnum;
 import net.maku.iot.mqtt.factory.MqttMessageHandlerFactory;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,22 +20,18 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.stereotype.Component;
 
 /**
  * MQTT 配置类，用于设置和管理 MQTT 连接和消息处理。
  *
  * @author LSF maku_lsf@163.com
  */
-@Component
-@ConfigurationProperties(prefix = "spring.mqtt")
+@Data
 @Slf4j
 @Configuration
 @IntegrationComponentScan
-@RequiredArgsConstructor
-@Data
+@ConfigurationProperties(prefix = "spring.mqtt")
 public class MqttConfig {
-
     public static final String OUTBOUND_CHANNEL = "mqttOutboundChannel";
     public static final String INPUT_CHANNEL = "mqttInputChannel";
 
@@ -47,7 +42,7 @@ public class MqttConfig {
     private String password;
 
     // MQTT 服务器 URL
-    private String hostUrl;
+    private String host;
 
     // 客户端 ID
     private String clientId;
@@ -56,11 +51,12 @@ public class MqttConfig {
     private String defaultTopic;
 
     // 处理 MQTT 消息的工厂
-    private final MqttMessageHandlerFactory mqttMessageHandlerFactory;
+    @Resource
+    private MqttMessageHandlerFactory mqttMessageHandlerFactory;
 
     @PostConstruct
     public void init() {
-        log.info("MQTT 主机: {} 客户端ID: {} 默认主题：{}", this.hostUrl, this.clientId, this.defaultTopic);
+        log.info("MQTT 主机: {} 客户端ID: {} 默认主题：{}", this.host, this.clientId, this.defaultTopic);
     }
 
     /**
@@ -72,7 +68,7 @@ public class MqttConfig {
     public MqttPahoClientFactory mqttClientFactory() {
         // 设置连接选项，包括服务器 URI、用户名和密码。
         final MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[]{hostUrl});
+        options.setServerURIs(new String[]{host});
         options.setUserName(username);
         options.setPassword(password.toCharArray());
         final DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
@@ -125,7 +121,6 @@ public class MqttConfig {
      * @return MqttPahoMessageDrivenChannelAdapter
      */
     @Bean
-    @ConditionalOnProperty(name = "spring.mqtt.mqttEnabled", havingValue = "true")
     public MqttPahoMessageDrivenChannelAdapter mqttInboundAdapter() {
         final MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
                 clientId + "_sub",
