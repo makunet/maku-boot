@@ -52,7 +52,7 @@ public class SmsService {
      * @return 是否发送成功
      */
     public boolean send(String groupName, String mobile) {
-        return this.send(mobile, MapUtil.newHashMap());
+        return this.send(groupName, mobile, MapUtil.newHashMap());
     }
 
     /**
