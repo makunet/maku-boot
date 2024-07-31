@@ -3,6 +3,7 @@ package net.maku.iot.mqtt.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.maku.iot.enums.DeviceCommandEnum;
 
 /**
@@ -10,21 +11,16 @@ import net.maku.iot.enums.DeviceCommandEnum;
  *
  * @author LSF maku_lsf@163.com
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Schema(description = "设备命令响应DTO")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeviceCommandResponseDTO {
+public class DeviceCommandResponseDTO extends BaseCommandResponse {
     /**
      * 命令类型
      */
     @Schema(description = "命令类型", required = true)
     private DeviceCommandEnum command;
-
-    /**
-     * 命令ID
-     */
-    @Schema(description = "命令ID", required = true)
-    private String commandId;
 
     /**
      * 命令是否完成（默认true：命令已完成；false：命令未完成，后续命令完成将再次发送响应消息，服务端将继续等待该命令完成的响应）

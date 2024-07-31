@@ -11,6 +11,7 @@ import net.maku.iot.enums.DeviceCommandEnum;
 import net.maku.iot.enums.DeviceServiceEnum;
 import net.maku.iot.enums.DeviceTopicEnum;
 import net.maku.iot.mqtt.MqttGateway;
+import net.maku.iot.mqtt.dto.Chan;
 import net.maku.iot.mqtt.dto.DeviceCommandDTO;
 import net.maku.iot.mqtt.dto.DeviceCommandResponseDTO;
 import net.maku.iot.service.IotDeviceServiceLogService;
@@ -105,8 +106,13 @@ public class DeviceMqttService {
     public DeviceCommandResponseDTO syncSendCommand(IotDeviceEntity device, DeviceCommandEnum command, String payload, boolean retained) {
         // 构建并发送命令
         String commandId = asyncSendCommand(device, command, payload, retained);
-        // 等待返回结果
-        return waitCommandResponse(command, commandId);
+        // 等待返回结果 超时3秒(可控)
+        Object receiver = Chan.getInstance(commandId, true).get(commandId, 3 * 1000L);
+        if (receiver == null) {
+            log.error("Failed to receive the message. {}", device.getName());
+            throw new ServerException(StrUtil.format("{}设备没有回复", device.getName()));
+        }
+        return (DeviceCommandResponseDTO) receiver;
     }
 
 
@@ -180,24 +186,8 @@ public class DeviceMqttService {
      * @param commandResponse
      */
     public void commandReplied(String topic, DeviceCommandResponseDTO commandResponse) {
-        Exchanger<Object> exchanger = commandExchangers.remove(commandResponse.getCommandId());
-        if (exchanger != null) {
-            if (commandResponse.isCompleted()) {
-                try {
-                    // 将响应交换到等待线程
-                    exchanger.exchange(commandResponse, 15, TimeUnit.SECONDS);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    log.error("将主题'{}'的命令响应交换到等待线程失败，中断异常: {}", topic, e.getMessage());
-                } catch (TimeoutException e) {
-                    log.error("将主题'{}'的命令响应交换到等待线程失败，超时异常: {}", topic, e.getMessage());
-                }
-            } else {
-                log.warn("命令ID为'{}'的响应未完成，未通知等待线程", commandResponse.getCommandId());
-            }
-        } else {
-            log.warn("找不到命令ID为'{}'的响应交换器", commandResponse.getCommandId());
-        }
+        Chan chan = Chan.getInstance(commandResponse.getCommandId(), false);
+        chan.put(commandResponse);
     }
 
     public void simulateDeviceReportAttributeData(IotDeviceEntity device, String payload) {
