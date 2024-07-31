@@ -2,8 +2,9 @@ package net.maku.iot.mqtt.dto;
 
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 数据生产消费者
@@ -13,18 +14,10 @@ public class Chan {
     // 存储通道的 ConcurrentHashMap
     private static final ConcurrentHashMap<String, Chan> CHANNEL = new ConcurrentHashMap<>();
 
-    // 超时时间单位，用于将毫秒转换为纳秒
-    private static final int UNIT = 1000_000;
-
-    // 存储数据的变量
-    private volatile Object data;
-
-    // 当前线程的变量
-    private volatile Thread t;
+    private final CompletableFuture<Object> future = new CompletableFuture<>();
 
     // 私有构造函数，不允许外部直接实例化
     private Chan() {
-
     }
 
     /**
@@ -38,9 +31,7 @@ public class Chan {
         if (!isNeedCreate) {
             return CHANNEL.get(commandId);
         }
-        Chan chan = new Chan();
-        CHANNEL.put(commandId, chan);
-        return chan;
+        return CHANNEL.computeIfAbsent(commandId, k -> new Chan());
     }
 
     /**
@@ -55,11 +46,13 @@ public class Chan {
         if (Objects.isNull(chan)) {
             return null;
         }
-        chan.t = Thread.currentThread();
-        LockSupport.parkNanos(chan.t, timeout * UNIT);
-        chan.t = null;
-        CHANNEL.remove(commandId);
-        return chan.data;
+        try {
+            return chan.future.get(timeout, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            return null;
+        } finally {
+            CHANNEL.remove(commandId, chan);
+        }
     }
 
     /**
@@ -68,14 +61,14 @@ public class Chan {
      * @param response 要放入的数据
      */
     public void put(BaseCommandResponse response) {
-        Chan chan = CHANNEL.get(response.getCommandId());
+        String commandId = response.getCommandId();
+        if (commandId == null) {
+            return;
+        }
+        Chan chan = CHANNEL.get(commandId);
         if (Objects.isNull(chan)) {
             return;
         }
-        chan.data = response;
-        if (chan.t == null) {
-            return;
-        }
-        LockSupport.unpark(chan.t);
+        chan.future.complete(response);
     }
 }
