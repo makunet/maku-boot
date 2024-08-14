@@ -1,11 +1,11 @@
-package net.maku.iot.mqtt.config;
+package net.maku.iot.communication.mqtt.config;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import net.maku.iot.communication.mqtt.factory.MqttMessageHandlerFactory;
 import net.maku.iot.enums.DeviceTopicEnum;
-import net.maku.iot.mqtt.factory.MqttMessageHandlerFactory;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

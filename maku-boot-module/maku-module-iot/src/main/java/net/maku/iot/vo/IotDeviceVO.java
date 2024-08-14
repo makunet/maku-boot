@@ -30,6 +30,9 @@ public class IotDeviceVO implements Serializable {
     @Schema(description = "设备类型，1.手持设备，2.柜体，3传感设备")
     private Integer type;
 
+    @Schema(description = "协议类型")
+    private String protocolType;
+
     @Schema(description = "唯一标识码")
     private String uid;
 

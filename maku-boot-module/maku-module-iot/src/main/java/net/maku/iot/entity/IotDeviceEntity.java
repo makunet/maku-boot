@@ -33,6 +33,11 @@ public class IotDeviceEntity extends BaseEntity {
     private Integer type;
 
     /**
+     * 设备和服务器通信协议类型
+     */
+    private String protocolType;
+
+    /**
      * 唯一标识码
      */
     private String uid;

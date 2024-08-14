@@ -1,7 +1,7 @@
-package net.maku.iot.mqtt.handler;
+package net.maku.iot.communication.mqtt.handler;
 
 
-import net.maku.iot.mqtt.dto.DeviceCommandResponseDTO;
+import net.maku.iot.communication.mqtt.dto.DeviceCommandResponseDTO;
 
 /**
  * 设备命令响应处理器

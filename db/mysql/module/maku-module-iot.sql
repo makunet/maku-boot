@@ -11,6 +11,7 @@ CREATE TABLE iot_device (
   temperature varchar(10)  DEFAULT NULL COMMENT '温度',
   status tinyint NOT NULL DEFAULT '1' COMMENT '状态，0禁用，1启用',
   running_status int NOT NULL DEFAULT '0' COMMENT '运行状态，0.离线状态 1.在线状态 2.正常待机 3.用户使用中 4.OTA升级中',
+  protocol_type varchar(20)  NOT NULL DEFAULT 'MQTT' COMMENT '协议类型',
   up_time datetime DEFAULT NULL COMMENT '上线时间',
   down_time datetime DEFAULT NULL COMMENT '下线时间',
   tenant_id bigint DEFAULT NULL COMMENT '租户ID',
@@ -93,6 +94,17 @@ INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, r
 INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '登录', 'SIGN_ON', NULL, NULL, 2, NULL, 0, 1, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), '登出', 'SIGN_OFF', NULL, NULL, 3, NULL, 0, 1, 10000, now(), 10000, now());
 INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'OTA升级', 'OTA_UPGRADE', NULL, NULL, 4, NULL, 0, 0, 10000, now(), 10000, now());
+
+INSERT INTO sys_dict_type (dict_type,dict_name,remark,sort,tenant_id,version,deleted,creator,create_time,updater,update_time )VALUES('device_protocol_type', '设备协议类型', '设备协议类型', 0, 10000, 0, 0, 10000, now(), 10000, now() );
+SET @typeId = @@identity;
+INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'MQTT', 'MQTT', NULL, NULL, 0, NULL, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'TCP', 'TCP', NULL, NULL, 1, NULL, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'UDP', 'UDP', NULL, NULL, 2, NULL, 0, 1, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'BLE', 'BLE', NULL, NULL, 3, NULL, 0, 1, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'CoAP', 'CoAP', NULL, NULL, 4, NULL, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'LwM2M', 'LwM2M', NULL, NULL, 4, NULL, 0, 0, 10000, now(), 10000, now());
+INSERT INTO sys_dict_data  (dict_type_id, dict_label, dict_value, label_class, remark, sort, tenant_id, version, deleted, creator, create_time, updater, update_time) VALUES ((SELECT @typeId), 'Modbus', 'Modbus', NULL, NULL, 4, NULL, 0, 0, 10000, now(), 10000, now());
+
 
 INSERT INTO sys_dict_type (dict_type,dict_name,remark,sort,tenant_id,version,deleted,creator,create_time,updater,update_time )VALUES('device_property', '设备属性', '设备通用属性：运行状态|APP版本|电池电量百分比|温度', 0, 10000, 0, 0, 10000, now(), 10000, now() );
 SET @typeId = @@identity;

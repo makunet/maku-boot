@@ -1,7 +1,7 @@
-package net.maku.iot.mqtt.factory;
+package net.maku.iot.communication.mqtt.factory;
 
 import lombok.RequiredArgsConstructor;
-import net.maku.iot.mqtt.handler.DeviceCommandResponseHandler;
+import net.maku.iot.communication.mqtt.handler.DeviceCommandResponseHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 

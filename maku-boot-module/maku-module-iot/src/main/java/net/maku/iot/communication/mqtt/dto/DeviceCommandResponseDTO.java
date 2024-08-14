@@ -1,4 +1,4 @@
-package net.maku.iot.mqtt.dto;
+package net.maku.iot.communication.mqtt.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;

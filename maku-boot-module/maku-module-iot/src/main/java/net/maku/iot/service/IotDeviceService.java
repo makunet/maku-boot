@@ -3,8 +3,9 @@ package net.maku.iot.service;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.BaseService;
 import net.maku.iot.entity.IotDeviceEntity;
-import net.maku.iot.mqtt.dto.DeviceCommandResponseDTO;
+import net.maku.iot.communication.mqtt.dto.DeviceCommandResponseDTO;
 import net.maku.iot.query.IotDeviceQuery;
+import net.maku.iot.communication.BaseCommunication;
 import net.maku.iot.vo.DeviceCommandResponseAttributeDataVO;
 import net.maku.iot.vo.DeviceCommandVO;
 import net.maku.iot.vo.DeviceReportAttributeDataVO;
@@ -26,6 +27,27 @@ public interface IotDeviceService extends BaseService<IotDeviceEntity> {
     void update(IotDeviceVO vo);
 
     void delete(List<Long> idList);
+
+    /**
+     * 根据设备的协议类型获取发送服务
+     * @param device 设备
+     * @return
+     */
+    BaseCommunication getSendService(IotDeviceEntity device);
+
+    /**
+     * 根据协议类型获取发送服务
+     * @param protocolType
+     * @return
+     */
+    BaseCommunication getSendService(String protocolType);
+
+    /**
+     * 根据设备ID获取发送服务
+     * @param deviceId
+     * @return
+     */
+    BaseCommunication getSendService(Long deviceId);
 
     /**
      * 对设备下发指令-同步响应模式

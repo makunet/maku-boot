@@ -1,4 +1,4 @@
-package net.maku.iot.mqtt.handler;
+package net.maku.iot.communication.mqtt.handler;
 
 /**
  * MQTT订阅消息处理接口

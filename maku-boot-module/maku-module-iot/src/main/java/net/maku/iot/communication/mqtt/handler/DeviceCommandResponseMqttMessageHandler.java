@@ -1,13 +1,13 @@
-package net.maku.iot.mqtt.handler;
+package net.maku.iot.communication.mqtt.handler;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.utils.JsonUtils;
+import net.maku.iot.communication.MQTTService;
+import net.maku.iot.communication.mqtt.dto.DeviceCommandResponseDTO;
+import net.maku.iot.communication.mqtt.factory.DeviceCommandResponseHandlerFactory;
 import net.maku.iot.enums.DeviceTopicEnum;
-import net.maku.iot.mqtt.dto.DeviceCommandResponseDTO;
-import net.maku.iot.mqtt.factory.DeviceCommandResponseHandlerFactory;
-import net.maku.iot.mqtt.service.DeviceMqttService;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -21,10 +21,10 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class DeviceCommandResponseMqttMessageHandler implements MqttMessageHandler {
+
     private final DeviceCommandResponseHandlerFactory deviceCommandResponseHandlerFactory;
 
-
-    private final DeviceMqttService deviceMqttService;
+    private final MQTTService deviceMqttService;
 
     @Override
     public boolean supports(String topic) {
@@ -43,7 +43,7 @@ public class DeviceCommandResponseMqttMessageHandler implements MqttMessageHandl
                 .ifPresent(responseDTO -> {
                     // 调用设备命令执行器的命令响应处理逻辑
                     try {
-                        deviceMqttService.commandReplied(topic, responseDTO);
+                        deviceMqttService.commandReplied( responseDTO);
                     } catch (Exception e) {
                         log.error(StrUtil.format("调用设备命令执行器响应处理方法出错，topic:{}, message:{}", topic, message), e);
                     }

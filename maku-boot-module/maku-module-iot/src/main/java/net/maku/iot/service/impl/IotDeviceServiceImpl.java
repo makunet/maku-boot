@@ -16,12 +16,13 @@ import net.maku.iot.convert.IotDeviceConvert;
 import net.maku.iot.dao.IotDeviceDao;
 import net.maku.iot.entity.IotDeviceEntity;
 import net.maku.iot.enums.*;
-import net.maku.iot.mqtt.dto.DeviceCommandResponseDTO;
-import net.maku.iot.mqtt.dto.DevicePropertyDTO;
-import net.maku.iot.mqtt.handler.DeviceCommandResponseHandler;
-import net.maku.iot.mqtt.handler.DevicePropertyChangeHandler;
-import net.maku.iot.mqtt.service.DeviceMqttService;
+import net.maku.iot.communication.mqtt.dto.DeviceCommandResponseDTO;
+import net.maku.iot.communication.mqtt.dto.DevicePropertyDTO;
+import net.maku.iot.communication.mqtt.handler.DeviceCommandResponseHandler;
+import net.maku.iot.communication.mqtt.handler.DevicePropertyChangeHandler;
 import net.maku.iot.query.IotDeviceQuery;
+import net.maku.iot.communication.BaseCommunication;
+import net.maku.iot.communication.CommunicationServiceFactory;
 import net.maku.iot.service.IotDeviceEventLogService;
 import net.maku.iot.service.IotDeviceService;
 import net.maku.iot.vo.DeviceCommandResponseAttributeDataVO;
@@ -35,7 +36,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 设备表
+ * 设备服务类
  *
  * @author LSF maku_lsf@163.com
  */
@@ -45,8 +46,7 @@ import java.util.List;
 public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDeviceEntity>
         implements IotDeviceService, DevicePropertyChangeHandler, DeviceCommandResponseHandler {
 
-    //todo 后续版本更改为根据物模型自动选择不同的通信层Service
-    private final DeviceMqttService mqttService;
+    private final CommunicationServiceFactory communicationService;
     private final IotDeviceEventLogService deviceEventLogService;
 
     @Override
@@ -85,6 +85,28 @@ public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDevic
     }
 
     @Override
+    public BaseCommunication getSendService(IotDeviceEntity device) {
+        if (device != null) {
+            return getSendService(device.getProtocolType());
+        }
+        return null;
+    }
+
+    @Override
+    public BaseCommunication getSendService(String protocolType) {
+        return communicationService.getProtocol(protocolType);
+    }
+
+    @Override
+    public BaseCommunication getSendService(Long deviceId) {
+        IotDeviceEntity device = getById(deviceId);
+        if (device != null) {
+            return getSendService(device.getProtocolType());
+        }
+        return null;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public DeviceCommandResponseDTO syncSendCommand(DeviceCommandVO vo) {
 
@@ -92,9 +114,8 @@ public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDevic
         Assert.notNull(device, "未注册的设备:{}", vo.getDeviceId());
 
         DeviceCommandEnum commandEnum = DeviceCommandEnum.parse(vo.getCommand());
-
         try {
-            return mqttService.syncSendCommand(getById(vo.getDeviceId()), commandEnum, vo.getPayload());
+            return getSendService(device).syncSendCommand(getById(vo.getDeviceId()), commandEnum, vo.getPayload());
         } catch (ServerException e) {
             if (DeviceCommandEnum.parse(vo.getCommand()).getEventType() != null
                     && StrUtil.contains(e.getMessage(), DeviceServiceEnum.COMMAND_ID.getValue())) {
@@ -112,23 +133,26 @@ public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDevic
     public DeviceCommandResponseDTO syncSendCommandDebug(DeviceCommandVO vo) {
         IotDeviceEntity device = getById(vo.getDeviceId());
         DeviceCommandEnum commandEnum = DeviceCommandEnum.parse(vo.getCommand());
-        return mqttService.syncSendCommandDebug(device, commandEnum, vo.getPayload());
+        return getSendService(device).syncSendCommandDebug(device, commandEnum, vo.getPayload());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void asyncSendCommand(DeviceCommandVO vo) {
-        mqttService.asyncSendCommand(getById(vo.getDeviceId()), DeviceCommandEnum.parse(vo.getCommand()), vo.getPayload());
+        IotDeviceEntity device = getById(vo.getDeviceId());
+        getSendService(device).asyncSendCommand(device, DeviceCommandEnum.parse(vo.getCommand()), vo.getPayload());
     }
 
     @Override
     public void simulateDeviceReportAttributeData(DeviceReportAttributeDataVO vo) {
-        mqttService.simulateDeviceReportAttributeData(getById(vo.getDeviceId()), JSONUtil.toJsonStr(vo));
+        IotDeviceEntity device = getById(vo.getDeviceId());
+        getSendService(device).simulateDeviceReportAttributeData(device, JSONUtil.toJsonStr(vo));
     }
 
     @Override
     public void simulateDeviceCommandResponseAttributeData(DeviceCommandResponseAttributeDataVO vo) {
-        mqttService.simulateDeviceCommandResponseAttributeData(getById(vo.getDeviceId()), JSONUtil.toJsonStr(vo));
+        IotDeviceEntity device = getById(vo.getDeviceId());
+        getSendService(device).simulateDeviceCommandResponseAttributeData(device, JSONUtil.toJsonStr(vo));
     }
 
     /**

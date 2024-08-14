@@ -1,7 +1,7 @@
-package net.maku.iot.mqtt;
+package net.maku.iot.communication.mqtt;
 
 import jakarta.annotation.Resource;
-import net.maku.iot.mqtt.config.MqttConfig;
+import net.maku.iot.communication.mqtt.config.MqttConfig;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.integration.support.MessageBuilder;

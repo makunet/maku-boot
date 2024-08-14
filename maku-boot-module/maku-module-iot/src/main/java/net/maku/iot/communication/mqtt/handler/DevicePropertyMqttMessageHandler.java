@@ -1,12 +1,12 @@
-package net.maku.iot.mqtt.handler;
+package net.maku.iot.communication.mqtt.handler;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.utils.JsonUtils;
+import net.maku.iot.communication.mqtt.dto.DevicePropertyDTO;
+import net.maku.iot.communication.mqtt.factory.DevicePropertyChangeHandlerFactory;
 import net.maku.iot.enums.DeviceTopicEnum;
-import net.maku.iot.mqtt.dto.DevicePropertyDTO;
-import net.maku.iot.mqtt.factory.DevicePropertyChangeHandlerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
