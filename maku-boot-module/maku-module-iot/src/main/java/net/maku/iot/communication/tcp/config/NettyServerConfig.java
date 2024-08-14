@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.maku.iot.communication.mqtt.factory.MqttMessageHandlerFactory;
 import net.maku.iot.communication.tcp.factory.TcpMessageHandlerFactory;
 import net.maku.iot.communication.tcp.handler.ConnectionHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,6 +32,9 @@ public class NettyServerConfig {
         return new ConcurrentHashMap<>();
     }
 
+    @Autowired
+    public TcpMessageHandlerFactory tcpMessageHandlerFactory;
+
     @Bean
     public ServerBootstrap nettyServer(ConcurrentMap<String, Channel> deviceChannels) {
         ServerBootstrap bootstrap = new ServerBootstrap();
@@ -43,7 +47,7 @@ public class NettyServerConfig {
                                 new StringDecoder(),
                                 new StringEncoder(),
 //                                new DeviceMsgHandler(deviceChannels), // 添加设备身份处理器
-                                new ConnectionHandler(deviceChannels) // 添加设备连接处理器
+                                new ConnectionHandler(deviceChannels,tcpMessageHandlerFactory) // 添加设备连接处理器
                         );
                     }
                 })

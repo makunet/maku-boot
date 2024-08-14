@@ -24,13 +24,12 @@ import java.util.concurrent.ConcurrentMap;
 public class ConnectionHandler extends ChannelInboundHandlerAdapter {
 
 
-    @Resource
-    private TcpMessageHandlerFactory tcpMessageHandlerFactory;
-
     private final ConcurrentMap<String, Channel> deviceChannels;
+    private final TcpMessageHandlerFactory tcpMessageHandlerFactory;
 
-    public ConnectionHandler(ConcurrentMap<String, Channel> deviceChannels) {
+    public ConnectionHandler(ConcurrentMap<String, Channel> deviceChannels,TcpMessageHandlerFactory tcpMessageHandlerFactory) {
         this.deviceChannels = deviceChannels;
+        this.tcpMessageHandlerFactory = tcpMessageHandlerFactory;
     }
 
 
