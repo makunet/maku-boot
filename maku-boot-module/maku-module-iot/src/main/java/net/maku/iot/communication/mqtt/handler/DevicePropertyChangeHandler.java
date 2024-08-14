@@ -1,7 +1,7 @@
 package net.maku.iot.communication.mqtt.handler;
 
 
-import net.maku.iot.communication.mqtt.dto.DevicePropertyDTO;
+import net.maku.iot.communication.dto.DevicePropertyDTO;
 
 /**
  * 设备属性变化处理器

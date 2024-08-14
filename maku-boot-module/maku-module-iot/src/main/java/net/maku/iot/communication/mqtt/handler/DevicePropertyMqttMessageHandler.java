@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.utils.JsonUtils;
-import net.maku.iot.communication.mqtt.dto.DevicePropertyDTO;
+import net.maku.iot.communication.dto.DevicePropertyDTO;
 import net.maku.iot.communication.mqtt.factory.DevicePropertyChangeHandlerFactory;
 import net.maku.iot.enums.DeviceTopicEnum;
 import org.springframework.stereotype.Component;

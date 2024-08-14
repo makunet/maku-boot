@@ -1,4 +1,4 @@
-package net.maku.iot.communication;
+package net.maku.iot.communication.service;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.iot.communication.mqtt.MqttGateway;
-import net.maku.iot.communication.mqtt.dto.CommandResponseChan;
-import net.maku.iot.communication.mqtt.dto.DeviceCommandDTO;
-import net.maku.iot.communication.mqtt.dto.DeviceCommandResponseDTO;
+import net.maku.iot.communication.mqtt.chan.CommandResponseChan;
+import net.maku.iot.communication.dto.DeviceCommandDTO;
+import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
 import net.maku.iot.dto.DeviceClientDTO;
 import net.maku.iot.entity.IotDeviceEntity;
 import net.maku.iot.enums.DeviceCommandEnum;
@@ -17,9 +17,6 @@ import net.maku.iot.service.IotDeviceServiceLogService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Exchanger;
 
 /**
  * @Description TODO

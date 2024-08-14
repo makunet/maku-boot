@@ -1,6 +1,7 @@
-package net.maku.iot.communication.mqtt.dto;
+package net.maku.iot.communication.mqtt.chan;
 
 import lombok.extern.slf4j.Slf4j;
+import net.maku.iot.communication.dto.BaseCommandResponseDTO;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -17,7 +18,7 @@ public class CommandResponseChan {
     // 存储通道的 ConcurrentHashMap
     private static final ConcurrentHashMap<String, CommandResponseChan> CHANNEL = new ConcurrentHashMap<>();
 
-    private final CompletableFuture<BaseCommandResponse> future = new CompletableFuture<>();
+    private final CompletableFuture<BaseCommandResponseDTO> future = new CompletableFuture<>();
 
     private final Long DEFAULT_WAIT_MILLISECONDS = 5 * 1000L;
 
@@ -45,7 +46,7 @@ public class CommandResponseChan {
      * @param commandId 通道标识
      * @return 获取的数据，如果超时返回 null
      */
-    public BaseCommandResponse get(String commandId) {
+    public BaseCommandResponseDTO get(String commandId) {
         return get(commandId, DEFAULT_WAIT_MILLISECONDS);
     }
 
@@ -56,7 +57,7 @@ public class CommandResponseChan {
      * @param timeout   超时时间（毫秒）
      * @return 获取的数据，如果超时返回 null
      */
-    public BaseCommandResponse get(String commandId, long timeout) {
+    public BaseCommandResponseDTO get(String commandId, long timeout) {
         CommandResponseChan channel = CHANNEL.get(commandId);
         if (Objects.isNull(channel)) {
             return null;
@@ -82,7 +83,7 @@ public class CommandResponseChan {
      *
      * @param response 要放入的数据
      */
-    public void put(BaseCommandResponse response) {
+    public void put(BaseCommandResponseDTO response) {
         String commandId = response.getCommandId();
         if (commandId == null) {
             return;

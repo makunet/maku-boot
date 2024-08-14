@@ -1,8 +1,8 @@
-package net.maku.iot.communication;
+package net.maku.iot.communication.service;
 
 import net.maku.iot.entity.IotDeviceEntity;
 import net.maku.iot.enums.DeviceCommandEnum;
-import net.maku.iot.communication.mqtt.dto.DeviceCommandResponseDTO;
+import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
 
 /**
  * 基础通信协议具备功能

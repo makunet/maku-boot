@@ -1,4 +1,4 @@
-package net.maku.iot.communication.mqtt.dto;
+package net.maku.iot.communication.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +15,7 @@ import net.maku.iot.enums.DeviceCommandEnum;
 @Data
 @Schema(description = "设备命令响应DTO")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeviceCommandResponseDTO extends BaseCommandResponse {
+public class DeviceCommandResponseDTO extends BaseCommandResponseDTO {
     /**
      * 命令类型
      */

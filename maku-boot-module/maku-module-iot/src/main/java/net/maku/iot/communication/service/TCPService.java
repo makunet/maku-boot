@@ -1,10 +1,10 @@
-package net.maku.iot.communication;
+package net.maku.iot.communication.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
 import net.maku.iot.entity.IotDeviceEntity;
 import net.maku.iot.enums.DeviceCommandEnum;
-import net.maku.iot.communication.mqtt.dto.DeviceCommandResponseDTO;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TCPService implements BaseCommunication {
 
-
     @Override
     public String asyncSendCommand(IotDeviceEntity device, DeviceCommandEnum command, String payload) {
+//        nettyClientConfig.sendMessage("asdddddddddddddddddd");
         return "";
     }
 

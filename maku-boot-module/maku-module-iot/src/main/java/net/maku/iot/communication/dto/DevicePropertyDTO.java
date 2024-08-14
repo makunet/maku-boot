@@ -1,4 +1,4 @@
-package net.maku.iot.communication.mqtt.dto;
+package net.maku.iot.communication.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -11,7 +11,7 @@ import net.maku.iot.enums.DevicePropertyEnum;
  */
 @Data
 @Schema(description = "设备属性对象")
-public class DevicePropertyDTO {
+public class DevicePropertyDTO extends BaseDeviceID {
     /**
      * 设备属性类型
      */

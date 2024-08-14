@@ -1,4 +1,4 @@
-package net.maku.iot.communication;
+package net.maku.iot.communication.service;
 
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.exception.ServerException;
