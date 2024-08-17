@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.iot.communication.mqtt.MqttGateway;
-import net.maku.iot.communication.mqtt.chan.CommandResponseChan;
+import net.maku.iot.communication.dto.CommandResponseChan;
 import net.maku.iot.communication.dto.DeviceCommandDTO;
 import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
 import net.maku.iot.dto.DeviceClientDTO;

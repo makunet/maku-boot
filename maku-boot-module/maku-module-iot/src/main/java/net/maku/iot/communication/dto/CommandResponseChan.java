@@ -1,7 +1,6 @@
-package net.maku.iot.communication.mqtt.chan;
+package net.maku.iot.communication.dto;
 
 import lombok.extern.slf4j.Slf4j;
-import net.maku.iot.communication.dto.BaseCommandResponseDTO;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;

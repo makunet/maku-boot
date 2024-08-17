@@ -46,8 +46,8 @@ public class NettyServerConfig {
                         ch.pipeline().addLast(
                                 new StringDecoder(),
                                 new StringEncoder(),
-//                                new DeviceMsgHandler(deviceChannels), // 添加设备身份处理器
-                                new ConnectionHandler(deviceChannels,tcpMessageHandlerFactory) // 添加设备连接处理器
+                                // 添加设备连接处理器
+                                new ConnectionHandler(deviceChannels,tcpMessageHandlerFactory)
                         );
                     }
                 })
@@ -68,22 +68,3 @@ public class NettyServerConfig {
         }
     }
 }
-
-
-//    // 发送命令到设备
-//    public void sendCommandToDevice(String deviceId, String command) {
-//        Channel channel = deviceChannels.get(deviceId);
-//        if (channel != null && channel.isActive()) {
-//            channel.writeAndFlush(Unpooled.copiedBuffer(command, CharsetUtil.UTF_8));
-//            log.info("发送命令到设备 {}: {}", deviceId, command);
-//        } else {
-//            log.warn("设备 {} 不在线或通道无效", deviceId);
-//        }
-//    }
-//
-//    // 假设有方法通过通道获取设备 ID
-//    private String getDeviceId(Channel channel) {
-//        // 这里应该有逻辑来从通道获取设备 ID
-//        return "deviceId";
-//    }
-//}

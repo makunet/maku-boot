@@ -20,7 +20,7 @@ public class TcpClient {
              PrintWriter writer = new PrintWriter(outputStream, true)) {
 
             DevicePropertyDTO dto = new DevicePropertyDTO();
-            dto.setDeviceID("123456");
+            dto.setDeviceId("123456");
             dto.setPropertyType(DevicePropertyEnum.TEMPERATURE);
             dto.setPayload("60");
 

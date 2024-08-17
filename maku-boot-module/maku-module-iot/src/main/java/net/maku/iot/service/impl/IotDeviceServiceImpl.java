@@ -201,9 +201,7 @@ public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDevic
     private void handleRunningStatus(IotDeviceEntity device, DevicePropertyDTO deviceProperty, DeviceTopicEnum.DeviceTopicContext topicContext) {
         DeviceRunningStatusEnum oldStatus = DeviceRunningStatusEnum.parse(device.getRunningStatus().toString());
         DeviceRunningStatusEnum newStatus = DeviceRunningStatusEnum.parse(deviceProperty.getPayload());
-        if (newStatus.equals(oldStatus)) {
-            return;
-        }
+
         device.setRunningStatus(newStatus.getValue());
         if (DeviceRunningStatusEnum.ONLINE.equals(newStatus)) {
             device.setUpTime(LocalDateTime.now());

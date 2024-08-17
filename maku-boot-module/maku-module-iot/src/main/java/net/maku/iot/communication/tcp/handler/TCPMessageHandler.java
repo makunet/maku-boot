@@ -22,5 +22,5 @@ public interface TCPMessageHandler {
      * @param topic
      * @param message
      */
-    void handle(String topic, String message);
+    void handle(String topic, Object message);
 }

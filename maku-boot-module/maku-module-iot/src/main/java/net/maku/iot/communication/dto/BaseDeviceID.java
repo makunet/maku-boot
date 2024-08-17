@@ -13,5 +13,5 @@ import lombok.Data;
 public class BaseDeviceID {
 
     @Schema(description = "设备ID")
-    protected String deviceID;
+    protected String deviceId;
 }
