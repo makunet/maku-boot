@@ -176,7 +176,7 @@ public class MQTTService implements BaseCommunication {
             mqttGateway.sendToMqtt(commandTopic, payload);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new ServerException(StrUtil.format("模拟设备:{}-{},模拟发送命令执行结果失败！ Topic:{} ",
+            throw new ServerException(StrUtil.format("模拟设备:{}-{},模拟命令执行结果上报失败！ Topic:{} ",
                     device.getCode(), device.getName(), commandTopic));
         }
     }

@@ -15,15 +15,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @Description TODO
+ * @Description TCP服务器连接处理器
  * @Author LSF
  * @Date 2024/8/14 16:52
  */
 @Slf4j
 public class ConnectionHandler extends ChannelInboundHandlerAdapter {
 
+    public static final AttributeKey<String> DEVICE_ID = AttributeKey.valueOf("DEVICE_ID");
 
-    private final ConcurrentMap<String, Channel> deviceChannels;
+    private ConcurrentMap<String, Channel> deviceChannels;
     private final TcpMessageHandlerFactory tcpMessageHandlerFactory;
 
     public ConnectionHandler(ConcurrentMap<String, Channel> deviceChannels,TcpMessageHandlerFactory tcpMessageHandlerFactory) {
@@ -96,7 +97,8 @@ public class ConnectionHandler extends ChannelInboundHandlerAdapter {
             Matcher matcher = pattern.matcher(message.toString());
             if (matcher.find()) {
                 String deviceId = matcher.group(1);
-                setDeviceId(ctx.channel(), deviceId);
+//                setDeviceId(ctx.channel(), deviceId);
+                ctx.channel().attr(DEVICE_ID).set(deviceId);
                 deviceChannels.put(deviceId, ctx.channel());
                 ctx.writeAndFlush("authenticate passed");
             }
@@ -114,17 +116,14 @@ public class ConnectionHandler extends ChannelInboundHandlerAdapter {
                 }
             }
         }
-
         return true;
-
     }
 
     private String getDeviceId(Channel channel) {
-        // 从 Channel 的属性中获取设备 ID
-        return channel.attr(AttributeKey.<String>valueOf("deviceId")).get();
+        return channel.attr(DEVICE_ID).get();
     }
 
-    private String setDeviceId(Channel channel, String deviceId) {
-        return channel.attr(AttributeKey.<String>valueOf("deviceId")).setIfAbsent(deviceId);
-    }
+//    private String setDeviceId(Channel channel, String deviceId) {
+//        return channel.attr(AttributeKey.<String>valueOf("deviceId")).setIfAbsent(deviceId);
+//    }
 }

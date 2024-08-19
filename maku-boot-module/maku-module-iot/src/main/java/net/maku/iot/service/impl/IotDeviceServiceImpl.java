@@ -146,12 +146,14 @@ public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDevic
     @Override
     public void simulateDeviceReportAttributeData(DeviceReportAttributeDataVO vo) {
         IotDeviceEntity device = getById(vo.getDeviceId());
+        vo.setDeviceId(vo.getDeviceId());
         getSendService(device).simulateDeviceReportAttributeData(device, JSONUtil.toJsonStr(vo));
     }
 
     @Override
     public void simulateDeviceCommandResponseAttributeData(DeviceCommandResponseAttributeDataVO vo) {
         IotDeviceEntity device = getById(vo.getDeviceId());
+        vo.setDeviceId(vo.getDeviceId());
         getSendService(device).simulateDeviceCommandResponseAttributeData(device, JSONUtil.toJsonStr(vo));
     }
 

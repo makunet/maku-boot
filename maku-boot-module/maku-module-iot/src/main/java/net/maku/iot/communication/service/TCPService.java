@@ -5,10 +5,10 @@ import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.exception.ServerException;
+import net.maku.iot.communication.dto.CommandResponseChan;
 import net.maku.iot.communication.dto.DeviceCommandDTO;
 import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
-import net.maku.iot.communication.dto.CommandResponseChan;
-import net.maku.iot.communication.mqtt.MqttGateway;
+import net.maku.iot.communication.dto.DevicePropertyDTO;
 import net.maku.iot.communication.tcp.TcpGateway;
 import net.maku.iot.dto.DeviceClientDTO;
 import net.maku.iot.entity.IotDeviceEntity;
@@ -30,7 +30,6 @@ import java.util.UUID;
 public class TCPService implements BaseCommunication {
 
     private final TcpGateway tcpGateway;
-
     private final IotDeviceServiceLogService iotDeviceEventLogService;
 
     @Override
@@ -40,6 +39,7 @@ public class TCPService implements BaseCommunication {
         DeviceCommandDTO commandDTO = new DeviceCommandDTO();
         commandDTO.setCommand(command);
         commandDTO.setId(commandId);
+        commandDTO.setDeviceId(String.valueOf(device.getId()));
         commandDTO.setPayload(payload);
         String commandTopic = DeviceTopicEnum.COMMAND.buildTopic(DeviceClientDTO.from(device));
 
@@ -83,6 +83,7 @@ public class TCPService implements BaseCommunication {
                 DeviceCommandResponseDTO simulateResponseDto = new DeviceCommandResponseDTO();
                 simulateResponseDto.setCommandId(commandId);
                 simulateResponseDto.setResponsePayload(command.getTitle() + ",设备执行成功！");
+                simulateResponseDto.setDeviceId(String.valueOf(device.getId()));
                 simulateResponseDto.setCommand(command);
                 simulateDeviceCommandResponseAttributeData(device, JSONUtil.toJsonStr(simulateResponseDto));
             } catch (InterruptedException e) {
@@ -104,7 +105,7 @@ public class TCPService implements BaseCommunication {
         // 封装 设备属性上报的 topic
         String commandTopic = DeviceTopicEnum.PROPERTY.buildTopic(DeviceClientDTO.from(device));
         try {
-            tcpGateway.sendCommandToDevice(device.getId(),commandTopic, payload);
+            tcpGateway.simulateDeviceReport(device.getId(), commandTopic, payload, DevicePropertyDTO.class);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new ServerException(StrUtil.format("模拟设备:{}-{},模拟属性上报失败！ Topic:{} ",
@@ -117,10 +118,10 @@ public class TCPService implements BaseCommunication {
         // 封装 设备命令执行结果的 topic
         String commandTopic = DeviceTopicEnum.COMMAND_RESPONSE.buildTopic(DeviceClientDTO.from(device));
         try {
-            tcpGateway.sendCommandToDevice(device.getId(),commandTopic, payload);
+            tcpGateway.simulateDeviceReport(device.getId(), commandTopic, payload, DeviceCommandResponseDTO.class);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new ServerException(StrUtil.format("模拟设备:{}-{},模拟发送命令执行结果失败！ Topic:{} ",
+            throw new ServerException(StrUtil.format("模拟设备:{}-{},模拟命令执行结果上报失败！ Topic:{} ",
                     device.getCode(), device.getName(), commandTopic));
         }
     }

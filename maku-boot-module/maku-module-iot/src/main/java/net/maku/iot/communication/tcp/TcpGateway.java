@@ -1,23 +1,14 @@
 package net.maku.iot.communication.tcp;
 
-import cn.hutool.json.JSONUtil;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
-import io.netty.util.CharsetUtil;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.exception.ServerException;
-import net.maku.iot.communication.mqtt.config.MqttConfig;
-import net.maku.iot.communication.tcp.config.NettyServerConfig;
+import net.maku.framework.common.utils.JsonUtils;
+import net.maku.iot.communication.dto.DeviceCommandDTO;
+import net.maku.iot.communication.dto.TcpMsgDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.integration.annotation.MessagingGateway;
-import org.springframework.integration.mqtt.support.MqttHeaders;
-import org.springframework.integration.support.MessageBuilder;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 /**
@@ -34,8 +25,16 @@ public class TcpGateway {
 
     @Autowired
     public TcpGateway(ConcurrentMap<String, Channel> deviceChannels) {
-        System.out.printf("-------------------------------->TcpGateway");
         this.deviceChannels = deviceChannels;
+    }
+
+    /**
+     * 获取设备通道
+     *
+     * @return
+     */
+    public ConcurrentMap<String, Channel> getTcpDeviceChannels() {
+        return deviceChannels;
     }
 
     /**
@@ -45,16 +44,40 @@ public class TcpGateway {
      * @param payload 命令内容
      */
     public void sendCommandToDevice(Long deviceId, String commandTopic, String payload) {
-        Channel channel = deviceChannels.get(deviceId);
+        Channel channel = deviceChannels.get(deviceId.toString());
         if (channel != null && channel.isActive()) {
-            Map payloadMap = new HashMap();
-            payloadMap.put("topic", commandTopic);
-            payloadMap.put("payload", payload);
+            TcpMsgDTO tcpMsgDTO = new TcpMsgDTO();
+            tcpMsgDTO.setTopic(commandTopic);
+            DeviceCommandDTO deviceCommandDTO = JsonUtils.parseObject(payload, DeviceCommandDTO.class);
+            deviceCommandDTO.setDeviceId(deviceId.toString());
+            tcpMsgDTO.setMsg(deviceCommandDTO);
 
-            channel.writeAndFlush(Unpooled.copiedBuffer(JSONUtil.toJsonStr(payloadMap), CharsetUtil.UTF_8));
+            String commandJson = JsonUtils.toJsonString(tcpMsgDTO);
+//            channel.writeAndFlush(commandJson);
             log.info("发送命令到设备 {}: {}", deviceId, payload);
         } else {
             throw new ServerException("设备"+deviceId+"不在线或通道无效");
         }
     }
+
+    public void simulateDeviceReport(Long deviceId, String commandTopic, String payload, Class reportDtoclazz) {
+        Channel channel = deviceChannels.get(deviceId.toString());
+        if (channel != null && channel.isActive()) {
+            try {
+                TcpMsgDTO tcpMsgDTO = new TcpMsgDTO();
+                tcpMsgDTO.setTopic(commandTopic);
+                tcpMsgDTO.setMsg(JsonUtils.parseObject(payload, reportDtoclazz));
+                String devicePropertyJson = JsonUtils.toJsonString(tcpMsgDTO);
+                // 模拟上报，触发 channelRead 处理
+                channel.pipeline().fireChannelRead(devicePropertyJson);
+                log.info("模拟设备 {} 上报数据: {}", deviceId, devicePropertyJson);
+            } catch (Exception e) {
+                log.error("模拟设备上报数据时出现错误", e);
+            }
+        } else {
+            throw new ServerException("设备 " + deviceId + " 不在线或通道无效");
+        }
+    }
+
+
 }
