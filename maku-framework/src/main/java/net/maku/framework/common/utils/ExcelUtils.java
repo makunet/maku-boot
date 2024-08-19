@@ -210,7 +210,7 @@ public class ExcelUtils {
                     Field ref = ReflectUtils.getDeclaredField(clazz, trans.ref());
                     ref.setAccessible(true);
                     // 获取字典反向值
-                    String value = dictionaryTransService.getDictionaryTransMap().get(trans.key() + "_" + ref.get(data));
+                    String value = dictionaryTransService.getDictionaryTransMap().get("un_trans:" + trans.key() + "_" + ref.get(data));
                     if (StringUtils.isBlank(value)) {
                         continue;
                     }
