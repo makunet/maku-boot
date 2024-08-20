@@ -4,8 +4,11 @@ import net.maku.iot.entity.IotDeviceEntity;
 import net.maku.iot.enums.DeviceCommandEnum;
 import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
 
+
 /**
- * 基础通信协议具备功能
+ * 通信协议具备功能
+ *
+ * @author LSF maku_lsf@163.com
  */
 public interface BaseCommunication {
 

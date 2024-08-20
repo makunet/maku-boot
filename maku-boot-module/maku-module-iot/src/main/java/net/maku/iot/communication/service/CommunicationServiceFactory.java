@@ -5,9 +5,9 @@ import net.maku.framework.common.exception.ServerException;
 import org.springframework.stereotype.Service;
 
 /**
- * @Description TODO
- * @Author LSF
- * @Date 2024/8/9 14:53
+ * 设备协议服务工厂
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Service
 @AllArgsConstructor

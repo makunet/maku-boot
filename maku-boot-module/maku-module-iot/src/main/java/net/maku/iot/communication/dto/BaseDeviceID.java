@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * @Description TODO
- * @Author LSF
- * @Date 2024/8/14 17:24
+ * 设备ID
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Data
 @Schema(description = "设备ID")

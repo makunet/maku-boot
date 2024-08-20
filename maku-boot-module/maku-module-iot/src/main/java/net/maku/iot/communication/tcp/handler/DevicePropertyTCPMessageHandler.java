@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
- * @Description TODO
- * @Author LSF
- * @Date 2024/8/14 19:24
+ * 设备属性上报消息处理器
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Slf4j
 @Component

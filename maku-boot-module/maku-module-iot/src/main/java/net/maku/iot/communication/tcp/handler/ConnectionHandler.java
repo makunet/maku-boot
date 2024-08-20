@@ -15,9 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @Description TCP服务器连接处理器
- * @Author LSF
- * @Date 2024/8/14 16:52
+ * TCP服务器连接处理器
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Slf4j
 public class ConnectionHandler extends ChannelInboundHandlerAdapter {

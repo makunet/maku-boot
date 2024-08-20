@@ -20,9 +20,9 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
- * @Description TODO
- * @Author LSF
- * @Date 2024/8/9 14:21
+ * TCP协议服务类
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Slf4j
 @Component

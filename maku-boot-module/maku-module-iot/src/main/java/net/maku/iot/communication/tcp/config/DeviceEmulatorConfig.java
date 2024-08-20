@@ -2,7 +2,10 @@ package net.maku.iot.communication.tcp.config;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -26,9 +29,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 设备模拟器配置，用于启动模拟设备，方便调试，默认启动系统所有的TCP设备
+ *
+ * @author LSF maku_lsf@163.com
+ */
 @Slf4j
 @Configuration
-public class NettyClientConfig {
+public class DeviceEmulatorConfig {
 
     @Autowired
     private IotDeviceService deviceService;

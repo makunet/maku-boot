@@ -10,9 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import net.maku.iot.communication.mqtt.factory.MqttMessageHandlerFactory;
 import net.maku.iot.communication.tcp.factory.TcpMessageHandlerFactory;
 import net.maku.iot.communication.tcp.handler.ConnectionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-
+/**
+ *  Netty服务配置
+ *
+ * @author LSF maku_lsf@163.com
+ */
 @Configuration
 @Slf4j
 public class NettyServerConfig {

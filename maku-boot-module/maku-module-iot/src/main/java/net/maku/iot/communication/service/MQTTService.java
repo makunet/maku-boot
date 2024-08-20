@@ -5,10 +5,10 @@ import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.exception.ServerException;
-import net.maku.iot.communication.mqtt.MqttGateway;
 import net.maku.iot.communication.dto.CommandResponseChan;
 import net.maku.iot.communication.dto.DeviceCommandDTO;
 import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
+import net.maku.iot.communication.mqtt.MqttGateway;
 import net.maku.iot.dto.DeviceClientDTO;
 import net.maku.iot.entity.IotDeviceEntity;
 import net.maku.iot.enums.DeviceCommandEnum;
@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
- * @Description TODO
- * @Author LSF
- * @Date 2024/8/9 14:21
+ * MQTT协议服务类
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Slf4j
 @Component

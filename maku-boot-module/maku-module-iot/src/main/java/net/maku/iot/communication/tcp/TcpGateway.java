@@ -29,15 +29,6 @@ public class TcpGateway {
     }
 
     /**
-     * 获取设备通道
-     *
-     * @return
-     */
-    public ConcurrentMap<String, Channel> getTcpDeviceChannels() {
-        return deviceChannels;
-    }
-
-    /**
      * 发送命令到设备
      * @param deviceId 设备ID
      * @param commandTopic 命令主题

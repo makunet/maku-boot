@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * @Description TODO
- * @Author LSF
- * @Date 2024/8/14 19:31
+ * tcp通讯数据包
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Data
 @Schema(description = "tcp通讯数据包装类")

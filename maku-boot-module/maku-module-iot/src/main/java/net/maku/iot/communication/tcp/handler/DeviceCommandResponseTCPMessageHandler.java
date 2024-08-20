@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
- * @Description TODO
- * @Author LSF
- * @Date 2024/8/14 19:23
+ * 设备命令响应处理器
+ *
+ * @author LSF maku_lsf@163.com
  */
 @Slf4j
 @Component
@@ -52,9 +52,6 @@ public class DeviceCommandResponseTCPMessageHandler implements TCPMessageHandler
                         log.error(StrUtil.format("调用设备命令响应响应处理器出错，topic:{}, message:{}", topic, message), e);
                     }
                 });
-
-
-
     }
 
     private DeviceCommandResponseDTO parseCommandReplyMessage(String topic, Object message) {
