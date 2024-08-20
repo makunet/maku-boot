@@ -10,6 +10,7 @@ CREATE TABLE iot_device (
   temperature varchar(10),
   status int,
   running_status int DEFAULT 0,
+  protocol_type varchar(20),
   up_time timestamp,
   down_time timestamp,
   tenant_id int8,
@@ -33,6 +34,7 @@ COMMENT ON COLUMN iot_device.app_version IS 'App版本号';
 COMMENT ON COLUMN iot_device.battery_percent IS '电池电量百分比';
 COMMENT ON COLUMN iot_device.status IS '状态，0禁用，1启用';
 COMMENT ON COLUMN iot_device.running_status IS '运行状态，0.离线状态 1.在线状态 2.正常待机 3.用户使用中 4.OTA升级中';
+COMMENT ON COLUMN iot_device.protocol_type IS '协议类型';
 COMMENT ON COLUMN iot_device.up_time IS '上线时间';
 COMMENT ON COLUMN iot_device.down_time IS '下线时间';
 COMMENT ON COLUMN iot_device.tenant_id IS '租户ID';
