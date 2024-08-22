@@ -111,6 +111,7 @@ COMMENT ON COLUMN iot_device_service_log.create_time IS '创建时间';
 COMMENT ON COLUMN iot_device_service_log.updater IS '更新者';
 
 
+INSERT INTO iot_device (id, code, name, type, uid, secret, app_version, battery_percent, temperature, status, running_status, protocol_type, up_time, down_time, tenant_id, creator, create_time, updater, update_time, version, deleted) VALUES (1, 'test-tcp', 'testTCP', 1, 'test12345678', '123456', NULL, NULL, NULL, 1, 1, 'TCP', now(), NULL, NULL, 10000, now(), 10000, now(), 0, 0);
 
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1601, NULL, '物联网平台', NULL, NULL, 0, 0, 'icon-printer-fill', 6, 0, 0, 10000,now(), 10000, now());
 INSERT INTO sys_menu (id, pid, name, url, authority, type, open_style, icon, sort, version, deleted, creator, create_time, updater, update_time) VALUES (1602, 1601, '设备列表', 'iot/device/index', NULL, 0, 0, 'icon-menu', 0, 0, 0, 10000, now(), 10000, now());
