@@ -689,7 +689,7 @@ CREATE TABLE sys_mail_log
     content        text,
     status         int,
     error          varchar(2000),
-    create_time    datetime,
+    create_time    timestamp,
     primary key (id)
 );
 
