@@ -367,7 +367,7 @@ create table sys_dict_type
     dict_sql    varchar(500),
     remark      varchar(255),
     sort        int,
-    pid         int8,
+    pid         bigint,
     has_child   int default 0,
     tenant_id   bigint,
     version     int,
