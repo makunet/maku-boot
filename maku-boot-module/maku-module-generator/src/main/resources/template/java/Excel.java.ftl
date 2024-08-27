@@ -4,6 +4,8 @@ import lombok.Data;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.fhs.core.trans.vo.TransPojo;
+import com.fhs.core.trans.anno.Trans;
+import com.fhs.core.trans.constant.TransType;
 <#list importList as i>
 import ${i!};
 </#list>
@@ -16,9 +18,16 @@ import ${i!};
  */
 @Data
 public class ${ClassName}ExcelVO implements TransPojo {
+<#list gridList as field>
+	<#if field.attrName == 'id'>
+	<#assign isPrimaryKey = 'true'>
+	</#if>
+</#list>
+<#if !isPrimaryKey??>
 	@ExcelIgnore
 	private ${primaryType} ${primaryName};
 
+</#if>
 <#list gridList as field>
 	<#if field.fieldComment!?length gt 0>
 	@ExcelProperty("${field.fieldComment}")
