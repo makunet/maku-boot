@@ -143,6 +143,7 @@ CREATE TABLE gen_table_field
     query_item      bit,
     query_type      varchar(200),
     query_form_type varchar(200),
+    create_time     datetime,
     primary key (id)
 );
 
