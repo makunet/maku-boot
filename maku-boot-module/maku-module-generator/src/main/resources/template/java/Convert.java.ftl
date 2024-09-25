@@ -2,7 +2,7 @@ package ${package}.${moduleName}.convert;
 
 import ${package}.${moduleName}.entity.${ClassName}Entity;
 import ${package}.${moduleName}.vo.${ClassName}VO;
-<#if tableOperation?seq_contains('import') || tableOperation?seq_contains('export')>
+<#if !hasSub?? && (tableOperation?seq_contains('import') || tableOperation?seq_contains('export'))>
 import ${package}.${moduleName}.vo.${ClassName}ExcelVO;
 </#if>
 import org.mapstruct.Mapper;
@@ -28,7 +28,7 @@ public interface ${ClassName}Convert {
 
     List<${ClassName}Entity> convertList2(List<${ClassName}VO> list);
 
-    <#if tableOperation?seq_contains('import') || tableOperation?seq_contains('export')>
+    <#if !hasSub?? && (tableOperation?seq_contains('import') || tableOperation?seq_contains('export'))>
     List<${ClassName}ExcelVO> convertExcelList(List<${ClassName}Entity> list);
 
     List<${ClassName}Entity> convertExcelList2(List<${ClassName}ExcelVO> list);

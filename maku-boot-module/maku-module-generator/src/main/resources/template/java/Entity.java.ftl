@@ -30,6 +30,12 @@ public class ${ClassName}Entity<#if baseClass??> extends ${baseClass.code}</#if>
 	<#if field.primaryPk>
 	@TableId
 	</#if>
+	<#if field.fieldName == 'deleted'>
+	@TableLogic
+	</#if>
+	<#if field.fieldName == 'version'>
+	@Version
+	</#if>
     <#if field.autoFill == "INSERT">
 	@TableField(value = "${field.fieldName}", fill = FieldFill.INSERT)
 	<#elseif field.autoFill == "INSERT_UPDATE">

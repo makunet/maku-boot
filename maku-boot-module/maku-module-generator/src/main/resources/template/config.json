@@ -1,11 +1,11 @@
 {
   "project": {
     "packageName": "net.maku",
-    "version": "1.0.0",
-    "backendPath": "D:\\generator\\maku-boot\\maku-server",
-    "frontendPath": "D:\\generator\\maku-admin",
+    "version": "",
+    "backendPath": "/Users/maku/makunet/maku-boot/maku-boot-new",
+    "frontendPath": "/Users/maku/makunet/maku-admin",
     "tablePrefix": "tb_",
-    "moduleName": "business",
+    "moduleName": "test",
     "author": "阿沐",
     "email": "babamu@126.com"
   },

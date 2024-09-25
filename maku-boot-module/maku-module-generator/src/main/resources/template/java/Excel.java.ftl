@@ -6,6 +6,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.fhs.core.trans.vo.TransPojo;
 import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
+import ${package}.framework.common.excel.LocalDateTimeConverter;
 <#list importList as i>
 import ${i!};
 </#list>
@@ -29,11 +30,10 @@ public class ${ClassName}ExcelVO implements TransPojo {
 
 </#if>
 <#list gridList as field>
-	<#if field.fieldComment!?length gt 0>
-	@ExcelProperty("${field.fieldComment}")
-	</#if>
 	<#if field.attrType == 'LocalDateTime'>
-	@ExcelProperty(value = "${field.fieldComment}", converter = LocalDateTimeConverter.class)
+	@ExcelProperty(value = "${field.fieldComment!}", converter = LocalDateTimeConverter.class)
+	<#elseif field.fieldComment!?length gt 0>
+	@ExcelProperty("${field.fieldComment}")
 	</#if>
 	<#if field.formDict??>
 	private String ${field.attrName}Label;

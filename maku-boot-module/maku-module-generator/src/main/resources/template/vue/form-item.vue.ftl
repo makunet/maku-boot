@@ -1,11 +1,21 @@
 <#macro maFormItem model field>
   <el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
-  <#if hasTree && field.fieldName == treePid>
+  <#if hasTree && field.attrName == treePid>
       <ma-data-tree-select
           v-model="${model}.${field.attrName}"
           url="${requestUrl}/list"
-          :props="{ label: '${treeLabel}', value: '${treeId}' }"
-          pplaceholder="${field.fieldComment!}" />
+          :props="{ label: '${treeLabel}', value: '${treeId}', pid: '${treePid}' }"
+          placeholder="${field.fieldComment!}" />
+  <#elseif hasLeftTree?? && field.attrName == leftRelationField>
+     <ma-data-tree-select
+        v-model="${model}.${field.attrName}"
+        <#if hasLeftFormDs??>
+        :props="{ label: '${leftTreeLabel}', value: '${leftTreeId}' }"
+         url="${leftRequestUrl}/list"
+        <#else>
+         url="${leftRequestUrl}"
+        </#if>
+         />
   <#elseif field.formType == 'input'>
       <el-input v-model="${model}.${field.attrName}" placeholder="${field.fieldComment!}"></el-input>
   <#elseif field.formType == 'number'>
@@ -24,32 +34,40 @@
     </#if>
   <#elseif field.formType == 'radio'>
     <#if field.formDict??>
-        <ma-dict-radio v-model="${model}.${field.attrName}" dict-type="${field.formDict}"></ma-dict-radio>
+      <ma-dict-radio v-model="${model}.${field.attrName}" dict-type="${field.formDict}"></ma-dict-radio>
     <#else>
-        <el-radio-group v-model="${model}.${field.attrName}">
-          <el-radio :value="0">启用</el-radio>
-          <el-radio :value="1">禁用</el-radio>
-        </el-radio-group>
+      <el-radio-group v-model="${model}.${field.attrName}">
+        <el-radio :value="0">启用</el-radio>
+        <el-radio :value="1">禁用</el-radio>
+      </el-radio-group>
     </#if>
   <#elseif field.formType == 'checkbox'>
+    <#if field.formDict??>
+      <ma-dict-checkbox v-model="${model}.${field.attrName}" dict-type="${field.formDict}"></ma-dict-checkbox>
+    <#else>
       <el-checkbox-group v-model="${model}.${field.attrName}">
-          <el-checkbox :value="1">启用</el-checkbox>
-          <el-checkbox :value="0">禁用</el-checkbox>
+        <el-checkbox :value="1">启用</el-checkbox>
+        <el-checkbox :value="0">禁用</el-checkbox>
       </el-checkbox-group>
+    </#if>
   <#elseif field.formType == 'address'>
       <ma-address v-model="${model}.${field.attrName}" placeholder="${field.fieldComment!}"></ma-address>
   <#elseif field.formType == 'date'>
-      <el-date-picker type="date" placeholder="${field.fieldComment!}" v-model="${model}.${field.attrName}"></el-date-picker>
+      <el-date-picker type="date" value-format="YYYY-MM-DD" placeholder="${field.fieldComment!}" v-model="${model}.${field.attrName}"></el-date-picker>
   <#elseif field.formType == 'datetime'>
-      <el-date-picker type="datetime" placeholder="${field.fieldComment!}" v-model="${model}.${field.attrName}"></el-date-picker>
+      <el-date-picker type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="${field.fieldComment!}" v-model="${model}.${field.attrName}"></el-date-picker>
   <#elseif field.formType == 'treeselect'>
-      <el-tree-select v-model="${model}.${field.attrName}" placeholder="${field.fieldComment!}"></el-tree-select>
+      <ma-data-tree-select v-model="${model}.${field.attrName}" url="${field.formDict!}" :props="{ label: 'name', value: 'id' }" placeholder="${field.fieldComment!}" />
   <#elseif field.formType == 'user'>
       <ma-user-input v-model="${model}.${field.attrName}" placeholder="${field.fieldComment!}"></ma-user-input>
   <#elseif field.formType == 'org'>
       <ma-org-select v-model="${model}.${field.attrName}" placeholder="${field.fieldComment!}"></ma-org-select>
   <#elseif field.formType == 'post'>
       <ma-post-input v-model="${model}.${field.attrName}" placeholder="${field.fieldComment!}"></ma-post-input>
+  <#elseif field.formType == 'file'>
+      <ma-upload-file v-model="${model}.${field.attrName}"></ma-upload-file>
+  <#elseif field.formType == 'image'>
+      <ma-upload-images v-model="${model}.${field.attrName}"></ma-upload-images>
   <#else>
       <el-input v-model="${model}.${field.attrName}" placeholder="${field.fieldComment!}"></el-input>
   </#if>

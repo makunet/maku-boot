@@ -1,14 +1,31 @@
 <template>
+	<#if hasLeftTree>
+	<el-row :gutter="10">
+	  <el-col :span="5">
+		<#if hasLeftFormDs??>
+		<ma-data-tree-left url="${leftRequestUrl}/list" title="${leftTitle}" manage @click="handleClick" @manage="treeVisible = true" />
+		<#else>
+		<ma-data-tree-left url="${leftRequestUrl}" title="${leftTitle}" @click="handleClick" />
+		</#if>
+	  </el-col>
+	  <el-col :span="19">
+	</#if>
 	<#if tableOperation?seq_contains('query')>
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 		<#list queryList as field>
 			<el-form-item prop="${field.attrName}">
-			<#if field.queryFormType == 'text' || field.queryFormType == 'textarea' || field.queryFormType == 'editor'>
+			<#if hasTree && field.attrName == treePid>
+			  <ma-data-tree-select
+				  v-model="state.queryForm.${field.attrName}"
+				  url="${requestUrl}/list"
+				  :props="{ label: '${treeLabel}', value: '${treeId}', pid: '${treePid}' }"
+				  placeholder="${field.fieldComment!}" />
+			<#elseif field.queryFormType == 'input'>
 			  <el-input v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}"></el-input>
 			<#elseif field.queryFormType == 'select'>
-			  <#if field.queryDict??>
-			  <ma-dict-select v-model="state.queryForm.${field.attrName}" dict-type="${field.queryDict}" placeholder="${field.fieldComment!}" clearable></ma-dict-select>
+			  <#if field.formDict??>
+			  <ma-dict-select v-model="state.queryForm.${field.attrName}" dict-type="${field.formDict}" placeholder="${field.fieldComment!}" clearable></ma-dict-select>
 			  <#else>
 			  <el-select v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}">
 				<el-option label="选择" value="0"></el-option>
@@ -16,24 +33,22 @@
 			  </#if>
 			<#elseif field.queryFormType == 'radio'>
 			  <#if field.formDict??>
-			  <ma-dict-radio v-model="state.queryForm.${field.attrName}" dict-type="${field.formDict}"></ma-dict-radio>
+			  <ma-dict-radio v-model="state.queryForm.${field.attrName}" dict-type="${field.formDict}" placeholder="${field.fieldComment!}"></ma-dict-radio>
 			  <#else>
-			  <el-radio-group v-model="state.queryForm.${field.attrName}">
+			  <el-radio-group v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}">
 				<el-radio :label="0">单选</el-radio>
 			  </el-radio-group>
 			  </#if>
 			<#elseif field.queryFormType == 'date'>
-			  <el-date-picker
-				v-model="daterange"
-				type="daterange"
-				value-format="yyyy-MM-dd">
-			  </el-date-picker>
+		      <el-date-picker v-model="state.queryForm.${field.attrName}" value-format="YYYY-MM-DD" type="daterange" start-placeholder="${field.fieldComment!}" end-placeholder="结束日期" clearable />
 			<#elseif field.queryFormType == 'datetime'>
-			  <el-date-picker
-				v-model="datetimerange"
-				type="datetimerange"
-				value-format="yyyy-MM-dd HH:mm:ss">
-			  </el-date-picker>
+			  <el-date-picker v-model="state.queryForm.${field.attrName}" value-format="YYYY-MM-DD HH:mm:ss" type="datetimerange" start-placeholder="${field.fieldComment!}" end-placeholder="结束日期" clearable />
+			<#elseif field.queryFormType == 'user'>
+				<ma-user-input v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}"></ma-user-input>
+			<#elseif field.queryFormType == 'org'>
+				<ma-org-input v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}"></ma-org-input>
+			<#elseif field.queryFormType == 'post'>
+				<ma-post-input v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}"></ma-post-input>
 			<#else>
 			  <el-input v-model="state.queryForm.${field.attrName}" placeholder="${field.fieldComment!}"></el-input>
 			</#if>
@@ -59,9 +74,9 @@
 			</#if>
 			<#if tableOperation?seq_contains('import')>
 			<el-space <#if authLevel==1>v-auth="'${authority}:import'"</#if>>
-				<ma-upload-file action="${requestUrl}/import">
+				<ma-upload-excel action="${requestUrl}/import">
 					<el-button plain icon="Upload">导入</el-button>
-				</ma-upload-file>
+				</ma-upload-excel>
 			</el-space>
 			</#if>
 			<#if tableOperation?seq_contains('export')>
@@ -80,7 +95,9 @@
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
 	    <#list gridList as field>
 		  <#if field.formDict??>
-			<ma-dict-table prop="${field.attrName}" label="${field.fieldComment!}" dict-type="${field.formDict}"></ma-dict-table>
+			<ma-dict-column prop="${field.attrName}" label="${field.fieldComment!}" dict-type="${field.formDict}"></ma-dict-column>
+		  <#elseif field.formType=='image'>
+			<ma-image-column prop="${field.attrName}" label="${field.fieldComment!}" header-align="center" align="center"></ma-image-column>
 		  <#else>
 			<el-table-column prop="${field.attrName}" label="${field.fieldComment!}" header-align="center" align="center"></el-table-column>
 		  </#if>
@@ -113,7 +130,16 @@
 		<!-- 弹窗, 新增 / 修改 -->
 		<add-or-update v-if="addOrUpdateVisible" ref="addOrUpdateRef" v-model:visible="addOrUpdateVisible" @refreshDataList="getDataList"></add-or-update>
 		</#if>
+		<#if hasLeftTree && hasLeftFormDs??>
+		<el-drawer v-if="treeVisible" v-model="treeVisible" title="${leftTitle}" :size="800" :before-close="handleClose">
+		  <Left${FunctionNameLeft}></Left${FunctionNameLeft}>
+		</el-drawer>
+		</#if>
 	</el-card>
+<#if hasLeftTree>
+	</el-col>
+  </el-row>
+</#if>
 </template>
 
 <script setup lang="ts" name="${ModuleName}${FunctionName}Index">
@@ -124,13 +150,30 @@
 	import AddOrUpdate from './add-or-update.vue'
 	</#if>
 	<#if hasTree>import { use${FunctionName}TreeLoadApi } from '@/api/${moduleName}/${functionName}'</#if>
+	<#if hasLeftTree>
+	<#if hasLeftFormDs??>
+	import Left${FunctionNameLeft} from '../${functionNameLeft}/index.vue'
+	import emit, { MittEvent } from '@/utils/emits'
 
+	const treeVisible = ref(false)
+	const handleClose = () => {
+		treeVisible.value = false
+		emit.emit(MittEvent.LeftTree)
+	}
+	</#if>
+	const handleClick = (idList: any[]) => {
+		state.queryForm.${leftRelationField} = idList
+		getDataList()
+	}
+
+	</#if>
 	const state: IHooksOptions = reactive({
 	dataListUrl: '${requestUrl}/page',
 	<#if tableOperation?seq_contains('query')>
 	deleteUrl: '${requestUrl}',
 	</#if>
 	queryForm: {
+		<#if hasLeftTree>${leftRelationField}: [],</#if>
 		<#list queryList as field>
 		<#if field.formType == 'date'>
 		startDate: '',

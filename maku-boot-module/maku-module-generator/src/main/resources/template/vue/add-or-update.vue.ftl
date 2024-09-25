@@ -39,7 +39,7 @@ const emit = defineEmits(['refreshDataList'])
 const visible = defineModel<boolean>('visible')
 const dataFormRef = ref()
 <#if subs?size gt 0>
-const activeName = ref("${subs[0].className}")
+const activeName = ref('${subs[0].className}')
 </#if>
 <#list subs as sub>
 const ${sub.className}Ref = ref()

@@ -18,9 +18,7 @@ import ${i!};
  */
 @Data
 @Schema(description = "${tableComment}")
-public class ${ClassName}VO implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class ${ClassName}VO {
 <#list fieldList as field>
 	<#if field.fieldComment!?length gt 0>
 	@Schema(description = "${field.fieldComment}")

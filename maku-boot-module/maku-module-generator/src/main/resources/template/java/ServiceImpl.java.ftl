@@ -75,32 +75,35 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Dao, ${
 
     private LambdaQueryWrapper<${ClassName}Entity> getWrapper(${ClassName}Query query){
         LambdaQueryWrapper<${ClassName}Entity> wrapper = Wrappers.lambdaQuery();
-        <#if hasTree>
+        <#list queryList as field>
+            <#if hasTree && field.attrName == treePid>
+            <#assign hasTreePid = true>
+        if (ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}())) {
+            wrapper.eq(${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
+        } else {
+            wrapper.isNull(${ClassName}Entity::get${treePid?cap_first});
+        }
+            <#else>
+                <#if field.queryFormType == 'date' || field.queryFormType == 'datetime'>
+        if (ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}())) {
+            wrapper.between(${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}().get(0), query.get${field.attrName?cap_first}().get(1));
+        }
+                <#elseif field.queryType == '='>
+        wrapper.eq(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
+                <#elseif field.queryType == 'like'>
+        wrapper.like(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
+                </#if>
+            </#if>
+
+        </#list>
+        <#if hasTree && !hasTreePid??>
         wrapper.isNull(${ClassName}Entity::get${treePid?cap_first});
         </#if>
-        <#list queryList as field>
-            <#if field.queryFormType == 'date' || field.queryFormType == 'datetime'>
-        wrapper.between(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, ArrayUtils.isNotEmpty(query.get${field.attrName?cap_first}()) ? query.get${field.attrName?cap_first}()[0] : null, ArrayUtils.isNotEmpty(query.get${field.attrName?cap_first}()) ? query.get${field.attrName?cap_first}()[1] : null);
-            <#elseif field.queryType == '='>
-        wrapper.eq(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == '!='>
-        wrapper.ne(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == '>'>
-        wrapper.gt(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == '>='>
-        wrapper.ge(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == '<'>
-        wrapper.lt(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == '<='>
-        wrapper.le(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == 'like'>
-        wrapper.like(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == 'left like'>
-        wrapper.likeLeft(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            <#elseif field.queryType == 'right like'>
-        wrapper.likeRight(ObjectUtil.isNotEmpty(query.get${field.attrName?cap_first}()), ${ClassName}Entity::get${field.attrName?cap_first}, query.get${field.attrName?cap_first}());
-            </#if>
-        </#list>
+        <#if hasLeftTree>
+
+        // 左侧树过滤
+        wrapper.in(query.get${leftRelationField?cap_first}() != null, ${ClassName}Entity::get${leftRelationField?cap_first}, query.get${leftRelationField?cap_first}());
+        </#if>
 
         return wrapper;
     }
@@ -200,7 +203,11 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Dao, ${
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(List<Long> idList) {
+        <#if hasTree>
+        idList.forEach(this::deleteAllChildren);
+        <#else>
         removeByIds(idList);
+        </#if>
 
         <#if subs?size gt 0>
         // 删除子表数据
@@ -210,6 +217,25 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Dao, ${
             </#list>
         });
         </#if>
+    }
+    </#if>
+
+     <#if hasTree>
+    /**
+    * 递归删除所有子节点
+    *
+    * @param id 节点ID
+    */
+    private void deleteAllChildren(Long id) {
+        // 查询当前节点的所有子节点
+        List<${ClassName}Entity> childrenList = baseMapper.selectList(new LambdaQueryWrapper<${ClassName}Entity>().eq(${ClassName}Entity::get${treePid?cap_first}, id));
+        // 递归删除每个子节点
+        for (${ClassName}Entity children : childrenList) {
+            deleteAllChildren(children.getId());
+        }
+
+        // 删除当前节点
+        baseMapper.deleteById(id);
     }
     </#if>
 

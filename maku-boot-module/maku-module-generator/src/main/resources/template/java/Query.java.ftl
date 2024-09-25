@@ -3,6 +3,7 @@ package ${package}.${moduleName}.query;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import java.util.*;
 import ${package}.framework.common.query.Query;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,12 +25,14 @@ public class ${ClassName}Query extends Query {
     <#if field.fieldComment!?length gt 0>
     @Schema(description = "${field.fieldComment}")
     </#if>
-    <#if field.queryFormType == 'date'>
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    <#elseif field.queryFormType == 'datetime'>
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    <#if field.queryFormType == 'date' || field.queryFormType == 'datetime'>
+    private List<String> ${field.attrName};
+    <#else>
+    private ${field.attrType} ${field.attrName};
     </#if>
-    private ${field.attrType}<#if field.queryFormType == 'date' || field.queryFormType == 'datetime'>[]</#if> ${field.attrName};
 
 </#list>
+<#if hasLeftTree>
+    private List<Long> ${leftRelationField};
+</#if>
 }
