@@ -20,7 +20,10 @@ import net.maku.system.entity.SysUserEntity;
 import net.maku.system.enums.SuperAdminEnum;
 import net.maku.system.query.SysRoleUserQuery;
 import net.maku.system.query.SysUserQuery;
-import net.maku.system.service.*;
+import net.maku.system.service.SysUserPostService;
+import net.maku.system.service.SysUserRoleService;
+import net.maku.system.service.SysUserService;
+import net.maku.system.service.SysUserTokenService;
 import net.maku.system.vo.SysUserAvatarVO;
 import net.maku.system.vo.SysUserBaseVO;
 import net.maku.system.vo.SysUserExcelVO;
@@ -45,7 +48,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     private final SysUserRoleService sysUserRoleService;
     private final SysUserPostService sysUserPostService;
     private final SysUserTokenService sysUserTokenService;
-    private final SysOrgService sysOrgService;
     private final TokenStoreCache tokenStoreCache;
     private final TransService transService;
 
@@ -75,9 +77,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         // 机构过滤
         if (query.getOrgId() != null) {
-            // 查询子机构ID列表，包含本机构
-            List<Long> orgList = sysOrgService.getSubOrgIdList(query.getOrgId());
-            params.put("orgList", orgList);
+            params.put("orgList", query.getOrgId());
         }
 
         return params;
