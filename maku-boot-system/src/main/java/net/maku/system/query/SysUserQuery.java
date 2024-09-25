@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.maku.framework.common.query.Query;
 
+import java.util.List;
+
 /**
  * 用户查询
  *
@@ -25,6 +27,6 @@ public class SysUserQuery extends Query {
     private Integer gender;
 
     @Schema(description = "机构ID")
-    private Long orgId;
+    private List<Long> orgId;
 
 }
