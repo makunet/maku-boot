@@ -96,6 +96,7 @@ CREATE TABLE gen_table_field
     query_item      tinyint COMMENT '查询项 0：否  1：是',
     query_type      varchar(200) COMMENT '查询方式',
     query_form_type varchar(200) COMMENT '查询表单类型',
+    create_time     datetime COMMENT '创建时间',
     primary key (id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='代码生成表字段';
 
