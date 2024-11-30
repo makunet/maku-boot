@@ -198,6 +198,13 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
                     } catch (Exception e) {
                         log.error("刷新字典缓存异常: type=" + dictTypeEntity, e);
                     }
+                } else {
+                    try {
+                        dictionaryTransService.refreshCache(dictTypeEntity.getDictType(), sysDictDataDao.getListForSql(dictTypeEntity.getDictSql())
+                                .stream().collect(Collectors.toMap(SysDictVO.DictData::getDictValue, SysDictVO.DictData::getDictLabel)));
+                    } catch (Exception e) {
+                        log.error("刷新动态SQL字典缓存异常: type=" + dictTypeEntity, e);
+                    }
                 }
             }
             return null;
