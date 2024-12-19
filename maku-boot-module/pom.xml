@@ -14,6 +14,7 @@
 		<module>maku-module-monitor</module>
 		<module>maku-module-member</module>
         <module>maku-module-iot</module>
+        <module>maku-module-websocket</module>
     </modules>
 	
 </project>
