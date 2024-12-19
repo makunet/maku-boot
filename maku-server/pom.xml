@@ -40,6 +40,11 @@
             <artifactId>maku-module-monitor</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>net.maku</groupId>
+            <artifactId>maku-module-websocket</artifactId>
+            <version>${revision}</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>net.maku</groupId>-->
 <!--            <artifactId>maku-module-iot</artifactId>-->
