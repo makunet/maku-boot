@@ -1,6 +1,6 @@
 ## 项目说明
 
-- maku-boot 是采用SpringBoot3.3、SpringSecurity6.3、Mybatis-Plus、Flowable7.0、Vue3、Element-plus等技术开发的低代码开发平台，旨在为开发者提供一个简洁、高效、可扩展的低代码开发平台。
+- maku-boot 是采用SpringBoot3.4、SpringSecurity6.4、Mybatis-Plus、Flowable7.0、Vue3、Element-plus等技术开发的低代码开发平台，旨在为开发者提供一个简洁、高效、可扩展的低代码开发平台。
 - 使用门槛极低，支持国密加密、达梦数据库等，符合信创需求的低代码开发平台。
 - 采用组件模式，扩展不同的业务功能，可以很方便的实现各种业务需求，且不会导致系统臃肿，若想使用某个组件，按需引入即可，反之亦然。
 - 支持Online在线表单开发，支持单表、树表、一对一、一对多表单，可快速开发业务，无需部署及重启服务等优点。
