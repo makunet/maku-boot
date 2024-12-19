@@ -51,6 +51,12 @@ public class ServerExceptionHandler {
         return Result.error(ErrorCode.FORBIDDEN);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Result<String> handleIllegalArgumentException(Exception ex) {
+
+        return Result.error(ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public Result<String> handleException(Exception ex) {
         log.error(ex.getMessage(), ex);
