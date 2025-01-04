@@ -13,7 +13,7 @@ server:
         http-only: true
 
 knife4j:
-  enable: true
+  enable: false
   setting:
     custom-code: 500
     enable-footer-custom: false
