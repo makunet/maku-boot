@@ -7,6 +7,7 @@ import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.TreeUtils;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.security.user.UserDetail;
+import net.maku.framework.security.utils.PreAuthorizeUtil;
 import net.maku.system.convert.SysMenuConvert;
 import net.maku.system.dao.SysMenuDao;
 import net.maku.system.entity.SysMenuEntity;
@@ -97,7 +98,8 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
         // 系统管理员，拥有最高权限
         List<String> authorityList;
         if (user.getSuperAdmin().equals(SuperAdminEnum.YES.getValue())) {
-            authorityList = baseMapper.getAuthorityList();
+            // authorityList = baseMapper.getAuthorityList();
+            authorityList = PreAuthorizeUtil.getPreAuthorizeList();
         } else {
             authorityList = baseMapper.getUserAuthorityList(user.getId());
         }
