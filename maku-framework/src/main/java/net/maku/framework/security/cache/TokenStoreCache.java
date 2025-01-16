@@ -33,6 +33,12 @@ public class TokenStoreCache {
         redisCache.set(key, user, expire);
     }
 
+    public void updateUser(String accessToken, UserDetail user) {
+        String key = RedisKeys.getAccessTokenKey(accessToken);
+        Long expire = redisCache.getExpire(key);
+        redisCache.set(key, user, expire);
+    }
+
     public Long getExpire(String accessToken) {
         String key = RedisKeys.getAccessTokenKey(accessToken);
 
