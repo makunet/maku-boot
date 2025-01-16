@@ -13,6 +13,7 @@ import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.security.cache.TokenStoreCache;
 import net.maku.framework.security.user.SecurityUser;
+import net.maku.framework.security.user.UserDetail;
 import net.maku.framework.security.utils.TokenUtils;
 import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysUserDao;
@@ -156,8 +157,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         // 更新用户
         updateById(entity);
 
-        // 删除用户缓存
-        tokenStoreCache.deleteUser(TokenUtils.getAccessToken());
+        // 更新缓存逻辑
+        String accessToken = TokenUtils.getAccessToken();
+        UserDetail cacheUser = tokenStoreCache.getUser(accessToken);
+        cacheUser.setRealName(vo.getRealName());
+        cacheUser.setMobile(vo.getMobile());
+        cacheUser.setEmail(vo.getEmail());
+        cacheUser.setGender(vo.getGender());
+        // 更新操作
+        tokenStoreCache.updateUser(accessToken, cacheUser);
     }
 
     @Override
@@ -167,8 +175,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         entity.setAvatar(avatar.getAvatar());
         updateById(entity);
 
-        // 删除用户缓存
-        tokenStoreCache.deleteUser(TokenUtils.getAccessToken());
+        // 更新缓存逻辑
+        String accessToken = TokenUtils.getAccessToken();
+        UserDetail cacheUser = tokenStoreCache.getUser(accessToken);
+        cacheUser.setAvatar(avatar.getAvatar());
+        // 更新操作
+        tokenStoreCache.updateUser(accessToken, cacheUser);
     }
 
     @Override
