@@ -38,6 +38,10 @@ public class JacksonConfig {
             builder.deserializerByType(LocalTime.class,
                     new LocalTimeDeserializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
             // builder.serializationInclusion(JsonInclude.Include.NON_NULL);
+
+            // 避免Long精度丢失，超过JS最大精度，使用String类型
+            builder.serializerByType(Long.class, BigNumberSerializer.INSTANCE);
+
             builder.failOnUnknownProperties(false);
             builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         };
