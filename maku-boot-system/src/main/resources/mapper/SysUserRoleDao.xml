@@ -7,4 +7,7 @@
         select role_id from sys_user_role where user_id = #{userId} and deleted = 0
     </select>
 
+    <select id="getExistsUserIdList" resultType="long">
+        select user_id from sys_user_role where role_id = #{roleId} and deleted = 0
+    </select>
 </mapper>

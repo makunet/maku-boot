@@ -51,4 +51,10 @@ public interface SysUserRoleService extends BaseService<SysUserRoleEntity> {
      * @param userId  用户ID
      */
     List<Long> getRoleIdList(Long userId);
+
+    /**
+     * 根据角色ID查询对应的用户ID列表
+     * @param roleId  角色ID
+     */
+    List<Long> getExistsUserIdList(Long roleId);
 }

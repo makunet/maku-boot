@@ -91,4 +91,9 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleDao, SysU
     public List<Long> getRoleIdList(Long userId) {
         return baseMapper.getRoleIdList(userId);
     }
+
+    @Override
+    public List<Long> getExistsUserIdList(Long roleId) {
+        return baseMapper.getExistsUserIdList(roleId);
+    }
 }

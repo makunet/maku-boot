@@ -22,8 +22,8 @@ import net.maku.system.vo.SysUserVO;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 角色管理
@@ -152,10 +152,24 @@ public class SysRoleController {
 
     @PostMapping("user/{roleId}")
     @Operation(summary = "分配角色给用户列表")
-    @OperateLog(type = OperateTypeEnum.DELETE)
+    @OperateLog(type = OperateTypeEnum.UPDATE)
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> userSave(@PathVariable("roleId") Long roleId, @RequestBody List<Long> userIdList) {
-        sysUserRoleService.saveUserList(roleId, userIdList);
+        if(userIdList.isEmpty()) {
+            return Result.error("UserId is empty!");
+        }
+        //查询数据库该角色对应的用户列表
+        List<Long> existsUserIdList = sysUserRoleService.getExistsUserIdList(roleId);
+
+        //取出需要新增的用户列表
+        List<Long> addUserIdList = userIdList.stream()
+            .filter(userId -> !existsUserIdList.contains(userId))
+            .collect(Collectors.toList());
+
+        if(addUserIdList.isEmpty()) {
+            return Result.error("UserId existed!");
+        }
+        sysUserRoleService.saveUserList(roleId, addUserIdList);
 
         return Result.ok();
     }
