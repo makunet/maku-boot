@@ -1,7 +1,8 @@
 package net.maku.system.vo;
 
-import com.alibaba.excel.annotation.ExcelIgnore;
-import com.alibaba.excel.annotation.ExcelProperty;
+import cn.idev.excel.annotation.ExcelIgnore;
+import cn.idev.excel.annotation.ExcelProperty;
+import cn.idev.excel.annotation.write.style.ColumnWidth;
 import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.vo.TransPojo;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
  * <a href="https://maku.net">MAKU</a>
  */
 @Data
+@ColumnWidth(20)
 public class SysUserExcelVO implements Serializable, TransPojo {
     private static final long serialVersionUID = 1L;
 
