@@ -97,12 +97,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
             throw new ServerException("用户名已经存在");
         }
 
-        // 判断手机号是否存在
-        user = baseMapper.getByMobile(entity.getMobile());
-        if (user != null) {
-            throw new ServerException("手机号已经存在");
-        }
-
         // 保存用户
         baseMapper.insert(entity);
 

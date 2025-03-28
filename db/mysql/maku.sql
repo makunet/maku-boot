@@ -2,23 +2,25 @@ CREATE TABLE sys_user
 (
     id          bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
     username    varchar(50) NOT NULL COMMENT '用户名',
-    password    varchar(100) COMMENT '密码',
+    password    varchar(255) COMMENT '密码',
     real_name   varchar(50) COMMENT '姓名',
     avatar      varchar(200) COMMENT '头像',
     gender      tinyint COMMENT '性别   0：男   1：女   2：未知',
-    email       varchar(100) COMMENT '邮箱',
+    email       varchar(255) COMMENT '邮箱',
     mobile      varchar(20) COMMENT '手机号',
     org_id      bigint COMMENT '机构ID',
-    super_admin tinyint COMMENT '超级管理员   0：否   1：是',
-    status      tinyint COMMENT '状态  0：停用   1：正常',
+    super_admin tinyint DEFAULT 0 COMMENT '超级管理员   0：否   1：是',
+    status      tinyint DEFAULT 1 COMMENT '状态  0：停用   1：正常',
     tenant_id   bigint COMMENT '租户ID',
     version     int COMMENT '版本号',
-    deleted     tinyint COMMENT '删除标识  0：正常   1：已删除',
+    deleted     tinyint DEFAULT 0 COMMENT '删除标识  0：正常   1：已删除',
     creator     bigint COMMENT '创建者',
-    create_time datetime COMMENT '创建时间',
+    create_time datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updater     bigint COMMENT '更新者',
-    update_time datetime COMMENT '更新时间',
-    primary key (id)
+    update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    primary key (id),
+    UNIQUE INDEX idx_username (username),
+    INDEX idx_mobile (mobile)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='用户管理';
 
 CREATE TABLE sys_user_token
