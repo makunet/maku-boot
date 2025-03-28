@@ -26,7 +26,7 @@ public class XssFilterJsonDeserializer extends JsonDeserializer<String> {
     public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         String value = jsonParser.getValueAsString();
         if (StrUtil.isBlank(value)) {
-            return null;
+            return value;
         }
 
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();

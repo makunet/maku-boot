@@ -1,6 +1,6 @@
 package net.maku;
 
-import com.alibaba.excel.annotation.ExcelProperty;
+import cn.idev.excel.annotation.ExcelProperty;
 import lombok.Data;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
 import net.maku.framework.common.excel.LocalDateTimeConverter;
@@ -13,11 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * EasyExcel 测试
+ * FastExcel 测试
  *
  * @author eden
  */
-public class EasyExcelTest {
+public class FastExcelTest {
 
     @Test
     public void doImport() {
@@ -70,10 +70,10 @@ public class EasyExcelTest {
 
 }
 
-class ServiceA implements ExcelFinishCallBack<EasyExcelTest.ExcelClass> {
+class ServiceA implements ExcelFinishCallBack<FastExcelTest.ExcelClass> {
 
     @Override
-    public void doSaveBatch(List<EasyExcelTest.ExcelClass> result) {
+    public void doSaveBatch(List<FastExcelTest.ExcelClass> result) {
         System.out.println(result.size());
     }
 }

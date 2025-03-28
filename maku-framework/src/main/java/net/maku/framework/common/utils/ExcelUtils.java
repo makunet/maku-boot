@@ -5,9 +5,9 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.converters.longconverter.LongStringConverter;
-import com.alibaba.excel.support.ExcelTypeEnum;
+import cn.idev.excel.FastExcel;
+import cn.idev.excel.converters.longconverter.LongStringConverter;
+import cn.idev.excel.support.ExcelTypeEnum;
 import com.fhs.common.utils.ConverterUtils;
 import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
@@ -29,11 +29,10 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The type Excel utils.
- * {@link <a href="https://easyexcel.opensource.alibaba.com/"></a>}
+ * {@link <a href="https://idev.cn/fastexcel/zh-CN/docs/write/write_spring"></a>}
  *
  * @author eden
  */
@@ -51,7 +50,7 @@ public class ExcelUtils {
      */
     public static <T> void readAnalysis(MultipartFile file, Class<T> head, ExcelFinishCallBack<T> callBack) {
         try {
-            EasyExcel.read(file.getInputStream(), head, new ExcelDataListener<>(callBack)).sheet().doRead();
+            FastExcel.read(file.getInputStream(), head, new ExcelDataListener<>(callBack)).sheet().doRead();
         } catch (IOException e) {
             log.error("readAnalysis error", e);
         }
@@ -68,7 +67,7 @@ public class ExcelUtils {
      */
     public static <T> void readAnalysis(File file, Class<T> head, ExcelFinishCallBack<T> callBack) {
         try {
-            EasyExcel.read(new FileInputStream(file), head, new ExcelDataListener<>(callBack)).sheet().doRead();
+            FastExcel.read(new FileInputStream(file), head, new ExcelDataListener<>(callBack)).sheet().doRead();
         } catch (IOException e) {
             log.error("readAnalysis error", e);
         }
@@ -98,7 +97,7 @@ public class ExcelUtils {
      * @return java.util.List list
      */
     public static <T> List<T> readSync(File file, Class<T> clazz, Integer rowNum, Integer sheetNo, ExcelTypeEnum excelType) {
-        return EasyExcel.read(file).headRowNumber(rowNum).excelType(excelType).head(clazz).sheet(sheetNo).doReadSync();
+        return FastExcel.read(file).headRowNumber(rowNum).excelType(excelType).head(clazz).sheet(sheetNo).doReadSync();
     }
 
 
@@ -125,7 +124,7 @@ public class ExcelUtils {
      */
     public static <T> void excelExport(Class<T> head, File file, String sheetName, List<T> data) {
         try {
-            EasyExcel.write(file, head).sheet(sheetName).registerConverter(new LongStringConverter()).doWrite(data);
+            FastExcel.write(file, head).sheet(sheetName).registerConverter(new LongStringConverter()).doWrite(data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -144,7 +143,7 @@ public class ExcelUtils {
         try {
             HttpServletResponse response = getExportResponse(excelName);
 
-            EasyExcel.write(response.getOutputStream(), head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName)
+            FastExcel.write(response.getOutputStream(), head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName)
                     .registerConverter(new LongStringConverter()).doWrite(data);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -164,7 +163,7 @@ public class ExcelUtils {
         try {
             HttpServletResponse response = getExportResponse(excelName);
 
-            EasyExcel.write(response.getOutputStream()).head(head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName)
+            FastExcel.write(response.getOutputStream()).head(head).sheet(StringUtils.isBlank(sheetName) ? "sheet1" : sheetName)
                     .registerConverter(new LongStringConverter()).doWrite(data);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -200,7 +199,7 @@ public class ExcelUtils {
         //拿到所有需要反向翻译的字段
         List<Field> fields = ReflectUtils.getAnnotationField(clazz, Trans.class);
         //过滤出字典翻译
-        fields = fields.stream().filter(field -> TransType.DICTIONARY.equals(field.getAnnotation(Trans.class).type())).collect(Collectors.toList());
+        fields = fields.stream().filter(field -> TransType.DICTIONARY.equals(field.getAnnotation(Trans.class).type())).toList();
         DictionaryTransService dictionaryTransService = SpringUtil.getBean(DictionaryTransService.class);
         for (T data : dataList) {
             for (Field field : fields) {

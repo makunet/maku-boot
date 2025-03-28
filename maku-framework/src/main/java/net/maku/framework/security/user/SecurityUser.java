@@ -36,4 +36,16 @@ public class SecurityUser {
         return user.getId();
     }
 
+    /**
+     * 获取机构ID
+     */
+    public static Long getOrgId() {
+        UserDetail user = getUser();
+        if (user == null) {
+            return null;
+        }
+
+        return user.getOrgId();
+    }
+
 }
