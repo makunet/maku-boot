@@ -9,6 +9,7 @@ CREATE TABLE sys_user
     email       varchar(100) COMMENT '邮箱',
     mobile      varchar(20) COMMENT '手机号',
     org_id      bigint COMMENT '机构ID',
+    leader_id   bigint COMMENT '直属主管ID',
     super_admin tinyint COMMENT '超级管理员   0：否   1：是',
     status      tinyint COMMENT '状态  0：停用   1：正常',
     tenant_id   bigint COMMENT '租户ID',
