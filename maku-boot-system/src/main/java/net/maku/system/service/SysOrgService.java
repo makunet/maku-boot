@@ -16,6 +16,8 @@ public interface SysOrgService extends BaseService<SysOrgEntity> {
 
     List<SysOrgVO> getList();
 
+    List<SysOrgVO> listByPid(Long pid);
+
     void save(SysOrgVO vo);
 
     void update(SysOrgVO vo);

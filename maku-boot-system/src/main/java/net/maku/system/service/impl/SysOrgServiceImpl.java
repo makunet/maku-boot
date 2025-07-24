@@ -1,6 +1,7 @@
 package net.maku.system.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.constant.Constant;
@@ -44,6 +45,19 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
         List<SysOrgEntity> entityList = baseMapper.getList(params);
 
         return TreeUtils.build(SysOrgConvert.INSTANCE.convertList(entityList));
+    }
+
+    @Override
+    public List<SysOrgVO> listByPid(Long pid) {
+        LambdaQueryWrapper<SysOrgEntity> queryWrapper = new LambdaQueryWrapper<>();
+        if (pid == null) {
+            queryWrapper.isNull(SysOrgEntity::getPid);
+        } else {
+            queryWrapper.eq(SysOrgEntity::getPid, pid);
+        }
+
+        List<SysOrgEntity> list = baseMapper.selectList(queryWrapper);
+        return SysOrgConvert.INSTANCE.convertList(list);
     }
 
     @Override
