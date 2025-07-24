@@ -23,11 +23,6 @@ spring:
           url: jdbc:mysql://localhost:3306/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
           username: maku
           password: 123456
-          # 达梦
-          #    driver-class-name: dm.jdbc.driver.DmDriver
-          #    url: jdbc:dm://192.168.3.19:5236/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
-          #    username: maku_boot
-          #    password: 12345678
           # PostgreSQL
           #    driver-class-name: org.postgresql.Driver
           #    url: jdbc:postgresql://192.168.3.19:5432/postgres
