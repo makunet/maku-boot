@@ -50,7 +50,6 @@ public class SysUserController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
-    @PreAuthorize("hasAuthority('sys:user:page')")
     public Result<PageResult<SysUserVO>> page(@ParameterObject @Valid SysUserQuery query) {
         PageResult<SysUserVO> page = sysUserService.page(query);
 
@@ -181,6 +180,14 @@ public class SysUserController {
     @Operation(summary = "用户姓名列表")
     public Result<List<String>> nameList(@RequestBody List<Long> idList) {
         List<String> list = sysUserService.getRealNameList(idList);
+
+        return Result.ok(list);
+    }
+
+    @GetMapping("orgUserList/{orgId}")
+    @Operation(summary = "机构用户列表")
+    public Result<List<SysUserVO>> orgUserList(@PathVariable("orgId") Long orgId) {
+        List<SysUserVO> list = sysUserService.getOrgUserList(orgId);
 
         return Result.ok(list);
     }
