@@ -1,5 +1,7 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.fhs.trans.service.impl.TransService;
@@ -77,7 +79,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         params.put(Constant.DATA_SCOPE, getDataScope("t1", null));
 
         // 机构过滤
-        if (query.getOrgId() != null) {
+        if (ObjectUtil.isNotEmpty(query.getOrgId())) {
             params.put("orgList", query.getOrgId());
         }
 
@@ -202,6 +204,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         }
 
         return baseMapper.selectBatchIds(idList).stream().map(SysUserEntity::getRealName).toList();
+    }
+
+    @Override
+    public List<SysUserVO> getOrgUserList(Long orgId) {
+        LambdaQueryWrapper<SysUserEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUserEntity::getOrgId, orgId);
+
+        List<SysUserEntity> list = baseMapper.selectList(queryWrapper);
+
+        return SysUserConvert.INSTANCE.convertList(list);
     }
 
     @Override

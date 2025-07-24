@@ -40,6 +40,14 @@ public interface SysUserService extends BaseService<SysUserEntity> {
      */
     List<String> getRealNameList(List<Long> idList);
 
+    /**
+     * 根据机构ID，获取用户列表
+     *
+     * @param orgId 根据机构ID
+     * @return 用户列表
+     */
+    List<SysUserVO> getOrgUserList(Long orgId);
+
     SysUserVO getByMobile(String mobile);
 
     /**
