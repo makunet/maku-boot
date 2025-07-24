@@ -1,6 +1,9 @@
 package net.maku.framework.common.config;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
@@ -13,18 +16,47 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
 
 @Configuration
 public class JacksonConfig {
+
+    // 自定义Timestamp序列化器（Timestamp对象 -> JSON字符串）
+    public static class TimestampSerializer extends StdScalarSerializer<Timestamp> {
+        private final SimpleDateFormat sdf;
+
+        public TimestampSerializer() {
+            super(Timestamp.class);
+            this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            this.sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        }
+
+        @Override
+        public void serialize(Timestamp value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+            if (value == null) {
+                gen.writeNull();
+                return;
+            }
+            // 按指定格式序列化
+            gen.writeString(sdf.format(value));
+        }
+    }
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public Jackson2ObjectMapperBuilderCustomizer customJackson() {
         return builder -> {
+
+            // 自定义Timestamp序列化器（Timestamp对象 -> JSON字符串）
+            builder.serializerByType(Timestamp.class, new TimestampSerializer());
+
             builder.serializerByType(LocalDateTime.class,
                     new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             builder.serializerByType(LocalDate.class,
