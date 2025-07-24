@@ -9,6 +9,7 @@ CREATE TABLE sys_user
     email       varchar(100),
     mobile      varchar(20),
     org_id      int8,
+    leader_id   int8,
     super_admin int,
     status      int,
     tenant_id   int8,
@@ -31,6 +32,7 @@ COMMENT ON COLUMN sys_user.gender IS '性别   0：男   1：女   2：未知';
 COMMENT ON COLUMN sys_user.email IS '邮箱';
 COMMENT ON COLUMN sys_user.mobile IS '手机号';
 COMMENT ON COLUMN sys_user.org_id IS '机构ID';
+COMMENT ON COLUMN sys_user.leader_id IS '直属主管ID';
 COMMENT ON COLUMN sys_user.super_admin IS '超级管理员   0：否   1：是';
 COMMENT ON COLUMN sys_user.status IS '状态  0：停用   1：正常';
 COMMENT ON COLUMN sys_user.tenant_id IS '租户ID';
