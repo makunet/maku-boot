@@ -64,6 +64,9 @@ public class SysUserVO implements Serializable, TransPojo {
     @Trans(type = TransType.SIMPLE, target = SysOrgEntity.class, fields = "name", ref = "orgName")
     private Long orgId;
 
+    @Schema(description = "直属主管ID")
+    private Long leaderId;
+
     @Schema(description = "状态 0：停用    1：正常", required = true)
     @Range(min = 0, max = 1, message = "用户状态不正确")
     private Integer status;
