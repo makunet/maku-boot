@@ -1,5 +1,6 @@
 package net.maku.system.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -49,6 +50,11 @@ public class SysUserEntity extends BaseEntity {
      * 机构ID
      */
     private Long orgId;
+    /**
+     * 直属主管ID
+     */
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
+    private Long leaderId;
     /**
      * 超级管理员   0：否   1：是
      */
