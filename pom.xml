@@ -48,7 +48,7 @@
         <minio.version>8.5.17</minio.version>
         <qcloud.cos.version>5.6.97</qcloud.cos.version>
         <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
-        <fastexcel.version>1.1.0</fastexcel.version>
+        <fastexcel.version>1.2.0</fastexcel.version>
         <okio.version>3.3.0</okio.version>
         <easytrans.version>3.0.5</easytrans.version>
         <jsoup.version>1.16.1</jsoup.version>
