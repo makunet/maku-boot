@@ -38,6 +38,14 @@ public class SysOrgController {
         return Result.ok(list);
     }
 
+    @GetMapping("listByPid")
+    @Operation(summary = "列表")
+    public Result<List<SysOrgVO>> listByPid(Long pid) {
+        List<SysOrgVO> list = sysOrgService.listByPid(pid);
+
+        return Result.ok(list);
+    }
+
     @GetMapping("{id}")
     @Operation(summary = "信息")
     @PreAuthorize("hasAuthority('sys:org:info')")
