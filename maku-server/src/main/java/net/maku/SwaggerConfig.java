@@ -95,7 +95,7 @@ public class SwaggerConfig {
                 .title("Maku API")
                 .description("Maku API")
                 .contact(contact)
-                .version("3.x")
+                .version("4.x")
                 .termsOfService("https://maku.net")
         );
     }
