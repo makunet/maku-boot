@@ -17,7 +17,12 @@ knife4j:
   setting:
     custom-code: 500
     enable-footer-custom: false
-    
+
+# 禁用springdoc，主要用于生产环境
+#springdoc:
+#  api-docs:
+#    enabled: false
+
 spring:
   # 环境 dev|test|prod
   profiles:
