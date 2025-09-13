@@ -43,7 +43,7 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <aliyun.oss.version>3.17.4</aliyun.oss.version>
         <aliyun.dysmsapi.version>2.0.23</aliyun.dysmsapi.version>
-        <tencentcloud.sdk.version>3.1.574</tencentcloud.sdk.version>
+        <tencentcloud.sdk.sms.version>3.1.998</tencentcloud.sdk.sms.version>
         <qiniu.version>7.12.1</qiniu.version>
         <minio.version>8.5.17</minio.version>
         <qcloud.cos.version>5.6.97</qcloud.cos.version>
@@ -152,8 +152,8 @@
             </dependency>
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
-                <artifactId>tencentcloud-sdk-java</artifactId>
-                <version>${tencentcloud.sdk.version}</version>
+                <artifactId>tencentcloud-sdk-java-sms</artifactId>
+                <version>${tencentcloud.sdk.sms.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.qiniu</groupId>
