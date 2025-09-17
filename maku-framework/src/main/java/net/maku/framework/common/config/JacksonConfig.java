@@ -17,6 +17,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -73,6 +74,9 @@ public class JacksonConfig {
 
             // 避免Long精度丢失，超过JS最大精度，使用String类型
             builder.serializerByType(Long.class, BigNumberSerializer.INSTANCE);
+            
+            // 避免BigDecimal精度丢失
+            builder.serializerByType(BigDecimal.class, new BigDecimalSerializer());
 
             builder.failOnUnknownProperties(false);
             builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
