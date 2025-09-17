@@ -35,7 +35,6 @@
         <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
         <redisson.version>3.21.3</redisson.version>
         <lock4j.version>2.2.7</lock4j.version>
-        <dameng.version>8.1.2.79</dameng.version>
         <knife4j.version>4.5.0</knife4j.version>
         <springdoc.version>2.8.8</springdoc.version>
         <hutool.version>5.8.28</hutool.version>
@@ -104,11 +103,6 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>lock4j-redisson-spring-boot-starter</artifactId>
                 <version>${lock4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dameng</groupId>
-                <artifactId>DmJdbcDriver18</artifactId>
-                <version>${dameng.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
