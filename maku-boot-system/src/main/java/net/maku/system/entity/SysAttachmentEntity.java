@@ -1,5 +1,6 @@
 package net.maku.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +29,7 @@ public class SysAttachmentEntity extends BaseEntity {
     /**
      * 附件大小
      */
+    @TableField("size_")
     private Long size;
 
     /**
