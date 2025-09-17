@@ -247,7 +247,7 @@ create table sys_attachment
     id           bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
     name         varchar(255) NOT NULL COMMENT '附件名称',
     url          varchar(255) NOT NULL COMMENT '附件地址',
-    size         bigint COMMENT '附件大小',
+    size_        bigint COMMENT '附件大小',
     platform     varchar(50) COMMENT '存储平台',
     tenant_id    bigint COMMENT '租户ID',
     version      int COMMENT '版本号',
