@@ -1,3 +1,6 @@
+## 开源项目评选
+感谢您对 MAKU 开源项目的支持，请投上您宝贵的一票，投票地址；https://gitee.com/activity/2025opensource?ident=IGWD4D
+
 ## 项目说明
 
 - maku-boot 是采用SpringBoot3.5、SpringSecurity6.5、Mybatis-Plus、Vue3、Element-plus等技术开发的低代码开发平台，旨在为开发者提供一个简洁、高效、可扩展的低代码开发平台。
