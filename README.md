@@ -1,5 +1,5 @@
 ## 开源项目评选
-感谢您对 MAKU 开源项目的支持，请投上您宝贵的一票，投票地址；https://gitee.com/activity/2025opensource?ident=IGWD4D
+感谢您对 MAKU 开源项目的支持，请投上您宝贵的一票，投票地址：https://gitee.com/activity/2025opensource?ident=IGWD4D
 
 ## 项目说明
 
