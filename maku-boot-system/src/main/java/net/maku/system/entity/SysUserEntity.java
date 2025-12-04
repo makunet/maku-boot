@@ -35,6 +35,10 @@ public class SysUserEntity extends BaseEntity {
      */
     private String avatar;
     /**
+     * 签名
+     */
+    private String signature;
+    /**
      * 性别   0：男   1：女   2：未知
      */
     private Integer gender;
