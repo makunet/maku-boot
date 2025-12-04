@@ -27,6 +27,7 @@ public class UserDetail implements UserDetails {
     private String password;
     private String realName;
     private String avatar;
+    private String signature;
     private Integer gender;
     private String email;
     private String mobile;
