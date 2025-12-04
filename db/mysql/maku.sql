@@ -5,6 +5,7 @@ CREATE TABLE sys_user
     password    varchar(100) COMMENT '密码',
     real_name   varchar(50) COMMENT '姓名',
     avatar      varchar(200) COMMENT '头像',
+    signature   varchar(200) COMMENT '签名',
     gender      tinyint COMMENT '性别   0：男   1：女   2：未知',
     email       varchar(100) COMMENT '邮箱',
     mobile      varchar(20) COMMENT '手机号',
@@ -79,7 +80,7 @@ CREATE TABLE sys_org
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id),
-    key idx_pid (pid)
+    key idx_sys_org_pid (pid)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='机构管理';
 
 create table sys_role
@@ -98,7 +99,7 @@ create table sys_role
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id),
-    key idx_org_id (org_id)
+    key idx_sys_role_orgid (org_id)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色管理';
 
 create table sys_user_role
@@ -113,8 +114,8 @@ create table sys_user_role
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id),
-    key idx_role_id (role_id),
-    key idx_user_id (user_id)
+    key idx_sys_user_roleid (role_id),
+    key idx_sys_user_userid (user_id)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='用户角色关系';
 
 CREATE TABLE sys_post
@@ -146,8 +147,8 @@ CREATE TABLE sys_user_post
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id),
-    key idx_user_id (user_id),
-    key idx_post_id (post_id)
+    key idx_user_post_id (user_id),
+    key idx_user_post_postid (post_id)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='用户岗位关系';
 
 create table sys_menu
@@ -168,7 +169,7 @@ create table sys_menu
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id),
-    key idx_pid (pid)
+    key idx_menu_pid (pid)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='菜单管理';
 
 create table sys_role_menu
@@ -183,8 +184,8 @@ create table sys_role_menu
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id),
-    key idx_role_id (role_id),
-    key idx_menu_id (menu_id)
+    key idx_roleid (role_id),
+    key idx_role_menuid (menu_id)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色菜单关系';
 
 create table sys_role_data_scope
@@ -199,7 +200,7 @@ create table sys_role_data_scope
     updater     bigint COMMENT '更新者',
     update_time datetime COMMENT '更新时间',
     primary key (id),
-    key idx_role_id (role_id)
+    key idx_data_scope_roleid (role_id)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4 COMMENT ='角色数据权限';
 
 create table sys_dict_type
