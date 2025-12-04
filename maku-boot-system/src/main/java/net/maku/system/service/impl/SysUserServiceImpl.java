@@ -27,10 +27,7 @@ import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
 import net.maku.system.service.SysUserTokenService;
-import net.maku.system.vo.SysUserAvatarVO;
-import net.maku.system.vo.SysUserBaseVO;
-import net.maku.system.vo.SysUserExcelVO;
-import net.maku.system.vo.SysUserVO;
+import net.maku.system.vo.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,7 +73,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         params.put("gender", query.getGender());
 
         // 数据权限
-        params.put(Constant.DATA_SCOPE, getDataScope("t1", null));
+        // params.put(Constant.DATA_SCOPE, getDataScope("t1", null));
 
         // 机构过滤
         if (ObjectUtil.isNotEmpty(query.getOrgId())) {
@@ -181,6 +178,21 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         String accessToken = TokenUtils.getAccessToken();
         UserDetail cacheUser = tokenStoreCache.getUser(accessToken);
         cacheUser.setAvatar(avatar.getAvatar());
+        // 更新操作
+        tokenStoreCache.updateUser(accessToken, cacheUser);
+    }
+
+    @Override
+    public void updateSignature(SysUserSignatureVO signature) {
+        SysUserEntity entity = new SysUserEntity();
+        entity.setId(SecurityUser.getUserId());
+        entity.setSignature(signature.getSignature());
+        updateById(entity);
+
+        // 更新缓存逻辑
+        String accessToken = TokenUtils.getAccessToken();
+        UserDetail cacheUser = tokenStoreCache.getUser(accessToken);
+        cacheUser.setSignature(signature.getSignature());
         // 更新操作
         tokenStoreCache.updateUser(accessToken, cacheUser);
     }

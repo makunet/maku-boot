@@ -7,6 +7,7 @@ import net.maku.system.query.SysRoleUserQuery;
 import net.maku.system.query.SysUserQuery;
 import net.maku.system.vo.SysUserAvatarVO;
 import net.maku.system.vo.SysUserBaseVO;
+import net.maku.system.vo.SysUserSignatureVO;
 import net.maku.system.vo.SysUserVO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,8 @@ public interface SysUserService extends BaseService<SysUserEntity> {
     void updateLoginInfo(SysUserBaseVO vo);
 
     void updateAvatar(SysUserAvatarVO avatar);
+
+    void updateSignature(SysUserSignatureVO signature);
 
     void delete(List<Long> idList);
 

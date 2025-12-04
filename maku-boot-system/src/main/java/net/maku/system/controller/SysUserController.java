@@ -18,10 +18,7 @@ import net.maku.system.service.SysPostService;
 import net.maku.system.service.SysUserPostService;
 import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
-import net.maku.system.vo.SysUserAvatarVO;
-import net.maku.system.vo.SysUserBaseVO;
-import net.maku.system.vo.SysUserPasswordVO;
-import net.maku.system.vo.SysUserVO;
+import net.maku.system.vo.*;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -105,6 +102,15 @@ public class SysUserController {
     @OperateLog(type = OperateTypeEnum.UPDATE)
     public Result<String> avatar(@RequestBody SysUserAvatarVO avatar) {
         sysUserService.updateAvatar(avatar);
+
+        return Result.ok();
+    }
+
+    @PutMapping("signature")
+    @Operation(summary = "修改登录用户签名")
+    @OperateLog(type = OperateTypeEnum.UPDATE)
+    public Result<String> signature(@RequestBody SysUserSignatureVO signature) {
+        sysUserService.updateSignature(signature);
 
         return Result.ok();
     }
