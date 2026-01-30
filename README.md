@@ -14,7 +14,6 @@
 - 开发文档：https://maku.net/docs/maku-boot
 - 演示环境：https://demo.maku.net
 - 企业版：https://maku.net/price
-- 收费插件：https://maku.net/docs/maku-boot/776637
 
 ## 微信交流群
 
