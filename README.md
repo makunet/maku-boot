@@ -30,6 +30,22 @@
 
 <table>
     <tr>
+        <td><img src="images/a1.jpg"/></td>
+        <td><img src="images/a2.jpg"/></td>
+    </tr>
+    <tr>
+        <td><img src="images/a3.jpg"/></td>
+        <td><img src="images/a4.jpg"/></td>
+    </tr>
+    <tr>
+        <td><img src="images/a5.jpg"/></td>
+        <td><img src="images/a6.jpg"/></td>
+    </tr>
+    <tr>
+        <td><img src="images/a7.jpg"/></td>
+        <td><img src="images/a8.jpg"/></td>
+    </tr>
+    <tr>
         <td><img src="images/1.png"/></td>
         <td><img src="images/2.png"/></td>
     </tr>
