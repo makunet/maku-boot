@@ -15,6 +15,17 @@
 - 演示环境：https://demo.maku.net
 - 企业版：https://maku.net/price
 
+## 移动端
+
+我们提供了移动端版本，采用 Vue、Pinia、uni-app、uni-ui 框架开发,支持H5、微信小程序、Android、鸿蒙等。
+
+- Android端，下载地址：https://app.maku.net/maku.apk
+- H5版本，访问地址：https://app.maku.net
+- 微信小程序，体验二维码：
+
+![输入图片说明](images/wechat.jpg)
+
+
 ## 微信交流群
 
 为了更好的交流，我们新提供了微信交流群，需扫描下面的二维码，关注公众号，回复【加群】，根据提示信息，作者会拉你进群的，感谢配合！
