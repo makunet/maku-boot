@@ -17,7 +17,7 @@
 
 ## 移动端
 
-我们提供了移动端版本，采用 Vue、Pinia、uni-app、uni-ui 框架开发,支持H5、微信小程序、Android、鸿蒙等。
+我们提供了移动端版本，采用 Vue、Pinia、uni-app、uni-ui 框架开发，支持H5、微信小程序、Android、鸿蒙等。
 
 - Android端，下载地址：https://app.maku.net/maku.apk
 - H5版本，访问地址：https://app.maku.net
