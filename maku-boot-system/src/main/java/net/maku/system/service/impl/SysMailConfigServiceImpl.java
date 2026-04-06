@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -9,7 +10,6 @@ import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.system.cache.EmailConfigCache;
-import net.maku.system.convert.SysMailConfigConvert;
 import net.maku.system.dao.SysMailConfigDao;
 import net.maku.system.entity.SysMailConfigEntity;
 import net.maku.system.query.SysMailConfigQuery;
@@ -34,7 +34,7 @@ public class SysMailConfigServiceImpl extends BaseServiceImpl<SysMailConfigDao, 
     public PageResult<SysMailConfigVO> page(SysMailConfigQuery query) {
         IPage<SysMailConfigEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysMailConfigConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysMailConfigVO.class), page.getTotal());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SysMailConfigServiceImpl extends BaseServiceImpl<SysMailConfigDao, 
         wrapper.eq(platform != null, SysMailConfigEntity::getPlatform, platform);
 
         List<SysMailConfigEntity> list = baseMapper.selectList(wrapper);
-        return SysMailConfigConvert.INSTANCE.convertList(list);
+        return BeanUtil.copyToList(list, SysMailConfigVO.class);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class SysMailConfigServiceImpl extends BaseServiceImpl<SysMailConfigDao, 
         if (cacheList == null) {
             List<SysMailConfigEntity> list = this.list(new LambdaQueryWrapper<SysMailConfigEntity>().in(SysMailConfigEntity::getStatus, Constant.ENABLE));
 
-            cacheList = SysMailConfigConvert.INSTANCE.convertList2(list);
+            cacheList = BeanUtil.copyToList(list, EmailConfig.class);
             emailConfigCache.save(cacheList);
         }
 
@@ -70,14 +70,14 @@ public class SysMailConfigServiceImpl extends BaseServiceImpl<SysMailConfigDao, 
 
     @Override
     public void save(SysMailConfigVO vo) {
-        SysMailConfigEntity entity = SysMailConfigConvert.INSTANCE.convert(vo);
+        SysMailConfigEntity entity = BeanUtil.copyProperties(vo, SysMailConfigEntity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(SysMailConfigVO vo) {
-        SysMailConfigEntity entity = SysMailConfigConvert.INSTANCE.convert(vo);
+        SysMailConfigEntity entity = BeanUtil.copyProperties(vo, SysMailConfigEntity.class);
 
         updateById(entity);
     }

@@ -19,14 +19,14 @@ import java.io.Serializable;
 public class SysUserBaseVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "姓名", required = true)
+    @Schema(description = "姓名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "姓名不能为空")
     private String realName;
 
     @Schema(description = "头像")
     private String avatar;
 
-    @Schema(description = "性别 0：男   1：女   2：未知", required = true)
+    @Schema(description = "性别 0：男   1：女   2：未知", requiredMode = Schema.RequiredMode.REQUIRED)
     @Range(min = 0, max = 2, message = "性别不正确")
     private Integer gender;
 
@@ -34,7 +34,7 @@ public class SysUserBaseVO implements Serializable {
     @Email(message = "邮箱格式不正确")
     private String email;
 
-    @Schema(description = "手机号", required = true)
+    @Schema(description = "手机号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "手机号不能为空")
     private String mobile;
 

@@ -3,11 +3,11 @@ package net.maku.system.vo;
 import cn.idev.excel.annotation.ExcelIgnore;
 import cn.idev.excel.annotation.ExcelProperty;
 import cn.idev.excel.annotation.write.style.ColumnWidth;
-import com.fhs.core.trans.anno.Trans;
-import com.fhs.core.trans.constant.TransType;
-import com.fhs.core.trans.vo.TransPojo;
 import lombok.Data;
 import net.maku.framework.common.excel.LocalDateTimeConverter;
+import net.maku.framework.common.trans.Trans;
+import net.maku.framework.common.trans.TransType;
+import net.maku.framework.common.trans.TransPojo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

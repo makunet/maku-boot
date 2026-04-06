@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -7,7 +8,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysPostConvert;
 import net.maku.system.dao.SysPostDao;
 import net.maku.system.entity.SysPostEntity;
 import net.maku.system.query.SysPostQuery;
@@ -34,7 +34,7 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostDao, SysPostEntit
     public PageResult<SysPostVO> page(SysPostQuery query) {
         IPage<SysPostEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysPostConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysPostVO.class), page.getTotal());
     }
 
     @Override
@@ -44,7 +44,7 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostDao, SysPostEntit
         query.setStatus(1);
         List<SysPostEntity> entityList = baseMapper.selectList(getWrapper(query));
 
-        return SysPostConvert.INSTANCE.convertList(entityList);
+        return BeanUtil.copyToList(entityList, SysPostVO.class);
     }
 
     @Override
@@ -68,14 +68,14 @@ public class SysPostServiceImpl extends BaseServiceImpl<SysPostDao, SysPostEntit
 
     @Override
     public void save(SysPostVO vo) {
-        SysPostEntity entity = SysPostConvert.INSTANCE.convert(vo);
+        SysPostEntity entity = BeanUtil.copyProperties(vo, SysPostEntity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(SysPostVO vo) {
-        SysPostEntity entity = SysPostConvert.INSTANCE.convert(vo);
+        SysPostEntity entity = BeanUtil.copyProperties(vo, SysPostEntity.class);
 
         updateById(entity);
     }

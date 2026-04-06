@@ -1,5 +1,6 @@
 package net.maku.iot.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
@@ -12,17 +13,16 @@ import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.iot.convert.IotDeviceConvert;
-import net.maku.iot.dao.IotDeviceDao;
-import net.maku.iot.entity.IotDeviceEntity;
-import net.maku.iot.enums.*;
 import net.maku.iot.communication.dto.DeviceCommandResponseDTO;
 import net.maku.iot.communication.dto.DevicePropertyDTO;
 import net.maku.iot.communication.mqtt.handler.DeviceCommandResponseHandler;
 import net.maku.iot.communication.mqtt.handler.DevicePropertyChangeHandler;
-import net.maku.iot.query.IotDeviceQuery;
 import net.maku.iot.communication.service.BaseCommunication;
 import net.maku.iot.communication.service.CommunicationServiceFactory;
+import net.maku.iot.dao.IotDeviceDao;
+import net.maku.iot.entity.IotDeviceEntity;
+import net.maku.iot.enums.*;
+import net.maku.iot.query.IotDeviceQuery;
 import net.maku.iot.service.IotDeviceEventLogService;
 import net.maku.iot.service.IotDeviceService;
 import net.maku.iot.vo.DeviceCommandResponseAttributeDataVO;
@@ -53,7 +53,7 @@ public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDevic
     public PageResult<IotDeviceVO> page(IotDeviceQuery query) {
         IPage<IotDeviceEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(IotDeviceConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), IotDeviceVO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<IotDeviceEntity> getWrapper(IotDeviceQuery query) {
@@ -66,14 +66,14 @@ public class IotDeviceServiceImpl extends BaseServiceImpl<IotDeviceDao, IotDevic
 
     @Override
     public void save(IotDeviceVO vo) {
-        IotDeviceEntity entity = IotDeviceConvert.INSTANCE.convert(vo);
+        IotDeviceEntity entity = BeanUtil.copyProperties(vo, IotDeviceEntity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(IotDeviceVO vo) {
-        IotDeviceEntity entity = IotDeviceConvert.INSTANCE.convert(vo);
+        IotDeviceEntity entity = BeanUtil.copyProperties(vo, IotDeviceEntity.class);
 
         updateById(entity);
     }

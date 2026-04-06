@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Data
 public class UserDetail implements UserDetails {
     private static final long serialVersionUID = 1L;
-
     private Long id;
     private String username;
     private String password;

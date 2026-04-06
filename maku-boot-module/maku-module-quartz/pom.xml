@@ -15,8 +15,8 @@
 			<version>${revision}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
 		</dependency>
 	</dependencies>
 

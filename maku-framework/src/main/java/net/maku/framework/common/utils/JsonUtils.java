@@ -2,10 +2,11 @@ package net.maku.framework.common.utils;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,21 +15,24 @@ import java.util.List;
  * JSON 工具类
  *
  * @author 阿沐 babamu@126.com
- * <a href="https://maku.net">MAKU</a>
+ *         <a href="https://maku.net">MAKU</a>
  */
 public class JsonUtils {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
-    static {
-        objectMapper.registerModule(new JavaTimeModule());
-//        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-//        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
+    private static final ObjectMapper objectMapper = JsonMapper.builder()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .build();
 
     public static String toJsonString(Object object) {
         try {
             return objectMapper.writeValueAsString(object);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static JsonNode readTree(String text) {
+        try {
+            return objectMapper.readTree(text);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -69,7 +73,8 @@ public class JsonUtils {
             return new ArrayList<>();
         }
         try {
-            return objectMapper.readValue(text, objectMapper.getTypeFactory().constructCollectionType(List.class, clazz));
+            return objectMapper.readValue(text,
+                    objectMapper.getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

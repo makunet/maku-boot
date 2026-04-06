@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -8,7 +9,6 @@ import net.maku.framework.common.constant.Constant;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.TreeUtils;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysOrgConvert;
 import net.maku.system.dao.SysOrgDao;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysOrgEntity;
@@ -44,7 +44,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
         // 机构列表
         List<SysOrgEntity> entityList = baseMapper.getList(params);
 
-        return TreeUtils.build(SysOrgConvert.INSTANCE.convertList(entityList));
+        return TreeUtils.build(BeanUtil.copyToList(entityList, SysOrgVO.class));
     }
 
     @Override
@@ -57,13 +57,13 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
         }
 
         List<SysOrgEntity> list = baseMapper.selectList(queryWrapper);
-        return SysOrgConvert.INSTANCE.convertList(list);
+        return BeanUtil.copyToList(list, SysOrgVO.class);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysOrgVO vo) {
-        SysOrgEntity entity = SysOrgConvert.INSTANCE.convert(vo);
+        SysOrgEntity entity = BeanUtil.copyProperties(vo, SysOrgEntity.class);
 
         baseMapper.insert(entity);
     }
@@ -71,7 +71,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrgDao, SysOrgEntity> 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(SysOrgVO vo) {
-        SysOrgEntity entity = SysOrgConvert.INSTANCE.convert(vo);
+        SysOrgEntity entity = BeanUtil.copyProperties(vo, SysOrgEntity.class);
 
         // 上级机构不能为自身
         if (entity.getId().equals(entity.getPid())) {

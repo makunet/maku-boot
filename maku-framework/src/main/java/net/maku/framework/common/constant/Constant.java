@@ -49,4 +49,17 @@ public interface Constant {
      */
     String PGSQL_DRIVER = "org.postgresql.Driver";
 
+    // 字段名 主键
+    String COLUMN_ID = "id";
+    // 字段名 创建者
+    String COLUMN_CREATOR = "creator";
+    // 字段名 创建时间
+    String COLUMN_CREATE_TIME = "create_time";
+    // 字段名 更新者
+    String COLUMN_UPDATER = "updater";
+    // 字段名 更新时间
+    String COLUMN_UPDATE_TIME = "update_time";
+    // 字段名 租户ID
+    String COLUMN_TENANT_ID = "tenant_id";
+
 }

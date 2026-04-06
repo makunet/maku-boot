@@ -2,7 +2,6 @@ package net.maku.framework.security.third;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.util.Assert;
 
 import java.util.Collection;
@@ -14,12 +13,11 @@ import java.util.Collection;
  * <a href="https://maku.net">MAKU</a>
  */
 public class ThirdAuthenticationToken extends AbstractAuthenticationToken {
-    private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
     private final Object principal;
     private Object credentials;
 
     public ThirdAuthenticationToken(Object principal) {
-        super(null);
+        super((Collection<? extends GrantedAuthority>) null);
         this.principal = principal;
         setAuthenticated(false);
     }

@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -8,7 +9,6 @@ import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
-import net.maku.system.convert.SysParamsConvert;
 import net.maku.system.entity.SysParamsEntity;
 import net.maku.system.query.SysParamsQuery;
 import net.maku.system.service.SysParamsService;
@@ -47,7 +47,7 @@ public class SysParamsController {
     public Result<SysParamsVO> get(@PathVariable("id") Long id) {
         SysParamsEntity entity = sysParamsService.getById(id);
 
-        return Result.ok(SysParamsConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysParamsVO.class));
     }
 
     @PostMapping

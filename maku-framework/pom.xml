@@ -55,7 +55,7 @@
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -63,7 +63,7 @@
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+            <artifactId>dynamic-datasource-spring-boot4-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -76,14 +76,6 @@
         <dependency>
             <artifactId>okio</artifactId>
             <groupId>com.squareup.okio</groupId>
-        </dependency>
-        <dependency>
-            <groupId>com.fhs-opensource</groupId>
-            <artifactId>easy-trans-mybatis-plus-extend</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fhs-opensource</groupId>
-            <artifactId>easy-trans-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>

@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -7,7 +8,6 @@ import lombok.AllArgsConstructor;
 import net.maku.framework.common.query.Query;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
-import net.maku.system.convert.SysThirdLoginConfigConvert;
 import net.maku.system.entity.SysThirdLoginConfigEntity;
 import net.maku.system.service.SysThirdLoginConfigService;
 import net.maku.system.vo.SysThirdLoginConfigVO;
@@ -45,7 +45,7 @@ public class SysThirdLoginConfigController {
     public Result<SysThirdLoginConfigVO> get(@PathVariable("id") Long id) {
         SysThirdLoginConfigEntity entity = sysThirdLoginConfigService.getById(id);
 
-        return Result.ok(SysThirdLoginConfigConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysThirdLoginConfigVO.class));
     }
 
     @PostMapping

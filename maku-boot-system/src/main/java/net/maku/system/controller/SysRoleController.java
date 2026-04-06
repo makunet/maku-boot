@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -10,7 +11,6 @@ import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
-import net.maku.system.convert.SysRoleConvert;
 import net.maku.system.entity.SysRoleEntity;
 import net.maku.system.query.SysRoleQuery;
 import net.maku.system.query.SysRoleUserQuery;
@@ -68,7 +68,7 @@ public class SysRoleController {
         SysRoleEntity entity = sysRoleService.getById(id);
 
         // 转换对象
-        SysRoleVO role = SysRoleConvert.INSTANCE.convert(entity);
+        SysRoleVO role = BeanUtil.copyProperties(entity, SysRoleVO.class);
 
         // 查询角色对应的菜单
         List<Long> menuIdList = sysRoleMenuService.getMenuIdList(id);

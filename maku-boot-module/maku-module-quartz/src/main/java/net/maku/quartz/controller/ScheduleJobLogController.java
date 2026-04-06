@@ -1,12 +1,12 @@
 package net.maku.quartz.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
-import net.maku.quartz.convert.ScheduleJobLogConvert;
 import net.maku.quartz.entity.ScheduleJobLogEntity;
 import net.maku.quartz.query.ScheduleJobLogQuery;
 import net.maku.quartz.service.ScheduleJobLogService;
@@ -46,7 +46,7 @@ public class ScheduleJobLogController {
     public Result<ScheduleJobLogVO> get(@PathVariable("id") Long id) {
         ScheduleJobLogEntity entity = scheduleJobLogService.getById(id);
 
-        return Result.ok(ScheduleJobLogConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, ScheduleJobLogVO.class));
     }
 
 }

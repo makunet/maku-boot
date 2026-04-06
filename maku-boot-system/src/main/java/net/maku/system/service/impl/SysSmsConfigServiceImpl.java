@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -10,7 +11,6 @@ import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.sms.config.SmsConfig;
 import net.maku.system.cache.SmsConfigCache;
-import net.maku.system.convert.SysSmsConfigConvert;
 import net.maku.system.dao.SysSmsConfigDao;
 import net.maku.system.entity.SysSmsConfigEntity;
 import net.maku.system.query.SysSmsConfigQuery;
@@ -36,7 +36,7 @@ public class SysSmsConfigServiceImpl extends BaseServiceImpl<SysSmsConfigDao, Sy
     public PageResult<SysSmsConfigVO> page(SysSmsConfigQuery query) {
         IPage<SysSmsConfigEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysSmsConfigConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysSmsConfigVO.class), page.getTotal());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SysSmsConfigServiceImpl extends BaseServiceImpl<SysSmsConfigDao, Sy
         wrapper.eq(platform != null, SysSmsConfigEntity::getPlatform, platform);
 
         List<SysSmsConfigEntity> list = baseMapper.selectList(wrapper);
-        return SysSmsConfigConvert.INSTANCE.convertList(list);
+        return BeanUtil.copyToList(list, SysSmsConfigVO.class);
     }
 
     private LambdaQueryWrapper<SysSmsConfigEntity> getWrapper(SysSmsConfigQuery query) {
@@ -64,7 +64,7 @@ public class SysSmsConfigServiceImpl extends BaseServiceImpl<SysSmsConfigDao, Sy
         if (cacheList == null) {
             List<SysSmsConfigEntity> list = this.list(new LambdaQueryWrapper<SysSmsConfigEntity>().in(SysSmsConfigEntity::getStatus, Constant.ENABLE));
 
-            cacheList = SysSmsConfigConvert.INSTANCE.convertList2(list);
+            cacheList = BeanUtil.copyToList(list, SmsConfig.class);
             smsConfigCache.save(cacheList);
         }
 
@@ -73,7 +73,7 @@ public class SysSmsConfigServiceImpl extends BaseServiceImpl<SysSmsConfigDao, Sy
 
     @Override
     public void save(SysSmsConfigVO vo) {
-        SysSmsConfigEntity entity = SysSmsConfigConvert.INSTANCE.convert(vo);
+        SysSmsConfigEntity entity = BeanUtil.copyProperties(vo, SysSmsConfigEntity.class);
 
         baseMapper.insert(entity);
 
@@ -82,7 +82,7 @@ public class SysSmsConfigServiceImpl extends BaseServiceImpl<SysSmsConfigDao, Sy
 
     @Override
     public void update(SysSmsConfigVO vo) {
-        SysSmsConfigEntity entity = SysSmsConfigConvert.INSTANCE.convert(vo);
+        SysSmsConfigEntity entity = BeanUtil.copyProperties(vo, SysSmsConfigEntity.class);
 
         updateById(entity);
 

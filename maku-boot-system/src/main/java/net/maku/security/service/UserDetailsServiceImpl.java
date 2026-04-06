@@ -1,7 +1,8 @@
 package net.maku.security.service;
 
+import cn.hutool.core.bean.BeanUtil;
 import lombok.AllArgsConstructor;
-import net.maku.system.convert.SysUserConvert;
+import net.maku.framework.security.user.UserDetail;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.service.SysUserDetailsService;
@@ -29,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
 
-        return sysUserDetailsService.getUserDetails(SysUserConvert.INSTANCE.convertDetail(userEntity));
+        return sysUserDetailsService.getUserDetails(BeanUtil.copyProperties(userEntity, UserDetail.class));
     }
 
 }

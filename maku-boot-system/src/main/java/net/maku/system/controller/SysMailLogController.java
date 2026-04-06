@@ -1,12 +1,12 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
-import net.maku.system.convert.SysMailLogConvert;
 import net.maku.system.entity.SysMailLogEntity;
 import net.maku.system.query.SysMailLogQuery;
 import net.maku.system.service.SysMailLogService;
@@ -44,7 +44,7 @@ public class SysMailLogController {
     public Result<SysMailLogVO> get(@PathVariable("id") Long id) {
         SysMailLogEntity entity = sysMailLogService.getById(id);
 
-        return Result.ok(SysMailLogConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysMailLogVO.class));
     }
 
     @DeleteMapping

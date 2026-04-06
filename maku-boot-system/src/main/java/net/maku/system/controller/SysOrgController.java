@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -7,7 +8,6 @@ import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
-import net.maku.system.convert.SysOrgConvert;
 import net.maku.system.entity.SysOrgEntity;
 import net.maku.system.service.SysOrgService;
 import net.maku.system.vo.SysOrgVO;
@@ -31,7 +31,6 @@ public class SysOrgController {
 
     @GetMapping("list")
     @Operation(summary = "列表")
-    @PreAuthorize("hasAuthority('sys:org:list')")
     public Result<List<SysOrgVO>> list() {
         List<SysOrgVO> list = sysOrgService.getList();
 
@@ -51,7 +50,7 @@ public class SysOrgController {
     @PreAuthorize("hasAuthority('sys:org:info')")
     public Result<SysOrgVO> get(@PathVariable("id") Long id) {
         SysOrgEntity entity = sysOrgService.getById(id);
-        SysOrgVO vo = SysOrgConvert.INSTANCE.convert(entity);
+        SysOrgVO vo = BeanUtil.copyProperties(entity, SysOrgVO.class);
 
         // 获取上级机构名称
         if (entity.getPid() != null) {

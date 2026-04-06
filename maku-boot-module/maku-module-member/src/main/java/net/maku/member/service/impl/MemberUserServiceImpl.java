@@ -1,12 +1,12 @@
 package net.maku.member.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.member.convert.MemberUserConvert;
 import net.maku.member.entity.MemberUserEntity;
 import net.maku.member.query.MemberUserQuery;
 import net.maku.member.vo.MemberUserVO;
@@ -31,7 +31,7 @@ public class MemberUserServiceImpl extends BaseServiceImpl<MemberUserDao, Member
     public PageResult<MemberUserVO> page(MemberUserQuery query) {
         IPage<MemberUserEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(MemberUserConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), MemberUserVO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<MemberUserEntity> getWrapper(MemberUserQuery query){
@@ -42,14 +42,14 @@ public class MemberUserServiceImpl extends BaseServiceImpl<MemberUserDao, Member
 
     @Override
     public void save(MemberUserVO vo) {
-        MemberUserEntity entity = MemberUserConvert.INSTANCE.convert(vo);
+        MemberUserEntity entity = BeanUtil.copyProperties(vo, MemberUserEntity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(MemberUserVO vo) {
-        MemberUserEntity entity = MemberUserConvert.INSTANCE.convert(vo);
+        MemberUserEntity entity = BeanUtil.copyProperties(vo, MemberUserEntity.class);
 
         updateById(entity);
     }

@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -12,7 +13,6 @@ import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.sms.SmsContext;
 import net.maku.sms.config.SmsConfig;
 import net.maku.sms.service.SmsService;
-import net.maku.system.convert.SysSmsConfigConvert;
 import net.maku.system.entity.SysSmsConfigEntity;
 import net.maku.system.query.SysSmsConfigQuery;
 import net.maku.system.service.SysSmsConfigService;
@@ -64,7 +64,7 @@ public class SysSmsConfigController {
     public Result<SysSmsConfigVO> get(@PathVariable("id") Long id) {
         SysSmsConfigEntity entity = sysSmsConfigService.getById(id);
 
-        return Result.ok(SysSmsConfigConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysSmsConfigVO.class));
     }
 
     @PostMapping
@@ -83,7 +83,7 @@ public class SysSmsConfigController {
     @PreAuthorize("hasAuthority('sys:sms:config')")
     public Result<String> send(@RequestBody SysSmsSendVO vo) {
         SysSmsConfigEntity entity = sysSmsConfigService.getById(vo.getId());
-        SmsConfig config = SysSmsConfigConvert.INSTANCE.convert2(entity);
+        SmsConfig config = BeanUtil.copyProperties(entity, SmsConfig.class);
 
         // 短信参数
         Map<String, String> params = new LinkedHashMap<>();

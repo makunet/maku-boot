@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -8,7 +9,6 @@ import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
-import net.maku.system.convert.SysDictDataConvert;
 import net.maku.system.entity.SysDictDataEntity;
 import net.maku.system.query.SysDictDataQuery;
 import net.maku.system.service.SysDictDataService;
@@ -47,7 +47,7 @@ public class SysDictDataController {
     public Result<SysDictDataVO> get(@PathVariable("id") Long id) {
         SysDictDataEntity entity = sysDictDataService.getById(id);
 
-        return Result.ok(SysDictDataConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysDictDataVO.class));
     }
 
     @PostMapping

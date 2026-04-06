@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -11,8 +12,6 @@ import net.maku.framework.security.cache.TokenStoreCache;
 import net.maku.framework.security.properties.SecurityProperties;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.framework.security.utils.TokenUtils;
-import net.maku.system.convert.SysUserConvert;
-import net.maku.system.convert.SysUserTokenConvert;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.dao.SysUserTokenDao;
 import net.maku.system.entity.SysUserEntity;
@@ -65,7 +64,7 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
             baseMapper.updateById(entity);
         }
 
-        return SysUserTokenConvert.INSTANCE.convert(entity);
+        return BeanUtil.copyProperties(entity, SysUserTokenVO.class);
     }
 
     @Override
@@ -93,13 +92,13 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
 
         // 设置用户权限信息
         SysUserEntity user = sysUserDao.selectById(entity.getUserId());
-        UserDetail userDetail = SysUserConvert.INSTANCE.convertDetail(user);
+        UserDetail userDetail = BeanUtil.copyProperties(user, UserDetail.class);
         sysUserDetailsService.getUserDetails(userDetail);
 
         // 保存用户信息到缓存
         tokenStoreCache.saveUser(accessToken, userDetail);
 
-        return SysUserTokenConvert.INSTANCE.convert(entity);
+        return BeanUtil.copyProperties(entity, SysUserTokenVO.class);
     }
 
     @Override

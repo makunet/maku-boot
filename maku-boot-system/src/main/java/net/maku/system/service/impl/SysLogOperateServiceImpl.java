@@ -14,7 +14,6 @@ import net.maku.framework.common.utils.ExceptionUtils;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.operatelog.dto.OperateLogDTO;
-import net.maku.system.convert.SysLogOperateConvert;
 import net.maku.system.dao.SysLogOperateDao;
 import net.maku.system.entity.SysLogOperateEntity;
 import net.maku.system.query.SysLogOperateQuery;
@@ -40,7 +39,7 @@ public class SysLogOperateServiceImpl extends BaseServiceImpl<SysLogOperateDao, 
     public PageResult<SysLogOperateVO> page(SysLogOperateQuery query) {
         IPage<SysLogOperateEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysLogOperateConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysLogOperateVO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<SysLogOperateEntity> getWrapper(SysLogOperateQuery query) {

@@ -35,10 +35,6 @@
       "generatorPath": "${backendPath}/src/main/java/${packagePath}/${moduleName}/vo/${ClassName}VO.java"
     },
     {
-      "templateName": "java/Convert.java.ftl",
-      "generatorPath": "${backendPath}/src/main/java/${packagePath}/${moduleName}/convert/${ClassName}Convert.java"
-    },
-    {
       "templateName": "java/Dao.java.ftl",
       "generatorPath": "${backendPath}/src/main/java/${packagePath}/${moduleName}/dao/${ClassName}Dao.java"
     },

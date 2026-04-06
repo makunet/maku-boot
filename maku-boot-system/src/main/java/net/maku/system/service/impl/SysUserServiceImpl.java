@@ -1,10 +1,10 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.fhs.trans.service.impl.TransService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import net.maku.framework.common.constant.Constant;
@@ -17,7 +17,6 @@ import net.maku.framework.security.cache.TokenStoreCache;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.framework.security.utils.TokenUtils;
-import net.maku.system.convert.SysUserConvert;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.enums.SuperAdminEnum;
@@ -28,6 +27,7 @@ import net.maku.system.service.SysUserRoleService;
 import net.maku.system.service.SysUserService;
 import net.maku.system.service.SysUserTokenService;
 import net.maku.system.vo.*;
+import net.maku.framework.common.trans.TransService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,7 +63,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         // 数据列表
         List<SysUserEntity> list = baseMapper.getList(params);
 
-        return new PageResult<>(SysUserConvert.INSTANCE.convertList(list), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(list, SysUserVO.class), page.getTotal());
     }
 
     private Map<String, Object> getParams(SysUserQuery query) {
@@ -87,7 +87,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysUserVO vo) {
-        SysUserEntity entity = SysUserConvert.INSTANCE.convert(vo);
+        SysUserEntity entity = BeanUtil.copyProperties(vo, SysUserEntity.class);
         entity.setSuperAdmin(SuperAdminEnum.NO.getValue());
 
         // 判断用户名是否存在
@@ -114,7 +114,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
     @Override
     public void update(SysUserVO vo) {
-        SysUserEntity entity = SysUserConvert.INSTANCE.convert(vo);
+        SysUserEntity entity = BeanUtil.copyProperties(vo, SysUserEntity.class);
 
         // 判断用户名是否存在
         SysUserEntity user = baseMapper.getByUsername(entity.getUsername());
@@ -143,7 +143,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
     @Override
     public void updateLoginInfo(SysUserBaseVO vo) {
-        SysUserEntity entity = SysUserConvert.INSTANCE.convert(vo);
+        SysUserEntity entity = BeanUtil.copyProperties(vo, SysUserEntity.class);
         // 设置登录用户ID
         entity.setId(SecurityUser.getUserId());
 
@@ -225,14 +225,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
         List<SysUserEntity> list = baseMapper.selectList(queryWrapper);
 
-        return SysUserConvert.INSTANCE.convertList(list);
+        return BeanUtil.copyToList(list, SysUserVO.class);
     }
 
     @Override
     public SysUserVO getByMobile(String mobile) {
         SysUserEntity user = baseMapper.getByMobile(mobile);
 
-        return SysUserConvert.INSTANCE.convert(user);
+        return BeanUtil.copyProperties(user, SysUserVO.class);
     }
 
     @Override
@@ -257,7 +257,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         // 数据列表
         List<SysUserEntity> list = baseMapper.getRoleUserList(params);
 
-        return new PageResult<>(SysUserConvert.INSTANCE.convertList(list), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(list, SysUserVO.class), page.getTotal());
     }
 
     @Override
@@ -267,7 +267,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
             @Override
             public void doSaveBatch(List<SysUserExcelVO> result) {
                 ExcelUtils.parseDict(result);
-                List<SysUserEntity> userList = SysUserConvert.INSTANCE.convertListEntity(result);
+                List<SysUserEntity> userList = BeanUtil.copyToList(result, SysUserEntity.class);
                 userList.forEach(user -> user.setPassword(password));
                 saveBatch(userList);
             }
@@ -278,7 +278,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @SneakyThrows
     public void export() {
         List<SysUserEntity> list = list(Wrappers.lambdaQuery(SysUserEntity.class).eq(SysUserEntity::getSuperAdmin, SuperAdminEnum.NO.getValue()));
-        List<SysUserExcelVO> userExcelVOS = SysUserConvert.INSTANCE.convert2List(list);
+        List<SysUserExcelVO> userExcelVOS = BeanUtil.copyToList(list, SysUserExcelVO.class);
         transService.transBatch(userExcelVOS);
         // 写到浏览器打开
         ExcelUtils.excelExport(SysUserExcelVO.class, "用户管理", null, userExcelVOS);

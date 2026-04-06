@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -10,7 +11,6 @@ import net.maku.framework.common.utils.JsonUtils;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.system.cache.SysParamsCache;
-import net.maku.system.convert.SysParamsConvert;
 import net.maku.system.dao.SysParamsDao;
 import net.maku.system.entity.SysParamsEntity;
 import net.maku.system.query.SysParamsQuery;
@@ -36,7 +36,7 @@ public class SysParamsServiceImpl extends BaseServiceImpl<SysParamsDao, SysParam
     public PageResult<SysParamsVO> page(SysParamsQuery query) {
         IPage<SysParamsEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysParamsConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysParamsVO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<SysParamsEntity> getWrapper(SysParamsQuery query) {
@@ -58,7 +58,7 @@ public class SysParamsServiceImpl extends BaseServiceImpl<SysParamsDao, SysParam
             throw new ServerException("参数键已存在");
         }
 
-        SysParamsEntity entity = SysParamsConvert.INSTANCE.convert(vo);
+        SysParamsEntity entity = BeanUtil.copyProperties(vo, SysParamsEntity.class);
 
         baseMapper.insert(entity);
 
@@ -83,7 +83,7 @@ public class SysParamsServiceImpl extends BaseServiceImpl<SysParamsDao, SysParam
         }
 
         // 修改数据
-        updateById(SysParamsConvert.INSTANCE.convert(vo));
+        updateById(BeanUtil.copyProperties(vo, SysParamsEntity.class));
 
         // 保存到缓存
         sysParamsCache.save(vo.getParamKey(), vo.getParamValue());

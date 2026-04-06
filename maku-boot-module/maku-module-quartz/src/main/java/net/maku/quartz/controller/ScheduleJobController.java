@@ -1,5 +1,6 @@
 package net.maku.quartz.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +12,6 @@ import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
-import net.maku.quartz.convert.ScheduleJobConvert;
 import net.maku.quartz.entity.ScheduleJobEntity;
 import net.maku.quartz.query.ScheduleJobQuery;
 import net.maku.quartz.service.ScheduleJobService;
@@ -52,7 +52,7 @@ public class ScheduleJobController {
     public Result<ScheduleJobVO> get(@PathVariable("id") Long id) {
         ScheduleJobEntity entity = scheduleJobService.getById(id);
 
-        return Result.ok(ScheduleJobConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, ScheduleJobVO.class));
     }
 
     @PostMapping

@@ -1,12 +1,12 @@
 package net.maku.iot.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
-import net.maku.iot.convert.IotDeviceServiceLogConvert;
 import net.maku.iot.entity.IotDeviceServiceLogEntity;
 import net.maku.iot.query.IotDeviceServiceLogQuery;
 import net.maku.iot.service.IotDeviceServiceLogService;
@@ -44,7 +44,7 @@ public class IotDeviceServiceLogController {
     public Result<IotDeviceServiceLogVO> get(@PathVariable("id") Long id) {
         IotDeviceServiceLogEntity entity = iotDeviceServiceLogService.getById(id);
 
-        return Result.ok(IotDeviceServiceLogConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, IotDeviceServiceLogVO.class));
     }
 
     @PostMapping

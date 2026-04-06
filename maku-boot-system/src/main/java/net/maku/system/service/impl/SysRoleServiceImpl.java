@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -7,7 +8,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysRoleConvert;
 import net.maku.system.dao.SysRoleDao;
 import net.maku.system.entity.SysRoleEntity;
 import net.maku.system.enums.DataScopeEnum;
@@ -39,14 +39,14 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
     public PageResult<SysRoleVO> page(SysRoleQuery query) {
         IPage<SysRoleEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysRoleConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysRoleVO.class), page.getTotal());
     }
 
     @Override
     public List<SysRoleVO> getList(SysRoleQuery query) {
         List<SysRoleEntity> entityList = baseMapper.selectList(getWrapper(query));
 
-        return SysRoleConvert.INSTANCE.convertList(entityList);
+        return BeanUtil.copyToList(entityList, SysRoleVO.class);
     }
 
     private Wrapper<SysRoleEntity> getWrapper(SysRoleQuery query) {
@@ -62,7 +62,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysRoleVO vo) {
-        SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(vo);
+        SysRoleEntity entity = BeanUtil.copyProperties(vo, SysRoleEntity.class);
 
         // 保存角色
         entity.setDataScope(DataScopeEnum.SELF.getValue());
@@ -75,7 +75,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(SysRoleVO vo) {
-        SysRoleEntity entity = SysRoleConvert.INSTANCE.convert(vo);
+        SysRoleEntity entity = BeanUtil.copyProperties(vo, SysRoleEntity.class);
 
         // 更新角色
         updateById(entity);

@@ -1,8 +1,8 @@
 package net.maku.framework.mybatis.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.fhs.core.trans.vo.TransPojo;
 import lombok.Data;
+import net.maku.framework.common.trans.TransPojo;
 
 import java.time.LocalDateTime;
 

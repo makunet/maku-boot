@@ -1,5 +1,6 @@
 package net.maku.quartz.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,7 +9,6 @@ import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.quartz.convert.ScheduleJobConvert;
 import net.maku.quartz.dao.ScheduleJobDao;
 import net.maku.quartz.entity.ScheduleJobEntity;
 import net.maku.quartz.enums.ScheduleStatusEnum;
@@ -50,7 +50,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
     public PageResult<ScheduleJobVO> page(ScheduleJobQuery query) {
         IPage<ScheduleJobEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(ScheduleJobConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), ScheduleJobVO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<ScheduleJobEntity> getWrapper(ScheduleJobQuery query) {
@@ -64,7 +64,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
 
     @Override
     public void save(ScheduleJobVO vo) {
-        ScheduleJobEntity entity = ScheduleJobConvert.INSTANCE.convert(vo);
+        ScheduleJobEntity entity = BeanUtil.copyProperties(vo, ScheduleJobEntity.class);
 
         entity.setStatus(ScheduleStatusEnum.PAUSE.getValue());
         if (baseMapper.insert(entity) > 0) {
@@ -74,7 +74,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
 
     @Override
     public void update(ScheduleJobVO vo) {
-        ScheduleJobEntity entity = ScheduleJobConvert.INSTANCE.convert(vo);
+        ScheduleJobEntity entity = BeanUtil.copyProperties(vo, ScheduleJobEntity.class);
 
         // 更新定时任务
         if (updateById(entity)) {

@@ -1,5 +1,6 @@
 package net.maku.iot.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,7 +9,6 @@ import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.JsonUtils;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.iot.convert.IotDeviceServiceLogConvert;
 import net.maku.iot.dao.IotDeviceServiceLogDao;
 import net.maku.iot.entity.IotDeviceServiceLogEntity;
 import net.maku.iot.enums.DeviceCommandEnum;
@@ -33,7 +33,7 @@ public class IotDeviceServiceLogServiceImpl extends BaseServiceImpl<IotDeviceSer
     @Override
     public PageResult<IotDeviceServiceLogVO> page(IotDeviceServiceLogQuery query) {
         IPage<IotDeviceServiceLogEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
-        List<IotDeviceServiceLogVO> vos = IotDeviceServiceLogConvert.INSTANCE.convertList(page.getRecords());
+        List<IotDeviceServiceLogVO> vos = BeanUtil.copyToList(page.getRecords(), IotDeviceServiceLogVO.class);
         vos.forEach(vo -> {
             vo.setDeviceCommandEnum(DeviceCommandEnum.getEnum(vo.getServiceType()));
         });
@@ -52,14 +52,14 @@ public class IotDeviceServiceLogServiceImpl extends BaseServiceImpl<IotDeviceSer
 
     @Override
     public void save(IotDeviceServiceLogVO vo) {
-        IotDeviceServiceLogEntity entity = IotDeviceServiceLogConvert.INSTANCE.convert(vo);
+        IotDeviceServiceLogEntity entity = BeanUtil.copyProperties(vo, IotDeviceServiceLogEntity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(IotDeviceServiceLogVO vo) {
-        IotDeviceServiceLogEntity entity = IotDeviceServiceLogConvert.INSTANCE.convert(vo);
+        IotDeviceServiceLogEntity entity = BeanUtil.copyProperties(vo, IotDeviceServiceLogEntity.class);
 
         updateById(entity);
     }

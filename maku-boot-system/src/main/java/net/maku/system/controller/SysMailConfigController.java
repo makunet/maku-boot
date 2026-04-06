@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,7 +15,6 @@ import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
-import net.maku.system.convert.SysMailConfigConvert;
 import net.maku.system.entity.SysMailConfigEntity;
 import net.maku.system.enums.MailFormatEnum;
 import net.maku.system.enums.MailPlatformEnum;
@@ -64,7 +64,7 @@ public class SysMailConfigController {
     public Result<SysMailConfigVO> get(@PathVariable("id") Long id) {
         SysMailConfigEntity entity = sysMailConfigService.getById(id);
 
-        return Result.ok(SysMailConfigConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysMailConfigVO.class));
     }
 
     @PostMapping
@@ -81,7 +81,7 @@ public class SysMailConfigController {
     @OperateLog(type = OperateTypeEnum.OTHER)
     public Result<String> send(@RequestBody SysMailSendVO vo) {
         SysMailConfigEntity entity = sysMailConfigService.getById(vo.getId());
-        EmailConfig config = SysMailConfigConvert.INSTANCE.convert2(entity);
+        EmailConfig config = BeanUtil.copyProperties(entity, EmailConfig.class);
 
         // 发送本地邮件
         if (vo.getPlatform() == MailPlatformEnum.LOCAL.getValue()) {

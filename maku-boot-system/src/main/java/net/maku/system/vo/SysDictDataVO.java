@@ -25,11 +25,11 @@ public class SysDictDataVO implements Serializable {
     @Schema(description = "id")
     private Long id;
 
-    @Schema(description = "字典类型ID", required = true)
+    @Schema(description = "字典类型ID", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "字典类型ID不能为空")
     private Long dictTypeId;
 
-    @Schema(description = "字典标签", required = true)
+    @Schema(description = "字典标签", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "字典标签不能为空")
     private String dictLabel;
 
@@ -42,7 +42,7 @@ public class SysDictDataVO implements Serializable {
     @Schema(description = "备注")
     private String remark;
 
-    @Schema(description = "排序", required = true)
+    @Schema(description = "排序", requiredMode = Schema.RequiredMode.REQUIRED)
     @Min(value = 0, message = "排序值不能小于0")
     private Integer sort;
 

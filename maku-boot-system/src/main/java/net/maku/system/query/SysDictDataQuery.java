@@ -16,7 +16,7 @@ import net.maku.framework.common.query.Query;
 @EqualsAndHashCode(callSuper = false)
 @Schema(description = "字典数据查询")
 public class SysDictDataQuery extends Query {
-    @Schema(description = "字典类型ID", required = true)
+    @Schema(description = "字典类型ID", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "字典类型ID不能为空")
     private Long dictTypeId;
 

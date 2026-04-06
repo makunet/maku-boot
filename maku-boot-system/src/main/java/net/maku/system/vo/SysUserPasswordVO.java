@@ -18,11 +18,11 @@ import java.io.Serializable;
 public class SysUserPasswordVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "原密码", required = true)
+    @Schema(description = "原密码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "原密码不能为空")
     private String password;
 
-    @Schema(description = "新密码，密码长度为 4-20 位", required = true)
+    @Schema(description = "新密码，密码长度为 4-20 位", requiredMode = Schema.RequiredMode.REQUIRED)
     @Length(min = 4, max = 20, message = "新密码长度为 4-20 位")
     private String newPassword;
 

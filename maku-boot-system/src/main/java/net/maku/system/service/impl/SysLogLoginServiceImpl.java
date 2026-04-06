@@ -1,10 +1,10 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.fhs.trans.service.impl.TransService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -13,12 +13,12 @@ import net.maku.framework.common.utils.HttpContextUtils;
 import net.maku.framework.common.utils.IpUtils;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysLogLoginConvert;
 import net.maku.system.dao.SysLogLoginDao;
 import net.maku.system.entity.SysLogLoginEntity;
 import net.maku.system.query.SysLogLoginQuery;
 import net.maku.system.service.SysLogLoginService;
 import net.maku.system.vo.SysLogLoginVO;
+import net.maku.framework.common.trans.TransService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +39,7 @@ public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysL
     public PageResult<SysLogLoginVO> page(SysLogLoginQuery query) {
         IPage<SysLogLoginEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysLogLoginConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysLogLoginVO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<SysLogLoginEntity> getWrapper(SysLogLoginQuery query) {
@@ -75,7 +75,7 @@ public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysL
     @SneakyThrows
     public void export() {
         List<SysLogLoginEntity> list = list();
-        List<SysLogLoginVO> sysLogLoginVOS = SysLogLoginConvert.INSTANCE.convertList(list);
+        List<SysLogLoginVO> sysLogLoginVOS = BeanUtil.copyToList(list, SysLogLoginVO.class);
         transService.transBatch(sysLogLoginVOS);
         // 写到浏览器打开
         ExcelUtils.excelExport(SysLogLoginVO.class, "登录日志", null, sysLogLoginVOS);

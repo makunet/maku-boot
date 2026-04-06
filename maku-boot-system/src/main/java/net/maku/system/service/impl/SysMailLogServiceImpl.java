@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -7,7 +8,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysMailLogConvert;
 import net.maku.system.dao.SysMailLogDao;
 import net.maku.system.entity.SysMailLogEntity;
 import net.maku.system.query.SysMailLogQuery;
@@ -31,7 +31,7 @@ public class SysMailLogServiceImpl extends BaseServiceImpl<SysMailLogDao, SysMai
     public PageResult<SysMailLogVO> page(SysMailLogQuery query) {
         IPage<SysMailLogEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysMailLogConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysMailLogVO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<SysMailLogEntity> getWrapper(SysMailLogQuery query) {

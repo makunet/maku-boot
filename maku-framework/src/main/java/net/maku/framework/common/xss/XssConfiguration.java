@@ -1,15 +1,13 @@
 package net.maku.framework.common.xss;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
+import tools.jackson.databind.module.SimpleModule;
 
 /**
  * XSS 配置文件
@@ -34,17 +32,13 @@ public class XssConfiguration {
     }
 
     /**
-     * xss过滤，处理json类型的请求
+     * xss过滤模块，处理json类型的请求
+     * Spring Boot 4 会自动将 Module Bean 注册到 JsonMapper，无需手动创建 ObjectMapper
      */
     @Bean
-    public ObjectMapper xssFilterObjectMapper(Jackson2ObjectMapperBuilder builder, XssProperties properties) {
-        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-
-        // 注册xss过滤器
+    public SimpleModule xssFilterModule(XssProperties properties) {
         SimpleModule module = new SimpleModule("XssFilterJsonDeserializer");
         module.addDeserializer(String.class, new XssFilterJsonDeserializer(properties, pathMatcher));
-        objectMapper.registerModule(module);
-
-        return objectMapper;
+        return module;
     }
 }

@@ -1,22 +1,22 @@
 package net.maku.framework.common.config;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.ext.javatime.deser.LocalDateDeserializer;
+import tools.jackson.databind.ext.javatime.deser.LocalDateTimeDeserializer;
+import tools.jackson.databind.ext.javatime.deser.LocalTimeDeserializer;
+import tools.jackson.databind.ext.javatime.ser.LocalDateSerializer;
+import tools.jackson.databind.ext.javatime.ser.LocalDateTimeSerializer;
+import tools.jackson.databind.ext.javatime.ser.LocalTimeSerializer;
+import tools.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.ser.std.StdScalarSerializer;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -26,10 +26,15 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
+/**
+ * Jackson 配置
+ * <p>
+ * Spring Boot 4 推荐使用 SimpleModule Bean + JsonMapperBuilderCustomizer，
+ * 框架会自动将 Module 注册到内置的 JsonMapper 中，避免多个 ObjectMapper Bean 冲突。
+ */
 @Configuration
 public class JacksonConfig {
 
-    // 自定义Timestamp序列化器（Timestamp对象 -> JSON字符串）
     public static class TimestampSerializer extends StdScalarSerializer<Timestamp> {
         private final SimpleDateFormat sdf;
 
@@ -40,46 +45,55 @@ public class JacksonConfig {
         }
 
         @Override
-        public void serialize(Timestamp value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+        public void serialize(Timestamp value, JsonGenerator gen, SerializationContext provider)
+                throws JacksonException {
             if (value == null) {
                 gen.writeNull();
                 return;
             }
-            // 按指定格式序列化
             gen.writeString(sdf.format(value));
         }
     }
 
+    /**
+     * 自定义序列化/反序列化模块，Spring Boot 会自动注册到 JsonMapper
+     */
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    public Jackson2ObjectMapperBuilderCustomizer customJackson() {
-        return builder -> {
+    public SimpleModule customSerializerModule() {
+        SimpleModule module = new SimpleModule("CustomSerializerModule");
 
-            // 自定义Timestamp序列化器（Timestamp对象 -> JSON字符串）
-            builder.serializerByType(Timestamp.class, new TimestampSerializer());
+        // 日期时间序列化
+        module.addSerializer(Timestamp.class, new TimestampSerializer());
+        module.addSerializer(LocalDateTime.class,
+                new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        module.addSerializer(LocalDate.class,
+                new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        module.addSerializer(LocalTime.class,
+                new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
-            builder.serializerByType(LocalDateTime.class,
-                    new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-            builder.serializerByType(LocalDate.class,
-                    new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            builder.serializerByType(LocalTime.class,
-                    new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
-            builder.deserializerByType(LocalDateTime.class,
-                    new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-            builder.deserializerByType(LocalDate.class,
-                    new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            builder.deserializerByType(LocalTime.class,
-                    new LocalTimeDeserializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
-            // builder.serializationInclusion(JsonInclude.Include.NON_NULL);
+        // 日期时间反序列化
+        module.addDeserializer(LocalDateTime.class,
+                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        module.addDeserializer(LocalDate.class,
+                new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        module.addDeserializer(LocalTime.class,
+                new LocalTimeDeserializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
-            // 避免Long精度丢失，超过JS最大精度，使用String类型
-            builder.serializerByType(Long.class, BigNumberSerializer.INSTANCE);
-            
-            // 避免BigDecimal精度丢失
-            builder.serializerByType(BigDecimal.class, new BigDecimalSerializer());
+        // Long 类型序列化为 String，解决前端 js 精度丢失问题
+        module.addSerializer(Long.class, BigNumberSerializer.INSTANCE);
+        module.addSerializer(Long.TYPE, BigNumberSerializer.INSTANCE);
+        module.addSerializer(BigDecimal.class, new BigDecimalSerializer());
 
-            builder.failOnUnknownProperties(false);
-            builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        };
+        return module;
+    }
+
+    /**
+     * 自定义 JsonMapper 构建器配置
+     */
+    @Bean
+    public JsonMapperBuilderCustomizer jsonMapperBuilderCustomizer() {
+        return builder -> builder
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 }

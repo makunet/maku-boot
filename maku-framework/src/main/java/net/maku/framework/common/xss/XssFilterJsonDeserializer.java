@@ -1,15 +1,14 @@
 package net.maku.framework.common.xss;
 
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.HttpContextUtils;
 import org.springframework.util.PathMatcher;
-
-import java.io.IOException;
 
 /**
  * xss json过滤
@@ -18,12 +17,12 @@ import java.io.IOException;
  * <a href="https://maku.net">MAKU</a>
  */
 @AllArgsConstructor
-public class XssFilterJsonDeserializer extends JsonDeserializer<String> {
+public class XssFilterJsonDeserializer extends ValueDeserializer<String> {
     private final XssProperties properties;
     private final PathMatcher pathMatcher;
 
     @Override
-    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws JacksonException {
         String value = jsonParser.getValueAsString();
         if (StrUtil.isBlank(value)) {
             return value;

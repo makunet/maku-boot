@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,7 +9,6 @@ import lombok.AllArgsConstructor;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysDictDataConvert;
 import net.maku.system.dao.SysDictDataDao;
 import net.maku.system.entity.SysDictDataEntity;
 import net.maku.system.query.SysDictDataQuery;
@@ -33,7 +33,7 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
     public PageResult<SysDictDataVO> page(SysDictDataQuery query) {
         IPage<SysDictDataEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysDictDataConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysDictDataVO.class), page.getTotal());
     }
 
     private Wrapper<SysDictDataEntity> getWrapper(SysDictDataQuery query){
@@ -54,7 +54,7 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
             throw new ServerException("字典值重复!");
         }
 
-        SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(vo);
+        SysDictDataEntity entity = BeanUtil.copyProperties(vo, SysDictDataEntity.class);
 
         baseMapper.insert(entity);
     }
@@ -70,7 +70,7 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
             throw new ServerException("字典值重复!");
         }
 
-        SysDictDataEntity entity = SysDictDataConvert.INSTANCE.convert(vo);
+        SysDictDataEntity entity = BeanUtil.copyProperties(vo, SysDictDataEntity.class);
 
         updateById(entity);
     }

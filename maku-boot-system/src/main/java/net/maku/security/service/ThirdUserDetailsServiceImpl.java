@@ -1,8 +1,9 @@
 package net.maku.security.service;
 
+import cn.hutool.core.bean.BeanUtil;
 import lombok.AllArgsConstructor;
 import net.maku.framework.security.third.ThirdUserDetailsService;
-import net.maku.system.convert.SysUserConvert;
+import net.maku.framework.security.user.UserDetail;
 import net.maku.system.dao.SysUserDao;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.service.SysThirdLoginService;
@@ -32,6 +33,6 @@ public class ThirdUserDetailsServiceImpl implements ThirdUserDetailsService {
             throw new UsernameNotFoundException("绑定的系统用户，不存在");
         }
 
-        return sysUserDetailsService.getUserDetails(SysUserConvert.INSTANCE.convertDetail(userEntity));
+        return sysUserDetailsService.getUserDetails(BeanUtil.copyProperties(userEntity, UserDetail.class));
     }
 }

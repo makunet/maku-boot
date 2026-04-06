@@ -8,18 +8,17 @@ import cn.hutool.extra.spring.SpringUtil;
 import cn.idev.excel.FastExcel;
 import cn.idev.excel.converters.longconverter.LongStringConverter;
 import cn.idev.excel.support.ExcelTypeEnum;
-import com.fhs.common.utils.ConverterUtils;
-import com.fhs.core.trans.anno.Trans;
-import com.fhs.core.trans.constant.TransType;
-import com.fhs.core.trans.util.ReflectUtils;
-import com.fhs.core.trans.vo.TransPojo;
-import com.fhs.trans.service.impl.DictionaryTransService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.maku.framework.common.excel.ExcelDataListener;
 import net.maku.framework.common.excel.ExcelFinishCallBack;
 import org.apache.commons.lang3.StringUtils;
+import net.maku.framework.common.trans.Trans;
+import net.maku.framework.common.trans.TransType;
+import net.maku.framework.common.trans.TransReflectUtils;
+import net.maku.framework.common.trans.TransPojo;
+import net.maku.framework.common.trans.DictionaryTransService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -197,7 +196,7 @@ public class ExcelUtils {
         }
         Class<? extends TransPojo> clazz = dataList.get(0).getClass();
         //拿到所有需要反向翻译的字段
-        List<Field> fields = ReflectUtils.getAnnotationField(clazz, Trans.class);
+        List<Field> fields = TransReflectUtils.getAnnotationField(clazz, Trans.class);
         //过滤出字典翻译
         fields = fields.stream().filter(field -> TransType.DICTIONARY.equals(field.getAnnotation(Trans.class).type())).toList();
         DictionaryTransService dictionaryTransService = SpringUtil.getBean(DictionaryTransService.class);
@@ -206,7 +205,7 @@ public class ExcelUtils {
                 Trans trans = field.getAnnotation(Trans.class);
                 // key不能为空并且ref不为空的才自动处理
                 if (StrUtil.isAllNotBlank(trans.key(), trans.ref())) {
-                    Field ref = ReflectUtils.getDeclaredField(clazz, trans.ref());
+                    Field ref = TransReflectUtils.getDeclaredField(clazz, trans.ref());
                     ref.setAccessible(true);
                     // 获取字典反向值
                     String value = dictionaryTransService.getDictionaryTransMap().get("un_trans:" + trans.key() + "_" + ref.get(data));
@@ -216,10 +215,10 @@ public class ExcelUtils {
                     // 一般目标字段是int或者string字段 后面有添加单独抽离方法
                     if (Integer.class.equals(field.getType())) {
                         field.setAccessible(true);
-                        field.set(data, ConverterUtils.toInteger(value));
+                        field.set(data, Integer.parseInt(value));
                     } else {
                         field.setAccessible(true);
-                        field.set(data, ConverterUtils.toString(value));
+                        field.set(data, value);
                     }
                 }
             }

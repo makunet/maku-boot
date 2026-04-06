@@ -1,12 +1,12 @@
 package net.maku.member.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
-import net.maku.member.convert.MemberUserConvert;
 import net.maku.member.entity.MemberUserEntity;
 import net.maku.member.query.MemberUserQuery;
 import net.maku.member.service.MemberUserService;
@@ -44,7 +44,7 @@ public class MemberUserController {
     public Result<MemberUserVO> get(@PathVariable("id") Long id) {
         MemberUserEntity entity = memberUserService.getById(id);
 
-        return Result.ok(MemberUserConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, MemberUserVO.class));
     }
 
     @PostMapping

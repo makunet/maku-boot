@@ -1,15 +1,17 @@
 package net.maku.framework.common.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJacksonJsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import tools.jackson.databind.DefaultTyping;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import tools.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 /**
  * Redis配置
@@ -20,13 +22,17 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 @Configuration
 public class RedisConfig {
 
-    public GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+    public GenericJacksonJsonRedisSerializer genericJacksonJsonRedisSerializer() {
+        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+                .allowIfBaseType(Object.class)
+                .build();
 
-        return new GenericJackson2JsonRedisSerializer(objectMapper);
+        ObjectMapper objectMapper = JsonMapper.builder()
+                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .activateDefaultTyping(ptv, DefaultTyping.NON_FINAL)
+                .build();
+
+        return new GenericJacksonJsonRedisSerializer(objectMapper);
     }
 
     @Bean
@@ -35,10 +41,10 @@ public class RedisConfig {
         // Key HashKey使用String序列化
         template.setKeySerializer(RedisSerializer.string());
         template.setHashKeySerializer(RedisSerializer.string());
-        
+
         // Value HashValue使用Json序列化
-        template.setValueSerializer(genericJackson2JsonRedisSerializer());
-        template.setHashValueSerializer(genericJackson2JsonRedisSerializer());
+        template.setValueSerializer(genericJacksonJsonRedisSerializer());
+        template.setHashValueSerializer(genericJacksonJsonRedisSerializer());
 
         template.setConnectionFactory(factory);
 

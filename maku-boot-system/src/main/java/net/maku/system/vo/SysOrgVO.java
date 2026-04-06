@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
 @Schema(description = "机构")
 public class SysOrgVO extends TreeNode<SysOrgVO> {
 
-    @Schema(description = "机构名称", required = true)
+    @Schema(description = "机构名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "机构名称不能为空")
     private String name;
 
-    @Schema(description = "排序", required = true)
+    @Schema(description = "排序", requiredMode = Schema.RequiredMode.REQUIRED)
     @Min(value = 0, message = "排序值不能小于0")
     private Integer sort;
 

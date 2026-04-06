@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -7,12 +8,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.fhs.trans.service.impl.DictionaryTransService;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysDictTypeConvert;
 import net.maku.system.dao.SysDictDataDao;
 import net.maku.system.dao.SysDictTypeDao;
 import net.maku.system.entity.SysDictDataEntity;
@@ -22,6 +21,7 @@ import net.maku.system.query.SysDictTypeQuery;
 import net.maku.system.service.SysDictTypeService;
 import net.maku.system.vo.SysDictTypeVO;
 import net.maku.system.vo.SysDictVO;
+import net.maku.framework.common.trans.DictionaryTransService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +47,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Override
     public PageResult<SysDictTypeVO> page(SysDictTypeQuery query) {
         IPage<SysDictTypeEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
-        return new PageResult<>(SysDictTypeConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysDictTypeVO.class), page.getTotal());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
         wrapper.eq(pid != null, SysDictTypeEntity::getPid, pid);
 
         List<SysDictTypeEntity> list = baseMapper.selectList(wrapper);
-        return SysDictTypeConvert.INSTANCE.convertList(list);
+        return BeanUtil.copyToList(list, SysDictTypeVO.class);
     }
 
     private Wrapper<SysDictTypeEntity> getWrapper(SysDictTypeQuery query) {
@@ -64,7 +64,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
         wrapper.like(StrUtil.isNotBlank(query.getDictType()), SysDictTypeEntity::getDictType, query.getDictType());
         wrapper.like(StrUtil.isNotBlank(query.getDictName()), SysDictTypeEntity::getDictName, query.getDictName());
         wrapper.isNull(SysDictTypeEntity::getPid);
-        wrapper.orderByAsc(SysDictTypeEntity::getSort);
+        wrapper.orderByAsc(SysDictTypeEntity::getSort).orderByDesc(SysDictTypeEntity::getId);
 
         return wrapper;
     }
@@ -72,7 +72,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysDictTypeVO vo) {
-        SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(vo);
+        SysDictTypeEntity entity = BeanUtil.copyProperties(vo, SysDictTypeEntity.class);
 
         // 更新上级，有子节点
         if (vo.getPid() != null) {
@@ -85,7 +85,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(SysDictTypeVO vo) {
-        SysDictTypeEntity entity = SysDictTypeConvert.INSTANCE.convert(vo);
+        SysDictTypeEntity entity = BeanUtil.copyProperties(vo, SysDictTypeEntity.class);
 
         // 更新上级，有子节点
         if (vo.getPid() != null) {

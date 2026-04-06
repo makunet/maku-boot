@@ -1,11 +1,11 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import me.zhyd.oauth.model.AuthUser;
 import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysThirdLoginConvert;
 import net.maku.system.dao.SysThirdLoginDao;
 import net.maku.system.entity.SysThirdLoginEntity;
 import net.maku.system.service.SysThirdLoginService;
@@ -29,7 +29,7 @@ public class SysThirdLoginServiceImpl extends BaseServiceImpl<SysThirdLoginDao, 
         List<SysThirdLoginEntity> list = baseMapper.selectList(
                 Wrappers.<SysThirdLoginEntity>lambdaQuery().eq(SysThirdLoginEntity::getUserId, userId));
 
-        return SysThirdLoginConvert.INSTANCE.convertList(list);
+        return BeanUtil.copyToList(list, SysThirdLoginVO.class);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -7,7 +8,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysSmsLogConvert;
 import net.maku.system.dao.SysSmsLogDao;
 import net.maku.system.entity.SysSmsLogEntity;
 import net.maku.system.query.SysSmsLogQuery;
@@ -32,7 +32,7 @@ public class SysSmsLogServiceImpl extends BaseServiceImpl<SysSmsLogDao, SysSmsLo
     public PageResult<SysSmsLogVO> page(SysSmsLogQuery query) {
         IPage<SysSmsLogEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(SysSmsLogConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysSmsLogVO.class), page.getTotal());
     }
 
 

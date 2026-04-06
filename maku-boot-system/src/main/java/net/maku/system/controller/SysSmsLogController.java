@@ -1,12 +1,12 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
-import net.maku.system.convert.SysSmsLogConvert;
 import net.maku.system.entity.SysSmsLogEntity;
 import net.maku.system.query.SysSmsLogQuery;
 import net.maku.system.service.SysSmsLogService;
@@ -46,7 +46,7 @@ public class SysSmsLogController {
     public Result<SysSmsLogVO> get(@PathVariable("id") Long id) {
         SysSmsLogEntity entity = sysSmsLogService.getById(id);
 
-        return Result.ok(SysSmsLogConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysSmsLogVO.class));
     }
 
 }

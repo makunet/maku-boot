@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -10,7 +11,6 @@ import net.maku.framework.common.exception.ServerException;
 import net.maku.framework.common.query.Query;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.system.convert.SysThirdLoginConfigConvert;
 import net.maku.system.dao.SysThirdLoginConfigDao;
 import net.maku.system.entity.SysThirdLoginConfigEntity;
 import net.maku.system.enums.ThirdLoginEnum;
@@ -35,19 +35,19 @@ public class SysThirdLoginConfigServiceImpl extends BaseServiceImpl<SysThirdLogi
     public PageResult<SysThirdLoginConfigVO> page(Query query) {
         IPage<SysThirdLoginConfigEntity> page = baseMapper.selectPage(getPage(query), Wrappers.lambdaQuery());
 
-        return new PageResult<>(SysThirdLoginConfigConvert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), SysThirdLoginConfigVO.class), page.getTotal());
     }
 
     @Override
     public void save(SysThirdLoginConfigVO vo) {
-        SysThirdLoginConfigEntity entity = SysThirdLoginConfigConvert.INSTANCE.convert(vo);
+        SysThirdLoginConfigEntity entity = BeanUtil.copyProperties(vo, SysThirdLoginConfigEntity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(SysThirdLoginConfigVO vo) {
-        SysThirdLoginConfigEntity entity = SysThirdLoginConfigConvert.INSTANCE.convert(vo);
+        SysThirdLoginConfigEntity entity = BeanUtil.copyProperties(vo, SysThirdLoginConfigEntity.class);
 
         updateById(entity);
     }

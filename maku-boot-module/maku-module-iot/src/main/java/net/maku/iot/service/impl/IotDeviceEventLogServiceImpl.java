@@ -1,5 +1,6 @@
 package net.maku.iot.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,7 +9,6 @@ import lombok.AllArgsConstructor;
 import net.maku.framework.common.utils.JsonUtils;
 import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
-import net.maku.iot.convert.IotDeviceEventLogConvert;
 import net.maku.iot.dao.IotDeviceEventLogDao;
 import net.maku.iot.entity.IotDeviceEventLogEntity;
 import net.maku.iot.enums.DeviceEventTypeEnum;
@@ -33,7 +33,7 @@ public class IotDeviceEventLogServiceImpl extends BaseServiceImpl<IotDeviceEvent
     @Override
     public PageResult<IotDeviceEventLogVO> page(IotDeviceEventLogQuery query) {
         IPage<IotDeviceEventLogEntity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
-        List<IotDeviceEventLogVO> vos = IotDeviceEventLogConvert.INSTANCE.convertList(page.getRecords());
+        List<IotDeviceEventLogVO> vos = BeanUtil.copyToList(page.getRecords(), IotDeviceEventLogVO.class);
         vos.forEach(vo -> {
             vo.setEventTypeEnum(DeviceEventTypeEnum.getEnum(vo.getEventType()));
         });
@@ -52,14 +52,14 @@ public class IotDeviceEventLogServiceImpl extends BaseServiceImpl<IotDeviceEvent
 
     @Override
     public void save(IotDeviceEventLogVO vo) {
-        IotDeviceEventLogEntity entity = IotDeviceEventLogConvert.INSTANCE.convert(vo);
+        IotDeviceEventLogEntity entity = BeanUtil.copyProperties(vo, IotDeviceEventLogEntity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(IotDeviceEventLogVO vo) {
-        IotDeviceEventLogEntity entity = IotDeviceEventLogConvert.INSTANCE.convert(vo);
+        IotDeviceEventLogEntity entity = BeanUtil.copyProperties(vo, IotDeviceEventLogEntity.class);
 
         updateById(entity);
     }

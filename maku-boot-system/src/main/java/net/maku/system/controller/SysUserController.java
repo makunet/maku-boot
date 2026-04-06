@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +12,6 @@ import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
-import net.maku.system.convert.SysUserConvert;
 import net.maku.system.entity.SysUserEntity;
 import net.maku.system.query.SysUserQuery;
 import net.maku.system.service.SysPostService;
@@ -59,7 +59,7 @@ public class SysUserController {
     public Result<SysUserVO> get(@PathVariable("id") Long id) {
         SysUserEntity entity = sysUserService.getById(id);
 
-        SysUserVO vo = SysUserConvert.INSTANCE.convert(entity);
+        SysUserVO vo = BeanUtil.copyProperties(entity, SysUserVO.class);
 
         // 用户角色列表
         List<Long> roleIdList = sysUserRoleService.getRoleIdList(id);
@@ -75,7 +75,7 @@ public class SysUserController {
     @GetMapping("info")
     @Operation(summary = "登录用户")
     public Result<SysUserVO> info() {
-        SysUserVO user = SysUserConvert.INSTANCE.convert(SecurityUser.getUser());
+        SysUserVO user = BeanUtil.copyProperties(SecurityUser.getUser(), SysUserVO.class);
 
         // 用户岗位列表
         List<Long> postIdList = sysUserPostService.getPostIdList(user.getId());

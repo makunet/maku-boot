@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -8,7 +9,6 @@ import net.maku.framework.common.utils.PageResult;
 import net.maku.framework.common.utils.Result;
 import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
-import net.maku.system.convert.SysPostConvert;
 import net.maku.system.entity.SysPostEntity;
 import net.maku.system.query.SysPostQuery;
 import net.maku.system.service.SysPostService;
@@ -35,7 +35,6 @@ public class SysPostController {
 
     @GetMapping("page")
     @Operation(summary = "分页")
-    @PreAuthorize("hasAuthority('sys:post:page')")
     public Result<PageResult<SysPostVO>> page(@ParameterObject @Valid SysPostQuery query) {
         PageResult<SysPostVO> page = sysPostService.page(query);
 
@@ -56,7 +55,7 @@ public class SysPostController {
     public Result<SysPostVO> get(@PathVariable("id") Long id) {
         SysPostEntity entity = sysPostService.getById(id);
 
-        return Result.ok(SysPostConvert.INSTANCE.convert(entity));
+        return Result.ok(BeanUtil.copyProperties(entity, SysPostVO.class));
     }
 
     @PostMapping

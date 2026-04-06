@@ -1,12 +1,12 @@
 package ${package}.${moduleName}.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import ${package}.framework.common.utils.PageResult;
 import ${package}.framework.mybatis.service.impl.BaseServiceImpl;
-import ${package}.${moduleName}.convert.${ClassName}Convert;
 import ${package}.${moduleName}.entity.${ClassName}Entity;
 import ${package}.${moduleName}.query.${ClassName}Query;
 import ${package}.${moduleName}.vo.${ClassName}VO;
@@ -33,7 +33,7 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Dao, ${
     public PageResult<${ClassName}VO> page(${ClassName}Query query) {
         IPage<${ClassName}Entity> page = baseMapper.selectPage(getPage(query), getWrapper(query));
 
-        return new PageResult<>(${ClassName}Convert.INSTANCE.convertList(page.getRecords()), page.getTotal());
+        return new PageResult<>(BeanUtil.copyToList(page.getRecords(), ${ClassName}VO.class), page.getTotal());
     }
 
     private LambdaQueryWrapper<${ClassName}Entity> getWrapper(${ClassName}Query query){
@@ -66,14 +66,14 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Dao, ${
 
     @Override
     public void save(${ClassName}VO vo) {
-        ${ClassName}Entity entity = ${ClassName}Convert.INSTANCE.convert(vo);
+        ${ClassName}Entity entity = BeanUtil.copyProperties(vo, ${ClassName}Entity.class);
 
         baseMapper.insert(entity);
     }
 
     @Override
     public void update(${ClassName}VO vo) {
-        ${ClassName}Entity entity = ${ClassName}Convert.INSTANCE.convert(vo);
+        ${ClassName}Entity entity = BeanUtil.copyProperties(vo, ${ClassName}Entity.class);
 
         updateById(entity);
     }

@@ -1,5 +1,6 @@
 package net.maku.system.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,7 +11,6 @@ import net.maku.framework.operatelog.annotations.OperateLog;
 import net.maku.framework.operatelog.enums.OperateTypeEnum;
 import net.maku.framework.security.user.SecurityUser;
 import net.maku.framework.security.user.UserDetail;
-import net.maku.system.convert.SysMenuConvert;
 import net.maku.system.entity.SysMenuEntity;
 import net.maku.system.enums.MenuTypeEnum;
 import net.maku.system.service.SysMenuService;
@@ -67,7 +67,7 @@ public class SysMenuController {
     @PreAuthorize("hasAuthority('sys:menu:info')")
     public Result<SysMenuVO> get(@PathVariable("id") Long id) {
         SysMenuEntity entity = sysMenuService.getById(id);
-        SysMenuVO vo = SysMenuConvert.INSTANCE.convert(entity);
+        SysMenuVO vo = BeanUtil.copyProperties(entity, SysMenuVO.class);
 
         // 获取上级菜单名称
         if (entity.getPid() != null) {

@@ -1,10 +1,10 @@
 package net.maku.framework.common.config;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ser.std.StdScalarSerializer;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
@@ -21,12 +21,12 @@ public class BigDecimalSerializer extends StdScalarSerializer<BigDecimal> {
     }
 
     @Override
-    public void serialize(BigDecimal value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    public void serialize(BigDecimal value, JsonGenerator gen, SerializationContext provider) throws JacksonException {
         if (value == null) {
             gen.writeNull();
             return;
         }
-        
+
         // 根据整数长度决定序列化方式
         if (value.longValue() > MAX_SAFE_INTEGER) {
             // 序列化为字符串

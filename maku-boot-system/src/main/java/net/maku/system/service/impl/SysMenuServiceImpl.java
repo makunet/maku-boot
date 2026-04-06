@@ -1,5 +1,6 @@
 package net.maku.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import net.maku.framework.common.utils.TreeUtils;
 import net.maku.framework.mybatis.service.impl.BaseServiceImpl;
 import net.maku.framework.security.user.UserDetail;
 import net.maku.framework.security.utils.PreAuthorizeUtil;
-import net.maku.system.convert.SysMenuConvert;
 import net.maku.system.dao.SysMenuDao;
 import net.maku.system.entity.SysMenuEntity;
 import net.maku.system.enums.SuperAdminEnum;
@@ -37,7 +37,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysMenuVO vo) {
-        SysMenuEntity entity = SysMenuConvert.INSTANCE.convert(vo);
+        SysMenuEntity entity = BeanUtil.copyProperties(vo, SysMenuEntity.class);
 
         // 保存菜单
         baseMapper.insert(entity);
@@ -46,7 +46,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(SysMenuVO vo) {
-        SysMenuEntity entity = SysMenuConvert.INSTANCE.convert(vo);
+        SysMenuEntity entity = BeanUtil.copyProperties(vo, SysMenuEntity.class);
 
         // 上级菜单不能为自己
         if (entity.getId().equals(entity.getPid())) {
@@ -71,7 +71,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
     public List<SysMenuVO> getMenuList(Integer type) {
         List<SysMenuEntity> menuList = baseMapper.getMenuList(type);
 
-        return TreeUtils.build(SysMenuConvert.INSTANCE.convertList(menuList));
+        return TreeUtils.build(BeanUtil.copyToList(menuList, SysMenuVO.class));
     }
 
     @Override
@@ -85,7 +85,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
             menuList = baseMapper.getUserMenuList(user.getId(), type);
         }
 
-        return TreeUtils.build(SysMenuConvert.INSTANCE.convertList(menuList));
+        return TreeUtils.build(BeanUtil.copyToList(menuList, SysMenuVO.class));
     }
 
     @Override
