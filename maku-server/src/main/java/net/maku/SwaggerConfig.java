@@ -92,10 +92,10 @@ public class SwaggerConfig {
         contact.setName("阿沐 babamu@126.com");
 
         return new OpenAPI().info(new Info()
-                .title("Maku API")
-                .description("Maku API")
+                .title("MAKU API")
+                .description("MAKU API")
                 .contact(contact)
-                .version("4.x")
+                .version("5.x")
                 .termsOfService("https://maku.net")
         );
     }
