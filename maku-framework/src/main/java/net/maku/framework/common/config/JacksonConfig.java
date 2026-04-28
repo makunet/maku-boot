@@ -18,6 +18,7 @@ import tools.jackson.databind.module.SimpleModule;
 import tools.jackson.databind.ser.std.StdScalarSerializer;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -55,6 +56,26 @@ public class JacksonConfig {
         }
     }
 
+    public static class DateSerializer extends StdScalarSerializer<Date> {
+        private final SimpleDateFormat sdf;
+
+        public DateSerializer() {
+            super(Date.class);
+            this.sdf = new SimpleDateFormat("yyyy-MM-dd");
+            this.sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        }
+
+        @Override
+        public void serialize(Date value, JsonGenerator gen, SerializationContext provider)
+                throws JacksonException {
+            if (value == null) {
+                gen.writeNull();
+                return;
+            }
+            gen.writeString(sdf.format(value));
+        }
+    }
+
     /**
      * 自定义序列化/反序列化模块，Spring Boot 会自动注册到 JsonMapper
      */
@@ -64,6 +85,7 @@ public class JacksonConfig {
 
         // 日期时间序列化
         module.addSerializer(Timestamp.class, new TimestampSerializer());
+        module.addSerializer(Date.class, new DateSerializer());
         module.addSerializer(LocalDateTime.class,
                 new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         module.addSerializer(LocalDate.class,
@@ -94,6 +116,7 @@ public class JacksonConfig {
     public JsonMapperBuilderCustomizer jsonMapperBuilderCustomizer() {
         return builder -> builder
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS);
+                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .defaultTimeZone(TimeZone.getTimeZone("GMT+8"));
     }
 }
